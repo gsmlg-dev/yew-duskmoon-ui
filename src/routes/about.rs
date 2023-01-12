@@ -29,21 +29,10 @@ pub fn about() -> Html {
       <div class="app-main">
         <div class="card">
           <div class="card-body">
-            <p>
-              <a
-                class="btn btn-link"
-                href="https://github.com/gsmlg-dev"
-                target="_blank"
-                rel="noopener noreferrer"
-              >
-                { "GSMLG-DEV Github" }
-              </a>
-              { "go to github orginatizion." }
-            </p>
-            <p>
+            <div>
               <button class="btn btn-primary" {onclick}>{ "Load org of gsmlg-dev" }</button>
-            </p>
-            <p>
+            </div>
+            <div>
               {
                 if state.loading {
                   html! { "Loading, wait a sec..." }
@@ -51,15 +40,24 @@ pub fn about() -> Html {
                   html! {}
                 }
               }
-            </p>
+            </div>
             {
               if let Some(org) = &state.data {
                 html! {
-                  <div class="space">
-                    <div key={org.id} class="space-item">
-                        <p>{ "Org login: " }<b>{ &org.login }</b></p>
-                        <p>{ "Org web url: " }<b>{ &org.html_url }</b></p>
-                    </div>
+                  <div key={org.id} class="space-h">
+                      <div>{ "Org login: " }<b>{ &org.login }</b></div>
+                      <div>{ "Org web url: " }<b>{ &org.html_url }</b></div>
+                      <div>
+                          { "Go to Github Orginatizion: " }
+                          <a
+                              class="btn btn-link"
+                              href={ org.html_url.clone() }
+                              target="_blank"
+                              rel="noopener noreferrer"
+                          >
+                              { "GSMLG-DEV Github" }
+                          </a>
+                      </div>
                   </div>
                 }
               } else {
