@@ -26,7 +26,6 @@ pub fn about() -> Html {
 
   html! {
     <div class="app">
-      <Leftmenu />
       <div class="app-main">
         <div class="card">
           <div class="card-body">

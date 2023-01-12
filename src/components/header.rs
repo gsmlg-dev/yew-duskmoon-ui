@@ -1,7 +1,6 @@
 use yew::prelude::*;
 use yew_router::prelude::*;
 use yew::{classes, html};
-use yewdux::prelude::*;
 
 use crate::routes::AppRoute;
 
