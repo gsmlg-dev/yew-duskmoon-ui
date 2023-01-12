@@ -1,6 +1,4 @@
-// use yew::prelude::*;
-
-use crate::app::App;
+use yew_app_sample::app::App;
 
 fn main() {
   yew::Renderer::<App>::new().render();
