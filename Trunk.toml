@@ -1,0 +1,7 @@
+[build]
+target = "static/index.html"
+dist = "dist"
+
+[serve]
+address = "0.0.0.0"
+port = 3000
