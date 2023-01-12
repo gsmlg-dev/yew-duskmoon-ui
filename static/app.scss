@@ -14,11 +14,18 @@ body {
     min-width: 4em;
     padding: 0.4em 0.8em;
     border: none;
+    text-align: center;
     cursor: pointer;
+
+    &:hover {
+        text-shadow: 0.3px 0.3px #aaa;
+        box-shadow: 1px 1px 2px 2px #eee;
+    }
 }
 
 .btn.btn-link {
     text-decoration: none;
+    color: #44c2f4;
 }
 .btn.btn-default{
     color: #fafafa;
