@@ -1,0 +1,34 @@
+name: Publish gh-pages
+
+on:
+  push:
+    branches: [ main ]
+  pull_request:
+    branches: [ main ]
+
+jobs:
+  publish:
+    runs-on: ubuntu-latest
+
+    steps:
+    # configure the environment
+    - uses: actions/checkout@v2
+    - name: rust-toolchain
+      uses: actions-rs/toolchain@v1.0.6
+      with:
+        toolchain: stable
+        target: wasm32-unknown-unknown
+    - name: trunk-action
+      uses: jetli/trunk-action@v0.1.0
+
+    # build css and rust
+    - name: run trunk
+      run: trunk build --release
+
+    # deploy for github.io
+    - name: GitHub Pages action
+      uses: peaceiris/actions-gh-pages@v3.7.3
+      with:
+        github_token: ${{ secrets.GITHUB_TOKEN }}
+        publish_branch: gh-pages
+        publish_dir: dist
