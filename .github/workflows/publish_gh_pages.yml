@@ -23,7 +23,7 @@ jobs:
 
     # build css and rust
     - name: run trunk
-      run: trunk build --release
+      run: trunk build --release --public-url /yew-app-sample
 
     # deploy for github.io
     - name: GitHub Pages action
