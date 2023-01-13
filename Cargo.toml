@@ -25,6 +25,7 @@ yew-hooks = "0.2.0"
 wasm-bindgen = "0.2"
 wasm-logger = "0.2.0"
 yewdux = "0.9"
+stylist = { version = "0.11.0", features = ["yew_integration"] }
 
 [dev-dependencies]
 wasm-bindgen-test = "0.3"

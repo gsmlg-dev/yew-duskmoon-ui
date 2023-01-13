@@ -20,7 +20,7 @@ pub fn about() -> Html {
       move |_| {
         state.run();
       },
-      true
+      (),
     );
   }
 

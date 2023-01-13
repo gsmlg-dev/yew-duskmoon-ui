@@ -1,14 +1,51 @@
 use yew::prelude::*;
 use yew_router::prelude::*;
-use yew::{classes, html};
+
+use stylist::css;
+use stylist::yew::use_style;
 
 use crate::routes::AppRoute;
+use crate::theme::Theme;
 
 /// Header component
 #[function_component(Header)]
 pub fn header() -> Html {
+  let theme = use_context::<Theme>().expect("no theme found");
+  let s = css!(
+    r#"
+        color: ${color};
+        background-color: ${background_color};
+
+        display: flex;
+        flex-direction: row;
+        height: 60px;
+        display: flex;
+        justify-content: space-between;
+        padding: 0 2em;
+        box-shadow: 0 1px 4px 1px rgba(38, 60, 86, 0.1);
+        z-index: 1000;
+        font-size: 14px;
+    
+        .page-header-title {
+            display: flex;
+            flex-direction: row;
+            align-items: center;
+            justify-content: flex-start;
+        }
+        .page-header-menu {
+            display: flex;
+            flex-direction: row;
+            align-items: center;
+            justify-content: flex-start;
+        }
+    "#,
+    color = theme.foreground,
+    background_color = theme.background,
+  );
+  let style = use_style(s);
+
   html! {
-    <header class={classes!("page-header")}>
+    <header class={style}>
       <div
         class="page-header-title"
       >

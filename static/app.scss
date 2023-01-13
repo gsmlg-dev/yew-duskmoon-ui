@@ -16,10 +16,11 @@ body {
     border: none;
     text-align: center;
     cursor: pointer;
+    transition: all 0.3s;
 
     &:hover {
         text-shadow: 0.3px 0.3px #aaa;
-        box-shadow: 1px 1px 2px 2px #eee;
+        box-shadow: 0px 0px 1px 1px #eee;
     }
 }
 
@@ -56,33 +57,6 @@ body {
         display: flex;
         flex-direction: column;
         align-items: center;
-    }
-}
-
-.page-header {
-    display: flex;
-    flex-direction: row;
-    height: 60px;
-    display: flex;
-    justify-content: space-between;
-    padding: 0 2em;
-    background: #fff;
-    color: #2F2E3F;
-    box-shadow: 0 1px 4px 1px rgba(38, 60, 86, 0.1);
-    z-index: 1000;
-    font-size: 14px;
-
-    .page-header-title,
-    .page-header-menu {
-        display: flex;
-        flex-direction: row;
-        align-items: center;
-        justify-content: flex-start;
-    }
-    .page-header-menu {
-        .page-header-menu-item {
-            display: flex;
-        }
     }
 }
 
