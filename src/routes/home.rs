@@ -2,6 +2,7 @@ use yew::prelude::*;
 use yewdux::prelude::*;
 
 use crate::states::config::ConfigStore;
+use crate::ui::card::Card;
 
 /// Home page
 #[function_component(Home)]
@@ -13,11 +14,7 @@ pub fn home() -> Html {
     html! {
       <div class="app">
         <div class="app-main">
-          <div class="card">
-            <div class="card-body">
-              <h3>
-                { state.name.clone() }
-              </h3>
+          <Card title={ html! { state.name.clone() } }>
               <div class="space">
                 <div class="space-item">
                   <button class="btn btn-default" onclick={set_lower}>{ "set lower case" }</button>
@@ -26,8 +23,7 @@ pub fn home() -> Html {
                   <button class="btn btn-primary" onclick={set_upper}>{ "SET UPPER CASE" }</button>
                 </div>
               </div>
-            </div>
-          </div>
+          </Card>
         </div>
       </div>
     }
