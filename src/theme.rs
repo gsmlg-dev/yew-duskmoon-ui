@@ -1,4 +1,3 @@
-
 #[derive(Clone, Debug, PartialEq)]
 pub struct Theme {
     pub foreground: String,
@@ -8,8 +7,8 @@ pub struct Theme {
 impl Default for Theme {
     fn default() -> Self {
         Self {
-          foreground: "black".to_owned(),
-          background: "white".to_owned(),
+            foreground: "black".to_owned(),
+            background: "white".to_owned(),
         }
     }
 }

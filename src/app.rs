@@ -8,10 +8,13 @@ use crate::theme::Theme;
 /// Root app component
 #[function_component(App)]
 pub fn app() -> Html {
-    let theme = use_memo(|_| Theme {
-        foreground: "#afe9dc".to_owned(),
-        background: "#3a1f5d".to_owned(),
-    }, ());
+    let theme = use_memo(
+        |_| Theme {
+            foreground: "#afe9dc".to_owned(),
+            background: "#3a1f5d".to_owned(),
+        },
+        (),
+    );
 
     html! {
         <ContextProvider<Theme> context={(*theme).clone()}>
