@@ -5,7 +5,7 @@ use stylist::yew::use_style;
 
 /// Props for [`Header`]
 #[derive(Properties, Clone, PartialEq)]
-pub struct HeaderProps {
+pub struct AppHeaderProps {
     /// CSS classes to add to the anchor element (optional).
     #[prop_or_default]
     pub classes: Classes,
@@ -20,8 +20,8 @@ pub struct HeaderProps {
 }
 
 /// Header component
-#[function_component(Header)]
-pub fn header(props: &HeaderProps) -> Html {
+#[function_component(AppHeader)]
+pub fn app_header(props: &AppHeaderProps) -> Html {
     let style = use_style(css!(
         r#"
     display: flex;

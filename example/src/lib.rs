@@ -3,7 +3,6 @@ pub mod components;
 pub mod routes;
 pub mod states;
 pub mod theme;
-pub mod ui;
 
 use wasm_bindgen::prelude::*;
 

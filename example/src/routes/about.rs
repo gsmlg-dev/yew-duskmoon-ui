@@ -2,7 +2,7 @@ use serde::{Deserialize, Serialize};
 use yew::prelude::*;
 use yew_hooks::prelude::*;
 
-use crate::ui::card::Card;
+use yew_duskmoon::Card;
 
 /// About page
 #[function_component(About)]

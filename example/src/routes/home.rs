@@ -1,8 +1,8 @@
 use yew::prelude::*;
 use yewdux::prelude::*;
+use yew_duskmoon::Card;
 
 use crate::states::config::ConfigStore;
-use crate::ui::card::Card;
 
 /// Home page
 #[function_component(Home)]

@@ -3,11 +3,11 @@ use yew::prelude::*;
 use stylist::css;
 use stylist::yew::use_style;
 
+use yew_duskmoon::AppHeader;
+use yew_duskmoon::Link;
+
 use crate::routes::AppRoute;
 use crate::theme::Theme;
-
-use crate::ui::header::Header as UIHeader;
-use crate::ui::link::Link;
 
 /// Header component
 #[function_component(Header)]
@@ -23,7 +23,7 @@ pub fn header() -> Html {
     ));
 
     html! {
-      <UIHeader
+      <AppHeader
         classes={style}
         logo={
           html! {
@@ -49,6 +49,5 @@ pub fn header() -> Html {
           }
         }
       />
-
     }
 }
