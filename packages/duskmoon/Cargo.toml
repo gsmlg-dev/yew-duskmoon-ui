@@ -1,0 +1,45 @@
+[package]
+authors = ["Jonathan Gao <gsmlg.com@gmail.com>"]
+categories = ["wasm", "web"]
+keywords = ["wasm", "web", "yew"]
+description = "DuskMoon, a Yew component libaray."
+edition = "2021"
+license = "GPLv3"
+name = "yew-duskmoon"
+readme = "./README.md"
+repository = "https://github.com/gsmlg-dev/yew-app-sample.git"
+version = "0.1.0"
+
+[badges]
+maintenance = { status = "actively-developed" }
+
+[lib]
+crate-type = ["cdylib", "rlib"]
+
+[features]
+app_header = []
+link = []
+full = [
+    "app_header",
+    "link",
+]
+default = ["full"]
+
+[dependencies]
+log = "0.4"
+serde = "1"
+serde_json = "1.0"
+yew = { version = "0.20.0", features = ["csr"] }
+yew-router = "0.17.0"
+yew-hooks = "0.2.0"
+wasm-bindgen = "0.2"
+wasm-logger = "0.2.0"
+stylist = { version = "0.11.0", features = ["yew_integration"] }
+
+[dev-dependencies]
+wasm-bindgen-test = "0.3"
+gloo-utils = "0.1.5"
+
+[dev-dependencies.web-sys]
+version = "0.3"
+features = ["Document", "Element", "HtmlCollection"]
