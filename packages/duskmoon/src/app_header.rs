@@ -27,11 +27,10 @@ pub fn app_header(props: &AppHeaderProps) -> Html {
     display: flex;
     flex-direction: row;
     height: 60px;
+    align-items: center;
     justify-content: space-between;
     padding: 0 2em;
     box-shadow: 0 1px 4px 1px rgba(38, 60, 86, 0.1);
-    z-index: 1000;
-    font-size: 14px;
     .left {
         display: flex;
         flex-direction: row;

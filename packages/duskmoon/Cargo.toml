@@ -19,9 +19,13 @@ crate-type = ["cdylib", "rlib"]
 [features]
 app_header = []
 link = []
+button = []
+card = []
 full = [
     "app_header",
     "link",
+    "button",
+    "card",
 ]
 default = ["full"]
 
