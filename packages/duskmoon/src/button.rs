@@ -1,5 +1,6 @@
-use yew::prelude::*;
 use yew::html::onclick::Event;
+use yew::prelude::*;
+use yew::virtual_dom::AttrValue;
 
 use stylist::css;
 use stylist::yew::use_style;
@@ -25,6 +26,12 @@ pub struct ButtonProps {
     pub classes: Classes,
     #[prop_or(ButtonType::Default)]
     pub r#type: ButtonType,
+    #[prop_or_default]
+    pub href: AttrValue,
+    #[prop_or_default]
+    pub target: AttrValue,
+    #[prop_or_default]
+    pub rel: AttrValue,
     /// infor part
     #[prop_or_default]
     pub children: Children,
@@ -158,12 +165,25 @@ pub fn button(props: &ButtonProps) -> Html {
         _ => "",
     };
 
-    html! {
-        <button 
-            class={ classes!(style, type_class, owned_props.classes) }
-            onclick={ move |e: Event| onclick_func.emit(e) }
-        >
-        { for owned_props.children.iter() }
-        </button>
+    match props.r#type {
+        ButtonType::Link => html! {
+            <a
+                class={ classes!(style, type_class, owned_props.classes) }
+                onclick={ move |e: Event| onclick_func.emit(e) }
+                href={ owned_props.href }
+                target={ owned_props.target }
+                rel={ owned_props.rel }
+            >
+                { for owned_props.children.iter() }
+            </a>
+        },
+        _ => html! {
+            <button
+                class={ classes!(style, type_class, owned_props.classes) }
+                onclick={ move |e: Event| onclick_func.emit(e) }
+            >
+                { for owned_props.children.iter() }
+            </button>
+        },
     }
 }

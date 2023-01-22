@@ -2,6 +2,7 @@ use serde::{Deserialize, Serialize};
 use yew::prelude::*;
 use yew_hooks::prelude::*;
 
+use yew_duskmoon::button::ButtonType;
 use yew_duskmoon::Button;
 use yew_duskmoon::Card;
 
@@ -25,13 +26,13 @@ pub fn about() -> Html {
             (),
         );
     }
-
+    
     html! {
       <div class="app">
         <div class="app-main">
           <Card>
               <div>
-                <Button classes="btn-primary" onclick={onclick}>{ "Load org of gsmlg-dev" }</Button>
+                <Button r#type={ButtonType::Primary} onclick={onclick}>{ "Load org of gsmlg-dev" }</Button>
               </div>
               <div>
                 {
@@ -45,14 +46,14 @@ pub fn about() -> Html {
                             <div>{ "Org web url: " }<b>{ &org.html_url }</b></div>
                             <div>
                                 { "Go to Github Orginatizion: " }
-                                <a
-                                    class="btn btn-link"
+                                <Button
+                                    r#type={ ButtonType::Link }
                                     href={ org.html_url.clone() }
                                     target="_blank"
                                     rel="noopener noreferrer"
                                 >
                                     { "GSMLG-DEV Github" }
-                                </a>
+                                </Button>
                             </div>
                         </div>
                       }
