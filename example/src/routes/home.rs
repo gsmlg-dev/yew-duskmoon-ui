@@ -1,6 +1,7 @@
 use yew::prelude::*;
 use yewdux::prelude::*;
 use yew_duskmoon::Card;
+use yew_duskmoon::Button;
 
 use crate::states::config::ConfigStore;
 
@@ -17,10 +18,10 @@ pub fn home() -> Html {
           <Card title={ html! { state.name.clone() } }>
               <div class="space">
                 <div class="space-item">
-                  <button class="btn btn-default" onclick={set_lower}>{ "set lower case" }</button>
+                  <Button onclick={set_lower}>{ "set lower case" }</Button>
                 </div>
                 <div class="space-item">
-                  <button class="btn btn-primary" onclick={set_upper}>{ "SET UPPER CASE" }</button>
+                  <Button classes="btn-primary" onclick={set_upper}>{ "SET UPPER CASE" }</Button>
                 </div>
               </div>
           </Card>

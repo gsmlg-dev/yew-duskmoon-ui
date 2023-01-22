@@ -1,7 +1,21 @@
 use yew::prelude::*;
+use yew::html::onclick::Event;
 
 use stylist::css;
 use stylist::yew::use_style;
+
+#[derive(Clone, PartialEq)]
+pub enum ButtonType {
+    Default = 0,
+    Primary = 1,
+    Dashed = 2,
+    Danger = 3,
+    Link = 4,
+    Text = 5,
+    Circle = 6,
+    Round = 7,
+    Block = 8,
+}
 
 /// Props for [`Button`]
 #[derive(Properties, Clone, PartialEq)]
@@ -9,9 +23,13 @@ pub struct ButtonProps {
     /// CSS classes to add to the anchor element (optional).
     #[prop_or_default]
     pub classes: Classes,
+    #[prop_or(ButtonType::Default)]
+    pub r#type: ButtonType,
     /// infor part
     #[prop_or_default]
     pub children: Children,
+    #[prop_or_default]
+    pub onclick: Callback<Event>,
 }
 
 /// Button component
@@ -127,9 +145,24 @@ pub fn button(props: &ButtonProps) -> Html {
     "#
     ));
     let owned_props = props.clone();
+    let onclick_func = props.onclick.clone();
+    let type_class = match props.r#type {
+        ButtonType::Primary => "btn-primary",
+        ButtonType::Dashed => "btn-dashed",
+        ButtonType::Danger => "btn-danger",
+        ButtonType::Link => "btn-link",
+        ButtonType::Text => "btn-text",
+        ButtonType::Circle => "btn-circle",
+        ButtonType::Round => "btn-round",
+        ButtonType::Block => "btn-block",
+        _ => "",
+    };
 
     html! {
-        <button class={ classes!(style, owned_props.classes) }>
+        <button 
+            class={ classes!(style, type_class, owned_props.classes) }
+            onclick={ move |e: Event| onclick_func.emit(e) }
+        >
         { for owned_props.children.iter() }
         </button>
     }

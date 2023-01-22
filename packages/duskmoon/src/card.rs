@@ -28,7 +28,11 @@ pub fn card(props: &CardProps) -> Html {
     align-items: flex-start;
     padding: 1.5rem;
     gap: 0.618rem;
+    transition: box-shadow 300ms;
     box-shadow: 0 0 #0000, 0 0 #0000, 0 1px 3px 0 #0000001a, 0 1px 2px -1px #0000001a;
+    &:hover {
+        box-shadow: 0 0 #0000, 0 0 #0000, 0 1px 6px 0 #0000001a, 0 1px 4px -2px #0000001a;
+    }
     .head {
         display: flex;
         flex-direction: row;

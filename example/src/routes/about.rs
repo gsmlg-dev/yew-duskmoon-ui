@@ -2,6 +2,7 @@ use serde::{Deserialize, Serialize};
 use yew::prelude::*;
 use yew_hooks::prelude::*;
 
+use yew_duskmoon::Button;
 use yew_duskmoon::Card;
 
 /// About page
@@ -30,7 +31,7 @@ pub fn about() -> Html {
         <div class="app-main">
           <Card>
               <div>
-                <button class="btn btn-primary" {onclick}>{ "Load org of gsmlg-dev" }</button>
+                <Button classes="btn-primary" onclick={onclick}>{ "Load org of gsmlg-dev" }</Button>
               </div>
               <div>
                 {
