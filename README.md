@@ -1,5 +1,6 @@
-# yew-app-sample
-Sample yew app
+# **Yew Duskmoon UI**
+
+Duskmoon UI Component Library.
 
 ## Install dependencies
 
@@ -10,17 +11,15 @@ cargo install trunk
 cargo install wasm-bindgen-cli
 ```
 
-
 ## Run
 
 ```
+cd example
+
 # dev
 trunk serve
 
 # build
 trunk build --release
 
-# test
-wasm-pack test --headless --chrome
 ```
-
