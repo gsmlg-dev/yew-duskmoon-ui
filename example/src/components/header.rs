@@ -28,7 +28,7 @@ pub fn header() -> Html {
         logo={
           html! {
             <h1>
-              { "Yew APP Sample" }
+              { "Yew Duskmoon UI" }
             </h1>
           }
         }
@@ -39,6 +39,11 @@ pub fn header() -> Html {
                 to={AppRoute::Home}
               >
                 { "Home" }
+              </Link<AppRoute>>
+              <Link<AppRoute>
+                to={AppRoute::ComponentsRoot}
+              >
+                { "Components" }
               </Link<AppRoute>>
               <Link<AppRoute>
                 to={AppRoute::About}
