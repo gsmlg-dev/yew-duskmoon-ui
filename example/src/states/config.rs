@@ -12,7 +12,7 @@ impl Default for ConfigStore {
     fn default() -> Self {
         Self {
             name: "yew app sample".to_string(),
-            header_text: "capitalize",
+            header_text: "capitalize".to_string(),
         }
     }
 }
