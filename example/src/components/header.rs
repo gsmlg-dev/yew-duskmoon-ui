@@ -9,6 +9,8 @@ use stylist::yew::use_style;
 use yew_duskmoon::AppHeader;
 use yew_duskmoon::Link;
 
+use yew_duskmoon_icons::MD_Tools;
+
 use crate::routes::AppRoute;
 use crate::theme::Theme;
 
@@ -57,6 +59,11 @@ pub fn header() -> Html {
                 { "About" }
               </Link<AppRoute>>
             </>
+          }
+        }
+        info={
+          html! {
+            <MD_Tools />
           }
         }
       />
