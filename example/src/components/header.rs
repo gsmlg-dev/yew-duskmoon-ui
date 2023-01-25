@@ -8,8 +8,9 @@ use stylist::yew::use_style;
 
 use yew_duskmoon::AppHeader;
 use yew_duskmoon::Link;
-
-use yew_duskmoon_icons::MD_Tools;
+use yew_duskmoon::button::ButtonType;
+use yew_duskmoon::Button;
+use yew_duskmoon_icons::MD_Github;
 
 use crate::routes::AppRoute;
 use crate::theme::Theme;
@@ -63,7 +64,12 @@ pub fn header() -> Html {
         }
         info={
           html! {
-            <MD_Tools />
+            <Button
+              r#type={ButtonType::Link}
+              href={"https://github.com/gsmlg-dev/yew-duskmoon-ui"}
+            >
+              <MD_Github size={"1.75em"} color={"white"} />
+            </Button>
           }
         }
       />
