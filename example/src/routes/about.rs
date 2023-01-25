@@ -32,6 +32,11 @@ pub fn about() -> Html {
     background-color: #4285f4;
     color: #c2c5cc;
     user-select: none;
+    background-image: url(./assets/moon.png);
+    background-repeat: no-repeat;
+    background-size: 20%;
+    background-position: right;
+    background-blend-mode: hard-light;
     h1 {
       display: flex;
       font-size: 8rem;
