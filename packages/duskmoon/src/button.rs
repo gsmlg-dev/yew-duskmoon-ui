@@ -8,15 +8,15 @@ use stylist::yew::use_style;
 
 #[derive(Clone, PartialEq, Debug, Display, EnumIter)]
 pub enum ButtonType {
-    Default = 0,
-    Primary = 1,
-    Dashed = 2,
-    Danger = 3,
-    Link = 4,
-    Text = 5,
-    Circle = 6,
-    Round = 7,
-    Block = 8,
+    Default,
+    Primary,
+    Dashed,
+    Danger,
+    Link,
+    Text,
+    Circle,
+    Round,
+    Block,
 }
 
 /// Props for [`Button`]

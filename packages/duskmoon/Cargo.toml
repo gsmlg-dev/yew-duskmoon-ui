@@ -22,11 +22,13 @@ app_header = []
 link = []
 button = []
 card = []
+typography = []
 full = [
     "app_header",
     "link",
     "button",
     "card",
+    "typography",
 ]
 default = ["full"]
 

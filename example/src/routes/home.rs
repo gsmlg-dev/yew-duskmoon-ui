@@ -24,7 +24,7 @@ pub fn home() -> Html {
         min-height: 300px;
         background-color: #4285f4;
         color: #c2c5cc;
-        user-select none;
+        user-select: none;
         h1 {
           display: flex;
           font-size: 8rem;

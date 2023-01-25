@@ -27,3 +27,10 @@ pub mod card;
 #[cfg(feature = "card")]
 #[doc(hidden)]
 pub use card::Card;
+
+#[cfg(feature = "typography")]
+pub mod typography;
+#[cfg(feature = "typography")]
+#[doc(hidden)]
+pub use typography::Typography;
+
