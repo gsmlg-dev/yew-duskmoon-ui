@@ -1,13 +1,14 @@
 [package]
 authors = ["Jonathan Gao <gsmlg.com@gmail.com>"]
-categories = ["wasm", "web"]
 keywords = ["wasm", "web", "yew"]
+categories = ["wasm", "web-programming", "gui"]
 description = "DuskMoon, a Yew component libaray."
 edition = "2021"
 license = "GPL-3.0"
 name = "yew-duskmoon"
 readme = "./README.md"
 repository = "https://github.com/gsmlg-dev/yew-duskmoon-ui.git"
+homepage = "https://gsmlg-dev.github.io/yew-duskmoon-ui"
 version = "0.1.0"
 
 [badges]

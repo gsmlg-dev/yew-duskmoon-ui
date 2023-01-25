@@ -1,12 +1,13 @@
 [package]
 authors = ["Jonathan Gao <gsmlg.com@gmail.com>"]
-categories = ["wasm"]
-description = "Yew app sample"
+keywords = ["wasm", "web", "yew"]
+categories = ["wasm", "web-programming", "gui"]
+description = "Yew Duskmoon"
 edition = "2021"
 license = "GPLv3"
-name = "yew-app-sample"
+name = "yew-duskmoon-ui-documents"
 readme = "./README.md"
-repository = "https://github.com/gsmlg-dev/yew-app-sample.git"
+repository = "https://github.com/gsmlg-dev/yew-duskmoon-ui.git"
 version = "0.1.0"
 
 # See more keys and their definitions at https://doc.rust-lang.org/cargo/reference/manifest.html
