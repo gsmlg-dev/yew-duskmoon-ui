@@ -955,16 +955,16 @@ function getImports() {
         const ret = wasm.memory;
         return addHeapObject(ret);
     };
-    imports.wbg.__wbindgen_closure_wrapper1808 = function(arg0, arg1, arg2) {
-        const ret = makeMutClosure(arg0, arg1, 852, __wbg_adapter_38);
+    imports.wbg.__wbindgen_closure_wrapper1821 = function(arg0, arg1, arg2) {
+        const ret = makeMutClosure(arg0, arg1, 857, __wbg_adapter_38);
         return addHeapObject(ret);
     };
-    imports.wbg.__wbindgen_closure_wrapper2208 = function(arg0, arg1, arg2) {
-        const ret = makeMutClosure(arg0, arg1, 989, __wbg_adapter_41);
+    imports.wbg.__wbindgen_closure_wrapper2221 = function(arg0, arg1, arg2) {
+        const ret = makeMutClosure(arg0, arg1, 994, __wbg_adapter_41);
         return addHeapObject(ret);
     };
-    imports.wbg.__wbindgen_closure_wrapper2267 = function(arg0, arg1, arg2) {
-        const ret = makeMutClosure(arg0, arg1, 1013, __wbg_adapter_44);
+    imports.wbg.__wbindgen_closure_wrapper2280 = function(arg0, arg1, arg2) {
+        const ret = makeMutClosure(arg0, arg1, 1018, __wbg_adapter_44);
         return addHeapObject(ret);
     };
 
@@ -1003,7 +1003,7 @@ function initSync(module) {
 
 async function init(input) {
     if (typeof input === 'undefined') {
-        input = new URL('yew-duskmoon-ui-demo-54275b0e8d0e7b83_bg.wasm', import.meta.url);
+        input = new URL('yew-duskmoon-ui-demo-3fffefe243fa3792_bg.wasm', import.meta.url);
     }
     const imports = getImports();
 
