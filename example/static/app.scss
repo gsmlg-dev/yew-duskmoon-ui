@@ -10,33 +10,6 @@ body {
     width: 100vw;
 }
 
-.btn {
-    min-width: 4em;
-    padding: 0.4em 0.8em;
-    border: none;
-    text-align: center;
-    cursor: pointer;
-    transition: all 0.3s;
-
-    &:hover {
-        text-shadow: 0.3px 0.3px #aaa;
-        box-shadow: 0px 0px 1px 1px #eee;
-    }
-}
-
-.btn.btn-link {
-    text-decoration: none;
-    color: #44c2f4;
-}
-.btn.btn-default{
-    color: #fafafa;
-    background-color: #666;
-}
-.btn.btn-primary{
-    color: #fafafa;
-    background-color: #87ceeb;
-}
-
 .space {
     display: flex;
     gap: 0.3em;

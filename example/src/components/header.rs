@@ -34,7 +34,7 @@ pub fn header() -> Html {
         logo={
           html! {
             <h1>
-              { "Yew Duskmoon UI" }
+              { "Duskmoon UI" }
             </h1>
           }
         }

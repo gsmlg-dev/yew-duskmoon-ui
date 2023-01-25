@@ -1,11 +1,12 @@
 use yew::html::onclick::Event;
 use yew::prelude::*;
 use yew::virtual_dom::AttrValue;
-
+use strum_macros::Display;
+use strum_macros::EnumIter;
 use stylist::css;
 use stylist::yew::use_style;
 
-#[derive(Clone, PartialEq)]
+#[derive(Clone, PartialEq, Debug, Display, EnumIter)]
 pub enum ButtonType {
     Default = 0,
     Primary = 1,
