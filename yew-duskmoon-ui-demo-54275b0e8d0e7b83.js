@@ -321,6 +321,10 @@ function getImports() {
     imports.wbg.__wbindgen_object_drop_ref = function(arg0) {
         takeObject(arg0);
     };
+    imports.wbg.__wbindgen_object_clone_ref = function(arg0) {
+        const ret = getObject(arg0);
+        return addHeapObject(ret);
+    };
     imports.wbg.__wbindgen_cb_drop = function(arg0) {
         const obj = takeObject(arg0).original;
         if (obj.cnt-- == 1) {
@@ -329,10 +333,6 @@ function getImports() {
         }
         const ret = false;
         return ret;
-    };
-    imports.wbg.__wbindgen_object_clone_ref = function(arg0) {
-        const ret = getObject(arg0);
-        return addHeapObject(ret);
     };
     imports.wbg.__wbindgen_string_new = function(arg0, arg1) {
         const ret = getStringFromWasm0(arg0, arg1);
@@ -955,16 +955,16 @@ function getImports() {
         const ret = wasm.memory;
         return addHeapObject(ret);
     };
-    imports.wbg.__wbindgen_closure_wrapper1802 = function(arg0, arg1, arg2) {
-        const ret = makeMutClosure(arg0, arg1, 851, __wbg_adapter_38);
+    imports.wbg.__wbindgen_closure_wrapper1808 = function(arg0, arg1, arg2) {
+        const ret = makeMutClosure(arg0, arg1, 852, __wbg_adapter_38);
         return addHeapObject(ret);
     };
-    imports.wbg.__wbindgen_closure_wrapper2202 = function(arg0, arg1, arg2) {
-        const ret = makeMutClosure(arg0, arg1, 988, __wbg_adapter_41);
+    imports.wbg.__wbindgen_closure_wrapper2208 = function(arg0, arg1, arg2) {
+        const ret = makeMutClosure(arg0, arg1, 989, __wbg_adapter_41);
         return addHeapObject(ret);
     };
-    imports.wbg.__wbindgen_closure_wrapper2261 = function(arg0, arg1, arg2) {
-        const ret = makeMutClosure(arg0, arg1, 1012, __wbg_adapter_44);
+    imports.wbg.__wbindgen_closure_wrapper2267 = function(arg0, arg1, arg2) {
+        const ret = makeMutClosure(arg0, arg1, 1013, __wbg_adapter_44);
         return addHeapObject(ret);
     };
 
@@ -1003,7 +1003,7 @@ function initSync(module) {
 
 async function init(input) {
     if (typeof input === 'undefined') {
-        input = new URL('yew-app-sample-63341979acfc57b_bg.wasm', import.meta.url);
+        input = new URL('yew-duskmoon-ui-demo-54275b0e8d0e7b83_bg.wasm', import.meta.url);
     }
     const imports = getImports();
 
