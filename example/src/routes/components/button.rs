@@ -56,8 +56,20 @@ pub fn component() -> Html {
                   <div class="v">
                     <Button r#type={t.clone()}>{format!("{:?}", t)}</Button>
                   </div>
+                  <div class="v">
+                    <Button r#type={t.clone()} disabled={true}>{"Disabled"}</Button>
+                  </div>
+                  <div class="v">
+                    <Button r#type={t.clone()} loading={true}>{"Loading"}</Button>
+                  </div>
                   <code class="c">
-                  {format!("html!{{ <Button type={{ButtonType::{}}}>Button<Button> }}", t)}
+                  {format!("html!{{ <Button type={{ButtonType::{}}}>Button<Button> }}", t.clone())}
+                  </code>
+                  <code class="c">
+                  {format!("html!{{ <Button type={{ButtonType::{}}} disabled={{true}}>Button<Button> }}", t.clone())}
+                  </code>
+                  <code class="c">
+                  {format!("html!{{ <Button type={{ButtonType::{}}} loading={{true}}>Button<Button> }}", t.clone())}
                   </code>
                 </li>
               }

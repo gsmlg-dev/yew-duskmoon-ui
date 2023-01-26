@@ -40,7 +40,10 @@ where
 {
     let style = use_style(css!(
         r#"
-        min-width: 2em;
+        display: inline-flex;
+        justify-content: center;
+        align-items: center;
+        min-width: 1em;
         padding: 0.4em 0.8em;
         border: none;
         text-align: center;

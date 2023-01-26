@@ -33,6 +33,10 @@ pub struct ButtonProps {
     pub target: AttrValue,
     #[prop_or_default]
     pub rel: AttrValue,
+    #[prop_or_default]
+    pub disabled: bool,
+    #[prop_or_default]
+    pub loading: bool,
     /// infor part
     #[prop_or_default]
     pub children: Children,
@@ -165,23 +169,35 @@ pub fn button(props: &ButtonProps) -> Html {
         ButtonType::Block => "btn-block",
         _ => "",
     };
+    let disabled_class = if owned_props.disabled { "disabled" } else { "" };
+    let loading_class = if owned_props.loading { "btn-loading" } else { "" };
 
     match props.r#type {
         ButtonType::Link => html! {
             <a
-                class={ classes!(style, type_class, owned_props.classes) }
-                onclick={ move |e: Event| onclick_func.emit(e) }
+                class={ classes!(style, type_class, disabled_class, loading_class, owned_props.classes) }
+                onclick={ move |e: Event| {
+                  if !owned_props.disabled && !owned_props.loading {
+                    onclick_func.emit(e)
+                  }
+                }}
                 href={ owned_props.href }
                 target={ owned_props.target }
                 rel={ owned_props.rel }
+                disabled={ owned_props.disabled || owned_props.loading }
             >
                 { for owned_props.children.iter() }
             </a>
         },
         _ => html! {
             <button
-                class={ classes!(style, type_class, owned_props.classes) }
-                onclick={ move |e: Event| onclick_func.emit(e) }
+                class={ classes!(style, type_class, disabled_class, loading_class, owned_props.classes) }
+                onclick={ move |e: Event| {
+                  if !owned_props.disabled && !owned_props.loading {
+                    onclick_func.emit(e)
+                  }
+                }}
+                disabled={ owned_props.disabled || owned_props.loading }
             >
                 { for owned_props.children.iter() }
             </button>

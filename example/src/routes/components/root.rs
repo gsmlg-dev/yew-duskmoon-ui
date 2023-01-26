@@ -3,6 +3,8 @@ use stylist::yew::use_style;
 use yew::prelude::*;
 use yew_duskmoon::Card;
 use yew_duskmoon::Link;
+use yew_duskmoon::Button;
+use yew_duskmoon::button::ButtonType;
 
 use super::ComponentsRoute;
 
@@ -31,6 +33,20 @@ pub fn components_root() -> Html {
     }
   "#
   ));
+  let link_style = use_style(css!(
+    r#"
+    display: flex;
+    flex-direction: row;
+    justify-content: center;
+    align-items: center;
+    gap: 1rem;
+    .item {
+      display: flex;
+      justify-content: flex-start;
+      height: 2.5rem;
+    }
+  "#
+  ));
   html! {
     <div class="app">
       <div class={ hero_style }>
@@ -42,16 +58,26 @@ pub fn components_root() -> Html {
         <Card title={ html!{
           <h3> { "General Components" } </h3>
         }}>
-          <div>
-            <div>
+          <div class={ link_style }>
+            <div class="item">
               <Link<ComponentsRoute> to={ComponentsRoute::ButtonComponent}>
                 {"Button"}
               </Link<ComponentsRoute>>
             </div>
-            <div>
+            <div class="item">
               <Link<ComponentsRoute> to={ComponentsRoute::TypographyComponent}>
                 {"Typography"}
               </Link<ComponentsRoute>>
+            </div>
+            <div class="item">
+              <Button r#type={ButtonType::Link} disabled={true}>
+                {"Code"}
+              </Button>
+            </div>
+            <div class="item">
+              <Button r#type={ButtonType::Link} disabled={true}>
+                {"Markdown"}
+              </Button>
             </div>
           </div>
         </Card>
