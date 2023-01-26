@@ -55,6 +55,11 @@ pub fn header() -> Html {
                 { "Components" }
               </Link<AppRoute>>
               <Link<AppRoute>
+                to={AppRoute::IconsRoot}
+              >
+                { "Icons" }
+              </Link<AppRoute>>
+              <Link<AppRoute>
                 to={AppRoute::About}
               >
                 { "About" }
