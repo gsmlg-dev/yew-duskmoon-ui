@@ -54,7 +54,7 @@ pub fn component() -> Html {
                 <div class="icon">
                   <label class="t">{ format!("{}", n) }</label>
                   <div class="v">
-                    <MDIcon name={n} size={32} />
+                    <MDIcon name={n} size={AttrValue::from("32")} />
                   </div>
                   <div class="c">
                     {format!("html!{{ <MD_{} /> }}", n)}

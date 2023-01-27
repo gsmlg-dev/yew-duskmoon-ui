@@ -57,7 +57,7 @@ pub fn component() -> Html {
                 <div class="icon">
                   <label class="t">{ format!("{}", n) }</label>
                   <div class="v">
-                    <BSIcon name={n} size={32} />
+                    <BSIcon name={n} size={AttrValue::from("32")} />
                   </div>
                   <div class="c">
                     {format!("html!{{ <BS_{} /> }}", n)}

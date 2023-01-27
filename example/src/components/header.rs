@@ -10,7 +10,7 @@ use yew_duskmoon::AppHeader;
 use yew_duskmoon::Link;
 use yew_duskmoon::button::ButtonType;
 use yew_duskmoon::Button;
-use yew_duskmoon_icons::MD_Github;
+use yew_duskmoon_icons::mdi::MD_Github;
 
 use crate::routes::AppRoute;
 use crate::theme::Theme;
