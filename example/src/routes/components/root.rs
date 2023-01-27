@@ -60,7 +60,7 @@ pub fn components_root() -> Html {
             <h3> { "General" } </h3>
           }}
         >
-          <div class={ link_style }>
+          <div class={ link_style.clone() }>
             <div class="item">
               <Link<ComponentsRoute> to={ComponentsRoute::ButtonComponent}>
                 {"Button"}
@@ -86,7 +86,7 @@ pub fn components_root() -> Html {
         <Card title={ html!{
           <h3> { "Layout" } </h3>
         }}>
-          <div class={ link_style }>
+          <div class={ link_style.clone() }>
             <div class="item">
               <Button r#type={ButtonType::Link} disabled={true}>
                 {"Layout"}
@@ -112,7 +112,7 @@ pub fn components_root() -> Html {
         <Card title={ html!{
           <h3> { "Form" } </h3>
         }}>
-          <div class={ link_style }>
+          <div class={ link_style.clone() }>
             <div class="item">
               <Button r#type={ButtonType::Link} disabled={true}>
                 {"Layout"}
@@ -143,7 +143,7 @@ pub fn components_root() -> Html {
         <Card title={ html!{
           <h3> { "Data Display" } </h3>
         }}>
-          <div class={ link_style }>
+          <div class={ link_style.clone() }>
             <div class="item">
               <Button r#type={ButtonType::Link} disabled={true}>
                 {"Card"}
@@ -169,7 +169,7 @@ pub fn components_root() -> Html {
         <Card title={ html!{
           <h3> { "Feedback" } </h3>
         }}>
-          <div class={ link_style }>
+          <div class={ link_style.clone() }>
             <div class="item">
               <Button r#type={ButtonType::Link} disabled={true}>
                 {"Modal"}
@@ -195,7 +195,7 @@ pub fn components_root() -> Html {
         <Card title={ html!{
           <h3> { "Navigation" } </h3>
         }}>
-          <div class={ link_style }>
+          <div class={ link_style.clone() }>
             <div class="item">
               <Button r#type={ButtonType::Link} disabled={true}>
                 {"Breadcrumb"}
