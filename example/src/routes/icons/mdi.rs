@@ -45,7 +45,7 @@ pub fn component() -> Html {
                 <div class="icon">
                   <label class="t">{ format!("{}", n) }</label>
                   <div class="v">
-                    <@{format!("{}", n)} />
+                    <MDIcon name={n} />
                   </div>
                 </div>
               }

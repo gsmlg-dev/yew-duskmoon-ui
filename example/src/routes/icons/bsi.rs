@@ -34,24 +34,24 @@ pub fn component() -> Html {
   html! {
     <div class="app">
       <div class="app-main">
-      <Card title={ html!{
-        <Typography level={TypographyLevel::H1}>
-        {"Duskmoon Icons - Bootstrap Icons"}
-        </Typography>
-      }}>
-        <div class={ style }>
-          {BSI_NAMES.into_iter().map(|n| {
-            html!{
-              <div class="icon">
+        <Card title={ html!{
+          <Typography level={TypographyLevel::H1}>
+          {"Duskmoon Icons - Bootstrap Icons"}
+          </Typography>
+        }}>
+          <div class={ style }>
+            {BSI_NAMES.into_iter().map(|n| {
+              html!{
+                <div class="icon">
                   <label class="t">{ format!("{}", n) }</label>
                   <div class="v">
                     <BSIcon name={n} />
                   </div>
-              </div>
-            }
-          }).collect::<Html>()}
-        </div>
-      </Card>
+                </div>
+              }
+            }).collect::<Html>()}
+          </div>
+        </Card>
       </div>
     </div>
   }
