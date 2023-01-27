@@ -31,6 +31,7 @@ yewdux = "0.9"
 stylist = { version = "0.11.0", features = ["yew_integration"] }
 strum = "0.24"
 strum_macros = "0.24"
+implicit-clone = { version = "0.3", features = ["map"] }
 
 [dev-dependencies]
 wasm-bindgen-test = "0.3"

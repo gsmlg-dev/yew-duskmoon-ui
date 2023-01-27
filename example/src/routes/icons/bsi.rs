@@ -40,12 +40,12 @@ pub fn component() -> Html {
         </Typography>
       }}>
         <div class={ style }>
-          {BSIcon::iter().into_iter().map(|n| {
+          {BSI_NAMES.into_iter().map(|n| {
             html!{
               <div class="icon">
                   <label class="t">{ format!("{}", n) }</label>
                   <div class="v">
-                    <@{format!("{}", n)} />
+                    <BSIcon name={n} />
                   </div>
               </div>
             }

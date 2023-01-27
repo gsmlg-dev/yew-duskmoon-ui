@@ -40,7 +40,7 @@ pub fn component() -> Html {
           </Typography>
         }}>
           <div class={ style }>
-            {MDIcon::iter().into_iter().map(|n| {
+            {MDI_NAMES.into_iter().map(|n| {
               html!{
                 <div class="icon">
                   <label class="t">{ format!("{}", n) }</label>
