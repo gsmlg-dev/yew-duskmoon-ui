@@ -54,7 +54,7 @@ pub fn components_root() -> Html {
           { "Duskmoon Components" }
         </h1>
       </div>
-      <div class="app-main">
+      <div class="app-main" style="gap: 2rem">
         <Card
           title={html!{
             <h3> { "General" } </h3>
