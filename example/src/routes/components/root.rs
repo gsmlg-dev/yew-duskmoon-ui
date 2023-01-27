@@ -55,9 +55,11 @@ pub fn components_root() -> Html {
         </h1>
       </div>
       <div class="app-main">
-        <Card title={ html!{
-          <h3> { "General Components" } </h3>
-        }}>
+        <Card
+          title={html!{
+            <h3> { "General" } </h3>
+          }}
+        >
           <div class={ link_style }>
             <div class="item">
               <Link<ComponentsRoute> to={ComponentsRoute::ButtonComponent}>
@@ -77,6 +79,141 @@ pub fn components_root() -> Html {
             <div class="item">
               <Button r#type={ButtonType::Link} disabled={true}>
                 {"Markdown"}
+              </Button>
+            </div>
+          </div>
+        </Card>
+        <Card title={ html!{
+          <h3> { "Layout" } </h3>
+        }}>
+          <div class={ link_style }>
+            <div class="item">
+              <Button r#type={ButtonType::Link} disabled={true}>
+                {"Layout"}
+              </Button>
+            </div>
+            <div class="item">
+              <Button r#type={ButtonType::Link} disabled={true}>
+                {"Row / Col"}
+              </Button>
+            </div>
+            <div class="item">
+              <Button r#type={ButtonType::Link} disabled={true}>
+                {"Divider"}
+              </Button>
+            </div>
+            <div class="item">
+              <Button r#type={ButtonType::Link} disabled={true}>
+                {"Space"}
+              </Button>
+            </div>
+          </div>
+        </Card>
+        <Card title={ html!{
+          <h3> { "Form" } </h3>
+        }}>
+          <div class={ link_style }>
+            <div class="item">
+              <Button r#type={ButtonType::Link} disabled={true}>
+                {"Layout"}
+              </Button>
+            </div>
+            <div class="item">
+              <Button r#type={ButtonType::Link} disabled={true}>
+                {"AppHeader"}
+              </Button>
+            </div>
+            <div class="item">
+              <Button r#type={ButtonType::Link} disabled={true}>
+                {"Row / Col"}
+              </Button>
+            </div>
+            <div class="item">
+              <Button r#type={ButtonType::Link} disabled={true}>
+                {"Divider"}
+              </Button>
+            </div>
+            <div class="item">
+              <Button r#type={ButtonType::Link} disabled={true}>
+                {"Space"}
+              </Button>
+            </div>
+          </div>
+        </Card>
+        <Card title={ html!{
+          <h3> { "Data Display" } </h3>
+        }}>
+          <div class={ link_style }>
+            <div class="item">
+              <Button r#type={ButtonType::Link} disabled={true}>
+                {"Card"}
+              </Button>
+            </div>
+            <div class="item">
+              <Button r#type={ButtonType::Link} disabled={true}>
+                {"Table"}
+              </Button>
+            </div>
+            <div class="item">
+              <Button r#type={ButtonType::Link} disabled={true}>
+                {"List"}
+              </Button>
+            </div>
+            <div class="item">
+              <Button r#type={ButtonType::Link} disabled={true}>
+                {"Tree"}
+              </Button>
+            </div>
+          </div>
+        </Card>
+        <Card title={ html!{
+          <h3> { "Feedback" } </h3>
+        }}>
+          <div class={ link_style }>
+            <div class="item">
+              <Button r#type={ButtonType::Link} disabled={true}>
+                {"Modal"}
+              </Button>
+            </div>
+            <div class="item">
+              <Button r#type={ButtonType::Link} disabled={true}>
+                {"Alert"}
+              </Button>
+            </div>
+            <div class="item">
+              <Button r#type={ButtonType::Link} disabled={true}>
+                {"Notification"}
+              </Button>
+            </div>
+            <div class="item">
+              <Button r#type={ButtonType::Link} disabled={true}>
+                {"Message"}
+              </Button>
+            </div>
+          </div>
+        </Card>
+        <Card title={ html!{
+          <h3> { "Navigation" } </h3>
+        }}>
+          <div class={ link_style }>
+            <div class="item">
+              <Button r#type={ButtonType::Link} disabled={true}>
+                {"Breadcrumb"}
+              </Button>
+            </div>
+            <div class="item">
+              <Button r#type={ButtonType::Link} disabled={true}>
+                {"Menu"}
+              </Button>
+            </div>
+            <div class="item">
+              <Button r#type={ButtonType::Link} disabled={true}>
+                {"Pagination"}
+              </Button>
+            </div>
+            <div class="item">
+              <Button r#type={ButtonType::Link} disabled={true}>
+                {"Steps"}
               </Button>
             </div>
           </div>
