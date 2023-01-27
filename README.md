@@ -1,8 +1,12 @@
-# **Yew Duskmoon UI and Icons**
+# **Yew Duskmoon Components and Icons**
+
+`yew-duskmoon`
 
 [![yew-duskmoon crates version](https://badgen.net/crates/v/yew-duskmoon)](https://crates.io/crates/yew-duskmoon)
 [![yew-duskmoon crates download](https://badgen.net/crates/d/yew-duskmoon)](https://crates.io/crates/yew-duskmoon)
 [![yew-duskmoon crates latest download](https://badgen.net/crates/dl/yew-duskmoon)](https://crates.io/crates/yew-duskmoon)
+
+`yew-duskmoon-icons`
 
 [![yew-duskmoon-icons crates version](https://badgen.net/crates/v/yew-duskmoon-icons)](https://crates.io/crates/yew-duskmoon-icons)
 [![yew-duskmoon-icons crates download](https://badgen.net/crates/d/yew-duskmoon-icons)](https://crates.io/crates/yew-duskmoon-icons)
