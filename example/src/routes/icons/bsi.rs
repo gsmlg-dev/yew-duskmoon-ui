@@ -4,7 +4,6 @@ use yew_duskmoon::Typography;
 use yew_duskmoon::Card;
 use stylist::css;
 use stylist::yew::use_style;
-use strum::IntoEnumIterator;
 use yew_duskmoon_icons::bsi::*;
 
 /// Components page
