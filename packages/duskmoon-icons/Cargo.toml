@@ -29,6 +29,7 @@ default = ["full"]
 [dependencies]
 yew = { version = "0.20.0", features = ["csr"] }
 implicit-clone = { version = "0.3", features = ["map"] }
+wasm-bindgen = "0.2"
 
 [dev-dependencies]
 wasm-bindgen-test = "0.3"
