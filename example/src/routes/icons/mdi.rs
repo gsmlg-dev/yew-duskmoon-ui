@@ -27,7 +27,10 @@ pub fn component() -> Html {
       flex-direction: column;
       justify-content: center;
       align-items: center;
-      width: 140px;
+      width: 240px;
+      height: 140px;
+      box-shadow: 0 0 2px 6px rgb(233 233 233 / 40%);
+      padding: 1.4em;
     }
     .t,.v,.c {
       display: flex;
