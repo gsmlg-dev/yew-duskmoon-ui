@@ -27,14 +27,19 @@ pub fn component() -> Html {
       flex-direction: column;
       justify-content: center;
       align-items: center;
-      width: 240px;
+      width: calc(25% - 5em);
       height: 140px;
-      box-shadow: 0 0 2px 6px rgb(233 233 233 / 40%);
+      box-shadow: 0 0 2px 4px rgb(233 233 233 / 40%);
       padding: 1.4em;
     }
     .t {
       font-size: 1.5em;
       font-weight: bold;
+    }
+    .c {
+      background: #000;
+      color: #fff;
+      padding: 0.618em;
     }
     .t,.v,.c {
       display: flex;
@@ -62,7 +67,9 @@ pub fn component() -> Html {
                     <BSIcon name={n} size={AttrValue::from("32")} />
                   </div>
                   <pre class="c">
+                    {format!("use yew_duskmoon_icons::bsi::BS_{};\n", n)}
                     {format!("html!{{ <BS_{} /> }}\n", n)}
+                    {"use yew_duskmoon_icons::bsi_names::BSIcon;\n"}
                     {format!("html!{{ <BSIcon name=\"{}\" /> }}", n)}
                   </pre>
                 </div>
