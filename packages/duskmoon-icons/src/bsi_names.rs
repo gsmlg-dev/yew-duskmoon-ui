@@ -1,6 +1,6 @@
 use yew::prelude::*;
 
-use self::bsi::IconProps;
+use super::bsi::IconProps;
 
 use super::bsi::BS_Check2Circle;
 use super::bsi::BS_HouseUp;

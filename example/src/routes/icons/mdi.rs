@@ -4,7 +4,7 @@ use yew_duskmoon::Typography;
 use yew_duskmoon::Card;
 use stylist::css;
 use stylist::yew::use_style;
-use yew_duskmoon_icons::mdi::*;
+use yew_duskmoon_icons::mdi_names::*;
 
 /// Components page
 #[function_component(MaterialDesignIcons)]

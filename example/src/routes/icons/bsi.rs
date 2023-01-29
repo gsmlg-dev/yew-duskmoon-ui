@@ -4,7 +4,7 @@ use yew_duskmoon::Typography;
 use yew_duskmoon::Card;
 use stylist::css;
 use stylist::yew::use_style;
-use yew_duskmoon_icons::bsi::*;
+use yew_duskmoon_icons::bsi_names::*;
 
 /// Components page
 #[function_component(BootstrapIcons)]
@@ -56,7 +56,7 @@ pub fn component() -> Html {
           <div class="icon-container">
             {NAMES.into_iter().map(|n| {
               html!{
-                <pre class="icon">
+                <div class="icon">
                   <label class="t">{ format!("{}", n) }</label>
                   <div class="v">
                     <BSIcon name={n} size={AttrValue::from("32")} />

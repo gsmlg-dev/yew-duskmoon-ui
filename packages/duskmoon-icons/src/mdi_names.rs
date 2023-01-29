@@ -1,6 +1,6 @@
 use yew::prelude::*;
 
-use self::mdi::IconProps;
+use super::mdi::IconProps;
 
 use super::mdi::MD_AccountTieWoman;
 use super::mdi::MD_RecordRec;
