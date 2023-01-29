@@ -11,8 +11,13 @@ jobs:
     runs-on: [self-hosted, linux, x64, hpc]
 
     steps:
-      # configure the environment
-      - uses: actions/checkout@v3
+      - name: 🛑 Cancel Previous Runs
+        uses: styfle/cancel-workflow-action@0.11.0
+        with:
+          access_token: ${{ secrets.GITHUB_TOKEN }}
+
+      - name: ⬇️ Checkout repo
+        uses: actions/checkout@v3
       - name: rust-toolchain
         uses: actions-rs/toolchain@v1
         with:
