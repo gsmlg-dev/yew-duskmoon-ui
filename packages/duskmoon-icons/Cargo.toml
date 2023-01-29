@@ -9,7 +9,7 @@ name = "yew-duskmoon-icons"
 readme = "./README.md"
 repository = "https://github.com/gsmlg-dev/yew-duskmoon-ui.git"
 homepage = "https://gsmlg-dev.github.io/yew-duskmoon-ui"
-version = "0.2.1"
+version = "0.3.0"
 
 [badges]
 maintenance = { status = "actively-developed" }
@@ -19,10 +19,16 @@ crate-type = ["cdylib", "rlib"]
 
 [features]
 mdi = []
+mdi_names = ["mdi"]
 bsi = []
+bsi_names = ["bsi"]
 full = [
     "mdi",
     "bsi",
+]
+demo = [
+    "mdi_names",
+    "bsi_names",
 ]
 default = ["full"]
 
