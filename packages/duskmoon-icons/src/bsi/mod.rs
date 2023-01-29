@@ -5873,5863 +5873,5863 @@ pub fn r#md_icon(props: &IconProps) -> Html {
   let owned_props = props.clone();
   match owned_props.name {
     implicit_clone::unsync::IString::Static("Check2Circle") => html! {
-      <MD_Check2Circle ..owned_props />
+      <BS_Check2Circle ..owned_props />
     },
     implicit_clone::unsync::IString::Static("HouseUp") => html! {
-      <MD_HouseUp ..owned_props />
+      <BS_HouseUp ..owned_props />
     },
     implicit_clone::unsync::IString::Static("ArrowDownLeftSquareFill") => html! {
-      <MD_ArrowDownLeftSquareFill ..owned_props />
+      <BS_ArrowDownLeftSquareFill ..owned_props />
     },
     implicit_clone::unsync::IString::Static("FiletypeExe") => html! {
-      <MD_FiletypeExe ..owned_props />
+      <BS_FiletypeExe ..owned_props />
     },
     implicit_clone::unsync::IString::Static("Tornado") => html! {
-      <MD_Tornado ..owned_props />
+      <BS_Tornado ..owned_props />
     },
     implicit_clone::unsync::IString::Static("ViewStacked") => html! {
-      <MD_ViewStacked ..owned_props />
+      <BS_ViewStacked ..owned_props />
     },
     implicit_clone::unsync::IString::Static("DropletHalf") => html! {
-      <MD_DropletHalf ..owned_props />
+      <BS_DropletHalf ..owned_props />
     },
     implicit_clone::unsync::IString::Static("TrashFill") => html! {
-      <MD_TrashFill ..owned_props />
+      <BS_TrashFill ..owned_props />
     },
     implicit_clone::unsync::IString::Static("NodePlusFill") => html! {
-      <MD_NodePlusFill ..owned_props />
+      <BS_NodePlusFill ..owned_props />
     },
     implicit_clone::unsync::IString::Static("ArrowUpLeftCircle") => html! {
-      <MD_ArrowUpLeftCircle ..owned_props />
+      <BS_ArrowUpLeftCircle ..owned_props />
     },
     implicit_clone::unsync::IString::Static("PentagonHalf") => html! {
-      <MD_PentagonHalf ..owned_props />
+      <BS_PentagonHalf ..owned_props />
     },
     implicit_clone::unsync::IString::Static("DatabaseFill") => html! {
-      <MD_DatabaseFill ..owned_props />
+      <BS_DatabaseFill ..owned_props />
     },
     implicit_clone::unsync::IString::Static("FileEarmarkArrowUp") => html! {
-      <MD_FileEarmarkArrowUp ..owned_props />
+      <BS_FileEarmarkArrowUp ..owned_props />
     },
     implicit_clone::unsync::IString::Static("Buildings") => html! {
-      <MD_Buildings ..owned_props />
+      <BS_Buildings ..owned_props />
     },
     implicit_clone::unsync::IString::Static("5Circle") => html! {
-      <MD_5Circle ..owned_props />
+      <BS_5Circle ..owned_props />
     },
     implicit_clone::unsync::IString::Static("FiletypeGif") => html! {
-      <MD_FiletypeGif ..owned_props />
+      <BS_FiletypeGif ..owned_props />
     },
     implicit_clone::unsync::IString::Static("BorderMiddle") => html! {
-      <MD_BorderMiddle ..owned_props />
+      <BS_BorderMiddle ..owned_props />
     },
     implicit_clone::unsync::IString::Static("ExplicitFill") => html! {
-      <MD_ExplicitFill ..owned_props />
+      <BS_ExplicitFill ..owned_props />
     },
     implicit_clone::unsync::IString::Static("Scooter") => html! {
-      <MD_Scooter ..owned_props />
+      <BS_Scooter ..owned_props />
     },
     implicit_clone::unsync::IString::Static("Compass") => html! {
-      <MD_Compass ..owned_props />
+      <BS_Compass ..owned_props />
     },
     implicit_clone::unsync::IString::Static("CalendarDate") => html! {
-      <MD_CalendarDate ..owned_props />
+      <BS_CalendarDate ..owned_props />
     },
     implicit_clone::unsync::IString::Static("Youtube") => html! {
-      <MD_Youtube ..owned_props />
+      <BS_Youtube ..owned_props />
     },
     implicit_clone::unsync::IString::Static("ChatLeftQuoteFill") => html! {
-      <MD_ChatLeftQuoteFill ..owned_props />
+      <BS_ChatLeftQuoteFill ..owned_props />
     },
     implicit_clone::unsync::IString::Static("CloudFog2Fill") => html! {
-      <MD_CloudFog2Fill ..owned_props />
+      <BS_CloudFog2Fill ..owned_props />
     },
     implicit_clone::unsync::IString::Static("7CircleFill") => html! {
-      <MD_7CircleFill ..owned_props />
+      <BS_7CircleFill ..owned_props />
     },
     implicit_clone::unsync::IString::Static("PlusCircle") => html! {
-      <MD_PlusCircle ..owned_props />
+      <BS_PlusCircle ..owned_props />
     },
     implicit_clone::unsync::IString::Static("CaretUpSquare") => html! {
-      <MD_CaretUpSquare ..owned_props />
+      <BS_CaretUpSquare ..owned_props />
     },
     implicit_clone::unsync::IString::Static("Explicit") => html! {
-      <MD_Explicit ..owned_props />
+      <BS_Explicit ..owned_props />
     },
     implicit_clone::unsync::IString::Static("Check2Square") => html! {
-      <MD_Check2Square ..owned_props />
+      <BS_Check2Square ..owned_props />
     },
     implicit_clone::unsync::IString::Static("CSquare") => html! {
-      <MD_CSquare ..owned_props />
+      <BS_CSquare ..owned_props />
     },
     implicit_clone::unsync::IString::Static("PatchCheck") => html! {
-      <MD_PatchCheck ..owned_props />
+      <BS_PatchCheck ..owned_props />
     },
     implicit_clone::unsync::IString::Static("CaretUp") => html! {
-      <MD_CaretUp ..owned_props />
+      <BS_CaretUp ..owned_props />
     },
     implicit_clone::unsync::IString::Static("BarChartSteps") => html! {
-      <MD_BarChartSteps ..owned_props />
+      <BS_BarChartSteps ..owned_props />
     },
     implicit_clone::unsync::IString::Static("CardChecklist") => html! {
-      <MD_CardChecklist ..owned_props />
+      <BS_CardChecklist ..owned_props />
     },
     implicit_clone::unsync::IString::Static("Badge4k") => html! {
-      <MD_Badge4k ..owned_props />
+      <BS_Badge4k ..owned_props />
     },
     implicit_clone::unsync::IString::Static("CCircleFill") => html! {
-      <MD_CCircleFill ..owned_props />
+      <BS_CCircleFill ..owned_props />
     },
     implicit_clone::unsync::IString::Static("FileEarmarkDiffFill") => html! {
-      <MD_FileEarmarkDiffFill ..owned_props />
+      <BS_FileEarmarkDiffFill ..owned_props />
     },
     implicit_clone::unsync::IString::Static("FileImageFill") => html! {
-      <MD_FileImageFill ..owned_props />
+      <BS_FileImageFill ..owned_props />
     },
     implicit_clone::unsync::IString::Static("HouseSlashFill") => html! {
-      <MD_HouseSlashFill ..owned_props />
+      <BS_HouseSlashFill ..owned_props />
     },
     implicit_clone::unsync::IString::Static("TicketPerforatedFill") => html! {
-      <MD_TicketPerforatedFill ..owned_props />
+      <BS_TicketPerforatedFill ..owned_props />
     },
     implicit_clone::unsync::IString::Static("PCircleFill") => html! {
-      <MD_PCircleFill ..owned_props />
+      <BS_PCircleFill ..owned_props />
     },
     implicit_clone::unsync::IString::Static("StarHalf") => html! {
-      <MD_StarHalf ..owned_props />
+      <BS_StarHalf ..owned_props />
     },
     implicit_clone::unsync::IString::Static("CloudHailFill") => html! {
-      <MD_CloudHailFill ..owned_props />
+      <BS_CloudHailFill ..owned_props />
     },
     implicit_clone::unsync::IString::Static("HouseCheck") => html! {
-      <MD_HouseCheck ..owned_props />
+      <BS_HouseCheck ..owned_props />
     },
     implicit_clone::unsync::IString::Static("CalendarWeekFill") => html! {
-      <MD_CalendarWeekFill ..owned_props />
+      <BS_CalendarWeekFill ..owned_props />
     },
     implicit_clone::unsync::IString::Static("JournalMedical") => html! {
-      <MD_JournalMedical ..owned_props />
+      <BS_JournalMedical ..owned_props />
     },
     implicit_clone::unsync::IString::Static("CloudFog2") => html! {
-      <MD_CloudFog2 ..owned_props />
+      <BS_CloudFog2 ..owned_props />
     },
     implicit_clone::unsync::IString::Static("FiletypeWoff") => html! {
-      <MD_FiletypeWoff ..owned_props />
+      <BS_FiletypeWoff ..owned_props />
     },
     implicit_clone::unsync::IString::Static("BookmarkPlus") => html! {
-      <MD_BookmarkPlus ..owned_props />
+      <BS_BookmarkPlus ..owned_props />
     },
     implicit_clone::unsync::IString::Static("VolumeUpFill") => html! {
-      <MD_VolumeUpFill ..owned_props />
+      <BS_VolumeUpFill ..owned_props />
     },
     implicit_clone::unsync::IString::Static("FileEarmarkEasel") => html! {
-      <MD_FileEarmarkEasel ..owned_props />
+      <BS_FileEarmarkEasel ..owned_props />
     },
     implicit_clone::unsync::IString::Static("Dribbble") => html! {
-      <MD_Dribbble ..owned_props />
+      <BS_Dribbble ..owned_props />
     },
     implicit_clone::unsync::IString::Static("SunsetFill") => html! {
-      <MD_SunsetFill ..owned_props />
+      <BS_SunsetFill ..owned_props />
     },
     implicit_clone::unsync::IString::Static("PersonFillLock") => html! {
-      <MD_PersonFillLock ..owned_props />
+      <BS_PersonFillLock ..owned_props />
     },
     implicit_clone::unsync::IString::Static("Keyboard") => html! {
-      <MD_Keyboard ..owned_props />
+      <BS_Keyboard ..owned_props />
     },
     implicit_clone::unsync::IString::Static("FileEarmarkImageFill") => html! {
-      <MD_FileEarmarkImageFill ..owned_props />
+      <BS_FileEarmarkImageFill ..owned_props />
     },
     implicit_clone::unsync::IString::Static("FileEarmarkPdf") => html! {
-      <MD_FileEarmarkPdf ..owned_props />
+      <BS_FileEarmarkPdf ..owned_props />
     },
     implicit_clone::unsync::IString::Static("SortAlphaDownAlt") => html! {
-      <MD_SortAlphaDownAlt ..owned_props />
+      <BS_SortAlphaDownAlt ..owned_props />
     },
     implicit_clone::unsync::IString::Static("ChatSquareTextFill") => html! {
-      <MD_ChatSquareTextFill ..owned_props />
+      <BS_ChatSquareTextFill ..owned_props />
     },
     implicit_clone::unsync::IString::Static("Easel2") => html! {
-      <MD_Easel2 ..owned_props />
+      <BS_Easel2 ..owned_props />
     },
     implicit_clone::unsync::IString::Static("Inbox") => html! {
-      <MD_Inbox ..owned_props />
+      <BS_Inbox ..owned_props />
     },
     implicit_clone::unsync::IString::Static("ArrowUpRightCircle") => html! {
-      <MD_ArrowUpRightCircle ..owned_props />
+      <BS_ArrowUpRightCircle ..owned_props />
     },
     implicit_clone::unsync::IString::Static("FiletypeTxt") => html! {
-      <MD_FiletypeTxt ..owned_props />
+      <BS_FiletypeTxt ..owned_props />
     },
     implicit_clone::unsync::IString::Static("FiletypeSql") => html! {
-      <MD_FiletypeSql ..owned_props />
+      <BS_FiletypeSql ..owned_props />
     },
     implicit_clone::unsync::IString::Static("Toggles") => html! {
-      <MD_Toggles ..owned_props />
+      <BS_Toggles ..owned_props />
     },
     implicit_clone::unsync::IString::Static("SortAlphaUpAlt") => html! {
-      <MD_SortAlphaUpAlt ..owned_props />
+      <BS_SortAlphaUpAlt ..owned_props />
     },
     implicit_clone::unsync::IString::Static("Trash3Fill") => html! {
-      <MD_Trash3Fill ..owned_props />
+      <BS_Trash3Fill ..owned_props />
     },
     implicit_clone::unsync::IString::Static("BalloonHeart") => html! {
-      <MD_BalloonHeart ..owned_props />
+      <BS_BalloonHeart ..owned_props />
     },
     implicit_clone::unsync::IString::Static("ClipboardHeartFill") => html! {
-      <MD_ClipboardHeartFill ..owned_props />
+      <BS_ClipboardHeartFill ..owned_props />
     },
     implicit_clone::unsync::IString::Static("FileMedical") => html! {
-      <MD_FileMedical ..owned_props />
+      <BS_FileMedical ..owned_props />
     },
     implicit_clone::unsync::IString::Static("BuildingFillGear") => html! {
-      <MD_BuildingFillGear ..owned_props />
+      <BS_BuildingFillGear ..owned_props />
     },
     implicit_clone::unsync::IString::Static("TrainFront") => html! {
-      <MD_TrainFront ..owned_props />
+      <BS_TrainFront ..owned_props />
     },
     implicit_clone::unsync::IString::Static("HousesFill") => html! {
-      <MD_HousesFill ..owned_props />
+      <BS_HousesFill ..owned_props />
     },
     implicit_clone::unsync::IString::Static("Thermometer") => html! {
-      <MD_Thermometer ..owned_props />
+      <BS_Thermometer ..owned_props />
     },
     implicit_clone::unsync::IString::Static("0Circle") => html! {
-      <MD_0Circle ..owned_props />
+      <BS_0Circle ..owned_props />
     },
     implicit_clone::unsync::IString::Static("FileEarmarkBinary") => html! {
-      <MD_FileEarmarkBinary ..owned_props />
+      <BS_FileEarmarkBinary ..owned_props />
     },
     implicit_clone::unsync::IString::Static("ChatLeftTextFill") => html! {
-      <MD_ChatLeftTextFill ..owned_props />
+      <BS_ChatLeftTextFill ..owned_props />
     },
     implicit_clone::unsync::IString::Static("Bicycle") => html! {
-      <MD_Bicycle ..owned_props />
+      <BS_Bicycle ..owned_props />
     },
     implicit_clone::unsync::IString::Static("Translate") => html! {
-      <MD_Translate ..owned_props />
+      <BS_Translate ..owned_props />
     },
     implicit_clone::unsync::IString::Static("FileEarmarkPlus") => html! {
-      <MD_FileEarmarkPlus ..owned_props />
+      <BS_FileEarmarkPlus ..owned_props />
     },
     implicit_clone::unsync::IString::Static("BookmarkFill") => html! {
-      <MD_BookmarkFill ..owned_props />
+      <BS_BookmarkFill ..owned_props />
     },
     implicit_clone::unsync::IString::Static("ChevronLeft") => html! {
-      <MD_ChevronLeft ..owned_props />
+      <BS_ChevronLeft ..owned_props />
     },
     implicit_clone::unsync::IString::Static("EraserFill") => html! {
-      <MD_EraserFill ..owned_props />
+      <BS_EraserFill ..owned_props />
     },
     implicit_clone::unsync::IString::Static("XOctagon") => html! {
-      <MD_XOctagon ..owned_props />
+      <BS_XOctagon ..owned_props />
     },
     implicit_clone::unsync::IString::Static("TagFill") => html! {
-      <MD_TagFill ..owned_props />
+      <BS_TagFill ..owned_props />
     },
     implicit_clone::unsync::IString::Static("FileEarmarkPlay") => html! {
-      <MD_FileEarmarkPlay ..owned_props />
+      <BS_FileEarmarkPlay ..owned_props />
     },
     implicit_clone::unsync::IString::Static("Trash2") => html! {
-      <MD_Trash2 ..owned_props />
+      <BS_Trash2 ..owned_props />
     },
     implicit_clone::unsync::IString::Static("Hourglass") => html! {
-      <MD_Hourglass ..owned_props />
+      <BS_Hourglass ..owned_props />
     },
     implicit_clone::unsync::IString::Static("Question") => html! {
-      <MD_Question ..owned_props />
+      <BS_Question ..owned_props />
     },
     implicit_clone::unsync::IString::Static("LifePreserver") => html! {
-      <MD_LifePreserver ..owned_props />
+      <BS_LifePreserver ..owned_props />
     },
     implicit_clone::unsync::IString::Static("BookmarkStar") => html! {
-      <MD_BookmarkStar ..owned_props />
+      <BS_BookmarkStar ..owned_props />
     },
     implicit_clone::unsync::IString::Static("ConeStriped") => html! {
-      <MD_ConeStriped ..owned_props />
+      <BS_ConeStriped ..owned_props />
     },
     implicit_clone::unsync::IString::Static("QuestionCircleFill") => html! {
-      <MD_QuestionCircleFill ..owned_props />
+      <BS_QuestionCircleFill ..owned_props />
     },
     implicit_clone::unsync::IString::Static("ExclamationOctagonFill") => html! {
-      <MD_ExclamationOctagonFill ..owned_props />
+      <BS_ExclamationOctagonFill ..owned_props />
     },
     implicit_clone::unsync::IString::Static("DashLg") => html! {
-      <MD_DashLg ..owned_props />
+      <BS_DashLg ..owned_props />
     },
     implicit_clone::unsync::IString::Static("FiletypeJpg") => html! {
-      <MD_FiletypeJpg ..owned_props />
+      <BS_FiletypeJpg ..owned_props />
     },
     implicit_clone::unsync::IString::Static("Dice2") => html! {
-      <MD_Dice2 ..owned_props />
+      <BS_Dice2 ..owned_props />
     },
     implicit_clone::unsync::IString::Static("SignMergeRightFill") => html! {
-      <MD_SignMergeRightFill ..owned_props />
+      <BS_SignMergeRightFill ..owned_props />
     },
     implicit_clone::unsync::IString::Static("Telephone") => html! {
-      <MD_Telephone ..owned_props />
+      <BS_Telephone ..owned_props />
     },
     implicit_clone::unsync::IString::Static("Hammer") => html! {
-      <MD_Hammer ..owned_props />
+      <BS_Hammer ..owned_props />
     },
     implicit_clone::unsync::IString::Static("Twitch") => html! {
-      <MD_Twitch ..owned_props />
+      <BS_Twitch ..owned_props />
     },
     implicit_clone::unsync::IString::Static("FileSlides") => html! {
-      <MD_FileSlides ..owned_props />
+      <BS_FileSlides ..owned_props />
     },
     implicit_clone::unsync::IString::Static("Eraser") => html! {
-      <MD_Eraser ..owned_props />
+      <BS_Eraser ..owned_props />
     },
     implicit_clone::unsync::IString::Static("VolumeMuteFill") => html! {
-      <MD_VolumeMuteFill ..owned_props />
+      <BS_VolumeMuteFill ..owned_props />
     },
     implicit_clone::unsync::IString::Static("HouseCheckFill") => html! {
-      <MD_HouseCheckFill ..owned_props />
+      <BS_HouseCheckFill ..owned_props />
     },
     implicit_clone::unsync::IString::Static("FiletypeOtf") => html! {
-      <MD_FiletypeOtf ..owned_props />
+      <BS_FiletypeOtf ..owned_props />
     },
     implicit_clone::unsync::IString::Static("CreditCard2FrontFill") => html! {
-      <MD_CreditCard2FrontFill ..owned_props />
+      <BS_CreditCard2FrontFill ..owned_props />
     },
     implicit_clone::unsync::IString::Static("Tv") => html! {
-      <MD_Tv ..owned_props />
+      <BS_Tv ..owned_props />
     },
     implicit_clone::unsync::IString::Static("FileEarmarkExcelFill") => html! {
-      <MD_FileEarmarkExcelFill ..owned_props />
+      <BS_FileEarmarkExcelFill ..owned_props />
     },
     implicit_clone::unsync::IString::Static("EmojiSmileUpsideDown") => html! {
-      <MD_EmojiSmileUpsideDown ..owned_props />
+      <BS_EmojiSmileUpsideDown ..owned_props />
     },
     implicit_clone::unsync::IString::Static("TypeH2") => html! {
-      <MD_TypeH2 ..owned_props />
+      <BS_TypeH2 ..owned_props />
     },
     implicit_clone::unsync::IString::Static("PSquareFill") => html! {
-      <MD_PSquareFill ..owned_props />
+      <BS_PSquareFill ..owned_props />
     },
     implicit_clone::unsync::IString::Static("LayerForward") => html! {
-      <MD_LayerForward ..owned_props />
+      <BS_LayerForward ..owned_props />
     },
     implicit_clone::unsync::IString::Static("Cursor") => html! {
-      <MD_Cursor ..owned_props />
+      <BS_Cursor ..owned_props />
     },
     implicit_clone::unsync::IString::Static("FolderMinus") => html! {
-      <MD_FolderMinus ..owned_props />
+      <BS_FolderMinus ..owned_props />
     },
     implicit_clone::unsync::IString::Static("Eyedropper") => html! {
-      <MD_Eyedropper ..owned_props />
+      <BS_Eyedropper ..owned_props />
     },
     implicit_clone::unsync::IString::Static("TicketFill") => html! {
-      <MD_TicketFill ..owned_props />
+      <BS_TicketFill ..owned_props />
     },
     implicit_clone::unsync::IString::Static("StopwatchFill") => html! {
-      <MD_StopwatchFill ..owned_props />
+      <BS_StopwatchFill ..owned_props />
     },
     implicit_clone::unsync::IString::Static("Cup") => html! {
-      <MD_Cup ..owned_props />
+      <BS_Cup ..owned_props />
     },
     implicit_clone::unsync::IString::Static("Nvidia") => html! {
-      <MD_Nvidia ..owned_props />
+      <BS_Nvidia ..owned_props />
     },
     implicit_clone::unsync::IString::Static("BookmarkHeartFill") => html! {
-      <MD_BookmarkHeartFill ..owned_props />
+      <BS_BookmarkHeartFill ..owned_props />
     },
     implicit_clone::unsync::IString::Static("TicketDetailed") => html! {
-      <MD_TicketDetailed ..owned_props />
+      <BS_TicketDetailed ..owned_props />
     },
     implicit_clone::unsync::IString::Static("Paypal") => html! {
-      <MD_Paypal ..owned_props />
+      <BS_Paypal ..owned_props />
     },
     implicit_clone::unsync::IString::Static("Grid3x2") => html! {
-      <MD_Grid3x2 ..owned_props />
+      <BS_Grid3x2 ..owned_props />
     },
     implicit_clone::unsync::IString::Static("CCircle") => html! {
-      <MD_CCircle ..owned_props />
+      <BS_CCircle ..owned_props />
     },
     implicit_clone::unsync::IString::Static("Mortarboard") => html! {
-      <MD_Mortarboard ..owned_props />
+      <BS_Mortarboard ..owned_props />
     },
     implicit_clone::unsync::IString::Static("ChatSquareHeart") => html! {
-      <MD_ChatSquareHeart ..owned_props />
+      <BS_ChatSquareHeart ..owned_props />
     },
     implicit_clone::unsync::IString::Static("Terminal") => html! {
-      <MD_Terminal ..owned_props />
+      <BS_Terminal ..owned_props />
     },
     implicit_clone::unsync::IString::Static("FolderSymlink") => html! {
-      <MD_FolderSymlink ..owned_props />
+      <BS_FolderSymlink ..owned_props />
     },
     implicit_clone::unsync::IString::Static("PersonHeart") => html! {
-      <MD_PersonHeart ..owned_props />
+      <BS_PersonHeart ..owned_props />
     },
     implicit_clone::unsync::IString::Static("ArrowRightShort") => html! {
-      <MD_ArrowRightShort ..owned_props />
+      <BS_ArrowRightShort ..owned_props />
     },
     implicit_clone::unsync::IString::Static("JournalPlus") => html! {
-      <MD_JournalPlus ..owned_props />
+      <BS_JournalPlus ..owned_props />
     },
     implicit_clone::unsync::IString::Static("FileX") => html! {
-      <MD_FileX ..owned_props />
+      <BS_FileX ..owned_props />
     },
     implicit_clone::unsync::IString::Static("Pass") => html! {
-      <MD_Pass ..owned_props />
+      <BS_Pass ..owned_props />
     },
     implicit_clone::unsync::IString::Static("EnvelopePlus") => html! {
-      <MD_EnvelopePlus ..owned_props />
+      <BS_EnvelopePlus ..owned_props />
     },
     implicit_clone::unsync::IString::Static("Wifi1") => html! {
-      <MD_Wifi1 ..owned_props />
+      <BS_Wifi1 ..owned_props />
     },
     implicit_clone::unsync::IString::Static("FilesAlt") => html! {
-      <MD_FilesAlt ..owned_props />
+      <BS_FilesAlt ..owned_props />
     },
     implicit_clone::unsync::IString::Static("TruckFlatbed") => html! {
-      <MD_TruckFlatbed ..owned_props />
+      <BS_TruckFlatbed ..owned_props />
     },
     implicit_clone::unsync::IString::Static("ChatLeftQuote") => html! {
-      <MD_ChatLeftQuote ..owned_props />
+      <BS_ChatLeftQuote ..owned_props />
     },
     implicit_clone::unsync::IString::Static("HouseGear") => html! {
-      <MD_HouseGear ..owned_props />
+      <BS_HouseGear ..owned_props />
     },
     implicit_clone::unsync::IString::Static("FolderSymlinkFill") => html! {
-      <MD_FolderSymlinkFill ..owned_props />
+      <BS_FolderSymlinkFill ..owned_props />
     },
     implicit_clone::unsync::IString::Static("Diagram2") => html! {
-      <MD_Diagram2 ..owned_props />
+      <BS_Diagram2 ..owned_props />
     },
     implicit_clone::unsync::IString::Static("FiletypePsd") => html! {
-      <MD_FiletypePsd ..owned_props />
+      <BS_FiletypePsd ..owned_props />
     },
     implicit_clone::unsync::IString::Static("PersonPlus") => html! {
-      <MD_PersonPlus ..owned_props />
+      <BS_PersonPlus ..owned_props />
     },
     implicit_clone::unsync::IString::Static("EmojiSmileFill") => html! {
-      <MD_EmojiSmileFill ..owned_props />
+      <BS_EmojiSmileFill ..owned_props />
     },
     implicit_clone::unsync::IString::Static("RewindBtn") => html! {
-      <MD_RewindBtn ..owned_props />
+      <BS_RewindBtn ..owned_props />
     },
     implicit_clone::unsync::IString::Static("ChevronExpand") => html! {
-      <MD_ChevronExpand ..owned_props />
+      <BS_ChevronExpand ..owned_props />
     },
     implicit_clone::unsync::IString::Static("WindowDash") => html! {
-      <MD_WindowDash ..owned_props />
+      <BS_WindowDash ..owned_props />
     },
     implicit_clone::unsync::IString::Static("CloudRainHeavy") => html! {
-      <MD_CloudRainHeavy ..owned_props />
+      <BS_CloudRainHeavy ..owned_props />
     },
     implicit_clone::unsync::IString::Static("SkipEndBtn") => html! {
-      <MD_SkipEndBtn ..owned_props />
+      <BS_SkipEndBtn ..owned_props />
     },
     implicit_clone::unsync::IString::Static("FileFontFill") => html! {
-      <MD_FileFontFill ..owned_props />
+      <BS_FileFontFill ..owned_props />
     },
     implicit_clone::unsync::IString::Static("Prescription") => html! {
-      <MD_Prescription ..owned_props />
+      <BS_Prescription ..owned_props />
     },
     implicit_clone::unsync::IString::Static("Handbag") => html! {
-      <MD_Handbag ..owned_props />
+      <BS_Handbag ..owned_props />
     },
     implicit_clone::unsync::IString::Static("Ear") => html! {
-      <MD_Ear ..owned_props />
+      <BS_Ear ..owned_props />
     },
     implicit_clone::unsync::IString::Static("Xbox") => html! {
-      <MD_Xbox ..owned_props />
+      <BS_Xbox ..owned_props />
     },
     implicit_clone::unsync::IString::Static("Plugin") => html! {
-      <MD_Plugin ..owned_props />
+      <BS_Plugin ..owned_props />
     },
     implicit_clone::unsync::IString::Static("BrightnessAltLowFill") => html! {
-      <MD_BrightnessAltLowFill ..owned_props />
+      <BS_BrightnessAltLowFill ..owned_props />
     },
     implicit_clone::unsync::IString::Static("ChatRightHeartFill") => html! {
-      <MD_ChatRightHeartFill ..owned_props />
+      <BS_ChatRightHeartFill ..owned_props />
     },
     implicit_clone::unsync::IString::Static("GooglePlay") => html! {
-      <MD_GooglePlay ..owned_props />
+      <BS_GooglePlay ..owned_props />
     },
     implicit_clone::unsync::IString::Static("BalloonFill") => html! {
-      <MD_BalloonFill ..owned_props />
+      <BS_BalloonFill ..owned_props />
     },
     implicit_clone::unsync::IString::Static("FileEarmarkArrowDownFill") => html! {
-      <MD_FileEarmarkArrowDownFill ..owned_props />
+      <BS_FileEarmarkArrowDownFill ..owned_props />
     },
     implicit_clone::unsync::IString::Static("Arrow90degUp") => html! {
-      <MD_Arrow90degUp ..owned_props />
+      <BS_Arrow90degUp ..owned_props />
     },
     implicit_clone::unsync::IString::Static("Mic") => html! {
-      <MD_Mic ..owned_props />
+      <BS_Mic ..owned_props />
     },
     implicit_clone::unsync::IString::Static("1CircleFill") => html! {
-      <MD_1CircleFill ..owned_props />
+      <BS_1CircleFill ..owned_props />
     },
     implicit_clone::unsync::IString::Static("BrightnessLow") => html! {
-      <MD_BrightnessLow ..owned_props />
+      <BS_BrightnessLow ..owned_props />
     },
     implicit_clone::unsync::IString::Static("Clipboard2Minus") => html! {
-      <MD_Clipboard2Minus ..owned_props />
+      <BS_Clipboard2Minus ..owned_props />
     },
     implicit_clone::unsync::IString::Static("AspectRatioFill") => html! {
-      <MD_AspectRatioFill ..owned_props />
+      <BS_AspectRatioFill ..owned_props />
     },
     implicit_clone::unsync::IString::Static("SignTurnSlightRightFill") => html! {
-      <MD_SignTurnSlightRightFill ..owned_props />
+      <BS_SignTurnSlightRightFill ..owned_props />
     },
     implicit_clone::unsync::IString::Static("WindowX") => html! {
-      <MD_WindowX ..owned_props />
+      <BS_WindowX ..owned_props />
     },
     implicit_clone::unsync::IString::Static("ChatLeftDotsFill") => html! {
-      <MD_ChatLeftDotsFill ..owned_props />
+      <BS_ChatLeftDotsFill ..owned_props />
     },
     implicit_clone::unsync::IString::Static("SignDeadEnd") => html! {
-      <MD_SignDeadEnd ..owned_props />
+      <BS_SignDeadEnd ..owned_props />
     },
     implicit_clone::unsync::IString::Static("ChevronUp") => html! {
-      <MD_ChevronUp ..owned_props />
+      <BS_ChevronUp ..owned_props />
     },
     implicit_clone::unsync::IString::Static("Bookmark") => html! {
-      <MD_Bookmark ..owned_props />
+      <BS_Bookmark ..owned_props />
     },
     implicit_clone::unsync::IString::Static("FileEarmarkCodeFill") => html! {
-      <MD_FileEarmarkCodeFill ..owned_props />
+      <BS_FileEarmarkCodeFill ..owned_props />
     },
     implicit_clone::unsync::IString::Static("Subscript") => html! {
-      <MD_Subscript ..owned_props />
+      <BS_Subscript ..owned_props />
     },
     implicit_clone::unsync::IString::Static("Fan") => html! {
-      <MD_Fan ..owned_props />
+      <BS_Fan ..owned_props />
     },
     implicit_clone::unsync::IString::Static("Dice1") => html! {
-      <MD_Dice1 ..owned_props />
+      <BS_Dice1 ..owned_props />
     },
     implicit_clone::unsync::IString::Static("SignStopLightsFill") => html! {
-      <MD_SignStopLightsFill ..owned_props />
+      <BS_SignStopLightsFill ..owned_props />
     },
     implicit_clone::unsync::IString::Static("ArrowDownLeftSquare") => html! {
-      <MD_ArrowDownLeftSquare ..owned_props />
+      <BS_ArrowDownLeftSquare ..owned_props />
     },
     implicit_clone::unsync::IString::Static("ArrowUpLeftCircleFill") => html! {
-      <MD_ArrowUpLeftCircleFill ..owned_props />
+      <BS_ArrowUpLeftCircleFill ..owned_props />
     },
     implicit_clone::unsync::IString::Static("DatabaseFillExclamation") => html! {
-      <MD_DatabaseFillExclamation ..owned_props />
+      <BS_DatabaseFillExclamation ..owned_props />
     },
     implicit_clone::unsync::IString::Static("Speedometer") => html! {
-      <MD_Speedometer ..owned_props />
+      <BS_Speedometer ..owned_props />
     },
     implicit_clone::unsync::IString::Static("ChatHeartFill") => html! {
-      <MD_ChatHeartFill ..owned_props />
+      <BS_ChatHeartFill ..owned_props />
     },
     implicit_clone::unsync::IString::Static("HeartHalf") => html! {
-      <MD_HeartHalf ..owned_props />
+      <BS_HeartHalf ..owned_props />
     },
     implicit_clone::unsync::IString::Static("ShieldFillCheck") => html! {
-      <MD_ShieldFillCheck ..owned_props />
+      <BS_ShieldFillCheck ..owned_props />
     },
     implicit_clone::unsync::IString::Static("CalendarDay") => html! {
-      <MD_CalendarDay ..owned_props />
+      <BS_CalendarDay ..owned_props />
     },
     implicit_clone::unsync::IString::Static("HourglassTop") => html! {
-      <MD_HourglassTop ..owned_props />
+      <BS_HourglassTop ..owned_props />
     },
     implicit_clone::unsync::IString::Static("BackspaceReverseFill") => html! {
-      <MD_BackspaceReverseFill ..owned_props />
+      <BS_BackspaceReverseFill ..owned_props />
     },
     implicit_clone::unsync::IString::Static("Brush") => html! {
-      <MD_Brush ..owned_props />
+      <BS_Brush ..owned_props />
     },
     implicit_clone::unsync::IString::Static("FileEarmarkPpt") => html! {
-      <MD_FileEarmarkPpt ..owned_props />
+      <BS_FileEarmarkPpt ..owned_props />
     },
     implicit_clone::unsync::IString::Static("Yelp") => html! {
-      <MD_Yelp ..owned_props />
+      <BS_Yelp ..owned_props />
     },
     implicit_clone::unsync::IString::Static("Stop") => html! {
-      <MD_Stop ..owned_props />
+      <BS_Stop ..owned_props />
     },
     implicit_clone::unsync::IString::Static("EmojiExpressionless") => html! {
-      <MD_EmojiExpressionless ..owned_props />
+      <BS_EmojiExpressionless ..owned_props />
     },
     implicit_clone::unsync::IString::Static("SkipForwardBtn") => html! {
-      <MD_SkipForwardBtn ..owned_props />
+      <BS_SkipForwardBtn ..owned_props />
     },
     implicit_clone::unsync::IString::Static("Columns") => html! {
-      <MD_Columns ..owned_props />
+      <BS_Columns ..owned_props />
     },
     implicit_clone::unsync::IString::Static("InfoCircleFill") => html! {
-      <MD_InfoCircleFill ..owned_props />
+      <BS_InfoCircleFill ..owned_props />
     },
     implicit_clone::unsync::IString::Static("6CircleFill") => html! {
-      <MD_6CircleFill ..owned_props />
+      <BS_6CircleFill ..owned_props />
     },
     implicit_clone::unsync::IString::Static("QrCode") => html! {
-      <MD_QrCode ..owned_props />
+      <BS_QrCode ..owned_props />
     },
     implicit_clone::unsync::IString::Static("DiamondFill") => html! {
-      <MD_DiamondFill ..owned_props />
+      <BS_DiamondFill ..owned_props />
     },
     implicit_clone::unsync::IString::Static("CloudRainHeavyFill") => html! {
-      <MD_CloudRainHeavyFill ..owned_props />
+      <BS_CloudRainHeavyFill ..owned_props />
     },
     implicit_clone::unsync::IString::Static("CursorText") => html! {
-      <MD_CursorText ..owned_props />
+      <BS_CursorText ..owned_props />
     },
     implicit_clone::unsync::IString::Static("ArchiveFill") => html! {
-      <MD_ArchiveFill ..owned_props />
+      <BS_ArchiveFill ..owned_props />
     },
     implicit_clone::unsync::IString::Static("ChevronBarUp") => html! {
-      <MD_ChevronBarUp ..owned_props />
+      <BS_ChevronBarUp ..owned_props />
     },
     implicit_clone::unsync::IString::Static("CaretRightFill") => html! {
-      <MD_CaretRightFill ..owned_props />
+      <BS_CaretRightFill ..owned_props />
     },
     implicit_clone::unsync::IString::Static("FastForwardCircle") => html! {
-      <MD_FastForwardCircle ..owned_props />
+      <BS_FastForwardCircle ..owned_props />
     },
     implicit_clone::unsync::IString::Static("Map") => html! {
-      <MD_Map ..owned_props />
+      <BS_Map ..owned_props />
     },
     implicit_clone::unsync::IString::Static("CartFill") => html! {
-      <MD_CartFill ..owned_props />
+      <BS_CartFill ..owned_props />
     },
     implicit_clone::unsync::IString::Static("CartCheckFill") => html! {
-      <MD_CartCheckFill ..owned_props />
+      <BS_CartCheckFill ..owned_props />
     },
     implicit_clone::unsync::IString::Static("FilePlayFill") => html! {
-      <MD_FilePlayFill ..owned_props />
+      <BS_FilePlayFill ..owned_props />
     },
     implicit_clone::unsync::IString::Static("LayoutSidebarInset") => html! {
-      <MD_LayoutSidebarInset ..owned_props />
+      <BS_LayoutSidebarInset ..owned_props />
     },
     implicit_clone::unsync::IString::Static("CcSquare") => html! {
-      <MD_CcSquare ..owned_props />
+      <BS_CcSquare ..owned_props />
     },
     implicit_clone::unsync::IString::Static("SdCard") => html! {
-      <MD_SdCard ..owned_props />
+      <BS_SdCard ..owned_props />
     },
     implicit_clone::unsync::IString::Static("EmojiDizzy") => html! {
-      <MD_EmojiDizzy ..owned_props />
+      <BS_EmojiDizzy ..owned_props />
     },
     implicit_clone::unsync::IString::Static("Wifi") => html! {
-      <MD_Wifi ..owned_props />
+      <BS_Wifi ..owned_props />
     },
     implicit_clone::unsync::IString::Static("ThermometerLow") => html! {
-      <MD_ThermometerLow ..owned_props />
+      <BS_ThermometerLow ..owned_props />
     },
     implicit_clone::unsync::IString::Static("FileLock2Fill") => html! {
-      <MD_FileLock2Fill ..owned_props />
+      <BS_FileLock2Fill ..owned_props />
     },
     implicit_clone::unsync::IString::Static("BagPlus") => html! {
-      <MD_BagPlus ..owned_props />
+      <BS_BagPlus ..owned_props />
     },
     implicit_clone::unsync::IString::Static("CameraVideo") => html! {
-      <MD_CameraVideo ..owned_props />
+      <BS_CameraVideo ..owned_props />
     },
     implicit_clone::unsync::IString::Static("BoxArrowLeft") => html! {
-      <MD_BoxArrowLeft ..owned_props />
+      <BS_BoxArrowLeft ..owned_props />
     },
     implicit_clone::unsync::IString::Static("BootstrapFill") => html! {
-      <MD_BootstrapFill ..owned_props />
+      <BS_BootstrapFill ..owned_props />
     },
     implicit_clone::unsync::IString::Static("Sunset") => html! {
-      <MD_Sunset ..owned_props />
+      <BS_Sunset ..owned_props />
     },
     implicit_clone::unsync::IString::Static("FilterCircle") => html! {
-      <MD_FilterCircle ..owned_props />
+      <BS_FilterCircle ..owned_props />
     },
     implicit_clone::unsync::IString::Static("CapsulePill") => html! {
-      <MD_CapsulePill ..owned_props />
+      <BS_CapsulePill ..owned_props />
     },
     implicit_clone::unsync::IString::Static("SendSlashFill") => html! {
-      <MD_SendSlashFill ..owned_props />
+      <BS_SendSlashFill ..owned_props />
     },
     implicit_clone::unsync::IString::Static("BuildingFill") => html! {
-      <MD_BuildingFill ..owned_props />
+      <BS_BuildingFill ..owned_props />
     },
     implicit_clone::unsync::IString::Static("Files") => html! {
-      <MD_Files ..owned_props />
+      <BS_Files ..owned_props />
     },
     implicit_clone::unsync::IString::Static("BagCheck") => html! {
-      <MD_BagCheck ..owned_props />
+      <BS_BagCheck ..owned_props />
     },
     implicit_clone::unsync::IString::Static("JournalBookmarkFill") => html! {
-      <MD_JournalBookmarkFill ..owned_props />
+      <BS_JournalBookmarkFill ..owned_props />
     },
     implicit_clone::unsync::IString::Static("CloudSnowFill") => html! {
-      <MD_CloudSnowFill ..owned_props />
+      <BS_CloudSnowFill ..owned_props />
     },
     implicit_clone::unsync::IString::Static("OctagonHalf") => html! {
-      <MD_OctagonHalf ..owned_props />
+      <BS_OctagonHalf ..owned_props />
     },
     implicit_clone::unsync::IString::Static("TerminalSplit") => html! {
-      <MD_TerminalSplit ..owned_props />
+      <BS_TerminalSplit ..owned_props />
     },
     implicit_clone::unsync::IString::Static("CalendarMinus") => html! {
-      <MD_CalendarMinus ..owned_props />
+      <BS_CalendarMinus ..owned_props />
     },
     implicit_clone::unsync::IString::Static("ArrowLeftSquareFill") => html! {
-      <MD_ArrowLeftSquareFill ..owned_props />
+      <BS_ArrowLeftSquareFill ..owned_props />
     },
     implicit_clone::unsync::IString::Static("ChevronContract") => html! {
-      <MD_ChevronContract ..owned_props />
+      <BS_ChevronContract ..owned_props />
     },
     implicit_clone::unsync::IString::Static("Router") => html! {
-      <MD_Router ..owned_props />
+      <BS_Router ..owned_props />
     },
     implicit_clone::unsync::IString::Static("Calendar2Day") => html! {
-      <MD_Calendar2Day ..owned_props />
+      <BS_Calendar2Day ..owned_props />
     },
     implicit_clone::unsync::IString::Static("PersonPlusFill") => html! {
-      <MD_PersonPlusFill ..owned_props />
+      <BS_PersonPlusFill ..owned_props />
     },
     implicit_clone::unsync::IString::Static("SignpostFill") => html! {
-      <MD_SignpostFill ..owned_props />
+      <BS_SignpostFill ..owned_props />
     },
     implicit_clone::unsync::IString::Static("Disc") => html! {
-      <MD_Disc ..owned_props />
+      <BS_Disc ..owned_props />
     },
     implicit_clone::unsync::IString::Static("Grid3x2GapFill") => html! {
-      <MD_Grid3x2GapFill ..owned_props />
+      <BS_Grid3x2GapFill ..owned_props />
     },
     implicit_clone::unsync::IString::Static("3Square") => html! {
-      <MD_3Square ..owned_props />
+      <BS_3Square ..owned_props />
     },
     implicit_clone::unsync::IString::Static("Basket3Fill") => html! {
-      <MD_Basket3Fill ..owned_props />
+      <BS_Basket3Fill ..owned_props />
     },
     implicit_clone::unsync::IString::Static("ArrowUpCircle") => html! {
-      <MD_ArrowUpCircle ..owned_props />
+      <BS_ArrowUpCircle ..owned_props />
     },
     implicit_clone::unsync::IString::Static("GlobeEuropeAfrica") => html! {
-      <MD_GlobeEuropeAfrica ..owned_props />
+      <BS_GlobeEuropeAfrica ..owned_props />
     },
     implicit_clone::unsync::IString::Static("FileExcelFill") => html! {
-      <MD_FileExcelFill ..owned_props />
+      <BS_FileExcelFill ..owned_props />
     },
     implicit_clone::unsync::IString::Static("Discord") => html! {
-      <MD_Discord ..owned_props />
+      <BS_Discord ..owned_props />
     },
     implicit_clone::unsync::IString::Static("Prescription2") => html! {
-      <MD_Prescription2 ..owned_props />
+      <BS_Prescription2 ..owned_props />
     },
     implicit_clone::unsync::IString::Static("ArrowReturnLeft") => html! {
-      <MD_ArrowReturnLeft ..owned_props />
+      <BS_ArrowReturnLeft ..owned_props />
     },
     implicit_clone::unsync::IString::Static("Cart") => html! {
-      <MD_Cart ..owned_props />
+      <BS_Cart ..owned_props />
     },
     implicit_clone::unsync::IString::Static("CalendarDayFill") => html! {
-      <MD_CalendarDayFill ..owned_props />
+      <BS_CalendarDayFill ..owned_props />
     },
     implicit_clone::unsync::IString::Static("3CircleFill") => html! {
-      <MD_3CircleFill ..owned_props />
+      <BS_3CircleFill ..owned_props />
     },
     implicit_clone::unsync::IString::Static("MusicNoteBeamed") => html! {
-      <MD_MusicNoteBeamed ..owned_props />
+      <BS_MusicNoteBeamed ..owned_props />
     },
     implicit_clone::unsync::IString::Static("ArrowDownCircle") => html! {
-      <MD_ArrowDownCircle ..owned_props />
+      <BS_ArrowDownCircle ..owned_props />
     },
     implicit_clone::unsync::IString::Static("CloudyFill") => html! {
-      <MD_CloudyFill ..owned_props />
+      <BS_CloudyFill ..owned_props />
     },
     implicit_clone::unsync::IString::Static("DisplayFill") => html! {
-      <MD_DisplayFill ..owned_props />
+      <BS_DisplayFill ..owned_props />
     },
     implicit_clone::unsync::IString::Static("FilePersonFill") => html! {
-      <MD_FilePersonFill ..owned_props />
+      <BS_FilePersonFill ..owned_props />
     },
     implicit_clone::unsync::IString::Static("ClipboardData") => html! {
-      <MD_ClipboardData ..owned_props />
+      <BS_ClipboardData ..owned_props />
     },
     implicit_clone::unsync::IString::Static("RocketTakeoff") => html! {
-      <MD_RocketTakeoff ..owned_props />
+      <BS_RocketTakeoff ..owned_props />
     },
     implicit_clone::unsync::IString::Static("PersonFillCheck") => html! {
-      <MD_PersonFillCheck ..owned_props />
+      <BS_PersonFillCheck ..owned_props />
     },
     implicit_clone::unsync::IString::Static("HeadsetVr") => html! {
-      <MD_HeadsetVr ..owned_props />
+      <BS_HeadsetVr ..owned_props />
     },
     implicit_clone::unsync::IString::Static("BookmarksFill") => html! {
-      <MD_BookmarksFill ..owned_props />
+      <BS_BookmarksFill ..owned_props />
     },
     implicit_clone::unsync::IString::Static("DatabaseSlash") => html! {
-      <MD_DatabaseSlash ..owned_props />
+      <BS_DatabaseSlash ..owned_props />
     },
     implicit_clone::unsync::IString::Static("DistributeVertical") => html! {
-      <MD_DistributeVertical ..owned_props />
+      <BS_DistributeVertical ..owned_props />
     },
     implicit_clone::unsync::IString::Static("BarChartFill") => html! {
-      <MD_BarChartFill ..owned_props />
+      <BS_BarChartFill ..owned_props />
     },
     implicit_clone::unsync::IString::Static("SuitHeart") => html! {
-      <MD_SuitHeart ..owned_props />
+      <BS_SuitHeart ..owned_props />
     },
     implicit_clone::unsync::IString::Static("HCircleFill") => html! {
-      <MD_HCircleFill ..owned_props />
+      <BS_HCircleFill ..owned_props />
     },
     implicit_clone::unsync::IString::Static("Server") => html! {
-      <MD_Server ..owned_props />
+      <BS_Server ..owned_props />
     },
     implicit_clone::unsync::IString::Static("DistributeHorizontal") => html! {
-      <MD_DistributeHorizontal ..owned_props />
+      <BS_DistributeHorizontal ..owned_props />
     },
     implicit_clone::unsync::IString::Static("SignIntersectionY") => html! {
-      <MD_SignIntersectionY ..owned_props />
+      <BS_SignIntersectionY ..owned_props />
     },
     implicit_clone::unsync::IString::Static("BuildingCheck") => html! {
-      <MD_BuildingCheck ..owned_props />
+      <BS_BuildingCheck ..owned_props />
     },
     implicit_clone::unsync::IString::Static("BackspaceReverse") => html! {
-      <MD_BackspaceReverse ..owned_props />
+      <BS_BackspaceReverse ..owned_props />
     },
     implicit_clone::unsync::IString::Static("ListUl") => html! {
-      <MD_ListUl ..owned_props />
+      <BS_ListUl ..owned_props />
     },
     implicit_clone::unsync::IString::Static("SortDown") => html! {
-      <MD_SortDown ..owned_props />
+      <BS_SortDown ..owned_props />
     },
     implicit_clone::unsync::IString::Static("FileMedicalFill") => html! {
-      <MD_FileMedicalFill ..owned_props />
+      <BS_FileMedicalFill ..owned_props />
     },
     implicit_clone::unsync::IString::Static("FileEarmarkMinusFill") => html! {
-      <MD_FileEarmarkMinusFill ..owned_props />
+      <BS_FileEarmarkMinusFill ..owned_props />
     },
     implicit_clone::unsync::IString::Static("ShieldFillX") => html! {
-      <MD_ShieldFillX ..owned_props />
+      <BS_ShieldFillX ..owned_props />
     },
     implicit_clone::unsync::IString::Static("ChatRightHeart") => html! {
-      <MD_ChatRightHeart ..owned_props />
+      <BS_ChatRightHeart ..owned_props />
     },
     implicit_clone::unsync::IString::Static("ArrowDownSquareFill") => html! {
-      <MD_ArrowDownSquareFill ..owned_props />
+      <BS_ArrowDownSquareFill ..owned_props />
     },
     implicit_clone::unsync::IString::Static("Paragraph") => html! {
-      <MD_Paragraph ..owned_props />
+      <BS_Paragraph ..owned_props />
     },
     implicit_clone::unsync::IString::Static("TerminalX") => html! {
-      <MD_TerminalX ..owned_props />
+      <BS_TerminalX ..owned_props />
     },
     implicit_clone::unsync::IString::Static("ChatLeftFill") => html! {
-      <MD_ChatLeftFill ..owned_props />
+      <BS_ChatLeftFill ..owned_props />
     },
     implicit_clone::unsync::IString::Static("Soundwave") => html! {
-      <MD_Soundwave ..owned_props />
+      <BS_Soundwave ..owned_props />
     },
     implicit_clone::unsync::IString::Static("EnvelopeAtFill") => html! {
-      <MD_EnvelopeAtFill ..owned_props />
+      <BS_EnvelopeAtFill ..owned_props />
     },
     implicit_clone::unsync::IString::Static("Arrow90degDown") => html! {
-      <MD_Arrow90degDown ..owned_props />
+      <BS_Arrow90degDown ..owned_props />
     },
     implicit_clone::unsync::IString::Static("FileRuledFill") => html! {
-      <MD_FileRuledFill ..owned_props />
+      <BS_FileRuledFill ..owned_props />
     },
     implicit_clone::unsync::IString::Static("ExclamationTriangle") => html! {
-      <MD_ExclamationTriangle ..owned_props />
+      <BS_ExclamationTriangle ..owned_props />
     },
     implicit_clone::unsync::IString::Static("UniversalAccess") => html! {
-      <MD_UniversalAccess ..owned_props />
+      <BS_UniversalAccess ..owned_props />
     },
     implicit_clone::unsync::IString::Static("SendCheck") => html! {
-      <MD_SendCheck ..owned_props />
+      <BS_SendCheck ..owned_props />
     },
     implicit_clone::unsync::IString::Static("Hypnotize") => html! {
-      <MD_Hypnotize ..owned_props />
+      <BS_Hypnotize ..owned_props />
     },
     implicit_clone::unsync::IString::Static("PatchPlusFill") => html! {
-      <MD_PatchPlusFill ..owned_props />
+      <BS_PatchPlusFill ..owned_props />
     },
     implicit_clone::unsync::IString::Static("CartDash") => html! {
-      <MD_CartDash ..owned_props />
+      <BS_CartDash ..owned_props />
     },
     implicit_clone::unsync::IString::Static("StackOverflow") => html! {
-      <MD_StackOverflow ..owned_props />
+      <BS_StackOverflow ..owned_props />
     },
     implicit_clone::unsync::IString::Static("BellSlashFill") => html! {
-      <MD_BellSlashFill ..owned_props />
+      <BS_BellSlashFill ..owned_props />
     },
     implicit_clone::unsync::IString::Static("FileEarmarkArrowDown") => html! {
-      <MD_FileEarmarkArrowDown ..owned_props />
+      <BS_FileEarmarkArrowDown ..owned_props />
     },
     implicit_clone::unsync::IString::Static("LayoutTextSidebar") => html! {
-      <MD_LayoutTextSidebar ..owned_props />
+      <BS_LayoutTextSidebar ..owned_props />
     },
     implicit_clone::unsync::IString::Static("HandIndexThumb") => html! {
-      <MD_HandIndexThumb ..owned_props />
+      <BS_HandIndexThumb ..owned_props />
     },
     implicit_clone::unsync::IString::Static("StoplightsFill") => html! {
-      <MD_StoplightsFill ..owned_props />
+      <BS_StoplightsFill ..owned_props />
     },
     implicit_clone::unsync::IString::Static("Minecart") => html! {
-      <MD_Minecart ..owned_props />
+      <BS_Minecart ..owned_props />
     },
     implicit_clone::unsync::IString::Static("BorderTop") => html! {
-      <MD_BorderTop ..owned_props />
+      <BS_BorderTop ..owned_props />
     },
     implicit_clone::unsync::IString::Static("Fullscreen") => html! {
-      <MD_Fullscreen ..owned_props />
+      <BS_Fullscreen ..owned_props />
     },
     implicit_clone::unsync::IString::Static("FileLock") => html! {
-      <MD_FileLock ..owned_props />
+      <BS_FileLock ..owned_props />
     },
     implicit_clone::unsync::IString::Static("ShieldCheck") => html! {
-      <MD_ShieldCheck ..owned_props />
+      <BS_ShieldCheck ..owned_props />
     },
     implicit_clone::unsync::IString::Static("ChatLeftHeartFill") => html! {
-      <MD_ChatLeftHeartFill ..owned_props />
+      <BS_ChatLeftHeartFill ..owned_props />
     },
     implicit_clone::unsync::IString::Static("PersonDown") => html! {
-      <MD_PersonDown ..owned_props />
+      <BS_PersonDown ..owned_props />
     },
     implicit_clone::unsync::IString::Static("Dash") => html! {
-      <MD_Dash ..owned_props />
+      <BS_Dash ..owned_props />
     },
     implicit_clone::unsync::IString::Static("Reception4") => html! {
-      <MD_Reception4 ..owned_props />
+      <BS_Reception4 ..owned_props />
     },
     implicit_clone::unsync::IString::Static("Speaker") => html! {
-      <MD_Speaker ..owned_props />
+      <BS_Speaker ..owned_props />
     },
     implicit_clone::unsync::IString::Static("ClipboardX") => html! {
-      <MD_ClipboardX ..owned_props />
+      <BS_ClipboardX ..owned_props />
     },
     implicit_clone::unsync::IString::Static("BookmarkCheckFill") => html! {
-      <MD_BookmarkCheckFill ..owned_props />
+      <BS_BookmarkCheckFill ..owned_props />
     },
     implicit_clone::unsync::IString::Static("BinocularsFill") => html! {
-      <MD_BinocularsFill ..owned_props />
+      <BS_BinocularsFill ..owned_props />
     },
     implicit_clone::unsync::IString::Static("TrainLightrailFront") => html! {
-      <MD_TrainLightrailFront ..owned_props />
+      <BS_TrainLightrailFront ..owned_props />
     },
     implicit_clone::unsync::IString::Static("TreeFill") => html! {
-      <MD_TreeFill ..owned_props />
+      <BS_TreeFill ..owned_props />
     },
     implicit_clone::unsync::IString::Static("ArrowThroughHeart") => html! {
-      <MD_ArrowThroughHeart ..owned_props />
+      <BS_ArrowThroughHeart ..owned_props />
     },
     implicit_clone::unsync::IString::Static("FilePerson") => html! {
-      <MD_FilePerson ..owned_props />
+      <BS_FilePerson ..owned_props />
     },
     implicit_clone::unsync::IString::Static("HouseLockFill") => html! {
-      <MD_HouseLockFill ..owned_props />
+      <BS_HouseLockFill ..owned_props />
     },
     implicit_clone::unsync::IString::Static("FileEarmarkPptFill") => html! {
-      <MD_FileEarmarkPptFill ..owned_props />
+      <BS_FileEarmarkPptFill ..owned_props />
     },
     implicit_clone::unsync::IString::Static("Tree") => html! {
-      <MD_Tree ..owned_props />
+      <BS_Tree ..owned_props />
     },
     implicit_clone::unsync::IString::Static("Pinterest") => html! {
-      <MD_Pinterest ..owned_props />
+      <BS_Pinterest ..owned_props />
     },
     implicit_clone::unsync::IString::Static("Gem") => html! {
-      <MD_Gem ..owned_props />
+      <BS_Gem ..owned_props />
     },
     implicit_clone::unsync::IString::Static("Clipboard2PulseFill") => html! {
-      <MD_Clipboard2PulseFill ..owned_props />
+      <BS_Clipboard2PulseFill ..owned_props />
     },
     implicit_clone::unsync::IString::Static("Dice2Fill") => html! {
-      <MD_Dice2Fill ..owned_props />
+      <BS_Dice2Fill ..owned_props />
     },
     implicit_clone::unsync::IString::Static("CartCheck") => html! {
-      <MD_CartCheck ..owned_props />
+      <BS_CartCheck ..owned_props />
     },
     implicit_clone::unsync::IString::Static("FuelPumpDieselFill") => html! {
-      <MD_FuelPumpDieselFill ..owned_props />
+      <BS_FuelPumpDieselFill ..owned_props />
     },
     implicit_clone::unsync::IString::Static("ThreeDotsVertical") => html! {
-      <MD_ThreeDotsVertical ..owned_props />
+      <BS_ThreeDotsVertical ..owned_props />
     },
     implicit_clone::unsync::IString::Static("FuelPumpDiesel") => html! {
-      <MD_FuelPumpDiesel ..owned_props />
+      <BS_FuelPumpDiesel ..owned_props />
     },
     implicit_clone::unsync::IString::Static("XSquare") => html! {
-      <MD_XSquare ..owned_props />
+      <BS_XSquare ..owned_props />
     },
     implicit_clone::unsync::IString::Static("PersonRolodex") => html! {
-      <MD_PersonRolodex ..owned_props />
+      <BS_PersonRolodex ..owned_props />
     },
     implicit_clone::unsync::IString::Static("Calendar2MinusFill") => html! {
-      <MD_Calendar2MinusFill ..owned_props />
+      <BS_Calendar2MinusFill ..owned_props />
     },
     implicit_clone::unsync::IString::Static("GlobeAmericas") => html! {
-      <MD_GlobeAmericas ..owned_props />
+      <BS_GlobeAmericas ..owned_props />
     },
     implicit_clone::unsync::IString::Static("DoorClosed") => html! {
-      <MD_DoorClosed ..owned_props />
+      <BS_DoorClosed ..owned_props />
     },
     implicit_clone::unsync::IString::Static("VinylFill") => html! {
-      <MD_VinylFill ..owned_props />
+      <BS_VinylFill ..owned_props />
     },
     implicit_clone::unsync::IString::Static("ListStars") => html! {
-      <MD_ListStars ..owned_props />
+      <BS_ListStars ..owned_props />
     },
     implicit_clone::unsync::IString::Static("PlayCircleFill") => html! {
-      <MD_PlayCircleFill ..owned_props />
+      <BS_PlayCircleFill ..owned_props />
     },
     implicit_clone::unsync::IString::Static("SendExclamation") => html! {
-      <MD_SendExclamation ..owned_props />
+      <BS_SendExclamation ..owned_props />
     },
     implicit_clone::unsync::IString::Static("Bezier") => html! {
-      <MD_Bezier ..owned_props />
+      <BS_Bezier ..owned_props />
     },
     implicit_clone::unsync::IString::Static("PauseCircleFill") => html! {
-      <MD_PauseCircleFill ..owned_props />
+      <BS_PauseCircleFill ..owned_props />
     },
     implicit_clone::unsync::IString::Static("LayoutTextWindow") => html! {
-      <MD_LayoutTextWindow ..owned_props />
+      <BS_LayoutTextWindow ..owned_props />
     },
     implicit_clone::unsync::IString::Static("PinAngleFill") => html! {
-      <MD_PinAngleFill ..owned_props />
+      <BS_PinAngleFill ..owned_props />
     },
     implicit_clone::unsync::IString::Static("SpeakerFill") => html! {
-      <MD_SpeakerFill ..owned_props />
+      <BS_SpeakerFill ..owned_props />
     },
     implicit_clone::unsync::IString::Static("Slack") => html! {
-      <MD_Slack ..owned_props />
+      <BS_Slack ..owned_props />
     },
     implicit_clone::unsync::IString::Static("Basket") => html! {
-      <MD_Basket ..owned_props />
+      <BS_Basket ..owned_props />
     },
     implicit_clone::unsync::IString::Static("BookmarkX") => html! {
-      <MD_BookmarkX ..owned_props />
+      <BS_BookmarkX ..owned_props />
     },
     implicit_clone::unsync::IString::Static("BatteryHalf") => html! {
-      <MD_BatteryHalf ..owned_props />
+      <BS_BatteryHalf ..owned_props />
     },
     implicit_clone::unsync::IString::Static("CalendarEventFill") => html! {
-      <MD_CalendarEventFill ..owned_props />
+      <BS_CalendarEventFill ..owned_props />
     },
     implicit_clone::unsync::IString::Static("EnvelopeSlashFill") => html! {
-      <MD_EnvelopeSlashFill ..owned_props />
+      <BS_EnvelopeSlashFill ..owned_props />
     },
     implicit_clone::unsync::IString::Static("PuzzleFill") => html! {
-      <MD_PuzzleFill ..owned_props />
+      <BS_PuzzleFill ..owned_props />
     },
     implicit_clone::unsync::IString::Static("CalendarCheck") => html! {
-      <MD_CalendarCheck ..owned_props />
+      <BS_CalendarCheck ..owned_props />
     },
     implicit_clone::unsync::IString::Static("ImageAlt") => html! {
-      <MD_ImageAlt ..owned_props />
+      <BS_ImageAlt ..owned_props />
     },
     implicit_clone::unsync::IString::Static("FiletypePy") => html! {
-      <MD_FiletypePy ..owned_props />
+      <BS_FiletypePy ..owned_props />
     },
     implicit_clone::unsync::IString::Static("FilePostFill") => html! {
-      <MD_FilePostFill ..owned_props />
+      <BS_FilePostFill ..owned_props />
     },
     implicit_clone::unsync::IString::Static("Braces") => html! {
-      <MD_Braces ..owned_props />
+      <BS_Braces ..owned_props />
     },
     implicit_clone::unsync::IString::Static("SkipEndCircleFill") => html! {
-      <MD_SkipEndCircleFill ..owned_props />
+      <BS_SkipEndCircleFill ..owned_props />
     },
     implicit_clone::unsync::IString::Static("LightbulbOffFill") => html! {
-      <MD_LightbulbOffFill ..owned_props />
+      <BS_LightbulbOffFill ..owned_props />
     },
     implicit_clone::unsync::IString::Static("BrowserChrome") => html! {
-      <MD_BrowserChrome ..owned_props />
+      <BS_BrowserChrome ..owned_props />
     },
     implicit_clone::unsync::IString::Static("Plus") => html! {
-      <MD_Plus ..owned_props />
+      <BS_Plus ..owned_props />
     },
     implicit_clone::unsync::IString::Static("GenderAmbiguous") => html! {
-      <MD_GenderAmbiguous ..owned_props />
+      <BS_GenderAmbiguous ..owned_props />
     },
     implicit_clone::unsync::IString::Static("Sliders") => html! {
-      <MD_Sliders ..owned_props />
+      <BS_Sliders ..owned_props />
     },
     implicit_clone::unsync::IString::Static("Whatsapp") => html! {
-      <MD_Whatsapp ..owned_props />
+      <BS_Whatsapp ..owned_props />
     },
     implicit_clone::unsync::IString::Static("BrightnessLowFill") => html! {
-      <MD_BrightnessLowFill ..owned_props />
+      <BS_BrightnessLowFill ..owned_props />
     },
     implicit_clone::unsync::IString::Static("SkipBackwardFill") => html! {
-      <MD_SkipBackwardFill ..owned_props />
+      <BS_SkipBackwardFill ..owned_props />
     },
     implicit_clone::unsync::IString::Static("PersonX") => html! {
-      <MD_PersonX ..owned_props />
+      <BS_PersonX ..owned_props />
     },
     implicit_clone::unsync::IString::Static("VolumeUp") => html! {
-      <MD_VolumeUp ..owned_props />
+      <BS_VolumeUp ..owned_props />
     },
     implicit_clone::unsync::IString::Static("Laptop") => html! {
-      <MD_Laptop ..owned_props />
+      <BS_Laptop ..owned_props />
     },
     implicit_clone::unsync::IString::Static("Apple") => html! {
-      <MD_Apple ..owned_props />
+      <BS_Apple ..owned_props />
     },
     implicit_clone::unsync::IString::Static("PersonDashFill") => html! {
-      <MD_PersonDashFill ..owned_props />
+      <BS_PersonDashFill ..owned_props />
     },
     implicit_clone::unsync::IString::Static("Unindent") => html! {
-      <MD_Unindent ..owned_props />
+      <BS_Unindent ..owned_props />
     },
     implicit_clone::unsync::IString::Static("MoonFill") => html! {
-      <MD_MoonFill ..owned_props />
+      <BS_MoonFill ..owned_props />
     },
     implicit_clone::unsync::IString::Static("8SquareFill") => html! {
-      <MD_8SquareFill ..owned_props />
+      <BS_8SquareFill ..owned_props />
     },
     implicit_clone::unsync::IString::Static("HouseHeartFill") => html! {
-      <MD_HouseHeartFill ..owned_props />
+      <BS_HouseHeartFill ..owned_props />
     },
     implicit_clone::unsync::IString::Static("FileArrowUpFill") => html! {
-      <MD_FileArrowUpFill ..owned_props />
+      <BS_FileArrowUpFill ..owned_props />
     },
     implicit_clone::unsync::IString::Static("Snow2") => html! {
-      <MD_Snow2 ..owned_props />
+      <BS_Snow2 ..owned_props />
     },
     implicit_clone::unsync::IString::Static("At") => html! {
-      <MD_At ..owned_props />
+      <BS_At ..owned_props />
     },
     implicit_clone::unsync::IString::Static("CheckSquare") => html! {
-      <MD_CheckSquare ..owned_props />
+      <BS_CheckSquare ..owned_props />
     },
     implicit_clone::unsync::IString::Static("FileTextFill") => html! {
-      <MD_FileTextFill ..owned_props />
+      <BS_FileTextFill ..owned_props />
     },
     implicit_clone::unsync::IString::Static("FileEarmarkLock") => html! {
-      <MD_FileEarmarkLock ..owned_props />
+      <BS_FileEarmarkLock ..owned_props />
     },
     implicit_clone::unsync::IString::Static("FiletypeM4p") => html! {
-      <MD_FiletypeM4p ..owned_props />
+      <BS_FiletypeM4p ..owned_props />
     },
     implicit_clone::unsync::IString::Static("SendExclamationFill") => html! {
-      <MD_SendExclamationFill ..owned_props />
+      <BS_SendExclamationFill ..owned_props />
     },
     implicit_clone::unsync::IString::Static("TelephoneMinus") => html! {
-      <MD_TelephoneMinus ..owned_props />
+      <BS_TelephoneMinus ..owned_props />
     },
     implicit_clone::unsync::IString::Static("Google") => html! {
-      <MD_Google ..owned_props />
+      <BS_Google ..owned_props />
     },
     implicit_clone::unsync::IString::Static("JournalRichtext") => html! {
-      <MD_JournalRichtext ..owned_props />
+      <BS_JournalRichtext ..owned_props />
     },
     implicit_clone::unsync::IString::Static("0CircleFill") => html! {
-      <MD_0CircleFill ..owned_props />
+      <BS_0CircleFill ..owned_props />
     },
     implicit_clone::unsync::IString::Static("ArrowLeftCircleFill") => html! {
-      <MD_ArrowLeftCircleFill ..owned_props />
+      <BS_ArrowLeftCircleFill ..owned_props />
     },
     implicit_clone::unsync::IString::Static("StopBtnFill") => html! {
-      <MD_StopBtnFill ..owned_props />
+      <BS_StopBtnFill ..owned_props />
     },
     implicit_clone::unsync::IString::Static("Moon") => html! {
-      <MD_Moon ..owned_props />
+      <BS_Moon ..owned_props />
     },
     implicit_clone::unsync::IString::Static("TabletLandscapeFill") => html! {
-      <MD_TabletLandscapeFill ..owned_props />
+      <BS_TabletLandscapeFill ..owned_props />
     },
     implicit_clone::unsync::IString::Static("Reply") => html! {
-      <MD_Reply ..owned_props />
+      <BS_Reply ..owned_props />
     },
     implicit_clone::unsync::IString::Static("QuestionSquare") => html! {
-      <MD_QuestionSquare ..owned_props />
+      <BS_QuestionSquare ..owned_props />
     },
     implicit_clone::unsync::IString::Static("FiletypeAi") => html! {
-      <MD_FiletypeAi ..owned_props />
+      <BS_FiletypeAi ..owned_props />
     },
     implicit_clone::unsync::IString::Static("TruckFront") => html! {
-      <MD_TruckFront ..owned_props />
+      <BS_TruckFront ..owned_props />
     },
     implicit_clone::unsync::IString::Static("SignIntersectionT") => html! {
-      <MD_SignIntersectionT ..owned_props />
+      <BS_SignIntersectionT ..owned_props />
     },
     implicit_clone::unsync::IString::Static("ClockHistory") => html! {
-      <MD_ClockHistory ..owned_props />
+      <BS_ClockHistory ..owned_props />
     },
     implicit_clone::unsync::IString::Static("TriangleHalf") => html! {
-      <MD_TriangleHalf ..owned_props />
+      <BS_TriangleHalf ..owned_props />
     },
     implicit_clone::unsync::IString::Static("Sunglasses") => html! {
-      <MD_Sunglasses ..owned_props />
+      <BS_Sunglasses ..owned_props />
     },
     implicit_clone::unsync::IString::Static("TypeH3") => html! {
-      <MD_TypeH3 ..owned_props />
+      <BS_TypeH3 ..owned_props />
     },
     implicit_clone::unsync::IString::Static("6Circle") => html! {
-      <MD_6Circle ..owned_props />
+      <BS_6Circle ..owned_props />
     },
     implicit_clone::unsync::IString::Static("Pentagon") => html! {
-      <MD_Pentagon ..owned_props />
+      <BS_Pentagon ..owned_props />
     },
     implicit_clone::unsync::IString::Static("FileEarmarkX") => html! {
-      <MD_FileEarmarkX ..owned_props />
+      <BS_FileEarmarkX ..owned_props />
     },
     implicit_clone::unsync::IString::Static("StickiesFill") => html! {
-      <MD_StickiesFill ..owned_props />
+      <BS_StickiesFill ..owned_props />
     },
     implicit_clone::unsync::IString::Static("NintendoSwitch") => html! {
-      <MD_NintendoSwitch ..owned_props />
+      <BS_NintendoSwitch ..owned_props />
     },
     implicit_clone::unsync::IString::Static("CollectionPlayFill") => html! {
-      <MD_CollectionPlayFill ..owned_props />
+      <BS_CollectionPlayFill ..owned_props />
     },
     implicit_clone::unsync::IString::Static("JournalBookmark") => html! {
-      <MD_JournalBookmark ..owned_props />
+      <BS_JournalBookmark ..owned_props />
     },
     implicit_clone::unsync::IString::Static("StickyFill") => html! {
-      <MD_StickyFill ..owned_props />
+      <BS_StickyFill ..owned_props />
     },
     implicit_clone::unsync::IString::Static("CurrencyBitcoin") => html! {
-      <MD_CurrencyBitcoin ..owned_props />
+      <BS_CurrencyBitcoin ..owned_props />
     },
     implicit_clone::unsync::IString::Static("BackspaceFill") => html! {
-      <MD_BackspaceFill ..owned_props />
+      <BS_BackspaceFill ..owned_props />
     },
     implicit_clone::unsync::IString::Static("TextLeft") => html! {
-      <MD_TextLeft ..owned_props />
+      <BS_TextLeft ..owned_props />
     },
     implicit_clone::unsync::IString::Static("Headphones") => html! {
-      <MD_Headphones ..owned_props />
+      <BS_Headphones ..owned_props />
     },
     implicit_clone::unsync::IString::Static("GeoFill") => html! {
-      <MD_GeoFill ..owned_props />
+      <BS_GeoFill ..owned_props />
     },
     implicit_clone::unsync::IString::Static("CloudMinusFill") => html! {
-      <MD_CloudMinusFill ..owned_props />
+      <BS_CloudMinusFill ..owned_props />
     },
     implicit_clone::unsync::IString::Static("FileWord") => html! {
-      <MD_FileWord ..owned_props />
+      <BS_FileWord ..owned_props />
     },
     implicit_clone::unsync::IString::Static("FileDiffFill") => html! {
-      <MD_FileDiffFill ..owned_props />
+      <BS_FileDiffFill ..owned_props />
     },
     implicit_clone::unsync::IString::Static("LightbulbOff") => html! {
-      <MD_LightbulbOff ..owned_props />
+      <BS_LightbulbOff ..owned_props />
     },
     implicit_clone::unsync::IString::Static("Box2Heart") => html! {
-      <MD_Box2Heart ..owned_props />
+      <BS_Box2Heart ..owned_props />
     },
     implicit_clone::unsync::IString::Static("EnvelopeOpenFill") => html! {
-      <MD_EnvelopeOpenFill ..owned_props />
+      <BS_EnvelopeOpenFill ..owned_props />
     },
     implicit_clone::unsync::IString::Static("ArrowLeftShort") => html! {
-      <MD_ArrowLeftShort ..owned_props />
+      <BS_ArrowLeftShort ..owned_props />
     },
     implicit_clone::unsync::IString::Static("PostcardHeart") => html! {
-      <MD_PostcardHeart ..owned_props />
+      <BS_PostcardHeart ..owned_props />
     },
     implicit_clone::unsync::IString::Static("Journals") => html! {
-      <MD_Journals ..owned_props />
+      <BS_Journals ..owned_props />
     },
     implicit_clone::unsync::IString::Static("Link") => html! {
-      <MD_Link ..owned_props />
+      <BS_Link ..owned_props />
     },
     implicit_clone::unsync::IString::Static("TextIndentLeft") => html! {
-      <MD_TextIndentLeft ..owned_props />
+      <BS_TextIndentLeft ..owned_props />
     },
     implicit_clone::unsync::IString::Static("BookHalf") => html! {
-      <MD_BookHalf ..owned_props />
+      <BS_BookHalf ..owned_props />
     },
     implicit_clone::unsync::IString::Static("ArrowUpRightSquareFill") => html! {
-      <MD_ArrowUpRightSquareFill ..owned_props />
+      <BS_ArrowUpRightSquareFill ..owned_props />
     },
     implicit_clone::unsync::IString::Static("FileSpreadsheetFill") => html! {
-      <MD_FileSpreadsheetFill ..owned_props />
+      <BS_FileSpreadsheetFill ..owned_props />
     },
     implicit_clone::unsync::IString::Static("UiRadiosGrid") => html! {
-      <MD_UiRadiosGrid ..owned_props />
+      <BS_UiRadiosGrid ..owned_props />
     },
     implicit_clone::unsync::IString::Static("Bank") => html! {
-      <MD_Bank ..owned_props />
+      <BS_Bank ..owned_props />
     },
     implicit_clone::unsync::IString::Static("FiletypeSh") => html! {
-      <MD_FiletypeSh ..owned_props />
+      <BS_FiletypeSh ..owned_props />
     },
     implicit_clone::unsync::IString::Static("BoundingBox") => html! {
-      <MD_BoundingBox ..owned_props />
+      <BS_BoundingBox ..owned_props />
     },
     implicit_clone::unsync::IString::Static("CameraFill") => html! {
-      <MD_CameraFill ..owned_props />
+      <BS_CameraFill ..owned_props />
     },
     implicit_clone::unsync::IString::Static("Memory") => html! {
-      <MD_Memory ..owned_props />
+      <BS_Memory ..owned_props />
     },
     implicit_clone::unsync::IString::Static("Quote") => html! {
-      <MD_Quote ..owned_props />
+      <BS_Quote ..owned_props />
     },
     implicit_clone::unsync::IString::Static("FilePost") => html! {
-      <MD_FilePost ..owned_props />
+      <BS_FilePost ..owned_props />
     },
     implicit_clone::unsync::IString::Static("Calendar3RangeFill") => html! {
-      <MD_Calendar3RangeFill ..owned_props />
+      <BS_Calendar3RangeFill ..owned_props />
     },
     implicit_clone::unsync::IString::Static("HeartPulse") => html! {
-      <MD_HeartPulse ..owned_props />
+      <BS_HeartPulse ..owned_props />
     },
     implicit_clone::unsync::IString::Static("SkipStartCircle") => html! {
-      <MD_SkipStartCircle ..owned_props />
+      <BS_SkipStartCircle ..owned_props />
     },
     implicit_clone::unsync::IString::Static("Amd") => html! {
-      <MD_Amd ..owned_props />
+      <BS_Amd ..owned_props />
     },
     implicit_clone::unsync::IString::Static("TextCenter") => html! {
-      <MD_TextCenter ..owned_props />
+      <BS_TextCenter ..owned_props />
     },
     implicit_clone::unsync::IString::Static("ListOl") => html! {
-      <MD_ListOl ..owned_props />
+      <BS_ListOl ..owned_props />
     },
     implicit_clone::unsync::IString::Static("SignDoNotEnterFill") => html! {
-      <MD_SignDoNotEnterFill ..owned_props />
+      <BS_SignDoNotEnterFill ..owned_props />
     },
     implicit_clone::unsync::IString::Static("LayoutTextSidebarReverse") => html! {
-      <MD_LayoutTextSidebarReverse ..owned_props />
+      <BS_LayoutTextSidebarReverse ..owned_props />
     },
     implicit_clone::unsync::IString::Static("PersonVcardFill") => html! {
-      <MD_PersonVcardFill ..owned_props />
+      <BS_PersonVcardFill ..owned_props />
     },
     implicit_clone::unsync::IString::Static("DiamondHalf") => html! {
-      <MD_DiamondHalf ..owned_props />
+      <BS_DiamondHalf ..owned_props />
     },
     implicit_clone::unsync::IString::Static("Reception3") => html! {
-      <MD_Reception3 ..owned_props />
+      <BS_Reception3 ..owned_props />
     },
     implicit_clone::unsync::IString::Static("SortDownAlt") => html! {
-      <MD_SortDownAlt ..owned_props />
+      <BS_SortDownAlt ..owned_props />
     },
     implicit_clone::unsync::IString::Static("Wifi2") => html! {
-      <MD_Wifi2 ..owned_props />
+      <BS_Wifi2 ..owned_props />
     },
     implicit_clone::unsync::IString::Static("Eye") => html! {
-      <MD_Eye ..owned_props />
+      <BS_Eye ..owned_props />
     },
     implicit_clone::unsync::IString::Static("CalendarXFill") => html! {
-      <MD_CalendarXFill ..owned_props />
+      <BS_CalendarXFill ..owned_props />
     },
     implicit_clone::unsync::IString::Static("Incognito") => html! {
-      <MD_Incognito ..owned_props />
+      <BS_Incognito ..owned_props />
     },
     implicit_clone::unsync::IString::Static("ArrowUpCircleFill") => html! {
-      <MD_ArrowUpCircleFill ..owned_props />
+      <BS_ArrowUpCircleFill ..owned_props />
     },
     implicit_clone::unsync::IString::Static("HddStack") => html! {
-      <MD_HddStack ..owned_props />
+      <BS_HddStack ..owned_props />
     },
     implicit_clone::unsync::IString::Static("Check") => html! {
-      <MD_Check ..owned_props />
+      <BS_Check ..owned_props />
     },
     implicit_clone::unsync::IString::Static("InfoSquare") => html! {
-      <MD_InfoSquare ..owned_props />
+      <BS_InfoSquare ..owned_props />
     },
     implicit_clone::unsync::IString::Static("FileEarmarkBreak") => html! {
-      <MD_FileEarmarkBreak ..owned_props />
+      <BS_FileEarmarkBreak ..owned_props />
     },
     implicit_clone::unsync::IString::Static("Infinity") => html! {
-      <MD_Infinity ..owned_props />
+      <BS_Infinity ..owned_props />
     },
     implicit_clone::unsync::IString::Static("BuildingUp") => html! {
-      <MD_BuildingUp ..owned_props />
+      <BS_BuildingUp ..owned_props />
     },
     implicit_clone::unsync::IString::Static("JournalX") => html! {
-      <MD_JournalX ..owned_props />
+      <BS_JournalX ..owned_props />
     },
     implicit_clone::unsync::IString::Static("CalendarPlus") => html! {
-      <MD_CalendarPlus ..owned_props />
+      <BS_CalendarPlus ..owned_props />
     },
     implicit_clone::unsync::IString::Static("ExclamationCircle") => html! {
-      <MD_ExclamationCircle ..owned_props />
+      <BS_ExclamationCircle ..owned_props />
     },
     implicit_clone::unsync::IString::Static("DatabaseFillLock") => html! {
-      <MD_DatabaseFillLock ..owned_props />
+      <BS_DatabaseFillLock ..owned_props />
     },
     implicit_clone::unsync::IString::Static("Calendar2DateFill") => html! {
-      <MD_Calendar2DateFill ..owned_props />
+      <BS_Calendar2DateFill ..owned_props />
     },
     implicit_clone::unsync::IString::Static("Palette") => html! {
-      <MD_Palette ..owned_props />
+      <BS_Palette ..owned_props />
     },
     implicit_clone::unsync::IString::Static("Window") => html! {
-      <MD_Window ..owned_props />
+      <BS_Window ..owned_props />
     },
     implicit_clone::unsync::IString::Static("BookmarkHeart") => html! {
-      <MD_BookmarkHeart ..owned_props />
+      <BS_BookmarkHeart ..owned_props />
     },
     implicit_clone::unsync::IString::Static("Asterisk") => html! {
-      <MD_Asterisk ..owned_props />
+      <BS_Asterisk ..owned_props />
     },
     implicit_clone::unsync::IString::Static("Basket2") => html! {
-      <MD_Basket2 ..owned_props />
+      <BS_Basket2 ..owned_props />
     },
     implicit_clone::unsync::IString::Static("MicMuteFill") => html! {
-      <MD_MicMuteFill ..owned_props />
+      <BS_MicMuteFill ..owned_props />
     },
     implicit_clone::unsync::IString::Static("BrowserSafari") => html! {
-      <MD_BrowserSafari ..owned_props />
+      <BS_BrowserSafari ..owned_props />
     },
     implicit_clone::unsync::IString::Static("ChatRightDotsFill") => html! {
-      <MD_ChatRightDotsFill ..owned_props />
+      <BS_ChatRightDotsFill ..owned_props />
     },
     implicit_clone::unsync::IString::Static("ClipboardMinusFill") => html! {
-      <MD_ClipboardMinusFill ..owned_props />
+      <BS_ClipboardMinusFill ..owned_props />
     },
     implicit_clone::unsync::IString::Static("Circle") => html! {
-      <MD_Circle ..owned_props />
+      <BS_Circle ..owned_props />
     },
     implicit_clone::unsync::IString::Static("Easel3Fill") => html! {
-      <MD_Easel3Fill ..owned_props />
+      <BS_Easel3Fill ..owned_props />
     },
     implicit_clone::unsync::IString::Static("TrainFreightFrontFill") => html! {
-      <MD_TrainFreightFrontFill ..owned_props />
+      <BS_TrainFreightFrontFill ..owned_props />
     },
     implicit_clone::unsync::IString::Static("GearWide") => html! {
-      <MD_GearWide ..owned_props />
+      <BS_GearWide ..owned_props />
     },
     implicit_clone::unsync::IString::Static("ChevronRight") => html! {
-      <MD_ChevronRight ..owned_props />
+      <BS_ChevronRight ..owned_props />
     },
     implicit_clone::unsync::IString::Static("FileEarmarkBinaryFill") => html! {
-      <MD_FileEarmarkBinaryFill ..owned_props />
+      <BS_FileEarmarkBinaryFill ..owned_props />
     },
     implicit_clone::unsync::IString::Static("Wikipedia") => html! {
-      <MD_Wikipedia ..owned_props />
+      <BS_Wikipedia ..owned_props />
     },
     implicit_clone::unsync::IString::Static("9CircleFill") => html! {
-      <MD_9CircleFill ..owned_props />
+      <BS_9CircleFill ..owned_props />
     },
     implicit_clone::unsync::IString::Static("Droplet") => html! {
-      <MD_Droplet ..owned_props />
+      <BS_Droplet ..owned_props />
     },
     implicit_clone::unsync::IString::Static("SignpostSplit") => html! {
-      <MD_SignpostSplit ..owned_props />
+      <BS_SignpostSplit ..owned_props />
     },
     implicit_clone::unsync::IString::Static("StopCircle") => html! {
-      <MD_StopCircle ..owned_props />
+      <BS_StopCircle ..owned_props />
     },
     implicit_clone::unsync::IString::Static("DatabaseFillGear") => html! {
-      <MD_DatabaseFillGear ..owned_props />
+      <BS_DatabaseFillGear ..owned_props />
     },
     implicit_clone::unsync::IString::Static("CaretLeft") => html! {
-      <MD_CaretLeft ..owned_props />
+      <BS_CaretLeft ..owned_props />
     },
     implicit_clone::unsync::IString::Static("InfoCircle") => html! {
-      <MD_InfoCircle ..owned_props />
+      <BS_InfoCircle ..owned_props />
     },
     implicit_clone::unsync::IString::Static("DatabaseFillX") => html! {
-      <MD_DatabaseFillX ..owned_props />
+      <BS_DatabaseFillX ..owned_props />
     },
     implicit_clone::unsync::IString::Static("Triangle") => html! {
-      <MD_Triangle ..owned_props />
+      <BS_Triangle ..owned_props />
     },
     implicit_clone::unsync::IString::Static("HandThumbsUpFill") => html! {
-      <MD_HandThumbsUpFill ..owned_props />
+      <BS_HandThumbsUpFill ..owned_props />
     },
     implicit_clone::unsync::IString::Static("JournalAlbum") => html! {
-      <MD_JournalAlbum ..owned_props />
+      <BS_JournalAlbum ..owned_props />
     },
     implicit_clone::unsync::IString::Static("Cart2") => html! {
-      <MD_Cart2 ..owned_props />
+      <BS_Cart2 ..owned_props />
     },
     implicit_clone::unsync::IString::Static("ShieldX") => html! {
-      <MD_ShieldX ..owned_props />
+      <BS_ShieldX ..owned_props />
     },
     implicit_clone::unsync::IString::Static("Record2") => html! {
-      <MD_Record2 ..owned_props />
+      <BS_Record2 ..owned_props />
     },
     implicit_clone::unsync::IString::Static("SuitDiamondFill") => html! {
-      <MD_SuitDiamondFill ..owned_props />
+      <BS_SuitDiamondFill ..owned_props />
     },
     implicit_clone::unsync::IString::Static("JournalText") => html! {
-      <MD_JournalText ..owned_props />
+      <BS_JournalText ..owned_props />
     },
     implicit_clone::unsync::IString::Static("SignYield") => html! {
-      <MD_SignYield ..owned_props />
+      <BS_SignYield ..owned_props />
     },
     implicit_clone::unsync::IString::Static("Puzzle") => html! {
-      <MD_Puzzle ..owned_props />
+      <BS_Puzzle ..owned_props />
     },
     implicit_clone::unsync::IString::Static("TelephoneMinusFill") => html! {
-      <MD_TelephoneMinusFill ..owned_props />
+      <BS_TelephoneMinusFill ..owned_props />
     },
     implicit_clone::unsync::IString::Static("FilePdf") => html! {
-      <MD_FilePdf ..owned_props />
+      <BS_FilePdf ..owned_props />
     },
     implicit_clone::unsync::IString::Static("MusicNote") => html! {
-      <MD_MusicNote ..owned_props />
+      <BS_MusicNote ..owned_props />
     },
     implicit_clone::unsync::IString::Static("ArrowsAngleContract") => html! {
-      <MD_ArrowsAngleContract ..owned_props />
+      <BS_ArrowsAngleContract ..owned_props />
     },
     implicit_clone::unsync::IString::Static("BoxArrowInLeft") => html! {
-      <MD_BoxArrowInLeft ..owned_props />
+      <BS_BoxArrowInLeft ..owned_props />
     },
     implicit_clone::unsync::IString::Static("Recycle") => html! {
-      <MD_Recycle ..owned_props />
+      <BS_Recycle ..owned_props />
     },
     implicit_clone::unsync::IString::Static("ChevronDoubleDown") => html! {
-      <MD_ChevronDoubleDown ..owned_props />
+      <BS_ChevronDoubleDown ..owned_props />
     },
     implicit_clone::unsync::IString::Static("FiletypePptx") => html! {
-      <MD_FiletypePptx ..owned_props />
+      <BS_FiletypePptx ..owned_props />
     },
     implicit_clone::unsync::IString::Static("XCircle") => html! {
-      <MD_XCircle ..owned_props />
+      <BS_XCircle ..owned_props />
     },
     implicit_clone::unsync::IString::Static("TypeBold") => html! {
-      <MD_TypeBold ..owned_props />
+      <BS_TypeBold ..owned_props />
     },
     implicit_clone::unsync::IString::Static("PhoneLandscape") => html! {
-      <MD_PhoneLandscape ..owned_props />
+      <BS_PhoneLandscape ..owned_props />
     },
     implicit_clone::unsync::IString::Static("DatabaseDown") => html! {
-      <MD_DatabaseDown ..owned_props />
+      <BS_DatabaseDown ..owned_props />
     },
     implicit_clone::unsync::IString::Static("DatabaseFillSlash") => html! {
-      <MD_DatabaseFillSlash ..owned_props />
+      <BS_DatabaseFillSlash ..owned_props />
     },
     implicit_clone::unsync::IString::Static("PersonBadgeFill") => html! {
-      <MD_PersonBadgeFill ..owned_props />
+      <BS_PersonBadgeFill ..owned_props />
     },
     implicit_clone::unsync::IString::Static("PieChart") => html! {
-      <MD_PieChart ..owned_props />
+      <BS_PieChart ..owned_props />
     },
     implicit_clone::unsync::IString::Static("Exclamation") => html! {
-      <MD_Exclamation ..owned_props />
+      <BS_Exclamation ..owned_props />
     },
     implicit_clone::unsync::IString::Static("FileEarmarkLock2") => html! {
-      <MD_FileEarmarkLock2 ..owned_props />
+      <BS_FileEarmarkLock2 ..owned_props />
     },
     implicit_clone::unsync::IString::Static("DatabaseGear") => html! {
-      <MD_DatabaseGear ..owned_props />
+      <BS_DatabaseGear ..owned_props />
     },
     implicit_clone::unsync::IString::Static("BookmarkStarFill") => html! {
-      <MD_BookmarkStarFill ..owned_props />
+      <BS_BookmarkStarFill ..owned_props />
     },
     implicit_clone::unsync::IString::Static("SkipStartBtn") => html! {
-      <MD_SkipStartBtn ..owned_props />
+      <BS_SkipStartBtn ..owned_props />
     },
     implicit_clone::unsync::IString::Static("SignNoRightTurnFill") => html! {
-      <MD_SignNoRightTurnFill ..owned_props />
+      <BS_SignNoRightTurnFill ..owned_props />
     },
     implicit_clone::unsync::IString::Static("BagX") => html! {
-      <MD_BagX ..owned_props />
+      <BS_BagX ..owned_props />
     },
     implicit_clone::unsync::IString::Static("ZoomIn") => html! {
-      <MD_ZoomIn ..owned_props />
+      <BS_ZoomIn ..owned_props />
     },
     implicit_clone::unsync::IString::Static("ArrowRightCircleFill") => html! {
-      <MD_ArrowRightCircleFill ..owned_props />
+      <BS_ArrowRightCircleFill ..owned_props />
     },
     implicit_clone::unsync::IString::Static("ClipboardCheck") => html! {
-      <MD_ClipboardCheck ..owned_props />
+      <BS_ClipboardCheck ..owned_props />
     },
     implicit_clone::unsync::IString::Static("CameraVideoOffFill") => html! {
-      <MD_CameraVideoOffFill ..owned_props />
+      <BS_CameraVideoOffFill ..owned_props />
     },
     implicit_clone::unsync::IString::Static("Database") => html! {
-      <MD_Database ..owned_props />
+      <BS_Database ..owned_props />
     },
     implicit_clone::unsync::IString::Static("GearWideConnected") => html! {
-      <MD_GearWideConnected ..owned_props />
+      <BS_GearWideConnected ..owned_props />
     },
     implicit_clone::unsync::IString::Static("TelephonePlus") => html! {
-      <MD_TelephonePlus ..owned_props />
+      <BS_TelephonePlus ..owned_props />
     },
     implicit_clone::unsync::IString::Static("FileEarmarkWordFill") => html! {
-      <MD_FileEarmarkWordFill ..owned_props />
+      <BS_FileEarmarkWordFill ..owned_props />
     },
     implicit_clone::unsync::IString::Static("EyeSlashFill") => html! {
-      <MD_EyeSlashFill ..owned_props />
+      <BS_EyeSlashFill ..owned_props />
     },
     implicit_clone::unsync::IString::Static("Search") => html! {
-      <MD_Search ..owned_props />
+      <BS_Search ..owned_props />
     },
     implicit_clone::unsync::IString::Static("Calendar2Range") => html! {
-      <MD_Calendar2Range ..owned_props />
+      <BS_Calendar2Range ..owned_props />
     },
     implicit_clone::unsync::IString::Static("ChatSquareDots") => html! {
-      <MD_ChatSquareDots ..owned_props />
+      <BS_ChatSquareDots ..owned_props />
     },
     implicit_clone::unsync::IString::Static("Reception0") => html! {
-      <MD_Reception0 ..owned_props />
+      <BS_Reception0 ..owned_props />
     },
     implicit_clone::unsync::IString::Static("Calendar2WeekFill") => html! {
-      <MD_Calendar2WeekFill ..owned_props />
+      <BS_Calendar2WeekFill ..owned_props />
     },
     implicit_clone::unsync::IString::Static("FileZip") => html! {
-      <MD_FileZip ..owned_props />
+      <BS_FileZip ..owned_props />
     },
     implicit_clone::unsync::IString::Static("GlobeCentralSouthAsia") => html! {
-      <MD_GlobeCentralSouthAsia ..owned_props />
+      <BS_GlobeCentralSouthAsia ..owned_props />
     },
     implicit_clone::unsync::IString::Static("PinMapFill") => html! {
-      <MD_PinMapFill ..owned_props />
+      <BS_PinMapFill ..owned_props />
     },
     implicit_clone::unsync::IString::Static("LayoutSplit") => html! {
-      <MD_LayoutSplit ..owned_props />
+      <BS_LayoutSplit ..owned_props />
     },
     implicit_clone::unsync::IString::Static("CloudCheckFill") => html! {
-      <MD_CloudCheckFill ..owned_props />
+      <BS_CloudCheckFill ..owned_props />
     },
     implicit_clone::unsync::IString::Static("MortarboardFill") => html! {
-      <MD_MortarboardFill ..owned_props />
+      <BS_MortarboardFill ..owned_props />
     },
     implicit_clone::unsync::IString::Static("0SquareFill") => html! {
-      <MD_0SquareFill ..owned_props />
+      <BS_0SquareFill ..owned_props />
     },
     implicit_clone::unsync::IString::Static("FileLock2") => html! {
-      <MD_FileLock2 ..owned_props />
+      <BS_FileLock2 ..owned_props />
     },
     implicit_clone::unsync::IString::Static("HouseDown") => html! {
-      <MD_HouseDown ..owned_props />
+      <BS_HouseDown ..owned_props />
     },
     implicit_clone::unsync::IString::Static("CloudHaze2Fill") => html! {
-      <MD_CloudHaze2Fill ..owned_props />
+      <BS_CloudHaze2Fill ..owned_props />
     },
     implicit_clone::unsync::IString::Static("ArrowDownShort") => html! {
-      <MD_ArrowDownShort ..owned_props />
+      <BS_ArrowDownShort ..owned_props />
     },
     implicit_clone::unsync::IString::Static("BookmarkXFill") => html! {
-      <MD_BookmarkXFill ..owned_props />
+      <BS_BookmarkXFill ..owned_props />
     },
     implicit_clone::unsync::IString::Static("EvStation") => html! {
-      <MD_EvStation ..owned_props />
+      <BS_EvStation ..owned_props />
     },
     implicit_clone::unsync::IString::Static("FilterRight") => html! {
-      <MD_FilterRight ..owned_props />
+      <BS_FilterRight ..owned_props />
     },
     implicit_clone::unsync::IString::Static("HeartFill") => html! {
-      <MD_HeartFill ..owned_props />
+      <BS_HeartFill ..owned_props />
     },
     implicit_clone::unsync::IString::Static("UnlockFill") => html! {
-      <MD_UnlockFill ..owned_props />
+      <BS_UnlockFill ..owned_props />
     },
     implicit_clone::unsync::IString::Static("FileEarmarkMusicFill") => html! {
-      <MD_FileEarmarkMusicFill ..owned_props />
+      <BS_FileEarmarkMusicFill ..owned_props />
     },
     implicit_clone::unsync::IString::Static("Mouse3") => html! {
-      <MD_Mouse3 ..owned_props />
+      <BS_Mouse3 ..owned_props />
     },
     implicit_clone::unsync::IString::Static("HourglassBottom") => html! {
-      <MD_HourglassBottom ..owned_props />
+      <BS_HourglassBottom ..owned_props />
     },
     implicit_clone::unsync::IString::Static("Joystick") => html! {
-      <MD_Joystick ..owned_props />
+      <BS_Joystick ..owned_props />
     },
     implicit_clone::unsync::IString::Static("FileEarmarkMinus") => html! {
-      <MD_FileEarmarkMinus ..owned_props />
+      <BS_FileEarmarkMinus ..owned_props />
     },
     implicit_clone::unsync::IString::Static("Lightbulb") => html! {
-      <MD_Lightbulb ..owned_props />
+      <BS_Lightbulb ..owned_props />
     },
     implicit_clone::unsync::IString::Static("FileEarmarkSpreadsheet") => html! {
-      <MD_FileEarmarkSpreadsheet ..owned_props />
+      <BS_FileEarmarkSpreadsheet ..owned_props />
     },
     implicit_clone::unsync::IString::Static("FiletypeWav") => html! {
-      <MD_FiletypeWav ..owned_props />
+      <BS_FiletypeWav ..owned_props />
     },
     implicit_clone::unsync::IString::Static("Bag") => html! {
-      <MD_Bag ..owned_props />
+      <BS_Bag ..owned_props />
     },
     implicit_clone::unsync::IString::Static("LightningChargeFill") => html! {
-      <MD_LightningChargeFill ..owned_props />
+      <BS_LightningChargeFill ..owned_props />
     },
     implicit_clone::unsync::IString::Static("Calendar3") => html! {
-      <MD_Calendar3 ..owned_props />
+      <BS_Calendar3 ..owned_props />
     },
     implicit_clone::unsync::IString::Static("OpticalAudio") => html! {
-      <MD_OpticalAudio ..owned_props />
+      <BS_OpticalAudio ..owned_props />
     },
     implicit_clone::unsync::IString::Static("DatabaseCheck") => html! {
-      <MD_DatabaseCheck ..owned_props />
+      <BS_DatabaseCheck ..owned_props />
     },
     implicit_clone::unsync::IString::Static("ChevronDoubleRight") => html! {
-      <MD_ChevronDoubleRight ..owned_props />
+      <BS_ChevronDoubleRight ..owned_props />
     },
     implicit_clone::unsync::IString::Static("Pc") => html! {
-      <MD_Pc ..owned_props />
+      <BS_Pc ..owned_props />
     },
     implicit_clone::unsync::IString::Static("EnvelopePaperFill") => html! {
-      <MD_EnvelopePaperFill ..owned_props />
+      <BS_EnvelopePaperFill ..owned_props />
     },
     implicit_clone::unsync::IString::Static("FileBreak") => html! {
-      <MD_FileBreak ..owned_props />
+      <BS_FileBreak ..owned_props />
     },
     implicit_clone::unsync::IString::Static("Tsunami") => html! {
-      <MD_Tsunami ..owned_props />
+      <BS_Tsunami ..owned_props />
     },
     implicit_clone::unsync::IString::Static("CheckSquareFill") => html! {
-      <MD_CheckSquareFill ..owned_props />
+      <BS_CheckSquareFill ..owned_props />
     },
     implicit_clone::unsync::IString::Static("6SquareFill") => html! {
-      <MD_6SquareFill ..owned_props />
+      <BS_6SquareFill ..owned_props />
     },
     implicit_clone::unsync::IString::Static("TextRight") => html! {
-      <MD_TextRight ..owned_props />
+      <BS_TextRight ..owned_props />
     },
     implicit_clone::unsync::IString::Static("SkipStartBtnFill") => html! {
-      <MD_SkipStartBtnFill ..owned_props />
+      <BS_SkipStartBtnFill ..owned_props />
     },
     implicit_clone::unsync::IString::Static("SuitHeartFill") => html! {
-      <MD_SuitHeartFill ..owned_props />
+      <BS_SuitHeartFill ..owned_props />
     },
     implicit_clone::unsync::IString::Static("EarFill") => html! {
-      <MD_EarFill ..owned_props />
+      <BS_EarFill ..owned_props />
     },
     implicit_clone::unsync::IString::Static("Robot") => html! {
-      <MD_Robot ..owned_props />
+      <BS_Robot ..owned_props />
     },
     implicit_clone::unsync::IString::Static("UsbDriveFill") => html! {
-      <MD_UsbDriveFill ..owned_props />
+      <BS_UsbDriveFill ..owned_props />
     },
     implicit_clone::unsync::IString::Static("Mailbox2") => html! {
-      <MD_Mailbox2 ..owned_props />
+      <BS_Mailbox2 ..owned_props />
     },
     implicit_clone::unsync::IString::Static("FiletypeHeic") => html! {
-      <MD_FiletypeHeic ..owned_props />
+      <BS_FiletypeHeic ..owned_props />
     },
     implicit_clone::unsync::IString::Static("BoxSeamFill") => html! {
-      <MD_BoxSeamFill ..owned_props />
+      <BS_BoxSeamFill ..owned_props />
     },
     implicit_clone::unsync::IString::Static("FileEarmarkRichtext") => html! {
-      <MD_FileEarmarkRichtext ..owned_props />
+      <BS_FileEarmarkRichtext ..owned_props />
     },
     implicit_clone::unsync::IString::Static("Signpost2Fill") => html! {
-      <MD_Signpost2Fill ..owned_props />
+      <BS_Signpost2Fill ..owned_props />
     },
     implicit_clone::unsync::IString::Static("Nut") => html! {
-      <MD_Nut ..owned_props />
+      <BS_Nut ..owned_props />
     },
     implicit_clone::unsync::IString::Static("Alexa") => html! {
-      <MD_Alexa ..owned_props />
+      <BS_Alexa ..owned_props />
     },
     implicit_clone::unsync::IString::Static("FileEarmarkFontFill") => html! {
-      <MD_FileEarmarkFontFill ..owned_props />
+      <BS_FileEarmarkFontFill ..owned_props />
     },
     implicit_clone::unsync::IString::Static("CloudDrizzle") => html! {
-      <MD_CloudDrizzle ..owned_props />
+      <BS_CloudDrizzle ..owned_props />
     },
     implicit_clone::unsync::IString::Static("Key") => html! {
-      <MD_Key ..owned_props />
+      <BS_Key ..owned_props />
     },
     implicit_clone::unsync::IString::Static("DisplayportFill") => html! {
-      <MD_DisplayportFill ..owned_props />
+      <BS_DisplayportFill ..owned_props />
     },
     implicit_clone::unsync::IString::Static("ClipboardHeart") => html! {
-      <MD_ClipboardHeart ..owned_props />
+      <BS_ClipboardHeart ..owned_props />
     },
     implicit_clone::unsync::IString::Static("Sim") => html! {
-      <MD_Sim ..owned_props />
+      <BS_Sim ..owned_props />
     },
     implicit_clone::unsync::IString::Static("Pencil") => html! {
-      <MD_Pencil ..owned_props />
+      <BS_Pencil ..owned_props />
     },
     implicit_clone::unsync::IString::Static("Save") => html! {
-      <MD_Save ..owned_props />
+      <BS_Save ..owned_props />
     },
     implicit_clone::unsync::IString::Static("UmbrellaFill") => html! {
-      <MD_UmbrellaFill ..owned_props />
+      <BS_UmbrellaFill ..owned_props />
     },
     implicit_clone::unsync::IString::Static("TabletLandscape") => html! {
-      <MD_TabletLandscape ..owned_props />
+      <BS_TabletLandscape ..owned_props />
     },
     implicit_clone::unsync::IString::Static("SlashSquareFill") => html! {
-      <MD_SlashSquareFill ..owned_props />
+      <BS_SlashSquareFill ..owned_props />
     },
     implicit_clone::unsync::IString::Static("Ethernet") => html! {
-      <MD_Ethernet ..owned_props />
+      <BS_Ethernet ..owned_props />
     },
     implicit_clone::unsync::IString::Static("BadgeAdFill") => html! {
-      <MD_BadgeAdFill ..owned_props />
+      <BS_BadgeAdFill ..owned_props />
     },
     implicit_clone::unsync::IString::Static("ChevronDown") => html! {
-      <MD_ChevronDown ..owned_props />
+      <BS_ChevronDown ..owned_props />
     },
     implicit_clone::unsync::IString::Static("BadgeWcFill") => html! {
-      <MD_BadgeWcFill ..owned_props />
+      <BS_BadgeWcFill ..owned_props />
     },
     implicit_clone::unsync::IString::Static("Eject") => html! {
-      <MD_Eject ..owned_props />
+      <BS_Eject ..owned_props />
     },
     implicit_clone::unsync::IString::Static("Arrow90degRight") => html! {
-      <MD_Arrow90degRight ..owned_props />
+      <BS_Arrow90degRight ..owned_props />
     },
     implicit_clone::unsync::IString::Static("ThermometerSun") => html! {
-      <MD_ThermometerSun ..owned_props />
+      <BS_ThermometerSun ..owned_props />
     },
     implicit_clone::unsync::IString::Static("ChatRightTextFill") => html! {
-      <MD_ChatRightTextFill ..owned_props />
+      <BS_ChatRightTextFill ..owned_props />
     },
     implicit_clone::unsync::IString::Static("FastForwardFill") => html! {
-      <MD_FastForwardFill ..owned_props />
+      <BS_FastForwardFill ..owned_props />
     },
     implicit_clone::unsync::IString::Static("SignNoParkingFill") => html! {
-      <MD_SignNoParkingFill ..owned_props />
+      <BS_SignNoParkingFill ..owned_props />
     },
     implicit_clone::unsync::IString::Static("FileEarmarkFill") => html! {
-      <MD_FileEarmarkFill ..owned_props />
+      <BS_FileEarmarkFill ..owned_props />
     },
     implicit_clone::unsync::IString::Static("VolumeDownFill") => html! {
-      <MD_VolumeDownFill ..owned_props />
+      <BS_VolumeDownFill ..owned_props />
     },
     implicit_clone::unsync::IString::Static("MusicNoteList") => html! {
-      <MD_MusicNoteList ..owned_props />
+      <BS_MusicNoteList ..owned_props />
     },
     implicit_clone::unsync::IString::Static("EnvelopeExclamationFill") => html! {
-      <MD_EnvelopeExclamationFill ..owned_props />
+      <BS_EnvelopeExclamationFill ..owned_props />
     },
     implicit_clone::unsync::IString::Static("TelephoneX") => html! {
-      <MD_TelephoneX ..owned_props />
+      <BS_TelephoneX ..owned_props />
     },
     implicit_clone::unsync::IString::Static("Virus") => html! {
-      <MD_Virus ..owned_props />
+      <BS_Virus ..owned_props />
     },
     implicit_clone::unsync::IString::Static("Basket3") => html! {
-      <MD_Basket3 ..owned_props />
+      <BS_Basket3 ..owned_props />
     },
     implicit_clone::unsync::IString::Static("Box2HeartFill") => html! {
-      <MD_Box2HeartFill ..owned_props />
+      <BS_Box2HeartFill ..owned_props />
     },
     implicit_clone::unsync::IString::Static("SignIntersectionSideFill") => html! {
-      <MD_SignIntersectionSideFill ..owned_props />
+      <BS_SignIntersectionSideFill ..owned_props />
     },
     implicit_clone::unsync::IString::Static("Hearts") => html! {
-      <MD_Hearts ..owned_props />
+      <BS_Hearts ..owned_props />
     },
     implicit_clone::unsync::IString::Static("SignMergeLeft") => html! {
-      <MD_SignMergeLeft ..owned_props />
+      <BS_SignMergeLeft ..owned_props />
     },
     implicit_clone::unsync::IString::Static("CartPlus") => html! {
-      <MD_CartPlus ..owned_props />
+      <BS_CartPlus ..owned_props />
     },
     implicit_clone::unsync::IString::Static("Heart") => html! {
-      <MD_Heart ..owned_props />
+      <BS_Heart ..owned_props />
     },
     implicit_clone::unsync::IString::Static("Intersect") => html! {
-      <MD_Intersect ..owned_props />
+      <BS_Intersect ..owned_props />
     },
     implicit_clone::unsync::IString::Static("CloudSunFill") => html! {
-      <MD_CloudSunFill ..owned_props />
+      <BS_CloudSunFill ..owned_props />
     },
     implicit_clone::unsync::IString::Static("ArrowRightCircle") => html! {
-      <MD_ArrowRightCircle ..owned_props />
+      <BS_ArrowRightCircle ..owned_props />
     },
     implicit_clone::unsync::IString::Static("Textarea") => html! {
-      <MD_Textarea ..owned_props />
+      <BS_Textarea ..owned_props />
     },
     implicit_clone::unsync::IString::Static("SymmetryVertical") => html! {
-      <MD_SymmetryVertical ..owned_props />
+      <BS_SymmetryVertical ..owned_props />
     },
     implicit_clone::unsync::IString::Static("PersonAdd") => html! {
-      <MD_PersonAdd ..owned_props />
+      <BS_PersonAdd ..owned_props />
     },
     implicit_clone::unsync::IString::Static("Share") => html! {
-      <MD_Share ..owned_props />
+      <BS_Share ..owned_props />
     },
     implicit_clone::unsync::IString::Static("CalendarRangeFill") => html! {
-      <MD_CalendarRangeFill ..owned_props />
+      <BS_CalendarRangeFill ..owned_props />
     },
     implicit_clone::unsync::IString::Static("EnvelopeHeart") => html! {
-      <MD_EnvelopeHeart ..owned_props />
+      <BS_EnvelopeHeart ..owned_props />
     },
     implicit_clone::unsync::IString::Static("ChatSquareDotsFill") => html! {
-      <MD_ChatSquareDotsFill ..owned_props />
+      <BS_ChatSquareDotsFill ..owned_props />
     },
     implicit_clone::unsync::IString::Static("Bookshelf") => html! {
-      <MD_Bookshelf ..owned_props />
+      <BS_Bookshelf ..owned_props />
     },
     implicit_clone::unsync::IString::Static("LayerBackward") => html! {
-      <MD_LayerBackward ..owned_props />
+      <BS_LayerBackward ..owned_props />
     },
     implicit_clone::unsync::IString::Static("Calendar4Range") => html! {
-      <MD_Calendar4Range ..owned_props />
+      <BS_Calendar4Range ..owned_props />
     },
     implicit_clone::unsync::IString::Static("Calendar3Fill") => html! {
-      <MD_Calendar3Fill ..owned_props />
+      <BS_Calendar3Fill ..owned_props />
     },
     implicit_clone::unsync::IString::Static("DashCircle") => html! {
-      <MD_DashCircle ..owned_props />
+      <BS_DashCircle ..owned_props />
     },
     implicit_clone::unsync::IString::Static("BadgeCc") => html! {
-      <MD_BadgeCc ..owned_props />
+      <BS_BadgeCc ..owned_props />
     },
     implicit_clone::unsync::IString::Static("Spellcheck") => html! {
-      <MD_Spellcheck ..owned_props />
+      <BS_Spellcheck ..owned_props />
     },
     implicit_clone::unsync::IString::Static("FiletypeDoc") => html! {
-      <MD_FiletypeDoc ..owned_props />
+      <BS_FiletypeDoc ..owned_props />
     },
     implicit_clone::unsync::IString::Static("Calendar2HeartFill") => html! {
-      <MD_Calendar2HeartFill ..owned_props />
+      <BS_Calendar2HeartFill ..owned_props />
     },
     implicit_clone::unsync::IString::Static("BadgeHdFill") => html! {
-      <MD_BadgeHdFill ..owned_props />
+      <BS_BadgeHdFill ..owned_props />
     },
     implicit_clone::unsync::IString::Static("ReceiptCutoff") => html! {
-      <MD_ReceiptCutoff ..owned_props />
+      <BS_ReceiptCutoff ..owned_props />
     },
     implicit_clone::unsync::IString::Static("BuildingFillLock") => html! {
-      <MD_BuildingFillLock ..owned_props />
+      <BS_BuildingFillLock ..owned_props />
     },
     implicit_clone::unsync::IString::Static("GraphDown") => html! {
-      <MD_GraphDown ..owned_props />
+      <BS_GraphDown ..owned_props />
     },
     implicit_clone::unsync::IString::Static("CaretDownSquareFill") => html! {
-      <MD_CaretDownSquareFill ..owned_props />
+      <BS_CaretDownSquareFill ..owned_props />
     },
     implicit_clone::unsync::IString::Static("PersonLinesFill") => html! {
-      <MD_PersonLinesFill ..owned_props />
+      <BS_PersonLinesFill ..owned_props />
     },
     implicit_clone::unsync::IString::Static("Sticky") => html! {
-      <MD_Sticky ..owned_props />
+      <BS_Sticky ..owned_props />
     },
     implicit_clone::unsync::IString::Static("CarFront") => html! {
-      <MD_CarFront ..owned_props />
+      <BS_CarFront ..owned_props />
     },
     implicit_clone::unsync::IString::Static("1Circle") => html! {
-      <MD_1Circle ..owned_props />
+      <BS_1Circle ..owned_props />
     },
     implicit_clone::unsync::IString::Static("SinaWeibo") => html! {
-      <MD_SinaWeibo ..owned_props />
+      <BS_SinaWeibo ..owned_props />
     },
     implicit_clone::unsync::IString::Static("WrenchAdjustableCircleFill") => html! {
-      <MD_WrenchAdjustableCircleFill ..owned_props />
+      <BS_WrenchAdjustableCircleFill ..owned_props />
     },
     implicit_clone::unsync::IString::Static("SignTurnSlightLeft") => html! {
-      <MD_SignTurnSlightLeft ..owned_props />
+      <BS_SignTurnSlightLeft ..owned_props />
     },
     implicit_clone::unsync::IString::Static("SuitSpadeFill") => html! {
-      <MD_SuitSpadeFill ..owned_props />
+      <BS_SuitSpadeFill ..owned_props />
     },
     implicit_clone::unsync::IString::Static("BookmarkCheck") => html! {
-      <MD_BookmarkCheck ..owned_props />
+      <BS_BookmarkCheck ..owned_props />
     },
     implicit_clone::unsync::IString::Static("FuelPumpFill") => html! {
-      <MD_FuelPumpFill ..owned_props />
+      <BS_FuelPumpFill ..owned_props />
     },
     implicit_clone::unsync::IString::Static("SortUp") => html! {
-      <MD_SortUp ..owned_props />
+      <BS_SortUp ..owned_props />
     },
     implicit_clone::unsync::IString::Static("FiletypeMd") => html! {
-      <MD_FiletypeMd ..owned_props />
+      <BS_FiletypeMd ..owned_props />
     },
     implicit_clone::unsync::IString::Static("SkipEndFill") => html! {
-      <MD_SkipEndFill ..owned_props />
+      <BS_SkipEndFill ..owned_props />
     },
     implicit_clone::unsync::IString::Static("EnvelopeDashFill") => html! {
-      <MD_EnvelopeDashFill ..owned_props />
+      <BS_EnvelopeDashFill ..owned_props />
     },
     implicit_clone::unsync::IString::Static("FileEarmarkRuled") => html! {
-      <MD_FileEarmarkRuled ..owned_props />
+      <BS_FileEarmarkRuled ..owned_props />
     },
     implicit_clone::unsync::IString::Static("Vimeo") => html! {
-      <MD_Vimeo ..owned_props />
+      <BS_Vimeo ..owned_props />
     },
     implicit_clone::unsync::IString::Static("Info") => html! {
-      <MD_Info ..owned_props />
+      <BS_Info ..owned_props />
     },
     implicit_clone::unsync::IString::Static("SortNumericDown") => html! {
-      <MD_SortNumericDown ..owned_props />
+      <BS_SortNumericDown ..owned_props />
     },
     implicit_clone::unsync::IString::Static("MenuUp") => html! {
-      <MD_MenuUp ..owned_props />
+      <BS_MenuUp ..owned_props />
     },
     implicit_clone::unsync::IString::Static("4Square") => html! {
-      <MD_4Square ..owned_props />
+      <BS_4Square ..owned_props />
     },
     implicit_clone::unsync::IString::Static("CloudLightningFill") => html! {
-      <MD_CloudLightningFill ..owned_props />
+      <BS_CloudLightningFill ..owned_props />
     },
     implicit_clone::unsync::IString::Static("TrophyFill") => html! {
-      <MD_TrophyFill ..owned_props />
+      <BS_TrophyFill ..owned_props />
     },
     implicit_clone::unsync::IString::Static("PenFill") => html! {
-      <MD_PenFill ..owned_props />
+      <BS_PenFill ..owned_props />
     },
     implicit_clone::unsync::IString::Static("FileMinusFill") => html! {
-      <MD_FileMinusFill ..owned_props />
+      <BS_FileMinusFill ..owned_props />
     },
     implicit_clone::unsync::IString::Static("ArrowDownRightCircle") => html! {
-      <MD_ArrowDownRightCircle ..owned_props />
+      <BS_ArrowDownRightCircle ..owned_props />
     },
     implicit_clone::unsync::IString::Static("EmojiAngryFill") => html! {
-      <MD_EmojiAngryFill ..owned_props />
+      <BS_EmojiAngryFill ..owned_props />
     },
     implicit_clone::unsync::IString::Static("AwardFill") => html! {
-      <MD_AwardFill ..owned_props />
+      <BS_AwardFill ..owned_props />
     },
     implicit_clone::unsync::IString::Static("Wrench") => html! {
-      <MD_Wrench ..owned_props />
+      <BS_Wrench ..owned_props />
     },
     implicit_clone::unsync::IString::Static("FileEarmarkText") => html! {
-      <MD_FileEarmarkText ..owned_props />
+      <BS_FileEarmarkText ..owned_props />
     },
     implicit_clone::unsync::IString::Static("CloudArrowUp") => html! {
-      <MD_CloudArrowUp ..owned_props />
+      <BS_CloudArrowUp ..owned_props />
     },
     implicit_clone::unsync::IString::Static("Star") => html! {
-      <MD_Star ..owned_props />
+      <BS_Star ..owned_props />
     },
     implicit_clone::unsync::IString::Static("FileEarmarkRuledFill") => html! {
-      <MD_FileEarmarkRuledFill ..owned_props />
+      <BS_FileEarmarkRuledFill ..owned_props />
     },
     implicit_clone::unsync::IString::Static("Stripe") => html! {
-      <MD_Stripe ..owned_props />
+      <BS_Stripe ..owned_props />
     },
     implicit_clone::unsync::IString::Static("EnvelopeX") => html! {
-      <MD_EnvelopeX ..owned_props />
+      <BS_EnvelopeX ..owned_props />
     },
     implicit_clone::unsync::IString::Static("FiletypeAac") => html! {
-      <MD_FiletypeAac ..owned_props />
+      <BS_FiletypeAac ..owned_props />
     },
     implicit_clone::unsync::IString::Static("EvStationFill") => html! {
-      <MD_EvStationFill ..owned_props />
+      <BS_EvStationFill ..owned_props />
     },
     implicit_clone::unsync::IString::Static("Postage") => html! {
-      <MD_Postage ..owned_props />
+      <BS_Postage ..owned_props />
     },
     implicit_clone::unsync::IString::Static("SkipForward") => html! {
-      <MD_SkipForward ..owned_props />
+      <BS_SkipForward ..owned_props />
     },
     implicit_clone::unsync::IString::Static("CartX") => html! {
-      <MD_CartX ..owned_props />
+      <BS_CartX ..owned_props />
     },
     implicit_clone::unsync::IString::Static("CardImage") => html! {
-      <MD_CardImage ..owned_props />
+      <BS_CardImage ..owned_props />
     },
     implicit_clone::unsync::IString::Static("HeartArrow") => html! {
-      <MD_HeartArrow ..owned_props />
+      <BS_HeartArrow ..owned_props />
     },
     implicit_clone::unsync::IString::Static("Arrow90degLeft") => html! {
-      <MD_Arrow90degLeft ..owned_props />
+      <BS_Arrow90degLeft ..owned_props />
     },
     implicit_clone::unsync::IString::Static("UsbPlugFill") => html! {
-      <MD_UsbPlugFill ..owned_props />
+      <BS_UsbPlugFill ..owned_props />
     },
     implicit_clone::unsync::IString::Static("FileEarmarkPlusFill") => html! {
-      <MD_FileEarmarkPlusFill ..owned_props />
+      <BS_FileEarmarkPlusFill ..owned_props />
     },
     implicit_clone::unsync::IString::Static("BagXFill") => html! {
-      <MD_BagXFill ..owned_props />
+      <BS_BagXFill ..owned_props />
     },
     implicit_clone::unsync::IString::Static("BagHeart") => html! {
-      <MD_BagHeart ..owned_props />
+      <BS_BagHeart ..owned_props />
     },
     implicit_clone::unsync::IString::Static("PersonFillSlash") => html! {
-      <MD_PersonFillSlash ..owned_props />
+      <BS_PersonFillSlash ..owned_props />
     },
     implicit_clone::unsync::IString::Static("ChatHeart") => html! {
-      <MD_ChatHeart ..owned_props />
+      <BS_ChatHeart ..owned_props />
     },
     implicit_clone::unsync::IString::Static("DatabaseFillCheck") => html! {
-      <MD_DatabaseFillCheck ..owned_props />
+      <BS_DatabaseFillCheck ..owned_props />
     },
     implicit_clone::unsync::IString::Static("SignStopFill") => html! {
-      <MD_SignStopFill ..owned_props />
+      <BS_SignStopFill ..owned_props />
     },
     implicit_clone::unsync::IString::Static("UsbC") => html! {
-      <MD_UsbC ..owned_props />
+      <BS_UsbC ..owned_props />
     },
     implicit_clone::unsync::IString::Static("EmojiLaughing") => html! {
-      <MD_EmojiLaughing ..owned_props />
+      <BS_EmojiLaughing ..owned_props />
     },
     implicit_clone::unsync::IString::Static("Heartbreak") => html! {
-      <MD_Heartbreak ..owned_props />
+      <BS_Heartbreak ..owned_props />
     },
     implicit_clone::unsync::IString::Static("Mouse") => html! {
-      <MD_Mouse ..owned_props />
+      <BS_Mouse ..owned_props />
     },
     implicit_clone::unsync::IString::Static("Lamp") => html! {
-      <MD_Lamp ..owned_props />
+      <BS_Lamp ..owned_props />
     },
     implicit_clone::unsync::IString::Static("Dice6Fill") => html! {
-      <MD_Dice6Fill ..owned_props />
+      <BS_Dice6Fill ..owned_props />
     },
     implicit_clone::unsync::IString::Static("CurrencyExchange") => html! {
-      <MD_CurrencyExchange ..owned_props />
+      <BS_CurrencyExchange ..owned_props />
     },
     implicit_clone::unsync::IString::Static("EmojiSunglassesFill") => html! {
-      <MD_EmojiSunglassesFill ..owned_props />
+      <BS_EmojiSunglassesFill ..owned_props />
     },
     implicit_clone::unsync::IString::Static("Reception1") => html! {
-      <MD_Reception1 ..owned_props />
+      <BS_Reception1 ..owned_props />
     },
     implicit_clone::unsync::IString::Static("ClipboardPlusFill") => html! {
-      <MD_ClipboardPlusFill ..owned_props />
+      <BS_ClipboardPlusFill ..owned_props />
     },
     implicit_clone::unsync::IString::Static("Scissors") => html! {
-      <MD_Scissors ..owned_props />
+      <BS_Scissors ..owned_props />
     },
     implicit_clone::unsync::IString::Static("Linkedin") => html! {
-      <MD_Linkedin ..owned_props />
+      <BS_Linkedin ..owned_props />
     },
     implicit_clone::unsync::IString::Static("ArrowReturnRight") => html! {
-      <MD_ArrowReturnRight ..owned_props />
+      <BS_ArrowReturnRight ..owned_props />
     },
     implicit_clone::unsync::IString::Static("Repeat1") => html! {
-      <MD_Repeat1 ..owned_props />
+      <BS_Repeat1 ..owned_props />
     },
     implicit_clone::unsync::IString::Static("BagHeartFill") => html! {
-      <MD_BagHeartFill ..owned_props />
+      <BS_BagHeartFill ..owned_props />
     },
     implicit_clone::unsync::IString::Static("TerminalFill") => html! {
-      <MD_TerminalFill ..owned_props />
+      <BS_TerminalFill ..owned_props />
     },
     implicit_clone::unsync::IString::Static("FilePlus") => html! {
-      <MD_FilePlus ..owned_props />
+      <BS_FilePlus ..owned_props />
     },
     implicit_clone::unsync::IString::Static("TelephoneOutbound") => html! {
-      <MD_TelephoneOutbound ..owned_props />
+      <BS_TelephoneOutbound ..owned_props />
     },
     implicit_clone::unsync::IString::Static("DatabaseExclamation") => html! {
-      <MD_DatabaseExclamation ..owned_props />
+      <BS_DatabaseExclamation ..owned_props />
     },
     implicit_clone::unsync::IString::Static("FileXFill") => html! {
-      <MD_FileXFill ..owned_props />
+      <BS_FileXFill ..owned_props />
     },
     implicit_clone::unsync::IString::Static("FileRichtext") => html! {
-      <MD_FileRichtext ..owned_props />
+      <BS_FileRichtext ..owned_props />
     },
     implicit_clone::unsync::IString::Static("BuildingAdd") => html! {
-      <MD_BuildingAdd ..owned_props />
+      <BS_BuildingAdd ..owned_props />
     },
     implicit_clone::unsync::IString::Static("Markdown") => html! {
-      <MD_Markdown ..owned_props />
+      <BS_Markdown ..owned_props />
     },
     implicit_clone::unsync::IString::Static("BookmarkPlusFill") => html! {
-      <MD_BookmarkPlusFill ..owned_props />
+      <BS_BookmarkPlusFill ..owned_props />
     },
     implicit_clone::unsync::IString::Static("DatabaseFillDash") => html! {
-      <MD_DatabaseFillDash ..owned_props />
+      <BS_DatabaseFillDash ..owned_props />
     },
     implicit_clone::unsync::IString::Static("BlockquoteRight") => html! {
-      <MD_BlockquoteRight ..owned_props />
+      <BS_BlockquoteRight ..owned_props />
     },
     implicit_clone::unsync::IString::Static("PersonSlash") => html! {
-      <MD_PersonSlash ..owned_props />
+      <BS_PersonSlash ..owned_props />
     },
     implicit_clone::unsync::IString::Static("FiletypePpt") => html! {
-      <MD_FiletypePpt ..owned_props />
+      <BS_FiletypePpt ..owned_props />
     },
     implicit_clone::unsync::IString::Static("PatchMinusFill") => html! {
-      <MD_PatchMinusFill ..owned_props />
+      <BS_PatchMinusFill ..owned_props />
     },
     implicit_clone::unsync::IString::Static("EnvelopeOpenHeart") => html! {
-      <MD_EnvelopeOpenHeart ..owned_props />
+      <BS_EnvelopeOpenHeart ..owned_props />
     },
     implicit_clone::unsync::IString::Static("Flower1") => html! {
-      <MD_Flower1 ..owned_props />
+      <BS_Flower1 ..owned_props />
     },
     implicit_clone::unsync::IString::Static("HouseDoor") => html! {
-      <MD_HouseDoor ..owned_props />
+      <BS_HouseDoor ..owned_props />
     },
     implicit_clone::unsync::IString::Static("CircleSquare") => html! {
-      <MD_CircleSquare ..owned_props />
+      <BS_CircleSquare ..owned_props />
     },
     implicit_clone::unsync::IString::Static("GeoAlt") => html! {
-      <MD_GeoAlt ..owned_props />
+      <BS_GeoAlt ..owned_props />
     },
     implicit_clone::unsync::IString::Static("BuildingFillExclamation") => html! {
-      <MD_BuildingFillExclamation ..owned_props />
+      <BS_BuildingFillExclamation ..owned_props />
     },
     implicit_clone::unsync::IString::Static("TextIndentRight") => html! {
-      <MD_TextIndentRight ..owned_props />
+      <BS_TextIndentRight ..owned_props />
     },
     implicit_clone::unsync::IString::Static("PersonCheck") => html! {
-      <MD_PersonCheck ..owned_props />
+      <BS_PersonCheck ..owned_props />
     },
     implicit_clone::unsync::IString::Static("Calendar2Check") => html! {
-      <MD_Calendar2Check ..owned_props />
+      <BS_Calendar2Check ..owned_props />
     },
     implicit_clone::unsync::IString::Static("PostcardFill") => html! {
-      <MD_PostcardFill ..owned_props />
+      <BS_PostcardFill ..owned_props />
     },
     implicit_clone::unsync::IString::Static("PersonHearts") => html! {
-      <MD_PersonHearts ..owned_props />
+      <BS_PersonHearts ..owned_props />
     },
     implicit_clone::unsync::IString::Static("Check2") => html! {
-      <MD_Check2 ..owned_props />
+      <BS_Check2 ..owned_props />
     },
     implicit_clone::unsync::IString::Static("Globe") => html! {
-      <MD_Globe ..owned_props />
+      <BS_Globe ..owned_props />
     },
     implicit_clone::unsync::IString::Static("PrinterFill") => html! {
-      <MD_PrinterFill ..owned_props />
+      <BS_PrinterFill ..owned_props />
     },
     implicit_clone::unsync::IString::Static("Valentine2") => html! {
-      <MD_Valentine2 ..owned_props />
+      <BS_Valentine2 ..owned_props />
     },
     implicit_clone::unsync::IString::Static("YinYang") => html! {
-      <MD_YinYang ..owned_props />
+      <BS_YinYang ..owned_props />
     },
     implicit_clone::unsync::IString::Static("Cash") => html! {
-      <MD_Cash ..owned_props />
+      <BS_Cash ..owned_props />
     },
     implicit_clone::unsync::IString::Static("GraphUpArrow") => html! {
-      <MD_GraphUpArrow ..owned_props />
+      <BS_GraphUpArrow ..owned_props />
     },
     implicit_clone::unsync::IString::Static("Calendar3WeekFill") => html! {
-      <MD_Calendar3WeekFill ..owned_props />
+      <BS_Calendar3WeekFill ..owned_props />
     },
     implicit_clone::unsync::IString::Static("2SquareFill") => html! {
-      <MD_2SquareFill ..owned_props />
+      <BS_2SquareFill ..owned_props />
     },
     implicit_clone::unsync::IString::Static("XLg") => html! {
-      <MD_XLg ..owned_props />
+      <BS_XLg ..owned_props />
     },
     implicit_clone::unsync::IString::Static("Receipt") => html! {
-      <MD_Receipt ..owned_props />
+      <BS_Receipt ..owned_props />
     },
     implicit_clone::unsync::IString::Static("WindowSplit") => html! {
-      <MD_WindowSplit ..owned_props />
+      <BS_WindowSplit ..owned_props />
     },
     implicit_clone::unsync::IString::Static("PatchQuestion") => html! {
-      <MD_PatchQuestion ..owned_props />
+      <BS_PatchQuestion ..owned_props />
     },
     implicit_clone::unsync::IString::Static("FileFont") => html! {
-      <MD_FileFont ..owned_props />
+      <BS_FileFont ..owned_props />
     },
     implicit_clone::unsync::IString::Static("GenderTrans") => html! {
-      <MD_GenderTrans ..owned_props />
+      <BS_GenderTrans ..owned_props />
     },
     implicit_clone::unsync::IString::Static("Tablet") => html! {
-      <MD_Tablet ..owned_props />
+      <BS_Tablet ..owned_props />
     },
     implicit_clone::unsync::IString::Static("Upc") => html! {
-      <MD_Upc ..owned_props />
+      <BS_Upc ..owned_props />
     },
     implicit_clone::unsync::IString::Static("Clipboard2HeartFill") => html! {
-      <MD_Clipboard2HeartFill ..owned_props />
+      <BS_Clipboard2HeartFill ..owned_props />
     },
     implicit_clone::unsync::IString::Static("PlusSquareDotted") => html! {
-      <MD_PlusSquareDotted ..owned_props />
+      <BS_PlusSquareDotted ..owned_props />
     },
     implicit_clone::unsync::IString::Static("CloudHazeFill") => html! {
-      <MD_CloudHazeFill ..owned_props />
+      <BS_CloudHazeFill ..owned_props />
     },
     implicit_clone::unsync::IString::Static("Display") => html! {
-      <MD_Display ..owned_props />
+      <BS_Display ..owned_props />
     },
     implicit_clone::unsync::IString::Static("FileCode") => html! {
-      <MD_FileCode ..owned_props />
+      <BS_FileCode ..owned_props />
     },
     implicit_clone::unsync::IString::Static("Medium") => html! {
-      <MD_Medium ..owned_props />
+      <BS_Medium ..owned_props />
     },
     implicit_clone::unsync::IString::Static("SignIntersectionTFill") => html! {
-      <MD_SignIntersectionTFill ..owned_props />
+      <BS_SignIntersectionTFill ..owned_props />
     },
     implicit_clone::unsync::IString::Static("CalendarMonthFill") => html! {
-      <MD_CalendarMonthFill ..owned_props />
+      <BS_CalendarMonthFill ..owned_props />
     },
     implicit_clone::unsync::IString::Static("TropicalStorm") => html! {
-      <MD_TropicalStorm ..owned_props />
+      <BS_TropicalStorm ..owned_props />
     },
     implicit_clone::unsync::IString::Static("CloudFogFill") => html! {
-      <MD_CloudFogFill ..owned_props />
+      <BS_CloudFogFill ..owned_props />
     },
     implicit_clone::unsync::IString::Static("Easel") => html! {
-      <MD_Easel ..owned_props />
+      <BS_Easel ..owned_props />
     },
     implicit_clone::unsync::IString::Static("Hospital") => html! {
-      <MD_Hospital ..owned_props />
+      <BS_Hospital ..owned_props />
     },
     implicit_clone::unsync::IString::Static("Rss") => html! {
-      <MD_Rss ..owned_props />
+      <BS_Rss ..owned_props />
     },
     implicit_clone::unsync::IString::Static("ChatRightText") => html! {
-      <MD_ChatRightText ..owned_props />
+      <BS_ChatRightText ..owned_props />
     },
     implicit_clone::unsync::IString::Static("PcDisplay") => html! {
-      <MD_PcDisplay ..owned_props />
+      <BS_PcDisplay ..owned_props />
     },
     implicit_clone::unsync::IString::Static("TelephoneInboundFill") => html! {
-      <MD_TelephoneInboundFill ..owned_props />
+      <BS_TelephoneInboundFill ..owned_props />
     },
     implicit_clone::unsync::IString::Static("FiletypeRaw") => html! {
-      <MD_FiletypeRaw ..owned_props />
+      <BS_FiletypeRaw ..owned_props />
     },
     implicit_clone::unsync::IString::Static("ChatSquareQuote") => html! {
-      <MD_ChatSquareQuote ..owned_props />
+      <BS_ChatSquareQuote ..owned_props />
     },
     implicit_clone::unsync::IString::Static("PersonGear") => html! {
-      <MD_PersonGear ..owned_props />
+      <BS_PersonGear ..owned_props />
     },
     implicit_clone::unsync::IString::Static("FileWordFill") => html! {
-      <MD_FileWordFill ..owned_props />
+      <BS_FileWordFill ..owned_props />
     },
     implicit_clone::unsync::IString::Static("Calendar3Event") => html! {
-      <MD_Calendar3Event ..owned_props />
+      <BS_Calendar3Event ..owned_props />
     },
     implicit_clone::unsync::IString::Static("BugFill") => html! {
-      <MD_BugFill ..owned_props />
+      <BS_BugFill ..owned_props />
     },
     implicit_clone::unsync::IString::Static("EmojiAngry") => html! {
-      <MD_EmojiAngry ..owned_props />
+      <BS_EmojiAngry ..owned_props />
     },
     implicit_clone::unsync::IString::Static("EggFried") => html! {
-      <MD_EggFried ..owned_props />
+      <BS_EggFried ..owned_props />
     },
     implicit_clone::unsync::IString::Static("LayersFill") => html! {
-      <MD_LayersFill ..owned_props />
+      <BS_LayersFill ..owned_props />
     },
     implicit_clone::unsync::IString::Static("HourglassSplit") => html! {
-      <MD_HourglassSplit ..owned_props />
+      <BS_HourglassSplit ..owned_props />
     },
     implicit_clone::unsync::IString::Static("Border") => html! {
-      <MD_Border ..owned_props />
+      <BS_Border ..owned_props />
     },
     implicit_clone::unsync::IString::Static("Stopwatch") => html! {
-      <MD_Stopwatch ..owned_props />
+      <BS_Stopwatch ..owned_props />
     },
     implicit_clone::unsync::IString::Static("BorderBottom") => html! {
-      <MD_BorderBottom ..owned_props />
+      <BS_BorderBottom ..owned_props />
     },
     implicit_clone::unsync::IString::Static("BadgeCcFill") => html! {
-      <MD_BadgeCcFill ..owned_props />
+      <BS_BadgeCcFill ..owned_props />
     },
     implicit_clone::unsync::IString::Static("Rocket") => html! {
-      <MD_Rocket ..owned_props />
+      <BS_Rocket ..owned_props />
     },
     implicit_clone::unsync::IString::Static("Calendar2Event") => html! {
-      <MD_Calendar2Event ..owned_props />
+      <BS_Calendar2Event ..owned_props />
     },
     implicit_clone::unsync::IString::Static("PersonFillDash") => html! {
-      <MD_PersonFillDash ..owned_props />
+      <BS_PersonFillDash ..owned_props />
     },
     implicit_clone::unsync::IString::Static("EnvelopePaper") => html! {
-      <MD_EnvelopePaper ..owned_props />
+      <BS_EnvelopePaper ..owned_props />
     },
     implicit_clone::unsync::IString::Static("ChatQuote") => html! {
-      <MD_ChatQuote ..owned_props />
+      <BS_ChatQuote ..owned_props />
     },
     implicit_clone::unsync::IString::Static("InboxFill") => html! {
-      <MD_InboxFill ..owned_props />
+      <BS_InboxFill ..owned_props />
     },
     implicit_clone::unsync::IString::Static("FileEarmarkBarGraphFill") => html! {
-      <MD_FileEarmarkBarGraphFill ..owned_props />
+      <BS_FileEarmarkBarGraphFill ..owned_props />
     },
     implicit_clone::unsync::IString::Static("HddStackFill") => html! {
-      <MD_HddStackFill ..owned_props />
+      <BS_HddStackFill ..owned_props />
     },
     implicit_clone::unsync::IString::Static("Snapchat") => html! {
-      <MD_Snapchat ..owned_props />
+      <BS_Snapchat ..owned_props />
     },
     implicit_clone::unsync::IString::Static("QuestionDiamondFill") => html! {
-      <MD_QuestionDiamondFill ..owned_props />
+      <BS_QuestionDiamondFill ..owned_props />
     },
     implicit_clone::unsync::IString::Static("Person") => html! {
-      <MD_Person ..owned_props />
+      <BS_Person ..owned_props />
     },
     implicit_clone::unsync::IString::Static("Box2") => html! {
-      <MD_Box2 ..owned_props />
+      <BS_Box2 ..owned_props />
     },
     implicit_clone::unsync::IString::Static("Calendar2RangeFill") => html! {
-      <MD_Calendar2RangeFill ..owned_props />
+      <BS_Calendar2RangeFill ..owned_props />
     },
     implicit_clone::unsync::IString::Static("Code") => html! {
-      <MD_Code ..owned_props />
+      <BS_Code ..owned_props />
     },
     implicit_clone::unsync::IString::Static("PersonDash") => html! {
-      <MD_PersonDash ..owned_props />
+      <BS_PersonDash ..owned_props />
     },
     implicit_clone::unsync::IString::Static("CloudSnow") => html! {
-      <MD_CloudSnow ..owned_props />
+      <BS_CloudSnow ..owned_props />
     },
     implicit_clone::unsync::IString::Static("VectorPen") => html! {
-      <MD_VectorPen ..owned_props />
+      <BS_VectorPen ..owned_props />
     },
     implicit_clone::unsync::IString::Static("TextParagraph") => html! {
-      <MD_TextParagraph ..owned_props />
+      <BS_TextParagraph ..owned_props />
     },
     implicit_clone::unsync::IString::Static("BorderOuter") => html! {
-      <MD_BorderOuter ..owned_props />
+      <BS_BorderOuter ..owned_props />
     },
     implicit_clone::unsync::IString::Static("LayoutTextWindowReverse") => html! {
-      <MD_LayoutTextWindowReverse ..owned_props />
+      <BS_LayoutTextWindowReverse ..owned_props />
     },
     implicit_clone::unsync::IString::Static("BoxArrowUp") => html! {
-      <MD_BoxArrowUp ..owned_props />
+      <BS_BoxArrowUp ..owned_props />
     },
     implicit_clone::unsync::IString::Static("HouseXFill") => html! {
-      <MD_HouseXFill ..owned_props />
+      <BS_HouseXFill ..owned_props />
     },
     implicit_clone::unsync::IString::Static("FullscreenExit") => html! {
-      <MD_FullscreenExit ..owned_props />
+      <BS_FullscreenExit ..owned_props />
     },
     implicit_clone::unsync::IString::Static("ArrowsAngleExpand") => html! {
-      <MD_ArrowsAngleExpand ..owned_props />
+      <BS_ArrowsAngleExpand ..owned_props />
     },
     implicit_clone::unsync::IString::Static("ImageFill") => html! {
-      <MD_ImageFill ..owned_props />
+      <BS_ImageFill ..owned_props />
     },
     implicit_clone::unsync::IString::Static("EyeFill") => html! {
-      <MD_EyeFill ..owned_props />
+      <BS_EyeFill ..owned_props />
     },
     implicit_clone::unsync::IString::Static("PlusCircleDotted") => html! {
-      <MD_PlusCircleDotted ..owned_props />
+      <BS_PlusCircleDotted ..owned_props />
     },
     implicit_clone::unsync::IString::Static("Boxes") => html! {
-      <MD_Boxes ..owned_props />
+      <BS_Boxes ..owned_props />
     },
     implicit_clone::unsync::IString::Static("Houses") => html! {
-      <MD_Houses ..owned_props />
+      <BS_Houses ..owned_props />
     },
     implicit_clone::unsync::IString::Static("HouseExclamationFill") => html! {
-      <MD_HouseExclamationFill ..owned_props />
+      <BS_HouseExclamationFill ..owned_props />
     },
     implicit_clone::unsync::IString::Static("Save2Fill") => html! {
-      <MD_Save2Fill ..owned_props />
+      <BS_Save2Fill ..owned_props />
     },
     implicit_clone::unsync::IString::Static("EaselFill") => html! {
-      <MD_EaselFill ..owned_props />
+      <BS_EaselFill ..owned_props />
     },
     implicit_clone::unsync::IString::Static("PersonLock") => html! {
-      <MD_PersonLock ..owned_props />
+      <BS_PersonLock ..owned_props />
     },
     implicit_clone::unsync::IString::Static("PersonVideo2") => html! {
-      <MD_PersonVideo2 ..owned_props />
+      <BS_PersonVideo2 ..owned_props />
     },
     implicit_clone::unsync::IString::Static("EvFrontFill") => html! {
-      <MD_EvFrontFill ..owned_props />
+      <BS_EvFrontFill ..owned_props />
     },
     implicit_clone::unsync::IString::Static("ListNested") => html! {
-      <MD_ListNested ..owned_props />
+      <BS_ListNested ..owned_props />
     },
     implicit_clone::unsync::IString::Static("RewindFill") => html! {
-      <MD_RewindFill ..owned_props />
+      <BS_RewindFill ..owned_props />
     },
     implicit_clone::unsync::IString::Static("DropletFill") => html! {
-      <MD_DropletFill ..owned_props />
+      <BS_DropletFill ..owned_props />
     },
     implicit_clone::unsync::IString::Static("Power") => html! {
-      <MD_Power ..owned_props />
+      <BS_Power ..owned_props />
     },
     implicit_clone::unsync::IString::Static("Screwdriver") => html! {
-      <MD_Screwdriver ..owned_props />
+      <BS_Screwdriver ..owned_props />
     },
     implicit_clone::unsync::IString::Static("SegmentedNav") => html! {
-      <MD_SegmentedNav ..owned_props />
+      <BS_SegmentedNav ..owned_props />
     },
     implicit_clone::unsync::IString::Static("PhoneVibrateFill") => html! {
-      <MD_PhoneVibrateFill ..owned_props />
+      <BS_PhoneVibrateFill ..owned_props />
     },
     implicit_clone::unsync::IString::Static("CheckAll") => html! {
-      <MD_CheckAll ..owned_props />
+      <BS_CheckAll ..owned_props />
     },
     implicit_clone::unsync::IString::Static("Dice4Fill") => html! {
-      <MD_Dice4Fill ..owned_props />
+      <BS_Dice4Fill ..owned_props />
     },
     implicit_clone::unsync::IString::Static("MenuAppFill") => html! {
-      <MD_MenuAppFill ..owned_props />
+      <BS_MenuAppFill ..owned_props />
     },
     implicit_clone::unsync::IString::Static("EnvelopePlusFill") => html! {
-      <MD_EnvelopePlusFill ..owned_props />
+      <BS_EnvelopePlusFill ..owned_props />
     },
     implicit_clone::unsync::IString::Static("BorderLeft") => html! {
-      <MD_BorderLeft ..owned_props />
+      <BS_BorderLeft ..owned_props />
     },
     implicit_clone::unsync::IString::Static("Badge3dFill") => html! {
-      <MD_Badge3dFill ..owned_props />
+      <BS_Badge3dFill ..owned_props />
     },
     implicit_clone::unsync::IString::Static("Calendar3Week") => html! {
-      <MD_Calendar3Week ..owned_props />
+      <BS_Calendar3Week ..owned_props />
     },
     implicit_clone::unsync::IString::Static("ChatText") => html! {
-      <MD_ChatText ..owned_props />
+      <BS_ChatText ..owned_props />
     },
     implicit_clone::unsync::IString::Static("CaretLeftSquare") => html! {
-      <MD_CaretLeftSquare ..owned_props />
+      <BS_CaretLeftSquare ..owned_props />
     },
     implicit_clone::unsync::IString::Static("SlashCircleFill") => html! {
-      <MD_SlashCircleFill ..owned_props />
+      <BS_SlashCircleFill ..owned_props />
     },
     implicit_clone::unsync::IString::Static("WrenchAdjustableCircle") => html! {
-      <MD_WrenchAdjustableCircle ..owned_props />
+      <BS_WrenchAdjustableCircle ..owned_props />
     },
     implicit_clone::unsync::IString::Static("ChatDots") => html! {
-      <MD_ChatDots ..owned_props />
+      <BS_ChatDots ..owned_props />
     },
     implicit_clone::unsync::IString::Static("BadgeVr") => html! {
-      <MD_BadgeVr ..owned_props />
+      <BS_BadgeVr ..owned_props />
     },
     implicit_clone::unsync::IString::Static("FileEarmarkBreakFill") => html! {
-      <MD_FileEarmarkBreakFill ..owned_props />
+      <BS_FileEarmarkBreakFill ..owned_props />
     },
     implicit_clone::unsync::IString::Static("CloudHail") => html! {
-      <MD_CloudHail ..owned_props />
+      <BS_CloudHail ..owned_props />
     },
     implicit_clone::unsync::IString::Static("FolderX") => html! {
-      <MD_FolderX ..owned_props />
+      <BS_FolderX ..owned_props />
     },
     implicit_clone::unsync::IString::Static("EmojiWink") => html! {
-      <MD_EmojiWink ..owned_props />
+      <BS_EmojiWink ..owned_props />
     },
     implicit_clone::unsync::IString::Static("4SquareFill") => html! {
-      <MD_4SquareFill ..owned_props />
+      <BS_4SquareFill ..owned_props />
     },
     implicit_clone::unsync::IString::Static("ArrowDownLeft") => html! {
-      <MD_ArrowDownLeft ..owned_props />
+      <BS_ArrowDownLeft ..owned_props />
     },
     implicit_clone::unsync::IString::Static("FileEarmarkPostFill") => html! {
-      <MD_FileEarmarkPostFill ..owned_props />
+      <BS_FileEarmarkPostFill ..owned_props />
     },
     implicit_clone::unsync::IString::Static("People") => html! {
-      <MD_People ..owned_props />
+      <BS_People ..owned_props />
     },
     implicit_clone::unsync::IString::Static("HSquare") => html! {
-      <MD_HSquare ..owned_props />
+      <BS_HSquare ..owned_props />
     },
     implicit_clone::unsync::IString::Static("ChatRightDots") => html! {
-      <MD_ChatRightDots ..owned_props />
+      <BS_ChatRightDots ..owned_props />
     },
     implicit_clone::unsync::IString::Static("UsbDrive") => html! {
-      <MD_UsbDrive ..owned_props />
+      <BS_UsbDrive ..owned_props />
     },
     implicit_clone::unsync::IString::Static("Signal") => html! {
-      <MD_Signal ..owned_props />
+      <BS_Signal ..owned_props />
     },
     implicit_clone::unsync::IString::Static("GenderFemale") => html! {
-      <MD_GenderFemale ..owned_props />
+      <BS_GenderFemale ..owned_props />
     },
     implicit_clone::unsync::IString::Static("PersonSquare") => html! {
-      <MD_PersonSquare ..owned_props />
+      <BS_PersonSquare ..owned_props />
     },
     implicit_clone::unsync::IString::Static("Truck") => html! {
-      <MD_Truck ..owned_props />
+      <BS_Truck ..owned_props />
     },
     implicit_clone::unsync::IString::Static("SkipBackward") => html! {
-      <MD_SkipBackward ..owned_props />
+      <BS_SkipBackward ..owned_props />
     },
     implicit_clone::unsync::IString::Static("PlusSquareFill") => html! {
-      <MD_PlusSquareFill ..owned_props />
+      <BS_PlusSquareFill ..owned_props />
     },
     implicit_clone::unsync::IString::Static("ArrowDownCircleFill") => html! {
-      <MD_ArrowDownCircleFill ..owned_props />
+      <BS_ArrowDownCircleFill ..owned_props />
     },
     implicit_clone::unsync::IString::Static("File") => html! {
-      <MD_File ..owned_props />
+      <BS_File ..owned_props />
     },
     implicit_clone::unsync::IString::Static("App") => html! {
-      <MD_App ..owned_props />
+      <BS_App ..owned_props />
     },
     implicit_clone::unsync::IString::Static("Grid3x2Gap") => html! {
-      <MD_Grid3x2Gap ..owned_props />
+      <BS_Grid3x2Gap ..owned_props />
     },
     implicit_clone::unsync::IString::Static("Windows") => html! {
-      <MD_Windows ..owned_props />
+      <BS_Windows ..owned_props />
     },
     implicit_clone::unsync::IString::Static("FileZipFill") => html! {
-      <MD_FileZipFill ..owned_props />
+      <BS_FileZipFill ..owned_props />
     },
     implicit_clone::unsync::IString::Static("VolumeMute") => html! {
-      <MD_VolumeMute ..owned_props />
+      <BS_VolumeMute ..owned_props />
     },
     implicit_clone::unsync::IString::Static("4Circle") => html! {
-      <MD_4Circle ..owned_props />
+      <BS_4Circle ..owned_props />
     },
     implicit_clone::unsync::IString::Static("SignRailroad") => html! {
-      <MD_SignRailroad ..owned_props />
+      <BS_SignRailroad ..owned_props />
     },
     implicit_clone::unsync::IString::Static("FiletypeMp4") => html! {
-      <MD_FiletypeMp4 ..owned_props />
+      <BS_FiletypeMp4 ..owned_props />
     },
     implicit_clone::unsync::IString::Static("HeartbreakFill") => html! {
-      <MD_HeartbreakFill ..owned_props />
+      <BS_HeartbreakFill ..owned_props />
     },
     implicit_clone::unsync::IString::Static("CaretDown") => html! {
-      <MD_CaretDown ..owned_props />
+      <BS_CaretDown ..owned_props />
     },
     implicit_clone::unsync::IString::Static("MicrosoftTeams") => html! {
-      <MD_MicrosoftTeams ..owned_props />
+      <BS_MicrosoftTeams ..owned_props />
     },
     implicit_clone::unsync::IString::Static("ShieldPlus") => html! {
-      <MD_ShieldPlus ..owned_props />
+      <BS_ShieldPlus ..owned_props />
     },
     implicit_clone::unsync::IString::Static("SymmetryHorizontal") => html! {
-      <MD_SymmetryHorizontal ..owned_props />
+      <BS_SymmetryHorizontal ..owned_props />
     },
     implicit_clone::unsync::IString::Static("Clipboard2XFill") => html! {
-      <MD_Clipboard2XFill ..owned_props />
+      <BS_Clipboard2XFill ..owned_props />
     },
     implicit_clone::unsync::IString::Static("FileRichtextFill") => html! {
-      <MD_FileRichtextFill ..owned_props />
+      <BS_FileRichtextFill ..owned_props />
     },
     implicit_clone::unsync::IString::Static("ArrowDownRightCircleFill") => html! {
-      <MD_ArrowDownRightCircleFill ..owned_props />
+      <BS_ArrowDownRightCircleFill ..owned_props />
     },
     implicit_clone::unsync::IString::Static("MapFill") => html! {
-      <MD_MapFill ..owned_props />
+      <BS_MapFill ..owned_props />
     },
     implicit_clone::unsync::IString::Static("CompassFill") => html! {
-      <MD_CompassFill ..owned_props />
+      <BS_CompassFill ..owned_props />
     },
     implicit_clone::unsync::IString::Static("EmojiWinkFill") => html! {
-      <MD_EmojiWinkFill ..owned_props />
+      <BS_EmojiWinkFill ..owned_props />
     },
     implicit_clone::unsync::IString::Static("FilePlay") => html! {
-      <MD_FilePlay ..owned_props />
+      <BS_FilePlay ..owned_props />
     },
     implicit_clone::unsync::IString::Static("GraphUp") => html! {
-      <MD_GraphUp ..owned_props />
+      <BS_GraphUp ..owned_props />
     },
     implicit_clone::unsync::IString::Static("SignTurnRightFill") => html! {
-      <MD_SignTurnRightFill ..owned_props />
+      <BS_SignTurnRightFill ..owned_props />
     },
     implicit_clone::unsync::IString::Static("5SquareFill") => html! {
-      <MD_5SquareFill ..owned_props />
+      <BS_5SquareFill ..owned_props />
     },
     implicit_clone::unsync::IString::Static("SkipBackwardCircle") => html! {
-      <MD_SkipBackwardCircle ..owned_props />
+      <BS_SkipBackwardCircle ..owned_props />
     },
     implicit_clone::unsync::IString::Static("SortAlphaUp") => html! {
-      <MD_SortAlphaUp ..owned_props />
+      <BS_SortAlphaUp ..owned_props />
     },
     implicit_clone::unsync::IString::Static("HexagonFill") => html! {
-      <MD_HexagonFill ..owned_props />
+      <BS_HexagonFill ..owned_props />
     },
     implicit_clone::unsync::IString::Static("ChatSquareText") => html! {
-      <MD_ChatSquareText ..owned_props />
+      <BS_ChatSquareText ..owned_props />
     },
     implicit_clone::unsync::IString::Static("SignNoLeftTurn") => html! {
-      <MD_SignNoLeftTurn ..owned_props />
+      <BS_SignNoLeftTurn ..owned_props />
     },
     implicit_clone::unsync::IString::Static("TvFill") => html! {
-      <MD_TvFill ..owned_props />
+      <BS_TvFill ..owned_props />
     },
     implicit_clone::unsync::IString::Static("MenuButtonFill") => html! {
-      <MD_MenuButtonFill ..owned_props />
+      <BS_MenuButtonFill ..owned_props />
     },
     implicit_clone::unsync::IString::Static("JournalMinus") => html! {
-      <MD_JournalMinus ..owned_props />
+      <BS_JournalMinus ..owned_props />
     },
     implicit_clone::unsync::IString::Static("CartPlusFill") => html! {
-      <MD_CartPlusFill ..owned_props />
+      <BS_CartPlusFill ..owned_props />
     },
     implicit_clone::unsync::IString::Static("EnvelopeAt") => html! {
-      <MD_EnvelopeAt ..owned_props />
+      <BS_EnvelopeAt ..owned_props />
     },
     implicit_clone::unsync::IString::Static("Journal") => html! {
-      <MD_Journal ..owned_props />
+      <BS_Journal ..owned_props />
     },
     implicit_clone::unsync::IString::Static("Percent") => html! {
-      <MD_Percent ..owned_props />
+      <BS_Percent ..owned_props />
     },
     implicit_clone::unsync::IString::Static("Rulers") => html! {
-      <MD_Rulers ..owned_props />
+      <BS_Rulers ..owned_props />
     },
     implicit_clone::unsync::IString::Static("Toggle2Off") => html! {
-      <MD_Toggle2Off ..owned_props />
+      <BS_Toggle2Off ..owned_props />
     },
     implicit_clone::unsync::IString::Static("BuildingsFill") => html! {
-      <MD_BuildingsFill ..owned_props />
+      <BS_BuildingsFill ..owned_props />
     },
     implicit_clone::unsync::IString::Static("Mouse3Fill") => html! {
-      <MD_Mouse3Fill ..owned_props />
+      <BS_Mouse3Fill ..owned_props />
     },
     implicit_clone::unsync::IString::Static("FiletypeTiff") => html! {
-      <MD_FiletypeTiff ..owned_props />
+      <BS_FiletypeTiff ..owned_props />
     },
     implicit_clone::unsync::IString::Static("HouseFill") => html! {
-      <MD_HouseFill ..owned_props />
+      <BS_HouseFill ..owned_props />
     },
     implicit_clone::unsync::IString::Static("BoomboxFill") => html! {
-      <MD_BoomboxFill ..owned_props />
+      <BS_BoomboxFill ..owned_props />
     },
     implicit_clone::unsync::IString::Static("BuildingFillDash") => html! {
-      <MD_BuildingFillDash ..owned_props />
+      <BS_BuildingFillDash ..owned_props />
     },
     implicit_clone::unsync::IString::Static("Clipboard2DataFill") => html! {
-      <MD_Clipboard2DataFill ..owned_props />
+      <BS_Clipboard2DataFill ..owned_props />
     },
     implicit_clone::unsync::IString::Static("Filter") => html! {
-      <MD_Filter ..owned_props />
+      <BS_Filter ..owned_props />
     },
     implicit_clone::unsync::IString::Static("Sliders2") => html! {
-      <MD_Sliders2 ..owned_props />
+      <BS_Sliders2 ..owned_props />
     },
     implicit_clone::unsync::IString::Static("SignTurnLeft") => html! {
-      <MD_SignTurnLeft ..owned_props />
+      <BS_SignTurnLeft ..owned_props />
     },
     implicit_clone::unsync::IString::Static("Radioactive") => html! {
-      <MD_Radioactive ..owned_props />
+      <BS_Radioactive ..owned_props />
     },
     implicit_clone::unsync::IString::Static("CaretLeftFill") => html! {
-      <MD_CaretLeftFill ..owned_props />
+      <BS_CaretLeftFill ..owned_props />
     },
     implicit_clone::unsync::IString::Static("7SquareFill") => html! {
-      <MD_7SquareFill ..owned_props />
+      <BS_7SquareFill ..owned_props />
     },
     implicit_clone::unsync::IString::Static("CloudHaze2") => html! {
-      <MD_CloudHaze2 ..owned_props />
+      <BS_CloudHaze2 ..owned_props />
     },
     implicit_clone::unsync::IString::Static("ArrowRight") => html! {
-      <MD_ArrowRight ..owned_props />
+      <BS_ArrowRight ..owned_props />
     },
     implicit_clone::unsync::IString::Static("Facebook") => html! {
-      <MD_Facebook ..owned_props />
+      <BS_Facebook ..owned_props />
     },
     implicit_clone::unsync::IString::Static("Magnet") => html! {
-      <MD_Magnet ..owned_props />
+      <BS_Magnet ..owned_props />
     },
     implicit_clone::unsync::IString::Static("FileSlidesFill") => html! {
-      <MD_FileSlidesFill ..owned_props />
+      <BS_FileSlidesFill ..owned_props />
     },
     implicit_clone::unsync::IString::Static("FileExcel") => html! {
-      <MD_FileExcel ..owned_props />
+      <BS_FileExcel ..owned_props />
     },
     implicit_clone::unsync::IString::Static("ArrowRightSquareFill") => html! {
-      <MD_ArrowRightSquareFill ..owned_props />
+      <BS_ArrowRightSquareFill ..owned_props />
     },
     implicit_clone::unsync::IString::Static("CodeSquare") => html! {
-      <MD_CodeSquare ..owned_props />
+      <BS_CodeSquare ..owned_props />
     },
     implicit_clone::unsync::IString::Static("Calendar2XFill") => html! {
-      <MD_Calendar2XFill ..owned_props />
+      <BS_Calendar2XFill ..owned_props />
     },
     implicit_clone::unsync::IString::Static("HouseHeart") => html! {
-      <MD_HouseHeart ..owned_props />
+      <BS_HouseHeart ..owned_props />
     },
     implicit_clone::unsync::IString::Static("FileEarmarkImage") => html! {
-      <MD_FileEarmarkImage ..owned_props />
+      <BS_FileEarmarkImage ..owned_props />
     },
     implicit_clone::unsync::IString::Static("Bucket") => html! {
-      <MD_Bucket ..owned_props />
+      <BS_Bucket ..owned_props />
     },
     implicit_clone::unsync::IString::Static("CupStraw") => html! {
-      <MD_CupStraw ..owned_props />
+      <BS_CupStraw ..owned_props />
     },
     implicit_clone::unsync::IString::Static("FileEarmarkLock2Fill") => html! {
-      <MD_FileEarmarkLock2Fill ..owned_props />
+      <BS_FileEarmarkLock2Fill ..owned_props />
     },
     implicit_clone::unsync::IString::Static("MoonStarsFill") => html! {
-      <MD_MoonStarsFill ..owned_props />
+      <BS_MoonStarsFill ..owned_props />
     },
     implicit_clone::unsync::IString::Static("FilePdfFill") => html! {
-      <MD_FilePdfFill ..owned_props />
+      <BS_FilePdfFill ..owned_props />
     },
     implicit_clone::unsync::IString::Static("Gear") => html! {
-      <MD_Gear ..owned_props />
+      <BS_Gear ..owned_props />
     },
     implicit_clone::unsync::IString::Static("BoxArrowInRight") => html! {
-      <MD_BoxArrowInRight ..owned_props />
+      <BS_BoxArrowInRight ..owned_props />
     },
     implicit_clone::unsync::IString::Static("FiletypeHtml") => html! {
-      <MD_FiletypeHtml ..owned_props />
+      <BS_FiletypeHtml ..owned_props />
     },
     implicit_clone::unsync::IString::Static("Table") => html! {
-      <MD_Table ..owned_props />
+      <BS_Table ..owned_props />
     },
     implicit_clone::unsync::IString::Static("ArrowDownRightSquare") => html! {
-      <MD_ArrowDownRightSquare ..owned_props />
+      <BS_ArrowDownRightSquare ..owned_props />
     },
     implicit_clone::unsync::IString::Static("Dice3Fill") => html! {
-      <MD_Dice3Fill ..owned_props />
+      <BS_Dice3Fill ..owned_props />
     },
     implicit_clone::unsync::IString::Static("DatabaseDash") => html! {
-      <MD_DatabaseDash ..owned_props />
+      <BS_DatabaseDash ..owned_props />
     },
     implicit_clone::unsync::IString::Static("2Circle") => html! {
-      <MD_2Circle ..owned_props />
+      <BS_2Circle ..owned_props />
     },
     implicit_clone::unsync::IString::Static("Clipboard2Fill") => html! {
-      <MD_Clipboard2Fill ..owned_props />
+      <BS_Clipboard2Fill ..owned_props />
     },
     implicit_clone::unsync::IString::Static("Rewind") => html! {
-      <MD_Rewind ..owned_props />
+      <BS_Rewind ..owned_props />
     },
     implicit_clone::unsync::IString::Static("CreditCardFill") => html! {
-      <MD_CreditCardFill ..owned_props />
+      <BS_CreditCardFill ..owned_props />
     },
     implicit_clone::unsync::IString::Static("Dot") => html! {
-      <MD_Dot ..owned_props />
+      <BS_Dot ..owned_props />
     },
     implicit_clone::unsync::IString::Static("NutFill") => html! {
-      <MD_NutFill ..owned_props />
+      <BS_NutFill ..owned_props />
     },
     implicit_clone::unsync::IString::Static("FiletypeTsx") => html! {
-      <MD_FiletypeTsx ..owned_props />
+      <BS_FiletypeTsx ..owned_props />
     },
     implicit_clone::unsync::IString::Static("BookmarkDash") => html! {
-      <MD_BookmarkDash ..owned_props />
+      <BS_BookmarkDash ..owned_props />
     },
     implicit_clone::unsync::IString::Static("CloudFog") => html! {
-      <MD_CloudFog ..owned_props />
+      <BS_CloudFog ..owned_props />
     },
     implicit_clone::unsync::IString::Static("RocketFill") => html! {
-      <MD_RocketFill ..owned_props />
+      <BS_RocketFill ..owned_props />
     },
     implicit_clone::unsync::IString::Static("FileEarmarkCheckFill") => html! {
-      <MD_FileEarmarkCheckFill ..owned_props />
+      <BS_FileEarmarkCheckFill ..owned_props />
     },
     implicit_clone::unsync::IString::Static("Bluetooth") => html! {
-      <MD_Bluetooth ..owned_props />
+      <BS_Bluetooth ..owned_props />
     },
     implicit_clone::unsync::IString::Static("Shuffle") => html! {
-      <MD_Shuffle ..owned_props />
+      <BS_Shuffle ..owned_props />
     },
     implicit_clone::unsync::IString::Static("BadgeAr") => html! {
-      <MD_BadgeAr ..owned_props />
+      <BS_BadgeAr ..owned_props />
     },
     implicit_clone::unsync::IString::Static("PipFill") => html! {
-      <MD_PipFill ..owned_props />
+      <BS_PipFill ..owned_props />
     },
     implicit_clone::unsync::IString::Static("Bootstrap") => html! {
-      <MD_Bootstrap ..owned_props />
+      <BS_Bootstrap ..owned_props />
     },
     implicit_clone::unsync::IString::Static("Film") => html! {
-      <MD_Film ..owned_props />
+      <BS_Film ..owned_props />
     },
     implicit_clone::unsync::IString::Static("BatteryCharging") => html! {
-      <MD_BatteryCharging ..owned_props />
+      <BS_BatteryCharging ..owned_props />
     },
     implicit_clone::unsync::IString::Static("Clipboard2Plus") => html! {
-      <MD_Clipboard2Plus ..owned_props />
+      <BS_Clipboard2Plus ..owned_props />
     },
     implicit_clone::unsync::IString::Static("CloudSleetFill") => html! {
-      <MD_CloudSleetFill ..owned_props />
+      <BS_CloudSleetFill ..owned_props />
     },
     implicit_clone::unsync::IString::Static("SkipForwardFill") => html! {
-      <MD_SkipForwardFill ..owned_props />
+      <BS_SkipForwardFill ..owned_props />
     },
     implicit_clone::unsync::IString::Static("ChevronCompactLeft") => html! {
-      <MD_ChevronCompactLeft ..owned_props />
+      <BS_ChevronCompactLeft ..owned_props />
     },
     implicit_clone::unsync::IString::Static("MicFill") => html! {
-      <MD_MicFill ..owned_props />
+      <BS_MicFill ..owned_props />
     },
     implicit_clone::unsync::IString::Static("Safe2Fill") => html! {
-      <MD_Safe2Fill ..owned_props />
+      <BS_Safe2Fill ..owned_props />
     },
     implicit_clone::unsync::IString::Static("KanbanFill") => html! {
-      <MD_KanbanFill ..owned_props />
+      <BS_KanbanFill ..owned_props />
     },
     implicit_clone::unsync::IString::Static("RewindBtnFill") => html! {
-      <MD_RewindBtnFill ..owned_props />
+      <BS_RewindBtnFill ..owned_props />
     },
     implicit_clone::unsync::IString::Static("ReplyFill") => html! {
-      <MD_ReplyFill ..owned_props />
+      <BS_ReplyFill ..owned_props />
     },
     implicit_clone::unsync::IString::Static("Twitter") => html! {
-      <MD_Twitter ..owned_props />
+      <BS_Twitter ..owned_props />
     },
     implicit_clone::unsync::IString::Static("ToggleOn") => html! {
-      <MD_ToggleOn ..owned_props />
+      <BS_ToggleOn ..owned_props />
     },
     implicit_clone::unsync::IString::Static("CurrencyRupee") => html! {
-      <MD_CurrencyRupee ..owned_props />
+      <BS_CurrencyRupee ..owned_props />
     },
     implicit_clone::unsync::IString::Static("BadgeSdFill") => html! {
-      <MD_BadgeSdFill ..owned_props />
+      <BS_BadgeSdFill ..owned_props />
     },
     implicit_clone::unsync::IString::Static("PersonVcard") => html! {
-      <MD_PersonVcard ..owned_props />
+      <BS_PersonVcard ..owned_props />
     },
     implicit_clone::unsync::IString::Static("Cpu") => html! {
-      <MD_Cpu ..owned_props />
+      <BS_Cpu ..owned_props />
     },
     implicit_clone::unsync::IString::Static("CaretDownSquare") => html! {
-      <MD_CaretDownSquare ..owned_props />
+      <BS_CaretDownSquare ..owned_props />
     },
     implicit_clone::unsync::IString::Static("NodeMinus") => html! {
-      <MD_NodeMinus ..owned_props />
+      <BS_NodeMinus ..owned_props />
     },
     implicit_clone::unsync::IString::Static("HandbagFill") => html! {
-      <MD_HandbagFill ..owned_props />
+      <BS_HandbagFill ..owned_props />
     },
     implicit_clone::unsync::IString::Static("DoorOpenFill") => html! {
-      <MD_DoorOpenFill ..owned_props />
+      <BS_DoorOpenFill ..owned_props />
     },
     implicit_clone::unsync::IString::Static("EvFront") => html! {
-      <MD_EvFront ..owned_props />
+      <BS_EvFront ..owned_props />
     },
     implicit_clone::unsync::IString::Static("ArrowBarUp") => html! {
-      <MD_ArrowBarUp ..owned_props />
+      <BS_ArrowBarUp ..owned_props />
     },
     implicit_clone::unsync::IString::Static("PlayBtn") => html! {
-      <MD_PlayBtn ..owned_props />
+      <BS_PlayBtn ..owned_props />
     },
     implicit_clone::unsync::IString::Static("SendPlus") => html! {
-      <MD_SendPlus ..owned_props />
+      <BS_SendPlus ..owned_props />
     },
     implicit_clone::unsync::IString::Static("ChevronBarDown") => html! {
-      <MD_ChevronBarDown ..owned_props />
+      <BS_ChevronBarDown ..owned_props />
     },
     implicit_clone::unsync::IString::Static("CaretDownFill") => html! {
-      <MD_CaretDownFill ..owned_props />
+      <BS_CaretDownFill ..owned_props />
     },
     implicit_clone::unsync::IString::Static("MicMute") => html! {
-      <MD_MicMute ..owned_props />
+      <BS_MicMute ..owned_props />
     },
     implicit_clone::unsync::IString::Static("PersonFillDown") => html! {
-      <MD_PersonFillDown ..owned_props />
+      <BS_PersonFillDown ..owned_props />
     },
     implicit_clone::unsync::IString::Static("TypeH1") => html! {
-      <MD_TypeH1 ..owned_props />
+      <BS_TypeH1 ..owned_props />
     },
     implicit_clone::unsync::IString::Static("PlayBtnFill") => html! {
-      <MD_PlayBtnFill ..owned_props />
+      <BS_PlayBtnFill ..owned_props />
     },
     implicit_clone::unsync::IString::Static("9Circle") => html! {
-      <MD_9Circle ..owned_props />
+      <BS_9Circle ..owned_props />
     },
     implicit_clone::unsync::IString::Static("DatabaseFillDown") => html! {
-      <MD_DatabaseFillDown ..owned_props />
+      <BS_DatabaseFillDown ..owned_props />
     },
     implicit_clone::unsync::IString::Static("Unlock") => html! {
-      <MD_Unlock ..owned_props />
+      <BS_Unlock ..owned_props />
     },
     implicit_clone::unsync::IString::Static("BrightnessAltHigh") => html! {
-      <MD_BrightnessAltHigh ..owned_props />
+      <BS_BrightnessAltHigh ..owned_props />
     },
     implicit_clone::unsync::IString::Static("ChatDotsFill") => html! {
-      <MD_ChatDotsFill ..owned_props />
+      <BS_ChatDotsFill ..owned_props />
     },
     implicit_clone::unsync::IString::Static("Eyeglasses") => html! {
-      <MD_Eyeglasses ..owned_props />
+      <BS_Eyeglasses ..owned_props />
     },
     implicit_clone::unsync::IString::Static("ArrowsMove") => html! {
-      <MD_ArrowsMove ..owned_props />
+      <BS_ArrowsMove ..owned_props />
     },
     implicit_clone::unsync::IString::Static("MouseFill") => html! {
-      <MD_MouseFill ..owned_props />
+      <BS_MouseFill ..owned_props />
     },
     implicit_clone::unsync::IString::Static("FileEarmarkZip") => html! {
-      <MD_FileEarmarkZip ..owned_props />
+      <BS_FileEarmarkZip ..owned_props />
     },
     implicit_clone::unsync::IString::Static("SlashCircle") => html! {
-      <MD_SlashCircle ..owned_props />
+      <BS_SlashCircle ..owned_props />
     },
     implicit_clone::unsync::IString::Static("Alt") => html! {
-      <MD_Alt ..owned_props />
+      <BS_Alt ..owned_props />
     },
     implicit_clone::unsync::IString::Static("SignIntersectionYFill") => html! {
-      <MD_SignIntersectionYFill ..owned_props />
+      <BS_SignIntersectionYFill ..owned_props />
     },
     implicit_clone::unsync::IString::Static("BrightnessHighFill") => html! {
-      <MD_BrightnessHighFill ..owned_props />
+      <BS_BrightnessHighFill ..owned_props />
     },
     implicit_clone::unsync::IString::Static("Lock") => html! {
-      <MD_Lock ..owned_props />
+      <BS_Lock ..owned_props />
     },
     implicit_clone::unsync::IString::Static("CloudMoon") => html! {
-      <MD_CloudMoon ..owned_props />
+      <BS_CloudMoon ..owned_props />
     },
     implicit_clone::unsync::IString::Static("HandIndexFill") => html! {
-      <MD_HandIndexFill ..owned_props />
+      <BS_HandIndexFill ..owned_props />
     },
     implicit_clone::unsync::IString::Static("BorderStyle") => html! {
-      <MD_BorderStyle ..owned_props />
+      <BS_BorderStyle ..owned_props />
     },
     implicit_clone::unsync::IString::Static("CloudRainFill") => html! {
-      <MD_CloudRainFill ..owned_props />
+      <BS_CloudRainFill ..owned_props />
     },
     implicit_clone::unsync::IString::Static("Telegram") => html! {
-      <MD_Telegram ..owned_props />
+      <BS_Telegram ..owned_props />
     },
     implicit_clone::unsync::IString::Static("Tag") => html! {
-      <MD_Tag ..owned_props />
+      <BS_Tag ..owned_props />
     },
     implicit_clone::unsync::IString::Static("Trello") => html! {
-      <MD_Trello ..owned_props />
+      <BS_Trello ..owned_props />
     },
     implicit_clone::unsync::IString::Static("CalendarMonth") => html! {
-      <MD_CalendarMonth ..owned_props />
+      <BS_CalendarMonth ..owned_props />
     },
     implicit_clone::unsync::IString::Static("Safe2") => html! {
-      <MD_Safe2 ..owned_props />
+      <BS_Safe2 ..owned_props />
     },
     implicit_clone::unsync::IString::Static("BuildingDash") => html! {
-      <MD_BuildingDash ..owned_props />
+      <BS_BuildingDash ..owned_props />
     },
     implicit_clone::unsync::IString::Static("FiletypeJs") => html! {
-      <MD_FiletypeJs ..owned_props />
+      <BS_FiletypeJs ..owned_props />
     },
     implicit_clone::unsync::IString::Static("BoxArrowRight") => html! {
-      <MD_BoxArrowRight ..owned_props />
+      <BS_BoxArrowRight ..owned_props />
     },
     implicit_clone::unsync::IString::Static("Messenger") => html! {
-      <MD_Messenger ..owned_props />
+      <BS_Messenger ..owned_props />
     },
     implicit_clone::unsync::IString::Static("ArrowLeft") => html! {
-      <MD_ArrowLeft ..owned_props />
+      <BS_ArrowLeft ..owned_props />
     },
     implicit_clone::unsync::IString::Static("Palette2") => html! {
-      <MD_Palette2 ..owned_props />
+      <BS_Palette2 ..owned_props />
     },
     implicit_clone::unsync::IString::Static("FileEarmarkXFill") => html! {
-      <MD_FileEarmarkXFill ..owned_props />
+      <BS_FileEarmarkXFill ..owned_props />
     },
     implicit_clone::unsync::IString::Static("FastForwardBtn") => html! {
-      <MD_FastForwardBtn ..owned_props />
+      <BS_FastForwardBtn ..owned_props />
     },
     implicit_clone::unsync::IString::Static("FileDiff") => html! {
-      <MD_FileDiff ..owned_props />
+      <BS_FileDiff ..owned_props />
     },
     implicit_clone::unsync::IString::Static("BadgeVrFill") => html! {
-      <MD_BadgeVrFill ..owned_props />
+      <BS_BadgeVrFill ..owned_props />
     },
     implicit_clone::unsync::IString::Static("Broadcast") => html! {
-      <MD_Broadcast ..owned_props />
+      <BS_Broadcast ..owned_props />
     },
     implicit_clone::unsync::IString::Static("PauseCircle") => html! {
-      <MD_PauseCircle ..owned_props />
+      <BS_PauseCircle ..owned_props />
     },
     implicit_clone::unsync::IString::Static("PauseFill") => html! {
-      <MD_PauseFill ..owned_props />
+      <BS_PauseFill ..owned_props />
     },
     implicit_clone::unsync::IString::Static("MotherboardFill") => html! {
-      <MD_MotherboardFill ..owned_props />
+      <BS_MotherboardFill ..owned_props />
     },
     implicit_clone::unsync::IString::Static("ArrowRightSquare") => html! {
-      <MD_ArrowRightSquare ..owned_props />
+      <BS_ArrowRightSquare ..owned_props />
     },
     implicit_clone::unsync::IString::Static("DatabaseFillAdd") => html! {
-      <MD_DatabaseFillAdd ..owned_props />
+      <BS_DatabaseFillAdd ..owned_props />
     },
     implicit_clone::unsync::IString::Static("FilterSquareFill") => html! {
-      <MD_FilterSquareFill ..owned_props />
+      <BS_FilterSquareFill ..owned_props />
     },
     implicit_clone::unsync::IString::Static("Virus2") => html! {
-      <MD_Virus2 ..owned_props />
+      <BS_Virus2 ..owned_props />
     },
     implicit_clone::unsync::IString::Static("ChatTextFill") => html! {
-      <MD_ChatTextFill ..owned_props />
+      <BS_ChatTextFill ..owned_props />
     },
     implicit_clone::unsync::IString::Static("SkipForwardCircleFill") => html! {
-      <MD_SkipForwardCircleFill ..owned_props />
+      <BS_SkipForwardCircleFill ..owned_props />
     },
     implicit_clone::unsync::IString::Static("ChatRightQuoteFill") => html! {
-      <MD_ChatRightQuoteFill ..owned_props />
+      <BS_ChatRightQuoteFill ..owned_props />
     },
     implicit_clone::unsync::IString::Static("PeaceFill") => html! {
-      <MD_PeaceFill ..owned_props />
+      <BS_PeaceFill ..owned_props />
     },
     implicit_clone::unsync::IString::Static("PinFill") => html! {
-      <MD_PinFill ..owned_props />
+      <BS_PinFill ..owned_props />
     },
     implicit_clone::unsync::IString::Static("Box2Fill") => html! {
-      <MD_Box2Fill ..owned_props />
+      <BS_Box2Fill ..owned_props />
     },
     implicit_clone::unsync::IString::Static("ChatSquareHeartFill") => html! {
-      <MD_ChatSquareHeartFill ..owned_props />
+      <BS_ChatSquareHeartFill ..owned_props />
     },
     implicit_clone::unsync::IString::Static("BarChartLine") => html! {
-      <MD_BarChartLine ..owned_props />
+      <BS_BarChartLine ..owned_props />
     },
     implicit_clone::unsync::IString::Static("CalendarHeart") => html! {
-      <MD_CalendarHeart ..owned_props />
+      <BS_CalendarHeart ..owned_props />
     },
     implicit_clone::unsync::IString::Static("PhoneFill") => html! {
-      <MD_PhoneFill ..owned_props />
+      <BS_PhoneFill ..owned_props />
     },
     implicit_clone::unsync::IString::Static("SendSlash") => html! {
-      <MD_SendSlash ..owned_props />
+      <BS_SendSlash ..owned_props />
     },
     implicit_clone::unsync::IString::Static("TagsFill") => html! {
-      <MD_TagsFill ..owned_props />
+      <BS_TagsFill ..owned_props />
     },
     implicit_clone::unsync::IString::Static("Crop") => html! {
-      <MD_Crop ..owned_props />
+      <BS_Crop ..owned_props />
     },
     implicit_clone::unsync::IString::Static("FiletypeTtf") => html! {
-      <MD_FiletypeTtf ..owned_props />
+      <BS_FiletypeTtf ..owned_props />
     },
     implicit_clone::unsync::IString::Static("MenuButtonWide") => html! {
-      <MD_MenuButtonWide ..owned_props />
+      <BS_MenuButtonWide ..owned_props />
     },
     implicit_clone::unsync::IString::Static("Award") => html! {
-      <MD_Award ..owned_props />
+      <BS_Award ..owned_props />
     },
     implicit_clone::unsync::IString::Static("3SquareFill") => html! {
-      <MD_3SquareFill ..owned_props />
+      <BS_3SquareFill ..owned_props />
     },
     implicit_clone::unsync::IString::Static("GripHorizontal") => html! {
-      <MD_GripHorizontal ..owned_props />
+      <BS_GripHorizontal ..owned_props />
     },
     implicit_clone::unsync::IString::Static("9SquareFill") => html! {
-      <MD_9SquareFill ..owned_props />
+      <BS_9SquareFill ..owned_props />
     },
     implicit_clone::unsync::IString::Static("FileMusic") => html! {
-      <MD_FileMusic ..owned_props />
+      <BS_FileMusic ..owned_props />
     },
     implicit_clone::unsync::IString::Static("CursorFill") => html! {
-      <MD_CursorFill ..owned_props />
+      <BS_CursorFill ..owned_props />
     },
     implicit_clone::unsync::IString::Static("PersonVideo3") => html! {
-      <MD_PersonVideo3 ..owned_props />
+      <BS_PersonVideo3 ..owned_props />
     },
     implicit_clone::unsync::IString::Static("HddFill") => html! {
-      <MD_HddFill ..owned_props />
+      <BS_HddFill ..owned_props />
     },
     implicit_clone::unsync::IString::Static("SuitClub") => html! {
-      <MD_SuitClub ..owned_props />
+      <BS_SuitClub ..owned_props />
     },
     implicit_clone::unsync::IString::Static("SuitClubFill") => html! {
-      <MD_SuitClubFill ..owned_props />
+      <BS_SuitClubFill ..owned_props />
     },
     implicit_clone::unsync::IString::Static("Collection") => html! {
-      <MD_Collection ..owned_props />
+      <BS_Collection ..owned_props />
     },
     implicit_clone::unsync::IString::Static("Option") => html! {
-      <MD_Option ..owned_props />
+      <BS_Option ..owned_props />
     },
     implicit_clone::unsync::IString::Static("ChevronDoubleLeft") => html! {
-      <MD_ChevronDoubleLeft ..owned_props />
+      <BS_ChevronDoubleLeft ..owned_props />
     },
     implicit_clone::unsync::IString::Static("SafeFill") => html! {
-      <MD_SafeFill ..owned_props />
+      <BS_SafeFill ..owned_props />
     },
     implicit_clone::unsync::IString::Static("BrushFill") => html! {
-      <MD_BrushFill ..owned_props />
+      <BS_BrushFill ..owned_props />
     },
     implicit_clone::unsync::IString::Static("6Square") => html! {
-      <MD_6Square ..owned_props />
+      <BS_6Square ..owned_props />
     },
     implicit_clone::unsync::IString::Static("ShopWindow") => html! {
-      <MD_ShopWindow ..owned_props />
+      <BS_ShopWindow ..owned_props />
     },
     implicit_clone::unsync::IString::Static("ShieldExclamation") => html! {
-      <MD_ShieldExclamation ..owned_props />
+      <BS_ShieldExclamation ..owned_props />
     },
     implicit_clone::unsync::IString::Static("RecordCircleFill") => html! {
-      <MD_RecordCircleFill ..owned_props />
+      <BS_RecordCircleFill ..owned_props />
     },
     implicit_clone::unsync::IString::Static("FilePptFill") => html! {
-      <MD_FilePptFill ..owned_props />
+      <BS_FilePptFill ..owned_props />
     },
     implicit_clone::unsync::IString::Static("Dice1Fill") => html! {
-      <MD_Dice1Fill ..owned_props />
+      <BS_Dice1Fill ..owned_props />
     },
     implicit_clone::unsync::IString::Static("ArrowBarLeft") => html! {
-      <MD_ArrowBarLeft ..owned_props />
+      <BS_ArrowBarLeft ..owned_props />
     },
     implicit_clone::unsync::IString::Static("HddNetwork") => html! {
-      <MD_HddNetwork ..owned_props />
+      <BS_HddNetwork ..owned_props />
     },
     implicit_clone::unsync::IString::Static("ClockFill") => html! {
-      <MD_ClockFill ..owned_props />
+      <BS_ClockFill ..owned_props />
     },
     implicit_clone::unsync::IString::Static("TabletFill") => html! {
-      <MD_TabletFill ..owned_props />
+      <BS_TabletFill ..owned_props />
     },
     implicit_clone::unsync::IString::Static("HeartPulseFill") => html! {
-      <MD_HeartPulseFill ..owned_props />
+      <BS_HeartPulseFill ..owned_props />
     },
     implicit_clone::unsync::IString::Static("FiletypePdf") => html! {
-      <MD_FiletypePdf ..owned_props />
+      <BS_FiletypePdf ..owned_props />
     },
     implicit_clone::unsync::IString::Static("BoxArrowInDown") => html! {
-      <MD_BoxArrowInDown ..owned_props />
+      <BS_BoxArrowInDown ..owned_props />
     },
     implicit_clone::unsync::IString::Static("Repeat") => html! {
-      <MD_Repeat ..owned_props />
+      <BS_Repeat ..owned_props />
     },
     implicit_clone::unsync::IString::Static("BasketFill") => html! {
-      <MD_BasketFill ..owned_props />
+      <BS_BasketFill ..owned_props />
     },
     implicit_clone::unsync::IString::Static("Globe2") => html! {
-      <MD_Globe2 ..owned_props />
+      <BS_Globe2 ..owned_props />
     },
     implicit_clone::unsync::IString::Static("SunFill") => html! {
-      <MD_SunFill ..owned_props />
+      <BS_SunFill ..owned_props />
     },
     implicit_clone::unsync::IString::Static("Gift") => html! {
-      <MD_Gift ..owned_props />
+      <BS_Gift ..owned_props />
     },
     implicit_clone::unsync::IString::Static("LayoutSidebarInsetReverse") => html! {
-      <MD_LayoutSidebarInsetReverse ..owned_props />
+      <BS_LayoutSidebarInsetReverse ..owned_props />
     },
     implicit_clone::unsync::IString::Static("PlugFill") => html! {
-      <MD_PlugFill ..owned_props />
+      <BS_PlugFill ..owned_props />
     },
     implicit_clone::unsync::IString::Static("Phone") => html! {
-      <MD_Phone ..owned_props />
+      <BS_Phone ..owned_props />
     },
     implicit_clone::unsync::IString::Static("AspectRatio") => html! {
-      <MD_AspectRatio ..owned_props />
+      <BS_AspectRatio ..owned_props />
     },
     implicit_clone::unsync::IString::Static("TruckFrontFill") => html! {
-      <MD_TruckFrontFill ..owned_props />
+      <BS_TruckFrontFill ..owned_props />
     },
     implicit_clone::unsync::IString::Static("Behance") => html! {
-      <MD_Behance ..owned_props />
+      <BS_Behance ..owned_props />
     },
     implicit_clone::unsync::IString::Static("UniversalAccessCircle") => html! {
-      <MD_UniversalAccessCircle ..owned_props />
+      <BS_UniversalAccessCircle ..owned_props />
     },
     implicit_clone::unsync::IString::Static("GraphDownArrow") => html! {
-      <MD_GraphDownArrow ..owned_props />
+      <BS_GraphDownArrow ..owned_props />
     },
     implicit_clone::unsync::IString::Static("FileEarmarkZipFill") => html! {
-      <MD_FileEarmarkZipFill ..owned_props />
+      <BS_FileEarmarkZipFill ..owned_props />
     },
     implicit_clone::unsync::IString::Static("BandaidFill") => html! {
-      <MD_BandaidFill ..owned_props />
+      <BS_BandaidFill ..owned_props />
     },
     implicit_clone::unsync::IString::Static("ArrowDownSquare") => html! {
-      <MD_ArrowDownSquare ..owned_props />
+      <BS_ArrowDownSquare ..owned_props />
     },
     implicit_clone::unsync::IString::Static("CalendarCheckFill") => html! {
-      <MD_CalendarCheckFill ..owned_props />
+      <BS_CalendarCheckFill ..owned_props />
     },
     implicit_clone::unsync::IString::Static("BookFill") => html! {
-      <MD_BookFill ..owned_props />
+      <BS_BookFill ..owned_props />
     },
     implicit_clone::unsync::IString::Static("UsbMicroFill") => html! {
-      <MD_UsbMicroFill ..owned_props />
+      <BS_UsbMicroFill ..owned_props />
     },
     implicit_clone::unsync::IString::Static("Controller") => html! {
-      <MD_Controller ..owned_props />
+      <BS_Controller ..owned_props />
     },
     implicit_clone::unsync::IString::Static("Fonts") => html! {
-      <MD_Fonts ..owned_props />
+      <BS_Fonts ..owned_props />
     },
     implicit_clone::unsync::IString::Static("EnvelopeExclamation") => html! {
-      <MD_EnvelopeExclamation ..owned_props />
+      <BS_EnvelopeExclamation ..owned_props />
     },
     implicit_clone::unsync::IString::Static("Pause") => html! {
-      <MD_Pause ..owned_props />
+      <BS_Pause ..owned_props />
     },
     implicit_clone::unsync::IString::Static("BookmarkDashFill") => html! {
-      <MD_BookmarkDashFill ..owned_props />
+      <BS_BookmarkDashFill ..owned_props />
     },
     implicit_clone::unsync::IString::Static("BoxArrowDownLeft") => html! {
-      <MD_BoxArrowDownLeft ..owned_props />
+      <BS_BoxArrowDownLeft ..owned_props />
     },
     implicit_clone::unsync::IString::Static("Front") => html! {
-      <MD_Front ..owned_props />
+      <BS_Front ..owned_props />
     },
     implicit_clone::unsync::IString::Static("SortNumericDownAlt") => html! {
-      <MD_SortNumericDownAlt ..owned_props />
+      <BS_SortNumericDownAlt ..owned_props />
     },
     implicit_clone::unsync::IString::Static("Dice6") => html! {
-      <MD_Dice6 ..owned_props />
+      <BS_Dice6 ..owned_props />
     },
     implicit_clone::unsync::IString::Static("RocketTakeoffFill") => html! {
-      <MD_RocketTakeoffFill ..owned_props />
+      <BS_RocketTakeoffFill ..owned_props />
     },
     implicit_clone::unsync::IString::Static("Folder2") => html! {
-      <MD_Folder2 ..owned_props />
+      <BS_Folder2 ..owned_props />
     },
     implicit_clone::unsync::IString::Static("WindowDesktop") => html! {
-      <MD_WindowDesktop ..owned_props />
+      <BS_WindowDesktop ..owned_props />
     },
     implicit_clone::unsync::IString::Static("FileMinus") => html! {
-      <MD_FileMinus ..owned_props />
+      <BS_FileMinus ..owned_props />
     },
     implicit_clone::unsync::IString::Static("Mailbox") => html! {
-      <MD_Mailbox ..owned_props />
+      <BS_Mailbox ..owned_props />
     },
     implicit_clone::unsync::IString::Static("ThermometerHalf") => html! {
-      <MD_ThermometerHalf ..owned_props />
+      <BS_ThermometerHalf ..owned_props />
     },
     implicit_clone::unsync::IString::Static("PersonCheckFill") => html! {
-      <MD_PersonCheckFill ..owned_props />
+      <BS_PersonCheckFill ..owned_props />
     },
     implicit_clone::unsync::IString::Static("PlusCircleFill") => html! {
-      <MD_PlusCircleFill ..owned_props />
+      <BS_PlusCircleFill ..owned_props />
     },
     implicit_clone::unsync::IString::Static("Flower2") => html! {
-      <MD_Flower2 ..owned_props />
+      <BS_Flower2 ..owned_props />
     },
     implicit_clone::unsync::IString::Static("ArrowsExpand") => html! {
-      <MD_ArrowsExpand ..owned_props />
+      <BS_ArrowsExpand ..owned_props />
     },
     implicit_clone::unsync::IString::Static("ShieldFillPlus") => html! {
-      <MD_ShieldFillPlus ..owned_props />
+      <BS_ShieldFillPlus ..owned_props />
     },
     implicit_clone::unsync::IString::Static("Flower3") => html! {
-      <MD_Flower3 ..owned_props />
+      <BS_Flower3 ..owned_props />
     },
     implicit_clone::unsync::IString::Static("FiletypeMov") => html! {
-      <MD_FiletypeMov ..owned_props />
+      <BS_FiletypeMov ..owned_props />
     },
     implicit_clone::unsync::IString::Static("PentagonFill") => html! {
-      <MD_PentagonFill ..owned_props />
+      <BS_PentagonFill ..owned_props />
     },
     implicit_clone::unsync::IString::Static("CloudDownloadFill") => html! {
-      <MD_CloudDownloadFill ..owned_props />
+      <BS_CloudDownloadFill ..owned_props />
     },
     implicit_clone::unsync::IString::Static("Shift") => html! {
-      <MD_Shift ..owned_props />
+      <BS_Shift ..owned_props />
     },
     implicit_clone::unsync::IString::Static("UsbMini") => html! {
-      <MD_UsbMini ..owned_props />
+      <BS_UsbMini ..owned_props />
     },
     implicit_clone::unsync::IString::Static("FileEarmarkCheck") => html! {
-      <MD_FileEarmarkCheck ..owned_props />
+      <BS_FileEarmarkCheck ..owned_props />
     },
     implicit_clone::unsync::IString::Static("4CircleFill") => html! {
-      <MD_4CircleFill ..owned_props />
+      <BS_4CircleFill ..owned_props />
     },
     implicit_clone::unsync::IString::Static("NodeMinusFill") => html! {
-      <MD_NodeMinusFill ..owned_props />
+      <BS_NodeMinusFill ..owned_props />
     },
     implicit_clone::unsync::IString::Static("Check2All") => html! {
-      <MD_Check2All ..owned_props />
+      <BS_Check2All ..owned_props />
     },
     implicit_clone::unsync::IString::Static("SignStop") => html! {
-      <MD_SignStop ..owned_props />
+      <BS_SignStop ..owned_props />
     },
     implicit_clone::unsync::IString::Static("Type") => html! {
-      <MD_Type ..owned_props />
+      <BS_Type ..owned_props />
     },
     implicit_clone::unsync::IString::Static("LayoutSidebar") => html! {
-      <MD_LayoutSidebar ..owned_props />
+      <BS_LayoutSidebar ..owned_props />
     },
     implicit_clone::unsync::IString::Static("FileArrowDown") => html! {
-      <MD_FileArrowDown ..owned_props />
+      <BS_FileArrowDown ..owned_props />
     },
     implicit_clone::unsync::IString::Static("BagDash") => html! {
-      <MD_BagDash ..owned_props />
+      <BS_BagDash ..owned_props />
     },
     implicit_clone::unsync::IString::Static("CpuFill") => html! {
-      <MD_CpuFill ..owned_props />
+      <BS_CpuFill ..owned_props />
     },
     implicit_clone::unsync::IString::Static("PCircle") => html! {
-      <MD_PCircle ..owned_props />
+      <BS_PCircle ..owned_props />
     },
     implicit_clone::unsync::IString::Static("RouterFill") => html! {
-      <MD_RouterFill ..owned_props />
+      <BS_RouterFill ..owned_props />
     },
     implicit_clone::unsync::IString::Static("BalloonHeartFill") => html! {
-      <MD_BalloonHeartFill ..owned_props />
+      <BS_BalloonHeartFill ..owned_props />
     },
     implicit_clone::unsync::IString::Static("FileEarmarkEaselFill") => html! {
-      <MD_FileEarmarkEaselFill ..owned_props />
+      <BS_FileEarmarkEaselFill ..owned_props />
     },
     implicit_clone::unsync::IString::Static("Clipboard2Data") => html! {
-      <MD_Clipboard2Data ..owned_props />
+      <BS_Clipboard2Data ..owned_props />
     },
     implicit_clone::unsync::IString::Static("PersonBoundingBox") => html! {
-      <MD_PersonBoundingBox ..owned_props />
+      <BS_PersonBoundingBox ..owned_props />
     },
     implicit_clone::unsync::IString::Static("Kanban") => html! {
-      <MD_Kanban ..owned_props />
+      <BS_Kanban ..owned_props />
     },
     implicit_clone::unsync::IString::Static("BoxArrowInDownLeft") => html! {
-      <MD_BoxArrowInDownLeft ..owned_props />
+      <BS_BoxArrowInDownLeft ..owned_props />
     },
     implicit_clone::unsync::IString::Static("TelephoneFill") => html! {
-      <MD_TelephoneFill ..owned_props />
+      <BS_TelephoneFill ..owned_props />
     },
     implicit_clone::unsync::IString::Static("PersonExclamation") => html! {
-      <MD_PersonExclamation ..owned_props />
+      <BS_PersonExclamation ..owned_props />
     },
     implicit_clone::unsync::IString::Static("FileCheck") => html! {
-      <MD_FileCheck ..owned_props />
+      <BS_FileCheck ..owned_props />
     },
     implicit_clone::unsync::IString::Static("HouseAdd") => html! {
-      <MD_HouseAdd ..owned_props />
+      <BS_HouseAdd ..owned_props />
     },
     implicit_clone::unsync::IString::Static("FileEaselFill") => html! {
-      <MD_FileEaselFill ..owned_props />
+      <BS_FileEaselFill ..owned_props />
     },
     implicit_clone::unsync::IString::Static("Shop") => html! {
-      <MD_Shop ..owned_props />
+      <BS_Shop ..owned_props />
     },
     implicit_clone::unsync::IString::Static("ArrowCounterclockwise") => html! {
-      <MD_ArrowCounterclockwise ..owned_props />
+      <BS_ArrowCounterclockwise ..owned_props />
     },
     implicit_clone::unsync::IString::Static("Bullseye") => html! {
-      <MD_Bullseye ..owned_props />
+      <BS_Bullseye ..owned_props />
     },
     implicit_clone::unsync::IString::Static("GlobeAsiaAustralia") => html! {
-      <MD_GlobeAsiaAustralia ..owned_props />
+      <BS_GlobeAsiaAustralia ..owned_props />
     },
     implicit_clone::unsync::IString::Static("PlusSlashMinus") => html! {
-      <MD_PlusSlashMinus ..owned_props />
+      <BS_PlusSlashMinus ..owned_props />
     },
     implicit_clone::unsync::IString::Static("PassFill") => html! {
-      <MD_PassFill ..owned_props />
+      <BS_PassFill ..owned_props />
     },
     implicit_clone::unsync::IString::Static("EnvelopeCheck") => html! {
-      <MD_EnvelopeCheck ..owned_props />
+      <BS_EnvelopeCheck ..owned_props />
     },
     implicit_clone::unsync::IString::Static("Wind") => html! {
-      <MD_Wind ..owned_props />
+      <BS_Wind ..owned_props />
     },
     implicit_clone::unsync::IString::Static("5CircleFill") => html! {
-      <MD_5CircleFill ..owned_props />
+      <BS_5CircleFill ..owned_props />
     },
     implicit_clone::unsync::IString::Static("Geo") => html! {
-      <MD_Geo ..owned_props />
+      <BS_Geo ..owned_props />
     },
     implicit_clone::unsync::IString::Static("PciCard") => html! {
-      <MD_PciCard ..owned_props />
+      <BS_PciCard ..owned_props />
     },
     implicit_clone::unsync::IString::Static("Calendar4Event") => html! {
-      <MD_Calendar4Event ..owned_props />
+      <BS_Calendar4Event ..owned_props />
     },
     implicit_clone::unsync::IString::Static("MusicPlayerFill") => html! {
-      <MD_MusicPlayerFill ..owned_props />
+      <BS_MusicPlayerFill ..owned_props />
     },
     implicit_clone::unsync::IString::Static("FiletypeJava") => html! {
-      <MD_FiletypeJava ..owned_props />
+      <BS_FiletypeJava ..owned_props />
     },
     implicit_clone::unsync::IString::Static("FiletypeCss") => html! {
-      <MD_FiletypeCss ..owned_props />
+      <BS_FiletypeCss ..owned_props />
     },
     implicit_clone::unsync::IString::Static("FileEarmarkDiff") => html! {
-      <MD_FileEarmarkDiff ..owned_props />
+      <BS_FileEarmarkDiff ..owned_props />
     },
     implicit_clone::unsync::IString::Static("BuildingFillCheck") => html! {
-      <MD_BuildingFillCheck ..owned_props />
+      <BS_BuildingFillCheck ..owned_props />
     },
     implicit_clone::unsync::IString::Static("EnvelopeOpen") => html! {
-      <MD_EnvelopeOpen ..owned_props />
+      <BS_EnvelopeOpen ..owned_props />
     },
     implicit_clone::unsync::IString::Static("PersonFillUp") => html! {
-      <MD_PersonFillUp ..owned_props />
+      <BS_PersonFillUp ..owned_props />
     },
     implicit_clone::unsync::IString::Static("LaptopFill") => html! {
-      <MD_LaptopFill ..owned_props />
+      <BS_LaptopFill ..owned_props />
     },
     implicit_clone::unsync::IString::Static("DeviceSsdFill") => html! {
-      <MD_DeviceSsdFill ..owned_props />
+      <BS_DeviceSsdFill ..owned_props />
     },
     implicit_clone::unsync::IString::Static("PersonVideo") => html! {
-      <MD_PersonVideo ..owned_props />
+      <BS_PersonVideo ..owned_props />
     },
     implicit_clone::unsync::IString::Static("SkipStartFill") => html! {
-      <MD_SkipStartFill ..owned_props />
+      <BS_SkipStartFill ..owned_props />
     },
     implicit_clone::unsync::IString::Static("Camera") => html! {
-      <MD_Camera ..owned_props />
+      <BS_Camera ..owned_props />
     },
     implicit_clone::unsync::IString::Static("Ubuntu") => html! {
-      <MD_Ubuntu ..owned_props />
+      <BS_Ubuntu ..owned_props />
     },
     implicit_clone::unsync::IString::Static("CloudUploadFill") => html! {
-      <MD_CloudUploadFill ..owned_props />
+      <BS_CloudUploadFill ..owned_props />
     },
     implicit_clone::unsync::IString::Static("DatabaseUp") => html! {
-      <MD_DatabaseUp ..owned_props />
+      <BS_DatabaseUp ..owned_props />
     },
     implicit_clone::unsync::IString::Static("Fire") => html! {
-      <MD_Fire ..owned_props />
+      <BS_Fire ..owned_props />
     },
     implicit_clone::unsync::IString::Static("BorderInner") => html! {
-      <MD_BorderInner ..owned_props />
+      <BS_BorderInner ..owned_props />
     },
     implicit_clone::unsync::IString::Static("BadgeWc") => html! {
-      <MD_BadgeWc ..owned_props />
+      <BS_BadgeWc ..owned_props />
     },
     implicit_clone::unsync::IString::Static("ExclamationSquareFill") => html! {
-      <MD_ExclamationSquareFill ..owned_props />
+      <BS_ExclamationSquareFill ..owned_props />
     },
     implicit_clone::unsync::IString::Static("BrightnessAltHighFill") => html! {
-      <MD_BrightnessAltHighFill ..owned_props />
+      <BS_BrightnessAltHighFill ..owned_props />
     },
     implicit_clone::unsync::IString::Static("Bandaid") => html! {
-      <MD_Bandaid ..owned_props />
+      <BS_Bandaid ..owned_props />
     },
     implicit_clone::unsync::IString::Static("Vr") => html! {
-      <MD_Vr ..owned_props />
+      <BS_Vr ..owned_props />
     },
     implicit_clone::unsync::IString::Static("PlusLg") => html! {
-      <MD_PlusLg ..owned_props />
+      <BS_PlusLg ..owned_props />
     },
     implicit_clone::unsync::IString::Static("Webcam") => html! {
-      <MD_Webcam ..owned_props />
+      <BS_Webcam ..owned_props />
     },
     implicit_clone::unsync::IString::Static("PersonFill") => html! {
-      <MD_PersonFill ..owned_props />
+      <BS_PersonFill ..owned_props />
     },
     implicit_clone::unsync::IString::Static("PiggyBankFill") => html! {
-      <MD_PiggyBankFill ..owned_props />
+      <BS_PiggyBankFill ..owned_props />
     },
     implicit_clone::unsync::IString::Static("SignTurnRight") => html! {
-      <MD_SignTurnRight ..owned_props />
+      <BS_SignTurnRight ..owned_props />
     },
     implicit_clone::unsync::IString::Static("Calendar2CheckFill") => html! {
-      <MD_Calendar2CheckFill ..owned_props />
+      <BS_Calendar2CheckFill ..owned_props />
     },
     implicit_clone::unsync::IString::Static("BoxArrowInUpRight") => html! {
-      <MD_BoxArrowInUpRight ..owned_props />
+      <BS_BoxArrowInUpRight ..owned_props />
     },
     implicit_clone::unsync::IString::Static("BoundingBoxCircles") => html! {
-      <MD_BoundingBoxCircles ..owned_props />
+      <BS_BoundingBoxCircles ..owned_props />
     },
     implicit_clone::unsync::IString::Static("SendX") => html! {
-      <MD_SendX ..owned_props />
+      <BS_SendX ..owned_props />
     },
     implicit_clone::unsync::IString::Static("ChevronBarLeft") => html! {
-      <MD_ChevronBarLeft ..owned_props />
+      <BS_ChevronBarLeft ..owned_props />
     },
     implicit_clone::unsync::IString::Static("BarChart") => html! {
-      <MD_BarChart ..owned_props />
+      <BS_BarChart ..owned_props />
     },
     implicit_clone::unsync::IString::Static("DashSquare") => html! {
-      <MD_DashSquare ..owned_props />
+      <BS_DashSquare ..owned_props />
     },
     implicit_clone::unsync::IString::Static("9Square") => html! {
-      <MD_9Square ..owned_props />
+      <BS_9Square ..owned_props />
     },
     implicit_clone::unsync::IString::Static("PhoneVibrate") => html! {
-      <MD_PhoneVibrate ..owned_props />
+      <BS_PhoneVibrate ..owned_props />
     },
     implicit_clone::unsync::IString::Static("Outlet") => html! {
-      <MD_Outlet ..owned_props />
+      <BS_Outlet ..owned_props />
     },
     implicit_clone::unsync::IString::Static("LightningCharge") => html! {
-      <MD_LightningCharge ..owned_props />
+      <BS_LightningCharge ..owned_props />
     },
     implicit_clone::unsync::IString::Static("ArrowUpRight") => html! {
-      <MD_ArrowUpRight ..owned_props />
+      <BS_ArrowUpRight ..owned_props />
     },
     implicit_clone::unsync::IString::Static("HandThumbsDownFill") => html! {
-      <MD_HandThumbsDownFill ..owned_props />
+      <BS_HandThumbsDownFill ..owned_props />
     },
     implicit_clone::unsync::IString::Static("Dice3") => html! {
-      <MD_Dice3 ..owned_props />
+      <BS_Dice3 ..owned_props />
     },
     implicit_clone::unsync::IString::Static("GripVertical") => html! {
-      <MD_GripVertical ..owned_props />
+      <BS_GripVertical ..owned_props />
     },
     implicit_clone::unsync::IString::Static("Strava") => html! {
-      <MD_Strava ..owned_props />
+      <BS_Strava ..owned_props />
     },
     implicit_clone::unsync::IString::Static("EnvelopeOpenHeartFill") => html! {
-      <MD_EnvelopeOpenHeartFill ..owned_props />
+      <BS_EnvelopeOpenHeartFill ..owned_props />
     },
     implicit_clone::unsync::IString::Static("FiletypePhp") => html! {
-      <MD_FiletypePhp ..owned_props />
+      <BS_FiletypePhp ..owned_props />
     },
     implicit_clone::unsync::IString::Static("WebcamFill") => html! {
-      <MD_WebcamFill ..owned_props />
+      <BS_WebcamFill ..owned_props />
     },
     implicit_clone::unsync::IString::Static("SunriseFill") => html! {
-      <MD_SunriseFill ..owned_props />
+      <BS_SunriseFill ..owned_props />
     },
     implicit_clone::unsync::IString::Static("EmojiNeutralFill") => html! {
-      <MD_EmojiNeutralFill ..owned_props />
+      <BS_EmojiNeutralFill ..owned_props />
     },
     implicit_clone::unsync::IString::Static("Subtract") => html! {
-      <MD_Subtract ..owned_props />
+      <BS_Subtract ..owned_props />
     },
     implicit_clone::unsync::IString::Static("Briefcase") => html! {
-      <MD_Briefcase ..owned_props />
+      <BS_Briefcase ..owned_props />
     },
     implicit_clone::unsync::IString::Static("BrowserFirefox") => html! {
-      <MD_BrowserFirefox ..owned_props />
+      <BS_BrowserFirefox ..owned_props />
     },
     implicit_clone::unsync::IString::Static("Building") => html! {
-      <MD_Building ..owned_props />
+      <BS_Building ..owned_props />
     },
     implicit_clone::unsync::IString::Static("SignYieldFill") => html! {
-      <MD_SignYieldFill ..owned_props />
+      <BS_SignYieldFill ..owned_props />
     },
     implicit_clone::unsync::IString::Static("CaretUpSquareFill") => html! {
-      <MD_CaretUpSquareFill ..owned_props />
+      <BS_CaretUpSquareFill ..owned_props />
     },
     implicit_clone::unsync::IString::Static("FolderPlus") => html! {
-      <MD_FolderPlus ..owned_props />
+      <BS_FolderPlus ..owned_props />
     },
     implicit_clone::unsync::IString::Static("Dpad") => html! {
-      <MD_Dpad ..owned_props />
+      <BS_Dpad ..owned_props />
     },
     implicit_clone::unsync::IString::Static("CardText") => html! {
-      <MD_CardText ..owned_props />
+      <BS_CardText ..owned_props />
     },
     implicit_clone::unsync::IString::Static("Calendar4Week") => html! {
-      <MD_Calendar4Week ..owned_props />
+      <BS_Calendar4Week ..owned_props />
     },
     implicit_clone::unsync::IString::Static("EmojiDizzyFill") => html! {
-      <MD_EmojiDizzyFill ..owned_props />
+      <BS_EmojiDizzyFill ..owned_props />
     },
     implicit_clone::unsync::IString::Static("PcDisplayHorizontal") => html! {
-      <MD_PcDisplayHorizontal ..owned_props />
+      <BS_PcDisplayHorizontal ..owned_props />
     },
     implicit_clone::unsync::IString::Static("BoxArrowInUp") => html! {
-      <MD_BoxArrowInUp ..owned_props />
+      <BS_BoxArrowInUp ..owned_props />
     },
     implicit_clone::unsync::IString::Static("MenuDown") => html! {
-      <MD_MenuDown ..owned_props />
+      <BS_MenuDown ..owned_props />
     },
     implicit_clone::unsync::IString::Static("Badge8k") => html! {
-      <MD_Badge8k ..owned_props />
+      <BS_Badge8k ..owned_props />
     },
     implicit_clone::unsync::IString::Static("ExclamationDiamondFill") => html! {
-      <MD_ExclamationDiamondFill ..owned_props />
+      <BS_ExclamationDiamondFill ..owned_props />
     },
     implicit_clone::unsync::IString::Static("Reddit") => html! {
-      <MD_Reddit ..owned_props />
+      <BS_Reddit ..owned_props />
     },
     implicit_clone::unsync::IString::Static("PatchExclamationFill") => html! {
-      <MD_PatchExclamationFill ..owned_props />
+      <BS_PatchExclamationFill ..owned_props />
     },
     implicit_clone::unsync::IString::Static("EnvelopeHeartFill") => html! {
-      <MD_EnvelopeHeartFill ..owned_props />
+      <BS_EnvelopeHeartFill ..owned_props />
     },
     implicit_clone::unsync::IString::Static("Earbuds") => html! {
-      <MD_Earbuds ..owned_props />
+      <BS_Earbuds ..owned_props />
     },
     implicit_clone::unsync::IString::Static("Camera2") => html! {
-      <MD_Camera2 ..owned_props />
+      <BS_Camera2 ..owned_props />
     },
     implicit_clone::unsync::IString::Static("Grid3x3") => html! {
-      <MD_Grid3x3 ..owned_props />
+      <BS_Grid3x3 ..owned_props />
     },
     implicit_clone::unsync::IString::Static("Toggle2On") => html! {
-      <MD_Toggle2On ..owned_props />
+      <BS_Toggle2On ..owned_props />
     },
     implicit_clone::unsync::IString::Static("SignIntersectionSide") => html! {
-      <MD_SignIntersectionSide ..owned_props />
+      <BS_SignIntersectionSide ..owned_props />
     },
     implicit_clone::unsync::IString::Static("FiletypeMp3") => html! {
-      <MD_FiletypeMp3 ..owned_props />
+      <BS_FiletypeMp3 ..owned_props />
     },
     implicit_clone::unsync::IString::Static("MegaphoneFill") => html! {
-      <MD_MegaphoneFill ..owned_props />
+      <BS_MegaphoneFill ..owned_props />
     },
     implicit_clone::unsync::IString::Static("PinMap") => html! {
-      <MD_PinMap ..owned_props />
+      <BS_PinMap ..owned_props />
     },
     implicit_clone::unsync::IString::Static("HouseUpFill") => html! {
-      <MD_HouseUpFill ..owned_props />
+      <BS_HouseUpFill ..owned_props />
     },
     implicit_clone::unsync::IString::Static("CardList") => html! {
-      <MD_CardList ..owned_props />
+      <BS_CardList ..owned_props />
     },
     implicit_clone::unsync::IString::Static("Motherboard") => html! {
-      <MD_Motherboard ..owned_props />
+      <BS_Motherboard ..owned_props />
     },
     implicit_clone::unsync::IString::Static("CreditCard") => html! {
-      <MD_CreditCard ..owned_props />
+      <BS_CreditCard ..owned_props />
     },
     implicit_clone::unsync::IString::Static("123") => html! {
-      <MD_123 ..owned_props />
+      <BS_123 ..owned_props />
     },
     implicit_clone::unsync::IString::Static("FiletypeXls") => html! {
-      <MD_FiletypeXls ..owned_props />
+      <BS_FiletypeXls ..owned_props />
     },
     implicit_clone::unsync::IString::Static("StopFill") => html! {
-      <MD_StopFill ..owned_props />
+      <BS_StopFill ..owned_props />
     },
     implicit_clone::unsync::IString::Static("Regex") => html! {
-      <MD_Regex ..owned_props />
+      <BS_Regex ..owned_props />
     },
     implicit_clone::unsync::IString::Static("Trash3") => html! {
-      <MD_Trash3 ..owned_props />
+      <BS_Trash3 ..owned_props />
     },
     implicit_clone::unsync::IString::Static("ArrowClockwise") => html! {
-      <MD_ArrowClockwise ..owned_props />
+      <BS_ArrowClockwise ..owned_props />
     },
     implicit_clone::unsync::IString::Static("Trophy") => html! {
-      <MD_Trophy ..owned_props />
+      <BS_Trophy ..owned_props />
     },
     implicit_clone::unsync::IString::Static("MagnetFill") => html! {
-      <MD_MagnetFill ..owned_props />
+      <BS_MagnetFill ..owned_props />
     },
     implicit_clone::unsync::IString::Static("Cone") => html! {
-      <MD_Cone ..owned_props />
+      <BS_Cone ..owned_props />
     },
     implicit_clone::unsync::IString::Static("ViewList") => html! {
-      <MD_ViewList ..owned_props />
+      <BS_ViewList ..owned_props />
     },
     implicit_clone::unsync::IString::Static("TypeUnderline") => html! {
-      <MD_TypeUnderline ..owned_props />
+      <BS_TypeUnderline ..owned_props />
     },
     implicit_clone::unsync::IString::Static("InfoLg") => html! {
-      <MD_InfoLg ..owned_props />
+      <BS_InfoLg ..owned_props />
     },
     implicit_clone::unsync::IString::Static("CheckCircleFill") => html! {
-      <MD_CheckCircleFill ..owned_props />
+      <BS_CheckCircleFill ..owned_props />
     },
     implicit_clone::unsync::IString::Static("SendFill") => html! {
-      <MD_SendFill ..owned_props />
+      <BS_SendFill ..owned_props />
     },
     implicit_clone::unsync::IString::Static("FileEarmarkTextFill") => html! {
-      <MD_FileEarmarkTextFill ..owned_props />
+      <BS_FileEarmarkTextFill ..owned_props />
     },
     implicit_clone::unsync::IString::Static("Diagram2Fill") => html! {
-      <MD_Diagram2Fill ..owned_props />
+      <BS_Diagram2Fill ..owned_props />
     },
     implicit_clone::unsync::IString::Static("Alipay") => html! {
-      <MD_Alipay ..owned_props />
+      <BS_Alipay ..owned_props />
     },
     implicit_clone::unsync::IString::Static("ArrowLeftCircle") => html! {
-      <MD_ArrowLeftCircle ..owned_props />
+      <BS_ArrowLeftCircle ..owned_props />
     },
     implicit_clone::unsync::IString::Static("TicketDetailedFill") => html! {
-      <MD_TicketDetailedFill ..owned_props />
+      <BS_TicketDetailedFill ..owned_props />
     },
     implicit_clone::unsync::IString::Static("FiletypeDocx") => html! {
-      <MD_FiletypeDocx ..owned_props />
+      <BS_FiletypeDocx ..owned_props />
     },
     implicit_clone::unsync::IString::Static("PhoneLandscapeFill") => html! {
-      <MD_PhoneLandscapeFill ..owned_props />
+      <BS_PhoneLandscapeFill ..owned_props />
     },
     implicit_clone::unsync::IString::Static("ChevronCompactUp") => html! {
-      <MD_ChevronCompactUp ..owned_props />
+      <BS_ChevronCompactUp ..owned_props />
     },
     implicit_clone::unsync::IString::Static("Shield") => html! {
-      <MD_Shield ..owned_props />
+      <BS_Shield ..owned_props />
     },
     implicit_clone::unsync::IString::Static("CaretLeftSquareFill") => html! {
-      <MD_CaretLeftSquareFill ..owned_props />
+      <BS_CaretLeftSquareFill ..owned_props />
     },
     implicit_clone::unsync::IString::Static("Wechat") => html! {
-      <MD_Wechat ..owned_props />
+      <BS_Wechat ..owned_props />
     },
     implicit_clone::unsync::IString::Static("ArrowThroughHeartFill") => html! {
-      <MD_ArrowThroughHeartFill ..owned_props />
+      <BS_ArrowThroughHeartFill ..owned_props />
     },
     implicit_clone::unsync::IString::Static("QrCodeScan") => html! {
-      <MD_QrCodeScan ..owned_props />
+      <BS_QrCodeScan ..owned_props />
     },
     implicit_clone::unsync::IString::Static("SendCheckFill") => html! {
-      <MD_SendCheckFill ..owned_props />
+      <BS_SendCheckFill ..owned_props />
     },
     implicit_clone::unsync::IString::Static("ChatRightFill") => html! {
-      <MD_ChatRightFill ..owned_props />
+      <BS_ChatRightFill ..owned_props />
     },
     implicit_clone::unsync::IString::Static("Link45deg") => html! {
-      <MD_Link45deg ..owned_props />
+      <BS_Link45deg ..owned_props />
     },
     implicit_clone::unsync::IString::Static("FileImage") => html! {
-      <MD_FileImage ..owned_props />
+      <BS_FileImage ..owned_props />
     },
     implicit_clone::unsync::IString::Static("CheckCircle") => html! {
-      <MD_CheckCircle ..owned_props />
+      <BS_CheckCircle ..owned_props />
     },
     implicit_clone::unsync::IString::Static("FiletypeScss") => html! {
-      <MD_FiletypeScss ..owned_props />
+      <BS_FiletypeScss ..owned_props />
     },
     implicit_clone::unsync::IString::Static("HouseExclamation") => html! {
-      <MD_HouseExclamation ..owned_props />
+      <BS_HouseExclamation ..owned_props />
     },
     implicit_clone::unsync::IString::Static("EmojiKissFill") => html! {
-      <MD_EmojiKissFill ..owned_props />
+      <BS_EmojiKissFill ..owned_props />
     },
     implicit_clone::unsync::IString::Static("Stars") => html! {
-      <MD_Stars ..owned_props />
+      <BS_Stars ..owned_props />
     },
     implicit_clone::unsync::IString::Static("ShieldFillMinus") => html! {
-      <MD_ShieldFillMinus ..owned_props />
+      <BS_ShieldFillMinus ..owned_props />
     },
     implicit_clone::unsync::IString::Static("CameraReelsFill") => html! {
-      <MD_CameraReelsFill ..owned_props />
+      <BS_CameraReelsFill ..owned_props />
     },
     implicit_clone::unsync::IString::Static("MenuApp") => html! {
-      <MD_MenuApp ..owned_props />
+      <BS_MenuApp ..owned_props />
     },
     implicit_clone::unsync::IString::Static("ArrowUpSquareFill") => html! {
-      <MD_ArrowUpSquareFill ..owned_props />
+      <BS_ArrowUpSquareFill ..owned_props />
     },
     implicit_clone::unsync::IString::Static("Clipboard2PlusFill") => html! {
-      <MD_Clipboard2PlusFill ..owned_props />
+      <BS_Clipboard2PlusFill ..owned_props />
     },
     implicit_clone::unsync::IString::Static("ChatRightQuote") => html! {
-      <MD_ChatRightQuote ..owned_props />
+      <BS_ChatRightQuote ..owned_props />
     },
     implicit_clone::unsync::IString::Static("BrightnessHigh") => html! {
-      <MD_BrightnessHigh ..owned_props />
+      <BS_BrightnessHigh ..owned_props />
     },
     implicit_clone::unsync::IString::Static("Signpost") => html! {
-      <MD_Signpost ..owned_props />
+      <BS_Signpost ..owned_props />
     },
     implicit_clone::unsync::IString::Static("FiletypeXml") => html! {
-      <MD_FiletypeXml ..owned_props />
+      <BS_FiletypeXml ..owned_props />
     },
     implicit_clone::unsync::IString::Static("ExclamationLg") => html! {
-      <MD_ExclamationLg ..owned_props />
+      <BS_ExclamationLg ..owned_props />
     },
     implicit_clone::unsync::IString::Static("PersonFillExclamation") => html! {
-      <MD_PersonFillExclamation ..owned_props />
+      <BS_PersonFillExclamation ..owned_props />
     },
     implicit_clone::unsync::IString::Static("VolumeOffFill") => html! {
-      <MD_VolumeOffFill ..owned_props />
+      <BS_VolumeOffFill ..owned_props />
     },
     implicit_clone::unsync::IString::Static("Send") => html! {
-      <MD_Send ..owned_props />
+      <BS_Send ..owned_props />
     },
     implicit_clone::unsync::IString::Static("FileBinary") => html! {
-      <MD_FileBinary ..owned_props />
+      <BS_FileBinary ..owned_props />
     },
     implicit_clone::unsync::IString::Static("HouseDownFill") => html! {
-      <MD_HouseDownFill ..owned_props />
+      <BS_HouseDownFill ..owned_props />
     },
     implicit_clone::unsync::IString::Static("SkipBackwardCircleFill") => html! {
-      <MD_SkipBackwardCircleFill ..owned_props />
+      <BS_SkipBackwardCircleFill ..owned_props />
     },
     implicit_clone::unsync::IString::Static("SkipForwardBtnFill") => html! {
-      <MD_SkipForwardBtnFill ..owned_props />
+      <BS_SkipForwardBtnFill ..owned_props />
     },
     implicit_clone::unsync::IString::Static("HouseAddFill") => html! {
-      <MD_HouseAddFill ..owned_props />
+      <BS_HouseAddFill ..owned_props />
     },
     implicit_clone::unsync::IString::Static("CloudFill") => html! {
-      <MD_CloudFill ..owned_props />
+      <BS_CloudFill ..owned_props />
     },
     implicit_clone::unsync::IString::Static("8CircleFill") => html! {
-      <MD_8CircleFill ..owned_props />
+      <BS_8CircleFill ..owned_props />
     },
     implicit_clone::unsync::IString::Static("Clipboard2Pulse") => html! {
-      <MD_Clipboard2Pulse ..owned_props />
+      <BS_Clipboard2Pulse ..owned_props />
     },
     implicit_clone::unsync::IString::Static("Calendar3EventFill") => html! {
-      <MD_Calendar3EventFill ..owned_props />
+      <BS_Calendar3EventFill ..owned_props />
     },
     implicit_clone::unsync::IString::Static("FileText") => html! {
-      <MD_FileText ..owned_props />
+      <BS_FileText ..owned_props />
     },
     implicit_clone::unsync::IString::Static("Tools") => html! {
-      <MD_Tools ..owned_props />
+      <BS_Tools ..owned_props />
     },
     implicit_clone::unsync::IString::Static("CloudHaze") => html! {
-      <MD_CloudHaze ..owned_props />
+      <BS_CloudHaze ..owned_props />
     },
     implicit_clone::unsync::IString::Static("FiletypeXlsx") => html! {
-      <MD_FiletypeXlsx ..owned_props />
+      <BS_FiletypeXlsx ..owned_props />
     },
     implicit_clone::unsync::IString::Static("CodeSlash") => html! {
-      <MD_CodeSlash ..owned_props />
+      <BS_CodeSlash ..owned_props />
     },
     implicit_clone::unsync::IString::Static("Grid1x2Fill") => html! {
-      <MD_Grid1x2Fill ..owned_props />
+      <BS_Grid1x2Fill ..owned_props />
     },
     implicit_clone::unsync::IString::Static("Upload") => html! {
-      <MD_Upload ..owned_props />
+      <BS_Upload ..owned_props />
     },
     implicit_clone::unsync::IString::Static("FileArrowDownFill") => html! {
-      <MD_FileArrowDownFill ..owned_props />
+      <BS_FileArrowDownFill ..owned_props />
     },
     implicit_clone::unsync::IString::Static("PSquare") => html! {
-      <MD_PSquare ..owned_props />
+      <BS_PSquare ..owned_props />
     },
     implicit_clone::unsync::IString::Static("ZoomOut") => html! {
-      <MD_ZoomOut ..owned_props />
+      <BS_ZoomOut ..owned_props />
     },
     implicit_clone::unsync::IString::Static("ArrowBarRight") => html! {
-      <MD_ArrowBarRight ..owned_props />
+      <BS_ArrowBarRight ..owned_props />
     },
     implicit_clone::unsync::IString::Static("7Square") => html! {
-      <MD_7Square ..owned_props />
+      <BS_7Square ..owned_props />
     },
     implicit_clone::unsync::IString::Static("QuestionOctagonFill") => html! {
-      <MD_QuestionOctagonFill ..owned_props />
+      <BS_QuestionOctagonFill ..owned_props />
     },
     implicit_clone::unsync::IString::Static("BuildingDown") => html! {
-      <MD_BuildingDown ..owned_props />
+      <BS_BuildingDown ..owned_props />
     },
     implicit_clone::unsync::IString::Static("BlockquoteLeft") => html! {
-      <MD_BlockquoteLeft ..owned_props />
+      <BS_BlockquoteLeft ..owned_props />
     },
     implicit_clone::unsync::IString::Static("WindowSidebar") => html! {
-      <MD_WindowSidebar ..owned_props />
+      <BS_WindowSidebar ..owned_props />
     },
     implicit_clone::unsync::IString::Static("SignDoNotEnter") => html! {
-      <MD_SignDoNotEnter ..owned_props />
+      <BS_SignDoNotEnter ..owned_props />
     },
     implicit_clone::unsync::IString::Static("FileEarmarkPerson") => html! {
-      <MD_FileEarmarkPerson ..owned_props />
+      <BS_FileEarmarkPerson ..owned_props />
     },
     implicit_clone::unsync::IString::Static("Displayport") => html! {
-      <MD_Displayport ..owned_props />
+      <BS_Displayport ..owned_props />
     },
     implicit_clone::unsync::IString::Static("EnvelopePaperHeartFill") => html! {
-      <MD_EnvelopePaperHeartFill ..owned_props />
+      <BS_EnvelopePaperHeartFill ..owned_props />
     },
     implicit_clone::unsync::IString::Static("Trash2Fill") => html! {
-      <MD_Trash2Fill ..owned_props />
+      <BS_Trash2Fill ..owned_props />
     },
     implicit_clone::unsync::IString::Static("HddRackFill") => html! {
-      <MD_HddRackFill ..owned_props />
+      <BS_HddRackFill ..owned_props />
     },
     implicit_clone::unsync::IString::Static("ExclamationTriangleFill") => html! {
-      <MD_ExclamationTriangleFill ..owned_props />
+      <BS_ExclamationTriangleFill ..owned_props />
     },
     implicit_clone::unsync::IString::Static("JustifyRight") => html! {
-      <MD_JustifyRight ..owned_props />
+      <BS_JustifyRight ..owned_props />
     },
     implicit_clone::unsync::IString::Static("Airplane") => html! {
-      <MD_Airplane ..owned_props />
+      <BS_Airplane ..owned_props />
     },
     implicit_clone::unsync::IString::Static("Dice4") => html! {
-      <MD_Dice4 ..owned_props />
+      <BS_Dice4 ..owned_props />
     },
     implicit_clone::unsync::IString::Static("UsbSymbol") => html! {
-      <MD_UsbSymbol ..owned_props />
+      <BS_UsbSymbol ..owned_props />
     },
     implicit_clone::unsync::IString::Static("FileBarGraph") => html! {
-      <MD_FileBarGraph ..owned_props />
+      <BS_FileBarGraph ..owned_props />
     },
     implicit_clone::unsync::IString::Static("TriangleFill") => html! {
-      <MD_TriangleFill ..owned_props />
+      <BS_TriangleFill ..owned_props />
     },
     implicit_clone::unsync::IString::Static("FileMusicFill") => html! {
-      <MD_FileMusicFill ..owned_props />
+      <BS_FileMusicFill ..owned_props />
     },
     implicit_clone::unsync::IString::Static("Instagram") => html! {
-      <MD_Instagram ..owned_props />
+      <BS_Instagram ..owned_props />
     },
     implicit_clone::unsync::IString::Static("DeviceHdd") => html! {
-      <MD_DeviceHdd ..owned_props />
+      <BS_DeviceHdd ..owned_props />
     },
     implicit_clone::unsync::IString::Static("FunnelFill") => html! {
-      <MD_FunnelFill ..owned_props />
+      <BS_FunnelFill ..owned_props />
     },
     implicit_clone::unsync::IString::Static("FiletypeSass") => html! {
-      <MD_FiletypeSass ..owned_props />
+      <BS_FiletypeSass ..owned_props />
     },
     implicit_clone::unsync::IString::Static("Escape") => html! {
-      <MD_Escape ..owned_props />
+      <BS_Escape ..owned_props />
     },
     implicit_clone::unsync::IString::Static("CurrencyDollar") => html! {
-      <MD_CurrencyDollar ..owned_props />
+      <BS_CurrencyDollar ..owned_props />
     },
     implicit_clone::unsync::IString::Static("RSquareFill") => html! {
-      <MD_RSquareFill ..owned_props />
+      <BS_RSquareFill ..owned_props />
     },
     implicit_clone::unsync::IString::Static("CloudSlashFill") => html! {
-      <MD_CloudSlashFill ..owned_props />
+      <BS_CloudSlashFill ..owned_props />
     },
     implicit_clone::unsync::IString::Static("HandThumbsUp") => html! {
-      <MD_HandThumbsUp ..owned_props />
+      <BS_HandThumbsUp ..owned_props />
     },
     implicit_clone::unsync::IString::Static("Bricks") => html! {
-      <MD_Bricks ..owned_props />
+      <BS_Bricks ..owned_props />
     },
     implicit_clone::unsync::IString::Static("CardHeading") => html! {
-      <MD_CardHeading ..owned_props />
+      <BS_CardHeading ..owned_props />
     },
     implicit_clone::unsync::IString::Static("ClipboardCheckFill") => html! {
-      <MD_ClipboardCheckFill ..owned_props />
+      <BS_ClipboardCheckFill ..owned_props />
     },
     implicit_clone::unsync::IString::Static("Hdmi") => html! {
-      <MD_Hdmi ..owned_props />
+      <BS_Hdmi ..owned_props />
     },
     implicit_clone::unsync::IString::Static("PatchPlus") => html! {
-      <MD_PatchPlus ..owned_props />
+      <BS_PatchPlus ..owned_props />
     },
     implicit_clone::unsync::IString::Static("DashCircleDotted") => html! {
-      <MD_DashCircleDotted ..owned_props />
+      <BS_DashCircleDotted ..owned_props />
     },
     implicit_clone::unsync::IString::Static("WrenchAdjustable") => html! {
-      <MD_WrenchAdjustable ..owned_props />
+      <BS_WrenchAdjustable ..owned_props />
     },
     implicit_clone::unsync::IString::Static("Mouse2Fill") => html! {
-      <MD_Mouse2Fill ..owned_props />
+      <BS_Mouse2Fill ..owned_props />
     },
     implicit_clone::unsync::IString::Static("Wordpress") => html! {
-      <MD_Wordpress ..owned_props />
+      <BS_Wordpress ..owned_props />
     },
     implicit_clone::unsync::IString::Static("PaintBucket") => html! {
-      <MD_PaintBucket ..owned_props />
+      <BS_PaintBucket ..owned_props />
     },
     implicit_clone::unsync::IString::Static("ChatRight") => html! {
-      <MD_ChatRight ..owned_props />
+      <BS_ChatRight ..owned_props />
     },
     implicit_clone::unsync::IString::Static("ShiftFill") => html! {
-      <MD_ShiftFill ..owned_props />
+      <BS_ShiftFill ..owned_props />
     },
     implicit_clone::unsync::IString::Static("TelephoneForward") => html! {
-      <MD_TelephoneForward ..owned_props />
+      <BS_TelephoneForward ..owned_props />
     },
     implicit_clone::unsync::IString::Static("CassetteFill") => html! {
-      <MD_CassetteFill ..owned_props />
+      <BS_CassetteFill ..owned_props />
     },
     implicit_clone::unsync::IString::Static("Slash") => html! {
-      <MD_Slash ..owned_props />
+      <BS_Slash ..owned_props />
     },
     implicit_clone::unsync::IString::Static("FiletypeBmp") => html! {
-      <MD_FiletypeBmp ..owned_props />
+      <BS_FiletypeBmp ..owned_props />
     },
     implicit_clone::unsync::IString::Static("BuildingGear") => html! {
-      <MD_BuildingGear ..owned_props />
+      <BS_BuildingGear ..owned_props />
     },
     implicit_clone::unsync::IString::Static("CloudsFill") => html! {
-      <MD_CloudsFill ..owned_props />
+      <BS_CloudsFill ..owned_props />
     },
     implicit_clone::unsync::IString::Static("SignRailroadFill") => html! {
-      <MD_SignRailroadFill ..owned_props />
+      <BS_SignRailroadFill ..owned_props />
     },
     implicit_clone::unsync::IString::Static("Grid3x3GapFill") => html! {
-      <MD_Grid3x3GapFill ..owned_props />
+      <BS_Grid3x3GapFill ..owned_props />
     },
     implicit_clone::unsync::IString::Static("KeyboardFill") => html! {
-      <MD_KeyboardFill ..owned_props />
+      <BS_KeyboardFill ..owned_props />
     },
     implicit_clone::unsync::IString::Static("ArrowDownLeftCircleFill") => html! {
-      <MD_ArrowDownLeftCircleFill ..owned_props />
+      <BS_ArrowDownLeftCircleFill ..owned_props />
     },
     implicit_clone::unsync::IString::Static("TerminalPlus") => html! {
-      <MD_TerminalPlus ..owned_props />
+      <BS_TerminalPlus ..owned_props />
     },
     implicit_clone::unsync::IString::Static("UiRadios") => html! {
-      <MD_UiRadios ..owned_props />
+      <BS_UiRadios ..owned_props />
     },
     implicit_clone::unsync::IString::Static("ArrowUp") => html! {
-      <MD_ArrowUp ..owned_props />
+      <BS_ArrowUp ..owned_props />
     },
     implicit_clone::unsync::IString::Static("ArrowUpSquare") => html! {
-      <MD_ArrowUpSquare ..owned_props />
+      <BS_ArrowUpSquare ..owned_props />
     },
     implicit_clone::unsync::IString::Static("Android") => html! {
-      <MD_Android ..owned_props />
+      <BS_Android ..owned_props />
     },
     implicit_clone::unsync::IString::Static("Water") => html! {
-      <MD_Water ..owned_props />
+      <BS_Water ..owned_props />
     },
     implicit_clone::unsync::IString::Static("InputCursorText") => html! {
-      <MD_InputCursorText ..owned_props />
+      <BS_InputCursorText ..owned_props />
     },
     implicit_clone::unsync::IString::Static("FileEarmarkLockFill") => html! {
-      <MD_FileEarmarkLockFill ..owned_props />
+      <BS_FileEarmarkLockFill ..owned_props />
     },
     implicit_clone::unsync::IString::Static("HospitalFill") => html! {
-      <MD_HospitalFill ..owned_props />
+      <BS_HospitalFill ..owned_props />
     },
     implicit_clone::unsync::IString::Static("SortUpAlt") => html! {
-      <MD_SortUpAlt ..owned_props />
+      <BS_SortUpAlt ..owned_props />
     },
     implicit_clone::unsync::IString::Static("SimFill") => html! {
-      <MD_SimFill ..owned_props />
+      <BS_SimFill ..owned_props />
     },
     implicit_clone::unsync::IString::Static("CloudSun") => html! {
-      <MD_CloudSun ..owned_props />
+      <BS_CloudSun ..owned_props />
     },
     implicit_clone::unsync::IString::Static("Fingerprint") => html! {
-      <MD_Fingerprint ..owned_props />
+      <BS_Fingerprint ..owned_props />
     },
     implicit_clone::unsync::IString::Static("WifiOff") => html! {
-      <MD_WifiOff ..owned_props />
+      <BS_WifiOff ..owned_props />
     },
     implicit_clone::unsync::IString::Static("ArrowDown") => html! {
-      <MD_ArrowDown ..owned_props />
+      <BS_ArrowDown ..owned_props />
     },
     implicit_clone::unsync::IString::Static("FileRuled") => html! {
-      <MD_FileRuled ..owned_props />
+      <BS_FileRuled ..owned_props />
     },
     implicit_clone::unsync::IString::Static("Save2") => html! {
-      <MD_Save2 ..owned_props />
+      <BS_Save2 ..owned_props />
     },
     implicit_clone::unsync::IString::Static("VolumeOff") => html! {
-      <MD_VolumeOff ..owned_props />
+      <BS_VolumeOff ..owned_props />
     },
     implicit_clone::unsync::IString::Static("ClipboardPulse") => html! {
-      <MD_ClipboardPulse ..owned_props />
+      <BS_ClipboardPulse ..owned_props />
     },
     implicit_clone::unsync::IString::Static("QuestionLg") => html! {
-      <MD_QuestionLg ..owned_props />
+      <BS_QuestionLg ..owned_props />
     },
     implicit_clone::unsync::IString::Static("FileEarmarkMusic") => html! {
-      <MD_FileEarmarkMusic ..owned_props />
+      <BS_FileEarmarkMusic ..owned_props />
     },
     implicit_clone::unsync::IString::Static("1Square") => html! {
-      <MD_1Square ..owned_props />
+      <BS_1Square ..owned_props />
     },
     implicit_clone::unsync::IString::Static("AlignBottom") => html! {
-      <MD_AlignBottom ..owned_props />
+      <BS_AlignBottom ..owned_props />
     },
     implicit_clone::unsync::IString::Static("LungsFill") => html! {
-      <MD_LungsFill ..owned_props />
+      <BS_LungsFill ..owned_props />
     },
     implicit_clone::unsync::IString::Static("Cassette") => html! {
-      <MD_Cassette ..owned_props />
+      <BS_Cassette ..owned_props />
     },
     implicit_clone::unsync::IString::Static("ArrowUpRightCircleFill") => html! {
-      <MD_ArrowUpRightCircleFill ..owned_props />
+      <BS_ArrowUpRightCircleFill ..owned_props />
     },
     implicit_clone::unsync::IString::Static("FiletypeJsx") => html! {
-      <MD_FiletypeJsx ..owned_props />
+      <BS_FiletypeJsx ..owned_props />
     },
     implicit_clone::unsync::IString::Static("TelephonePlusFill") => html! {
-      <MD_TelephonePlusFill ..owned_props />
+      <BS_TelephonePlusFill ..owned_props />
     },
     implicit_clone::unsync::IString::Static("MoonStars") => html! {
-      <MD_MoonStars ..owned_props />
+      <BS_MoonStars ..owned_props />
     },
     implicit_clone::unsync::IString::Static("Diamond") => html! {
-      <MD_Diamond ..owned_props />
+      <BS_Diamond ..owned_props />
     },
     implicit_clone::unsync::IString::Static("Bank2") => html! {
-      <MD_Bank2 ..owned_props />
+      <BS_Bank2 ..owned_props />
     },
     implicit_clone::unsync::IString::Static("ArrowDownRight") => html! {
-      <MD_ArrowDownRight ..owned_props />
+      <BS_ArrowDownRight ..owned_props />
     },
     implicit_clone::unsync::IString::Static("PostcardHeartFill") => html! {
-      <MD_PostcardHeartFill ..owned_props />
+      <BS_PostcardHeartFill ..owned_props />
     },
     implicit_clone::unsync::IString::Static("EggFill") => html! {
-      <MD_EggFill ..owned_props />
+      <BS_EggFill ..owned_props />
     },
     implicit_clone::unsync::IString::Static("RSquare") => html! {
-      <MD_RSquare ..owned_props />
+      <BS_RSquare ..owned_props />
     },
     implicit_clone::unsync::IString::Static("RssFill") => html! {
-      <MD_RssFill ..owned_props />
+      <BS_RssFill ..owned_props />
     },
     implicit_clone::unsync::IString::Static("ShieldLockFill") => html! {
-      <MD_ShieldLockFill ..owned_props />
+      <BS_ShieldLockFill ..owned_props />
     },
     implicit_clone::unsync::IString::Static("BadgeVo") => html! {
-      <MD_BadgeVo ..owned_props />
+      <BS_BadgeVo ..owned_props />
     },
     implicit_clone::unsync::IString::Static("Mastodon") => html! {
-      <MD_Mastodon ..owned_props />
+      <BS_Mastodon ..owned_props />
     },
     implicit_clone::unsync::IString::Static("TextareaResize") => html! {
-      <MD_TextareaResize ..owned_props />
+      <BS_TextareaResize ..owned_props />
     },
     implicit_clone::unsync::IString::Static("Battery") => html! {
-      <MD_Battery ..owned_props />
+      <BS_Battery ..owned_props />
     },
     implicit_clone::unsync::IString::Static("UpcScan") => html! {
-      <MD_UpcScan ..owned_props />
+      <BS_UpcScan ..owned_props />
     },
     implicit_clone::unsync::IString::Static("CreditCard2Back") => html! {
-      <MD_CreditCard2Back ..owned_props />
+      <BS_CreditCard2Back ..owned_props />
     },
     implicit_clone::unsync::IString::Static("EmojiKiss") => html! {
-      <MD_EmojiKiss ..owned_props />
+      <BS_EmojiKiss ..owned_props />
     },
     implicit_clone::unsync::IString::Static("Cloudy") => html! {
-      <MD_Cloudy ..owned_props />
+      <BS_Cloudy ..owned_props />
     },
     implicit_clone::unsync::IString::Static("VolumeDown") => html! {
-      <MD_VolumeDown ..owned_props />
+      <BS_VolumeDown ..owned_props />
     },
     implicit_clone::unsync::IString::Static("Easel3") => html! {
-      <MD_Easel3 ..owned_props />
+      <BS_Easel3 ..owned_props />
     },
     implicit_clone::unsync::IString::Static("FileEarmarkPdfFill") => html! {
-      <MD_FileEarmarkPdfFill ..owned_props />
+      <BS_FileEarmarkPdfFill ..owned_props />
     },
     implicit_clone::unsync::IString::Static("EnvelopePaperHeart") => html! {
-      <MD_EnvelopePaperHeart ..owned_props />
+      <BS_EnvelopePaperHeart ..owned_props />
     },
     implicit_clone::unsync::IString::Static("HandIndex") => html! {
-      <MD_HandIndex ..owned_props />
+      <BS_HandIndex ..owned_props />
     },
     implicit_clone::unsync::IString::Static("FiletypeMdx") => html! {
-      <MD_FiletypeMdx ..owned_props />
+      <BS_FiletypeMdx ..owned_props />
     },
     implicit_clone::unsync::IString::Static("FuelPump") => html! {
-      <MD_FuelPump ..owned_props />
+      <BS_FuelPump ..owned_props />
     },
     implicit_clone::unsync::IString::Static("LampFill") => html! {
-      <MD_LampFill ..owned_props />
+      <BS_LampFill ..owned_props />
     },
     implicit_clone::unsync::IString::Static("LightbulbFill") => html! {
-      <MD_LightbulbFill ..owned_props />
+      <BS_LightbulbFill ..owned_props />
     },
     implicit_clone::unsync::IString::Static("SendXFill") => html! {
-      <MD_SendXFill ..owned_props />
+      <BS_SendXFill ..owned_props />
     },
     implicit_clone::unsync::IString::Static("AirplaneFill") => html! {
-      <MD_AirplaneFill ..owned_props />
+      <BS_AirplaneFill ..owned_props />
     },
     implicit_clone::unsync::IString::Static("Bell") => html! {
-      <MD_Bell ..owned_props />
+      <BS_Bell ..owned_props />
     },
     implicit_clone::unsync::IString::Static("BoxArrowUpLeft") => html! {
-      <MD_BoxArrowUpLeft ..owned_props />
+      <BS_BoxArrowUpLeft ..owned_props />
     },
     implicit_clone::unsync::IString::Static("SignMergeLeftFill") => html! {
-      <MD_SignMergeLeftFill ..owned_props />
+      <BS_SignMergeLeftFill ..owned_props />
     },
     implicit_clone::unsync::IString::Static("ArrowDownRightSquareFill") => html! {
-      <MD_ArrowDownRightSquareFill ..owned_props />
+      <BS_ArrowDownRightSquareFill ..owned_props />
     },
     implicit_clone::unsync::IString::Static("ShieldFill") => html! {
-      <MD_ShieldFill ..owned_props />
+      <BS_ShieldFill ..owned_props />
     },
     implicit_clone::unsync::IString::Static("BadgeVoFill") => html! {
-      <MD_BadgeVoFill ..owned_props />
+      <BS_BadgeVoFill ..owned_props />
     },
     implicit_clone::unsync::IString::Static("ShieldShaded") => html! {
-      <MD_ShieldShaded ..owned_props />
+      <BS_ShieldShaded ..owned_props />
     },
     implicit_clone::unsync::IString::Static("Plug") => html! {
-      <MD_Plug ..owned_props />
+      <BS_Plug ..owned_props />
     },
     implicit_clone::unsync::IString::Static("SuitSpade") => html! {
-      <MD_SuitSpade ..owned_props />
+      <BS_SuitSpade ..owned_props />
     },
     implicit_clone::unsync::IString::Static("TypeStrikethrough") => html! {
-      <MD_TypeStrikethrough ..owned_props />
+      <BS_TypeStrikethrough ..owned_props />
     },
     implicit_clone::unsync::IString::Static("CameraReels") => html! {
-      <MD_CameraReels ..owned_props />
+      <BS_CameraReels ..owned_props />
     },
     implicit_clone::unsync::IString::Static("SaveFill") => html! {
-      <MD_SaveFill ..owned_props />
+      <BS_SaveFill ..owned_props />
     },
     implicit_clone::unsync::IString::Static("CalendarHeartFill") => html! {
-      <MD_CalendarHeartFill ..owned_props />
+      <BS_CalendarHeartFill ..owned_props />
     },
     implicit_clone::unsync::IString::Static("PencilFill") => html! {
-      <MD_PencilFill ..owned_props />
+      <BS_PencilFill ..owned_props />
     },
     implicit_clone::unsync::IString::Static("CloudSleet") => html! {
-      <MD_CloudSleet ..owned_props />
+      <BS_CloudSleet ..owned_props />
     },
     implicit_clone::unsync::IString::Static("TaxiFront") => html! {
-      <MD_TaxiFront ..owned_props />
+      <BS_TaxiFront ..owned_props />
     },
     implicit_clone::unsync::IString::Static("CashCoin") => html! {
-      <MD_CashCoin ..owned_props />
+      <BS_CashCoin ..owned_props />
     },
     implicit_clone::unsync::IString::Static("FolderFill") => html! {
-      <MD_FolderFill ..owned_props />
+      <BS_FolderFill ..owned_props />
     },
     implicit_clone::unsync::IString::Static("CollectionPlay") => html! {
-      <MD_CollectionPlay ..owned_props />
+      <BS_CollectionPlay ..owned_props />
     },
     implicit_clone::unsync::IString::Static("Dropbox") => html! {
-      <MD_Dropbox ..owned_props />
+      <BS_Dropbox ..owned_props />
     },
     implicit_clone::unsync::IString::Static("SignNoParking") => html! {
-      <MD_SignNoParking ..owned_props />
+      <BS_SignNoParking ..owned_props />
     },
     implicit_clone::unsync::IString::Static("BadgeTmFill") => html! {
-      <MD_BadgeTmFill ..owned_props />
+      <BS_BadgeTmFill ..owned_props />
     },
     implicit_clone::unsync::IString::Static("Record2Fill") => html! {
-      <MD_Record2Fill ..owned_props />
+      <BS_Record2Fill ..owned_props />
     },
     implicit_clone::unsync::IString::Static("CircleFill") => html! {
-      <MD_CircleFill ..owned_props />
+      <BS_CircleFill ..owned_props />
     },
     implicit_clone::unsync::IString::Static("BagDashFill") => html! {
-      <MD_BagDashFill ..owned_props />
+      <BS_BagDashFill ..owned_props />
     },
     implicit_clone::unsync::IString::Static("ArrowLeftSquare") => html! {
-      <MD_ArrowLeftSquare ..owned_props />
+      <BS_ArrowLeftSquare ..owned_props />
     },
     implicit_clone::unsync::IString::Static("Calculator") => html! {
-      <MD_Calculator ..owned_props />
+      <BS_Calculator ..owned_props />
     },
     implicit_clone::unsync::IString::Static("FileEarmark") => html! {
-      <MD_FileEarmark ..owned_props />
+      <BS_FileEarmark ..owned_props />
     },
     implicit_clone::unsync::IString::Static("CalendarPlusFill") => html! {
-      <MD_CalendarPlusFill ..owned_props />
+      <BS_CalendarPlusFill ..owned_props />
     },
     implicit_clone::unsync::IString::Static("EmojiHeartEyesFill") => html! {
-      <MD_EmojiHeartEyesFill ..owned_props />
+      <BS_EmojiHeartEyesFill ..owned_props />
     },
     implicit_clone::unsync::IString::Static("1SquareFill") => html! {
-      <MD_1SquareFill ..owned_props />
+      <BS_1SquareFill ..owned_props />
     },
     implicit_clone::unsync::IString::Static("PlayCircle") => html! {
-      <MD_PlayCircle ..owned_props />
+      <BS_PlayCircle ..owned_props />
     },
     implicit_clone::unsync::IString::Static("Capsule") => html! {
-      <MD_Capsule ..owned_props />
+      <BS_Capsule ..owned_props />
     },
     implicit_clone::unsync::IString::Static("DatabaseAdd") => html! {
-      <MD_DatabaseAdd ..owned_props />
+      <BS_DatabaseAdd ..owned_props />
     },
     implicit_clone::unsync::IString::Static("LayoutWtf") => html! {
-      <MD_LayoutWtf ..owned_props />
+      <BS_LayoutWtf ..owned_props />
     },
     implicit_clone::unsync::IString::Static("PostageHeartFill") => html! {
-      <MD_PostageHeartFill ..owned_props />
+      <BS_PostageHeartFill ..owned_props />
     },
     implicit_clone::unsync::IString::Static("DashSquareFill") => html! {
-      <MD_DashSquareFill ..owned_props />
+      <BS_DashSquareFill ..owned_props />
     },
     implicit_clone::unsync::IString::Static("AlignStart") => html! {
-      <MD_AlignStart ..owned_props />
+      <BS_AlignStart ..owned_props />
     },
     implicit_clone::unsync::IString::Static("EmojiSmileUpsideDownFill") => html! {
-      <MD_EmojiSmileUpsideDownFill ..owned_props />
+      <BS_EmojiSmileUpsideDownFill ..owned_props />
     },
     implicit_clone::unsync::IString::Static("ChevronBarExpand") => html! {
-      <MD_ChevronBarExpand ..owned_props />
+      <BS_ChevronBarExpand ..owned_props />
     },
     implicit_clone::unsync::IString::Static("GeoAltFill") => html! {
-      <MD_GeoAltFill ..owned_props />
+      <BS_GeoAltFill ..owned_props />
     },
     implicit_clone::unsync::IString::Static("HouseDashFill") => html! {
-      <MD_HouseDashFill ..owned_props />
+      <BS_HouseDashFill ..owned_props />
     },
     implicit_clone::unsync::IString::Static("SendDashFill") => html! {
-      <MD_SendDashFill ..owned_props />
+      <BS_SendDashFill ..owned_props />
     },
     implicit_clone::unsync::IString::Static("Exclude") => html! {
-      <MD_Exclude ..owned_props />
+      <BS_Exclude ..owned_props />
     },
     implicit_clone::unsync::IString::Static("EmojiExpressionlessFill") => html! {
-      <MD_EmojiExpressionlessFill ..owned_props />
+      <BS_EmojiExpressionlessFill ..owned_props />
     },
     implicit_clone::unsync::IString::Static("Calendar2Plus") => html! {
-      <MD_Calendar2Plus ..owned_props />
+      <BS_Calendar2Plus ..owned_props />
     },
     implicit_clone::unsync::IString::Static("Newspaper") => html! {
-      <MD_Newspaper ..owned_props />
+      <BS_Newspaper ..owned_props />
     },
     implicit_clone::unsync::IString::Static("CalendarWeek") => html! {
-      <MD_CalendarWeek ..owned_props />
+      <BS_CalendarWeek ..owned_props />
     },
     implicit_clone::unsync::IString::Static("UsbPlug") => html! {
-      <MD_UsbPlug ..owned_props />
+      <BS_UsbPlug ..owned_props />
     },
     implicit_clone::unsync::IString::Static("ExclamationOctagon") => html! {
-      <MD_ExclamationOctagon ..owned_props />
+      <BS_ExclamationOctagon ..owned_props />
     },
     implicit_clone::unsync::IString::Static("CashStack") => html! {
-      <MD_CashStack ..owned_props />
+      <BS_CashStack ..owned_props />
     },
     implicit_clone::unsync::IString::Static("BoxArrowInUpLeft") => html! {
-      <MD_BoxArrowInUpLeft ..owned_props />
+      <BS_BoxArrowInUpLeft ..owned_props />
     },
     implicit_clone::unsync::IString::Static("ReplyAllFill") => html! {
-      <MD_ReplyAllFill ..owned_props />
+      <BS_ReplyAllFill ..owned_props />
     },
     implicit_clone::unsync::IString::Static("PauseBtnFill") => html! {
-      <MD_PauseBtnFill ..owned_props />
+      <BS_PauseBtnFill ..owned_props />
     },
     implicit_clone::unsync::IString::Static("FileEarmarkSlides") => html! {
-      <MD_FileEarmarkSlides ..owned_props />
+      <BS_FileEarmarkSlides ..owned_props />
     },
     implicit_clone::unsync::IString::Static("InfoSquareFill") => html! {
-      <MD_InfoSquareFill ..owned_props />
+      <BS_InfoSquareFill ..owned_props />
     },
     implicit_clone::unsync::IString::Static("Calendar2MonthFill") => html! {
-      <MD_Calendar2MonthFill ..owned_props />
+      <BS_Calendar2MonthFill ..owned_props />
     },
     implicit_clone::unsync::IString::Static("House") => html! {
-      <MD_House ..owned_props />
+      <BS_House ..owned_props />
     },
     implicit_clone::unsync::IString::Static("JournalArrowUp") => html! {
-      <MD_JournalArrowUp ..owned_props />
+      <BS_JournalArrowUp ..owned_props />
     },
     implicit_clone::unsync::IString::Static("Reception2") => html! {
-      <MD_Reception2 ..owned_props />
+      <BS_Reception2 ..owned_props />
     },
     implicit_clone::unsync::IString::Static("FiletypeCs") => html! {
-      <MD_FiletypeCs ..owned_props />
+      <BS_FiletypeCs ..owned_props />
     },
     implicit_clone::unsync::IString::Static("BuildingFillX") => html! {
-      <MD_BuildingFillX ..owned_props />
+      <BS_BuildingFillX ..owned_props />
     },
     implicit_clone::unsync::IString::Static("Octagon") => html! {
-      <MD_Octagon ..owned_props />
+      <BS_Octagon ..owned_props />
     },
     implicit_clone::unsync::IString::Static("CloudArrowDown") => html! {
-      <MD_CloudArrowDown ..owned_props />
+      <BS_CloudArrowDown ..owned_props />
     },
     implicit_clone::unsync::IString::Static("Cloud") => html! {
-      <MD_Cloud ..owned_props />
+      <BS_Cloud ..owned_props />
     },
     implicit_clone::unsync::IString::Static("ShieldSlashFill") => html! {
-      <MD_ShieldSlashFill ..owned_props />
+      <BS_ShieldSlashFill ..owned_props />
     },
     implicit_clone::unsync::IString::Static("GiftFill") => html! {
-      <MD_GiftFill ..owned_props />
+      <BS_GiftFill ..owned_props />
     },
     implicit_clone::unsync::IString::Static("DiscFill") => html! {
-      <MD_DiscFill ..owned_props />
+      <BS_DiscFill ..owned_props />
     },
     implicit_clone::unsync::IString::Static("ColumnsGap") => html! {
-      <MD_ColumnsGap ..owned_props />
+      <BS_ColumnsGap ..owned_props />
     },
     implicit_clone::unsync::IString::Static("SignMergeRight") => html! {
-      <MD_SignMergeRight ..owned_props />
+      <BS_SignMergeRight ..owned_props />
     },
     implicit_clone::unsync::IString::Static("EmojiFrown") => html! {
-      <MD_EmojiFrown ..owned_props />
+      <BS_EmojiFrown ..owned_props />
     },
     implicit_clone::unsync::IString::Static("HouseDoorFill") => html! {
-      <MD_HouseDoorFill ..owned_props />
+      <BS_HouseDoorFill ..owned_props />
     },
     implicit_clone::unsync::IString::Static("BellSlash") => html! {
-      <MD_BellSlash ..owned_props />
+      <BS_BellSlash ..owned_props />
     },
     implicit_clone::unsync::IString::Static("DatabaseLock") => html! {
-      <MD_DatabaseLock ..owned_props />
+      <BS_DatabaseLock ..owned_props />
     },
     implicit_clone::unsync::IString::Static("OpticalAudioFill") => html! {
-      <MD_OpticalAudioFill ..owned_props />
+      <BS_OpticalAudioFill ..owned_props />
     },
     implicit_clone::unsync::IString::Static("CloudLightningRain") => html! {
-      <MD_CloudLightningRain ..owned_props />
+      <BS_CloudLightningRain ..owned_props />
     },
     implicit_clone::unsync::IString::Static("LayoutSidebarReverse") => html! {
-      <MD_LayoutSidebarReverse ..owned_props />
+      <BS_LayoutSidebarReverse ..owned_props />
     },
     implicit_clone::unsync::IString::Static("WindowDock") => html! {
-      <MD_WindowDock ..owned_props />
+      <BS_WindowDock ..owned_props />
     },
     implicit_clone::unsync::IString::Static("FileEarmarkMedical") => html! {
-      <MD_FileEarmarkMedical ..owned_props />
+      <BS_FileEarmarkMedical ..owned_props />
     },
     implicit_clone::unsync::IString::Static("CSquareFill") => html! {
-      <MD_CSquareFill ..owned_props />
+      <BS_CSquareFill ..owned_props />
     },
     implicit_clone::unsync::IString::Static("ExclamationCircleFill") => html! {
-      <MD_ExclamationCircleFill ..owned_props />
+      <BS_ExclamationCircleFill ..owned_props />
     },
     implicit_clone::unsync::IString::Static("LayoutThreeColumns") => html! {
-      <MD_LayoutThreeColumns ..owned_props />
+      <BS_LayoutThreeColumns ..owned_props />
     },
     implicit_clone::unsync::IString::Static("FileEarmarkExcel") => html! {
-      <MD_FileEarmarkExcel ..owned_props />
+      <BS_FileEarmarkExcel ..owned_props />
     },
     implicit_clone::unsync::IString::Static("Quora") => html! {
-      <MD_Quora ..owned_props />
+      <BS_Quora ..owned_props />
     },
     implicit_clone::unsync::IString::Static("FiletypeRb") => html! {
-      <MD_FiletypeRb ..owned_props />
+      <BS_FiletypeRb ..owned_props />
     },
     implicit_clone::unsync::IString::Static("Balloon") => html! {
-      <MD_Balloon ..owned_props />
+      <BS_Balloon ..owned_props />
     },
     implicit_clone::unsync::IString::Static("BatteryFull") => html! {
-      <MD_BatteryFull ..owned_props />
+      <BS_BatteryFull ..owned_props />
     },
     implicit_clone::unsync::IString::Static("Paperclip") => html! {
-      <MD_Paperclip ..owned_props />
+      <BS_Paperclip ..owned_props />
     },
     implicit_clone::unsync::IString::Static("Clipboard") => html! {
-      <MD_Clipboard ..owned_props />
+      <BS_Clipboard ..owned_props />
     },
     implicit_clone::unsync::IString::Static("ArrowDownUp") => html! {
-      <MD_ArrowDownUp ..owned_props />
+      <BS_ArrowDownUp ..owned_props />
     },
     implicit_clone::unsync::IString::Static("ChatLeftText") => html! {
-      <MD_ChatLeftText ..owned_props />
+      <BS_ChatLeftText ..owned_props />
     },
     implicit_clone::unsync::IString::Static("CapslockFill") => html! {
-      <MD_CapslockFill ..owned_props />
+      <BS_CapslockFill ..owned_props />
     },
     implicit_clone::unsync::IString::Static("Cart3") => html! {
-      <MD_Cart3 ..owned_props />
+      <BS_Cart3 ..owned_props />
     },
     implicit_clone::unsync::IString::Static("Modem") => html! {
-      <MD_Modem ..owned_props />
+      <BS_Modem ..owned_props />
     },
     implicit_clone::unsync::IString::Static("MusicPlayer") => html! {
-      <MD_MusicPlayer ..owned_props />
+      <BS_MusicPlayer ..owned_props />
     },
     implicit_clone::unsync::IString::Static("SignTurnSlightLeftFill") => html! {
-      <MD_SignTurnSlightLeftFill ..owned_props />
+      <BS_SignTurnSlightLeftFill ..owned_props />
     },
     implicit_clone::unsync::IString::Static("AirplaneEnginesFill") => html! {
-      <MD_AirplaneEnginesFill ..owned_props />
+      <BS_AirplaneEnginesFill ..owned_props />
     },
     implicit_clone::unsync::IString::Static("BuildingSlash") => html! {
-      <MD_BuildingSlash ..owned_props />
+      <BS_BuildingSlash ..owned_props />
     },
     implicit_clone::unsync::IString::Static("EmojiLaughingFill") => html! {
-      <MD_EmojiLaughingFill ..owned_props />
+      <BS_EmojiLaughingFill ..owned_props />
     },
     implicit_clone::unsync::IString::Static("Projector") => html! {
-      <MD_Projector ..owned_props />
+      <BS_Projector ..owned_props />
     },
     implicit_clone::unsync::IString::Static("FlagFill") => html! {
-      <MD_FlagFill ..owned_props />
+      <BS_FlagFill ..owned_props />
     },
     implicit_clone::unsync::IString::Static("BodyText") => html! {
-      <MD_BodyText ..owned_props />
+      <BS_BodyText ..owned_props />
     },
     implicit_clone::unsync::IString::Static("Magic") => html! {
-      <MD_Magic ..owned_props />
+      <BS_Magic ..owned_props />
     },
     implicit_clone::unsync::IString::Static("Box") => html! {
-      <MD_Box ..owned_props />
+      <BS_Box ..owned_props />
     },
     implicit_clone::unsync::IString::Static("Indent") => html! {
-      <MD_Indent ..owned_props />
+      <BS_Indent ..owned_props />
     },
     implicit_clone::unsync::IString::Static("PeopleFill") => html! {
-      <MD_PeopleFill ..owned_props />
+      <BS_PeopleFill ..owned_props />
     },
     implicit_clone::unsync::IString::Static("FileEarmarkSlidesFill") => html! {
-      <MD_FileEarmarkSlidesFill ..owned_props />
+      <BS_FileEarmarkSlidesFill ..owned_props />
     },
     implicit_clone::unsync::IString::Static("FileBarGraphFill") => html! {
-      <MD_FileBarGraphFill ..owned_props />
+      <BS_FileBarGraphFill ..owned_props />
     },
     implicit_clone::unsync::IString::Static("Funnel") => html! {
-      <MD_Funnel ..owned_props />
+      <BS_Funnel ..owned_props />
     },
     implicit_clone::unsync::IString::Static("HouseDash") => html! {
-      <MD_HouseDash ..owned_props />
+      <BS_HouseDash ..owned_props />
     },
     implicit_clone::unsync::IString::Static("Stoplights") => html! {
-      <MD_Stoplights ..owned_props />
+      <BS_Stoplights ..owned_props />
     },
     implicit_clone::unsync::IString::Static("StopCircleFill") => html! {
-      <MD_StopCircleFill ..owned_props />
+      <BS_StopCircleFill ..owned_props />
     },
     implicit_clone::unsync::IString::Static("KeyFill") => html! {
-      <MD_KeyFill ..owned_props />
+      <BS_KeyFill ..owned_props />
     },
     implicit_clone::unsync::IString::Static("TrainLightrailFrontFill") => html! {
-      <MD_TrainLightrailFrontFill ..owned_props />
+      <BS_TrainLightrailFrontFill ..owned_props />
     },
     implicit_clone::unsync::IString::Static("Steam") => html! {
-      <MD_Steam ..owned_props />
+      <BS_Steam ..owned_props />
     },
     implicit_clone::unsync::IString::Static("Bezier2") => html! {
-      <MD_Bezier2 ..owned_props />
+      <BS_Bezier2 ..owned_props />
     },
     implicit_clone::unsync::IString::Static("CameraVideoFill") => html! {
-      <MD_CameraVideoFill ..owned_props />
+      <BS_CameraVideoFill ..owned_props />
     },
     implicit_clone::unsync::IString::Static("GearFill") => html! {
-      <MD_GearFill ..owned_props />
+      <BS_GearFill ..owned_props />
     },
     implicit_clone::unsync::IString::Static("CupHotFill") => html! {
-      <MD_CupHotFill ..owned_props />
+      <BS_CupHotFill ..owned_props />
     },
     implicit_clone::unsync::IString::Static("ListColumns") => html! {
-      <MD_ListColumns ..owned_props />
+      <BS_ListColumns ..owned_props />
     },
     implicit_clone::unsync::IString::Static("XDiamondFill") => html! {
-      <MD_XDiamondFill ..owned_props />
+      <BS_XDiamondFill ..owned_props />
     },
     implicit_clone::unsync::IString::Static("SortAlphaDown") => html! {
-      <MD_SortAlphaDown ..owned_props />
+      <BS_SortAlphaDown ..owned_props />
     },
     implicit_clone::unsync::IString::Static("FileLockFill") => html! {
-      <MD_FileLockFill ..owned_props />
+      <BS_FileLockFill ..owned_props />
     },
     implicit_clone::unsync::IString::Static("Justify") => html! {
-      <MD_Justify ..owned_props />
+      <BS_Justify ..owned_props />
     },
     implicit_clone::unsync::IString::Static("Pip") => html! {
-      <MD_Pip ..owned_props />
+      <BS_Pip ..owned_props />
     },
     implicit_clone::unsync::IString::Static("Layers") => html! {
-      <MD_Layers ..owned_props />
+      <BS_Layers ..owned_props />
     },
     implicit_clone::unsync::IString::Static("BuildingFillAdd") => html! {
-      <MD_BuildingFillAdd ..owned_props />
+      <BS_BuildingFillAdd ..owned_props />
     },
     implicit_clone::unsync::IString::Static("BoxArrowDownRight") => html! {
-      <MD_BoxArrowDownRight ..owned_props />
+      <BS_BoxArrowDownRight ..owned_props />
     },
     implicit_clone::unsync::IString::Static("BorderCenter") => html! {
-      <MD_BorderCenter ..owned_props />
+      <BS_BorderCenter ..owned_props />
     },
     implicit_clone::unsync::IString::Static("Diagram3") => html! {
-      <MD_Diagram3 ..owned_props />
+      <BS_Diagram3 ..owned_props />
     },
     implicit_clone::unsync::IString::Static("DeviceHddFill") => html! {
-      <MD_DeviceHddFill ..owned_props />
+      <BS_DeviceHddFill ..owned_props />
     },
     implicit_clone::unsync::IString::Static("BrightnessAltLow") => html! {
-      <MD_BrightnessAltLow ..owned_props />
+      <BS_BrightnessAltLow ..owned_props />
     },
     implicit_clone::unsync::IString::Static("Chat") => html! {
-      <MD_Chat ..owned_props />
+      <BS_Chat ..owned_props />
     },
     implicit_clone::unsync::IString::Static("TelephoneOutboundFill") => html! {
-      <MD_TelephoneOutboundFill ..owned_props />
+      <BS_TelephoneOutboundFill ..owned_props />
     },
     implicit_clone::unsync::IString::Static("CaretRightSquareFill") => html! {
-      <MD_CaretRightSquareFill ..owned_props />
+      <BS_CaretRightSquareFill ..owned_props />
     },
     implicit_clone::unsync::IString::Static("BroadcastPin") => html! {
-      <MD_BroadcastPin ..owned_props />
+      <BS_BroadcastPin ..owned_props />
     },
     implicit_clone::unsync::IString::Static("XCircleFill") => html! {
-      <MD_XCircleFill ..owned_props />
+      <BS_XCircleFill ..owned_props />
     },
     implicit_clone::unsync::IString::Static("SkipEndBtnFill") => html! {
-      <MD_SkipEndBtnFill ..owned_props />
+      <BS_SkipEndBtnFill ..owned_props />
     },
     implicit_clone::unsync::IString::Static("Lungs") => html! {
-      <MD_Lungs ..owned_props />
+      <BS_Lungs ..owned_props />
     },
     implicit_clone::unsync::IString::Static("Calendar2PlusFill") => html! {
-      <MD_Calendar2PlusFill ..owned_props />
+      <BS_Calendar2PlusFill ..owned_props />
     },
     implicit_clone::unsync::IString::Static("EmojiSunglasses") => html! {
-      <MD_EmojiSunglasses ..owned_props />
+      <BS_EmojiSunglasses ..owned_props />
     },
     implicit_clone::unsync::IString::Static("Clipboard2CheckFill") => html! {
-      <MD_Clipboard2CheckFill ..owned_props />
+      <BS_Clipboard2CheckFill ..owned_props />
     },
     implicit_clone::unsync::IString::Static("Voicemail") => html! {
-      <MD_Voicemail ..owned_props />
+      <BS_Voicemail ..owned_props />
     },
     implicit_clone::unsync::IString::Static("ArrowUpLeftSquareFill") => html! {
-      <MD_ArrowUpLeftSquareFill ..owned_props />
+      <BS_ArrowUpLeftSquareFill ..owned_props />
     },
     implicit_clone::unsync::IString::Static("PatchExclamation") => html! {
-      <MD_PatchExclamation ..owned_props />
+      <BS_PatchExclamation ..owned_props />
     },
     implicit_clone::unsync::IString::Static("Easel2Fill") => html! {
-      <MD_Easel2Fill ..owned_props />
+      <BS_Easel2Fill ..owned_props />
     },
     implicit_clone::unsync::IString::Static("FiletypeKey") => html! {
-      <MD_FiletypeKey ..owned_props />
+      <BS_FiletypeKey ..owned_props />
     },
     implicit_clone::unsync::IString::Static("FiletypeSvg") => html! {
-      <MD_FiletypeSvg ..owned_props />
+      <BS_FiletypeSvg ..owned_props />
     },
     implicit_clone::unsync::IString::Static("SearchHeartFill") => html! {
-      <MD_SearchHeartFill ..owned_props />
+      <BS_SearchHeartFill ..owned_props />
     },
     implicit_clone::unsync::IString::Static("FileEarmarkArrowUpFill") => html! {
-      <MD_FileEarmarkArrowUpFill ..owned_props />
+      <BS_FileEarmarkArrowUpFill ..owned_props />
     },
     implicit_clone::unsync::IString::Static("CircleHalf") => html! {
-      <MD_CircleHalf ..owned_props />
+      <BS_CircleHalf ..owned_props />
     },
     implicit_clone::unsync::IString::Static("AlignTop") => html! {
-      <MD_AlignTop ..owned_props />
+      <BS_AlignTop ..owned_props />
     },
     implicit_clone::unsync::IString::Static("ArrowsCollapse") => html! {
-      <MD_ArrowsCollapse ..owned_props />
+      <BS_ArrowsCollapse ..owned_props />
     },
     implicit_clone::unsync::IString::Static("BuildingFillSlash") => html! {
-      <MD_BuildingFillSlash ..owned_props />
+      <BS_BuildingFillSlash ..owned_props />
     },
     implicit_clone::unsync::IString::Static("SlashLg") => html! {
-      <MD_SlashLg ..owned_props />
+      <BS_SlashLg ..owned_props />
     },
     implicit_clone::unsync::IString::Static("EnvelopeCheckFill") => html! {
-      <MD_EnvelopeCheckFill ..owned_props />
+      <BS_EnvelopeCheckFill ..owned_props />
     },
     implicit_clone::unsync::IString::Static("FileEarmarkPlayFill") => html! {
-      <MD_FileEarmarkPlayFill ..owned_props />
+      <BS_FileEarmarkPlayFill ..owned_props />
     },
     implicit_clone::unsync::IString::Static("BadgeAd") => html! {
-      <MD_BadgeAd ..owned_props />
+      <BS_BadgeAd ..owned_props />
     },
     implicit_clone::unsync::IString::Static("FileEarmarkPersonFill") => html! {
-      <MD_FileEarmarkPersonFill ..owned_props />
+      <BS_FileEarmarkPersonFill ..owned_props />
     },
     implicit_clone::unsync::IString::Static("HouseGearFill") => html! {
-      <MD_HouseGearFill ..owned_props />
+      <BS_HouseGearFill ..owned_props />
     },
     implicit_clone::unsync::IString::Static("Git") => html! {
-      <MD_Git ..owned_props />
+      <BS_Git ..owned_props />
     },
     implicit_clone::unsync::IString::Static("BellFill") => html! {
-      <MD_BellFill ..owned_props />
+      <BS_BellFill ..owned_props />
     },
     implicit_clone::unsync::IString::Static("Activity") => html! {
-      <MD_Activity ..owned_props />
+      <BS_Activity ..owned_props />
     },
     implicit_clone::unsync::IString::Static("ChatLeftDots") => html! {
-      <MD_ChatLeftDots ..owned_props />
+      <BS_ChatLeftDots ..owned_props />
     },
     implicit_clone::unsync::IString::Static("ShieldLock") => html! {
-      <MD_ShieldLock ..owned_props />
+      <BS_ShieldLock ..owned_props />
     },
     implicit_clone::unsync::IString::Static("Capslock") => html! {
-      <MD_Capslock ..owned_props />
+      <BS_Capslock ..owned_props />
     },
     implicit_clone::unsync::IString::Static("ArrowUpRightSquare") => html! {
-      <MD_ArrowUpRightSquare ..owned_props />
+      <BS_ArrowUpRightSquare ..owned_props />
     },
     implicit_clone::unsync::IString::Static("NodePlus") => html! {
-      <MD_NodePlus ..owned_props />
+      <BS_NodePlus ..owned_props />
     },
     implicit_clone::unsync::IString::Static("2Square") => html! {
-      <MD_2Square ..owned_props />
+      <BS_2Square ..owned_props />
     },
     implicit_clone::unsync::IString::Static("CaretRight") => html! {
-      <MD_CaretRight ..owned_props />
+      <BS_CaretRight ..owned_props />
     },
     implicit_clone::unsync::IString::Static("BuildingLock") => html! {
-      <MD_BuildingLock ..owned_props />
+      <BS_BuildingLock ..owned_props />
     },
     implicit_clone::unsync::IString::Static("UsbFill") => html! {
-      <MD_UsbFill ..owned_props />
+      <BS_UsbFill ..owned_props />
     },
     implicit_clone::unsync::IString::Static("PostageHeart") => html! {
-      <MD_PostageHeart ..owned_props />
+      <BS_PostageHeart ..owned_props />
     },
     implicit_clone::unsync::IString::Static("Coin") => html! {
-      <MD_Coin ..owned_props />
+      <BS_Coin ..owned_props />
     },
     implicit_clone::unsync::IString::Static("ChevronDoubleUp") => html! {
-      <MD_ChevronDoubleUp ..owned_props />
+      <BS_ChevronDoubleUp ..owned_props />
     },
     implicit_clone::unsync::IString::Static("Grid3x3Gap") => html! {
-      <MD_Grid3x3Gap ..owned_props />
+      <BS_Grid3x3Gap ..owned_props />
     },
     implicit_clone::unsync::IString::Static("Clouds") => html! {
-      <MD_Clouds ..owned_props />
+      <BS_Clouds ..owned_props />
     },
     implicit_clone::unsync::IString::Static("Folder2Open") => html! {
-      <MD_Folder2Open ..owned_props />
+      <BS_Folder2Open ..owned_props />
     },
     implicit_clone::unsync::IString::Static("FilterSquare") => html! {
-      <MD_FilterSquare ..owned_props />
+      <BS_FilterSquare ..owned_props />
     },
     implicit_clone::unsync::IString::Static("Hexagon") => html! {
-      <MD_Hexagon ..owned_props />
+      <BS_Hexagon ..owned_props />
     },
     implicit_clone::unsync::IString::Static("HeptagonHalf") => html! {
-      <MD_HeptagonHalf ..owned_props />
+      <BS_HeptagonHalf ..owned_props />
     },
     implicit_clone::unsync::IString::Static("DashCircleFill") => html! {
-      <MD_DashCircleFill ..owned_props />
+      <BS_DashCircleFill ..owned_props />
     },
     implicit_clone::unsync::IString::Static("FileEasel") => html! {
-      <MD_FileEasel ..owned_props />
+      <BS_FileEasel ..owned_props />
     },
     implicit_clone::unsync::IString::Static("Grid1x2") => html! {
-      <MD_Grid1x2 ..owned_props />
+      <BS_Grid1x2 ..owned_props />
     },
     implicit_clone::unsync::IString::Static("Hdd") => html! {
-      <MD_Hdd ..owned_props />
+      <BS_Hdd ..owned_props />
     },
     implicit_clone::unsync::IString::Static("QuestionOctagon") => html! {
-      <MD_QuestionOctagon ..owned_props />
+      <BS_QuestionOctagon ..owned_props />
     },
     implicit_clone::unsync::IString::Static("SendDash") => html! {
-      <MD_SendDash ..owned_props />
+      <BS_SendDash ..owned_props />
     },
     implicit_clone::unsync::IString::Static("BagPlusFill") => html! {
-      <MD_BagPlusFill ..owned_props />
+      <BS_BagPlusFill ..owned_props />
     },
     implicit_clone::unsync::IString::Static("FileEarmarkBarGraph") => html! {
-      <MD_FileEarmarkBarGraph ..owned_props />
+      <BS_FileEarmarkBarGraph ..owned_props />
     },
     implicit_clone::unsync::IString::Static("UiChecks") => html! {
-      <MD_UiChecks ..owned_props />
+      <BS_UiChecks ..owned_props />
     },
     implicit_clone::unsync::IString::Static("FileSpreadsheet") => html! {
-      <MD_FileSpreadsheet ..owned_props />
+      <BS_FileSpreadsheet ..owned_props />
     },
     implicit_clone::unsync::IString::Static("Bug") => html! {
-      <MD_Bug ..owned_props />
+      <BS_Bug ..owned_props />
     },
     implicit_clone::unsync::IString::Static("ArrowRepeat") => html! {
-      <MD_ArrowRepeat ..owned_props />
+      <BS_ArrowRepeat ..owned_props />
     },
     implicit_clone::unsync::IString::Static("Dice5") => html! {
-      <MD_Dice5 ..owned_props />
+      <BS_Dice5 ..owned_props />
     },
     implicit_clone::unsync::IString::Static("3Circle") => html! {
-      <MD_3Circle ..owned_props />
+      <BS_3Circle ..owned_props />
     },
     implicit_clone::unsync::IString::Static("PauseBtn") => html! {
-      <MD_PauseBtn ..owned_props />
+      <BS_PauseBtn ..owned_props />
     },
     implicit_clone::unsync::IString::Static("Images") => html! {
-      <MD_Images ..owned_props />
+      <BS_Images ..owned_props />
     },
     implicit_clone::unsync::IString::Static("SignNoLeftTurnFill") => html! {
-      <MD_SignNoLeftTurnFill ..owned_props />
+      <BS_SignNoLeftTurnFill ..owned_props />
     },
     implicit_clone::unsync::IString::Static("CalendarX") => html! {
-      <MD_CalendarX ..owned_props />
+      <BS_CalendarX ..owned_props />
     },
     implicit_clone::unsync::IString::Static("FiletypePng") => html! {
-      <MD_FiletypePng ..owned_props />
+      <BS_FiletypePng ..owned_props />
     },
     implicit_clone::unsync::IString::Static("Clock") => html! {
-      <MD_Clock ..owned_props />
+      <BS_Clock ..owned_props />
     },
     implicit_clone::unsync::IString::Static("AirplaneEngines") => html! {
-      <MD_AirplaneEngines ..owned_props />
+      <BS_AirplaneEngines ..owned_props />
     },
     implicit_clone::unsync::IString::Static("EmojiHeartEyes") => html! {
-      <MD_EmojiHeartEyes ..owned_props />
+      <BS_EmojiHeartEyes ..owned_props />
     },
     implicit_clone::unsync::IString::Static("Book") => html! {
-      <MD_Book ..owned_props />
+      <BS_Book ..owned_props />
     },
     implicit_clone::unsync::IString::Static("Sliders2Vertical") => html! {
-      <MD_Sliders2Vertical ..owned_props />
+      <BS_Sliders2Vertical ..owned_props />
     },
     implicit_clone::unsync::IString::Static("CreditCard2Front") => html! {
-      <MD_CreditCard2Front ..owned_props />
+      <BS_CreditCard2Front ..owned_props />
     },
     implicit_clone::unsync::IString::Static("FileEarmarkWord") => html! {
-      <MD_FileEarmarkWord ..owned_props />
+      <BS_FileEarmarkWord ..owned_props />
     },
     implicit_clone::unsync::IString::Static("FiletypeCsv") => html! {
-      <MD_FiletypeCsv ..owned_props />
+      <BS_FiletypeCsv ..owned_props />
     },
     implicit_clone::unsync::IString::Static("BarChartLineFill") => html! {
-      <MD_BarChartLineFill ..owned_props />
+      <BS_BarChartLineFill ..owned_props />
     },
     implicit_clone::unsync::IString::Static("Hurricane") => html! {
-      <MD_Hurricane ..owned_props />
+      <BS_Hurricane ..owned_props />
     },
     implicit_clone::unsync::IString::Static("Envelope") => html! {
-      <MD_Envelope ..owned_props />
+      <BS_Envelope ..owned_props />
     },
     implicit_clone::unsync::IString::Static("OctagonFill") => html! {
-      <MD_OctagonFill ..owned_props />
+      <BS_OctagonFill ..owned_props />
     },
     implicit_clone::unsync::IString::Static("EnvelopeSlash") => html! {
-      <MD_EnvelopeSlash ..owned_props />
+      <BS_EnvelopeSlash ..owned_props />
     },
     implicit_clone::unsync::IString::Static("FileEarmarkSpreadsheetFill") => html! {
-      <MD_FileEarmarkSpreadsheetFill ..owned_props />
+      <BS_FileEarmarkSpreadsheetFill ..owned_props />
     },
     implicit_clone::unsync::IString::Static("BoxArrowDown") => html! {
-      <MD_BoxArrowDown ..owned_props />
+      <BS_BoxArrowDown ..owned_props />
     },
     implicit_clone::unsync::IString::Static("BuildingFillUp") => html! {
-      <MD_BuildingFillUp ..owned_props />
+      <BS_BuildingFillUp ..owned_props />
     },
     implicit_clone::unsync::IString::Static("CloudSlash") => html! {
-      <MD_CloudSlash ..owned_props />
+      <BS_CloudSlash ..owned_props />
     },
     implicit_clone::unsync::IString::Static("ClipboardXFill") => html! {
-      <MD_ClipboardXFill ..owned_props />
+      <BS_ClipboardXFill ..owned_props />
     },
     implicit_clone::unsync::IString::Static("ArrowLeftRight") => html! {
-      <MD_ArrowLeftRight ..owned_props />
+      <BS_ArrowLeftRight ..owned_props />
     },
     implicit_clone::unsync::IString::Static("Square") => html! {
-      <MD_Square ..owned_props />
+      <BS_Square ..owned_props />
     },
     implicit_clone::unsync::IString::Static("FilterLeft") => html! {
-      <MD_FilterLeft ..owned_props />
+      <BS_FilterLeft ..owned_props />
     },
     implicit_clone::unsync::IString::Static("Ladder") => html! {
-      <MD_Ladder ..owned_props />
+      <BS_Ladder ..owned_props />
     },
     implicit_clone::unsync::IString::Static("FileCodeFill") => html! {
-      <MD_FileCodeFill ..owned_props />
+      <BS_FileCodeFill ..owned_props />
     },
     implicit_clone::unsync::IString::Static("Badge4kFill") => html! {
-      <MD_Badge4kFill ..owned_props />
+      <BS_Badge4kFill ..owned_props />
     },
     implicit_clone::unsync::IString::Static("Umbrella") => html! {
-      <MD_Umbrella ..owned_props />
+      <BS_Umbrella ..owned_props />
     },
     implicit_clone::unsync::IString::Static("ArrowDownLeftCircle") => html! {
-      <MD_ArrowDownLeftCircle ..owned_props />
+      <BS_ArrowDownLeftCircle ..owned_props />
     },
     implicit_clone::unsync::IString::Static("BracesAsterisk") => html! {
-      <MD_BracesAsterisk ..owned_props />
+      <BS_BracesAsterisk ..owned_props />
     },
     implicit_clone::unsync::IString::Static("BrowserEdge") => html! {
-      <MD_BrowserEdge ..owned_props />
+      <BS_BrowserEdge ..owned_props />
     },
     implicit_clone::unsync::IString::Static("Pen") => html! {
-      <MD_Pen ..owned_props />
+      <BS_Pen ..owned_props />
     },
     implicit_clone::unsync::IString::Static("BootstrapReboot") => html! {
-      <MD_BootstrapReboot ..owned_props />
+      <BS_BootstrapReboot ..owned_props />
     },
     implicit_clone::unsync::IString::Static("Smartwatch") => html! {
-      <MD_Smartwatch ..owned_props />
+      <BS_Smartwatch ..owned_props />
     },
     implicit_clone::unsync::IString::Static("Peace") => html! {
-      <MD_Peace ..owned_props />
+      <BS_Peace ..owned_props />
     },
     implicit_clone::unsync::IString::Static("PersonBadge") => html! {
-      <MD_PersonBadge ..owned_props />
+      <BS_PersonBadge ..owned_props />
     },
     implicit_clone::unsync::IString::Static("XOctagonFill") => html! {
-      <MD_XOctagonFill ..owned_props />
+      <BS_XOctagonFill ..owned_props />
     },
     implicit_clone::unsync::IString::Static("CreditCard2BackFill") => html! {
-      <MD_CreditCard2BackFill ..owned_props />
+      <BS_CreditCard2BackFill ..owned_props />
     },
     implicit_clone::unsync::IString::Static("BorderWidth") => html! {
-      <MD_BorderWidth ..owned_props />
+      <BS_BorderWidth ..owned_props />
     },
     implicit_clone::unsync::IString::Static("ToggleOff") => html! {
-      <MD_ToggleOff ..owned_props />
+      <BS_ToggleOff ..owned_props />
     },
     implicit_clone::unsync::IString::Static("Basket2Fill") => html! {
-      <MD_Basket2Fill ..owned_props />
+      <BS_Basket2Fill ..owned_props />
     },
     implicit_clone::unsync::IString::Static("PersonXFill") => html! {
-      <MD_PersonXFill ..owned_props />
+      <BS_PersonXFill ..owned_props />
     },
     implicit_clone::unsync::IString::Static("CloudDrizzleFill") => html! {
-      <MD_CloudDrizzleFill ..owned_props />
+      <BS_CloudDrizzleFill ..owned_props />
     },
     implicit_clone::unsync::IString::Static("Wallet2") => html! {
-      <MD_Wallet2 ..owned_props />
+      <BS_Wallet2 ..owned_props />
     },
     implicit_clone::unsync::IString::Static("Forward") => html! {
-      <MD_Forward ..owned_props />
+      <BS_Forward ..owned_props />
     },
     implicit_clone::unsync::IString::Static("Android2") => html! {
-      <MD_Android2 ..owned_props />
+      <BS_Android2 ..owned_props />
     },
     implicit_clone::unsync::IString::Static("HCircle") => html! {
-      <MD_HCircle ..owned_props />
+      <BS_HCircle ..owned_props />
     },
     implicit_clone::unsync::IString::Static("CupFill") => html! {
-      <MD_CupFill ..owned_props />
+      <BS_CupFill ..owned_props />
     },
     implicit_clone::unsync::IString::Static("CalendarRange") => html! {
-      <MD_CalendarRange ..owned_props />
+      <BS_CalendarRange ..owned_props />
     },
     implicit_clone::unsync::IString::Static("SignpostSplitFill") => html! {
-      <MD_SignpostSplitFill ..owned_props />
+      <BS_SignpostSplitFill ..owned_props />
     },
     implicit_clone::unsync::IString::Static("EmojiNeutral") => html! {
-      <MD_EmojiNeutral ..owned_props />
+      <BS_EmojiNeutral ..owned_props />
     },
     implicit_clone::unsync::IString::Static("DashSquareDotted") => html! {
-      <MD_DashSquareDotted ..owned_props />
+      <BS_DashSquareDotted ..owned_props />
     },
     implicit_clone::unsync::IString::Static("PersonCircle") => html! {
-      <MD_PersonCircle ..owned_props />
+      <BS_PersonCircle ..owned_props />
     },
     implicit_clone::unsync::IString::Static("SkipEnd") => html! {
-      <MD_SkipEnd ..owned_props />
+      <BS_SkipEnd ..owned_props />
     },
     implicit_clone::unsync::IString::Static("EjectFill") => html! {
-      <MD_EjectFill ..owned_props />
+      <BS_EjectFill ..owned_props />
     },
     implicit_clone::unsync::IString::Static("FolderCheck") => html! {
-      <MD_FolderCheck ..owned_props />
+      <BS_FolderCheck ..owned_props />
     },
     implicit_clone::unsync::IString::Static("FileBreakFill") => html! {
-      <MD_FileBreakFill ..owned_props />
+      <BS_FileBreakFill ..owned_props />
     },
     implicit_clone::unsync::IString::Static("SignTurnSlightRight") => html! {
-      <MD_SignTurnSlightRight ..owned_props />
+      <BS_SignTurnSlightRight ..owned_props />
     },
     implicit_clone::unsync::IString::Static("Vinyl") => html! {
-      <MD_Vinyl ..owned_props />
+      <BS_Vinyl ..owned_props />
     },
     implicit_clone::unsync::IString::Static("Calendar2X") => html! {
-      <MD_Calendar2X ..owned_props />
+      <BS_Calendar2X ..owned_props />
     },
     implicit_clone::unsync::IString::Static("CollectionFill") => html! {
-      <MD_CollectionFill ..owned_props />
+      <BS_CollectionFill ..owned_props />
     },
     implicit_clone::unsync::IString::Static("Moisture") => html! {
-      <MD_Moisture ..owned_props />
+      <BS_Moisture ..owned_props />
     },
     implicit_clone::unsync::IString::Static("SlashSquare") => html! {
-      <MD_SlashSquare ..owned_props />
+      <BS_SlashSquare ..owned_props />
     },
     implicit_clone::unsync::IString::Static("Image") => html! {
-      <MD_Image ..owned_props />
+      <BS_Image ..owned_props />
     },
     implicit_clone::unsync::IString::Static("Clipboard2Heart") => html! {
-      <MD_Clipboard2Heart ..owned_props />
+      <BS_Clipboard2Heart ..owned_props />
     },
     implicit_clone::unsync::IString::Static("Rainbow") => html! {
-      <MD_Rainbow ..owned_props />
+      <BS_Rainbow ..owned_props />
     },
     implicit_clone::unsync::IString::Static("Valentine") => html! {
-      <MD_Valentine ..owned_props />
+      <BS_Valentine ..owned_props />
     },
     implicit_clone::unsync::IString::Static("HouseLock") => html! {
-      <MD_HouseLock ..owned_props />
+      <BS_HouseLock ..owned_props />
     },
     implicit_clone::unsync::IString::Static("ExclamationDiamond") => html! {
-      <MD_ExclamationDiamond ..owned_props />
+      <BS_ExclamationDiamond ..owned_props />
     },
     implicit_clone::unsync::IString::Static("MenuButton") => html! {
-      <MD_MenuButton ..owned_props />
+      <BS_MenuButton ..owned_props />
     },
     implicit_clone::unsync::IString::Static("2CircleFill") => html! {
-      <MD_2CircleFill ..owned_props />
+      <BS_2CircleFill ..owned_props />
     },
     implicit_clone::unsync::IString::Static("EnvelopeXFill") => html! {
-      <MD_EnvelopeXFill ..owned_props />
+      <BS_EnvelopeXFill ..owned_props />
     },
     implicit_clone::unsync::IString::Static("Backspace") => html! {
-      <MD_Backspace ..owned_props />
+      <BS_Backspace ..owned_props />
     },
     implicit_clone::unsync::IString::Static("BadgeArFill") => html! {
-      <MD_BadgeArFill ..owned_props />
+      <BS_BadgeArFill ..owned_props />
     },
     implicit_clone::unsync::IString::Static("ProjectorFill") => html! {
-      <MD_ProjectorFill ..owned_props />
+      <BS_ProjectorFill ..owned_props />
     },
     implicit_clone::unsync::IString::Static("ArrowUpLeftSquare") => html! {
-      <MD_ArrowUpLeftSquare ..owned_props />
+      <BS_ArrowUpLeftSquare ..owned_props />
     },
     implicit_clone::unsync::IString::Static("SkipBackwardBtn") => html! {
-      <MD_SkipBackwardBtn ..owned_props />
+      <BS_SkipBackwardBtn ..owned_props />
     },
     implicit_clone::unsync::IString::Static("FilePlusFill") => html! {
-      <MD_FilePlusFill ..owned_props />
+      <BS_FilePlusFill ..owned_props />
     },
     implicit_clone::unsync::IString::Static("AlignMiddle") => html! {
-      <MD_AlignMiddle ..owned_props />
+      <BS_AlignMiddle ..owned_props />
     },
     implicit_clone::unsync::IString::Static("PinAngle") => html! {
-      <MD_PinAngle ..owned_props />
+      <BS_PinAngle ..owned_props />
     },
     implicit_clone::unsync::IString::Static("Calendar2Fill") => html! {
-      <MD_Calendar2Fill ..owned_props />
+      <BS_Calendar2Fill ..owned_props />
     },
     implicit_clone::unsync::IString::Static("Sunrise") => html! {
-      <MD_Sunrise ..owned_props />
+      <BS_Sunrise ..owned_props />
     },
     implicit_clone::unsync::IString::Static("Badge3d") => html! {
-      <MD_Badge3d ..owned_props />
+      <BS_Badge3d ..owned_props />
     },
     implicit_clone::unsync::IString::Static("BagFill") => html! {
-      <MD_BagFill ..owned_props />
+      <BS_BagFill ..owned_props />
     },
     implicit_clone::unsync::IString::Static("Safe") => html! {
-      <MD_Safe ..owned_props />
+      <BS_Safe ..owned_props />
     },
     implicit_clone::unsync::IString::Static("7Circle") => html! {
-      <MD_7Circle ..owned_props />
+      <BS_7Circle ..owned_props />
     },
     implicit_clone::unsync::IString::Static("Clipboard2MinusFill") => html! {
-      <MD_Clipboard2MinusFill ..owned_props />
+      <BS_Clipboard2MinusFill ..owned_props />
     },
     implicit_clone::unsync::IString::Static("FileEarmarkCode") => html! {
-      <MD_FileEarmarkCode ..owned_props />
+      <BS_FileEarmarkCode ..owned_props />
     },
     implicit_clone::unsync::IString::Static("FilePpt") => html! {
-      <MD_FilePpt ..owned_props />
+      <BS_FilePpt ..owned_props />
     },
     implicit_clone::unsync::IString::Static("FiletypeJson") => html! {
-      <MD_FiletypeJson ..owned_props />
+      <BS_FiletypeJson ..owned_props />
     },
     implicit_clone::unsync::IString::Static("Calendar2Week") => html! {
-      <MD_Calendar2Week ..owned_props />
+      <BS_Calendar2Week ..owned_props />
     },
     implicit_clone::unsync::IString::Static("Unity") => html! {
-      <MD_Unity ..owned_props />
+      <BS_Unity ..owned_props />
     },
     implicit_clone::unsync::IString::Static("WindowFullscreen") => html! {
-      <MD_WindowFullscreen ..owned_props />
+      <BS_WindowFullscreen ..owned_props />
     },
     implicit_clone::unsync::IString::Static("TrainFreightFront") => html! {
-      <MD_TrainFreightFront ..owned_props />
+      <BS_TrainFreightFront ..owned_props />
     },
     implicit_clone::unsync::IString::Static("FileEarmarkRichtextFill") => html! {
-      <MD_FileEarmarkRichtextFill ..owned_props />
+      <BS_FileEarmarkRichtextFill ..owned_props />
     },
     implicit_clone::unsync::IString::Static("BadgeTm") => html! {
-      <MD_BadgeTm ..owned_props />
+      <BS_BadgeTm ..owned_props />
     },
     implicit_clone::unsync::IString::Static("Back") => html! {
-      <MD_Back ..owned_props />
+      <BS_Back ..owned_props />
     },
     implicit_clone::unsync::IString::Static("SkipStart") => html! {
-      <MD_SkipStart ..owned_props />
+      <BS_SkipStart ..owned_props />
     },
     implicit_clone::unsync::IString::Static("ChatQuoteFill") => html! {
-      <MD_ChatQuoteFill ..owned_props />
+      <BS_ChatQuoteFill ..owned_props />
     },
     implicit_clone::unsync::IString::Static("FastForwardCircleFill") => html! {
-      <MD_FastForwardCircleFill ..owned_props />
+      <BS_FastForwardCircleFill ..owned_props />
     },
     implicit_clone::unsync::IString::Static("BucketFill") => html! {
-      <MD_BucketFill ..owned_props />
+      <BS_BucketFill ..owned_props />
     },
     implicit_clone::unsync::IString::Static("SdCardFill") => html! {
-      <MD_SdCardFill ..owned_props />
+      <BS_SdCardFill ..owned_props />
     },
     implicit_clone::unsync::IString::Static("Playstation") => html! {
-      <MD_Playstation ..owned_props />
+      <BS_Playstation ..owned_props />
     },
     implicit_clone::unsync::IString::Static("FileEarmarkMedicalFill") => html! {
-      <MD_FileEarmarkMedicalFill ..owned_props />
+      <BS_FileEarmarkMedicalFill ..owned_props />
     },
     implicit_clone::unsync::IString::Static("LockFill") => html! {
-      <MD_LockFill ..owned_props />
+      <BS_LockFill ..owned_props />
     },
     implicit_clone::unsync::IString::Static("Calendar2Heart") => html! {
-      <MD_Calendar2Heart ..owned_props />
+      <BS_Calendar2Heart ..owned_props />
     },
     implicit_clone::unsync::IString::Static("XSquareFill") => html! {
-      <MD_XSquareFill ..owned_props />
+      <BS_XSquareFill ..owned_props />
     },
     implicit_clone::unsync::IString::Static("Pin") => html! {
-      <MD_Pin ..owned_props />
+      <BS_Pin ..owned_props />
     },
     implicit_clone::unsync::IString::Static("Folder") => html! {
-      <MD_Folder ..owned_props />
+      <BS_Folder ..owned_props />
     },
     implicit_clone::unsync::IString::Static("ArrowUpShort") => html! {
-      <MD_ArrowUpShort ..owned_props />
+      <BS_ArrowUpShort ..owned_props />
     },
     implicit_clone::unsync::IString::Static("Calendar2Minus") => html! {
-      <MD_Calendar2Minus ..owned_props />
+      <BS_Calendar2Minus ..owned_props />
     },
     implicit_clone::unsync::IString::Static("FileArrowUp") => html! {
-      <MD_FileArrowUp ..owned_props />
+      <BS_FileArrowUp ..owned_props />
     },
     implicit_clone::unsync::IString::Static("Line") => html! {
-      <MD_Line ..owned_props />
+      <BS_Line ..owned_props />
     },
     implicit_clone::unsync::IString::Static("HdmiFill") => html! {
-      <MD_HdmiFill ..owned_props />
+      <BS_HdmiFill ..owned_props />
     },
     implicit_clone::unsync::IString::Static("Tiktok") => html! {
-      <MD_Tiktok ..owned_props />
+      <BS_Tiktok ..owned_props />
     },
     implicit_clone::unsync::IString::Static("SquareFill") => html! {
-      <MD_SquareFill ..owned_props />
+      <BS_SquareFill ..owned_props />
     },
     implicit_clone::unsync::IString::Static("Heptagon") => html! {
-      <MD_Heptagon ..owned_props />
+      <BS_Heptagon ..owned_props />
     },
     implicit_clone::unsync::IString::Static("QuestionSquareFill") => html! {
-      <MD_QuestionSquareFill ..owned_props />
+      <BS_QuestionSquareFill ..owned_props />
     },
     implicit_clone::unsync::IString::Static("DpadFill") => html! {
-      <MD_DpadFill ..owned_props />
+      <BS_DpadFill ..owned_props />
     },
     implicit_clone::unsync::IString::Static("BoxFill") => html! {
-      <MD_BoxFill ..owned_props />
+      <BS_BoxFill ..owned_props />
     },
     implicit_clone::unsync::IString::Static("UsbMiniFill") => html! {
-      <MD_UsbMiniFill ..owned_props />
+      <BS_UsbMiniFill ..owned_props />
     },
     implicit_clone::unsync::IString::Static("CartDashFill") => html! {
-      <MD_CartDashFill ..owned_props />
+      <BS_CartDashFill ..owned_props />
     },
     implicit_clone::unsync::IString::Static("PersonFillX") => html! {
-      <MD_PersonFillX ..owned_props />
+      <BS_PersonFillX ..owned_props />
     },
     implicit_clone::unsync::IString::Static("Trash") => html! {
-      <MD_Trash ..owned_props />
+      <BS_Trash ..owned_props />
     },
     implicit_clone::unsync::IString::Static("QuestionDiamond") => html! {
-      <MD_QuestionDiamond ..owned_props />
+      <BS_QuestionDiamond ..owned_props />
     },
     implicit_clone::unsync::IString::Static("Egg") => html! {
-      <MD_Egg ..owned_props />
+      <BS_Egg ..owned_props />
     },
     implicit_clone::unsync::IString::Static("Headset") => html! {
-      <MD_Headset ..owned_props />
+      <BS_Headset ..owned_props />
     },
     implicit_clone::unsync::IString::Static("CurrencyEuro") => html! {
-      <MD_CurrencyEuro ..owned_props />
+      <BS_CurrencyEuro ..owned_props />
     },
     implicit_clone::unsync::IString::Static("JournalCheck") => html! {
-      <MD_JournalCheck ..owned_props />
+      <BS_JournalCheck ..owned_props />
     },
     implicit_clone::unsync::IString::Static("Calendar2Month") => html! {
-      <MD_Calendar2Month ..owned_props />
+      <BS_Calendar2Month ..owned_props />
     },
     implicit_clone::unsync::IString::Static("BoxArrowUpRight") => html! {
-      <MD_BoxArrowUpRight ..owned_props />
+      <BS_BoxArrowUpRight ..owned_props />
     },
     implicit_clone::unsync::IString::Static("SignTurnLeftFill") => html! {
-      <MD_SignTurnLeftFill ..owned_props />
+      <BS_SignTurnLeftFill ..owned_props />
     },
     implicit_clone::unsync::IString::Static("FileEarmarkFont") => html! {
-      <MD_FileEarmarkFont ..owned_props />
+      <BS_FileEarmarkFont ..owned_props />
     },
     implicit_clone::unsync::IString::Static("ShieldSlash") => html! {
-      <MD_ShieldSlash ..owned_props />
+      <BS_ShieldSlash ..owned_props />
     },
     implicit_clone::unsync::IString::Static("SkipForwardCircle") => html! {
-      <MD_SkipForwardCircle ..owned_props />
+      <BS_SkipForwardCircle ..owned_props />
     },
     implicit_clone::unsync::IString::Static("Watch") => html! {
-      <MD_Watch ..owned_props />
+      <BS_Watch ..owned_props />
     },
     implicit_clone::unsync::IString::Static("ArrowUpLeft") => html! {
-      <MD_ArrowUpLeft ..owned_props />
+      <BS_ArrowUpLeft ..owned_props />
     },
     implicit_clone::unsync::IString::Static("Calendar2") => html! {
-      <MD_Calendar2 ..owned_props />
+      <BS_Calendar2 ..owned_props />
     },
     implicit_clone::unsync::IString::Static("EnvelopeFill") => html! {
-      <MD_EnvelopeFill ..owned_props />
+      <BS_EnvelopeFill ..owned_props />
     },
     implicit_clone::unsync::IString::Static("Skype") => html! {
-      <MD_Skype ..owned_props />
+      <BS_Skype ..owned_props />
     },
     implicit_clone::unsync::IString::Static("RCircle") => html! {
-      <MD_RCircle ..owned_props />
+      <BS_RCircle ..owned_props />
     },
     implicit_clone::unsync::IString::Static("Calendar2EventFill") => html! {
-      <MD_Calendar2EventFill ..owned_props />
+      <BS_Calendar2EventFill ..owned_props />
     },
     implicit_clone::unsync::IString::Static("PostageFill") => html! {
-      <MD_PostageFill ..owned_props />
+      <BS_PostageFill ..owned_props />
     },
     implicit_clone::unsync::IString::Static("UsbCFill") => html! {
-      <MD_UsbCFill ..owned_props />
+      <BS_UsbCFill ..owned_props />
     },
     implicit_clone::unsync::IString::Static("SkipBackwardBtnFill") => html! {
-      <MD_SkipBackwardBtnFill ..owned_props />
+      <BS_SkipBackwardBtnFill ..owned_props />
     },
     implicit_clone::unsync::IString::Static("RecordCircle") => html! {
-      <MD_RecordCircle ..owned_props />
+      <BS_RecordCircle ..owned_props />
     },
     implicit_clone::unsync::IString::Static("BuildingFillDown") => html! {
-      <MD_BuildingFillDown ..owned_props />
+      <BS_BuildingFillDown ..owned_props />
     },
     implicit_clone::unsync::IString::Static("GenderMale") => html! {
-      <MD_GenderMale ..owned_props />
+      <BS_GenderMale ..owned_props />
     },
     implicit_clone::unsync::IString::Static("Hr") => html! {
-      <MD_Hr ..owned_props />
+      <BS_Hr ..owned_props />
     },
     implicit_clone::unsync::IString::Static("CloudArrowUpFill") => html! {
-      <MD_CloudArrowUpFill ..owned_props />
+      <BS_CloudArrowUpFill ..owned_props />
     },
     implicit_clone::unsync::IString::Static("Meta") => html! {
-      <MD_Meta ..owned_props />
+      <BS_Meta ..owned_props />
     },
     implicit_clone::unsync::IString::Static("PieChartFill") => html! {
-      <MD_PieChartFill ..owned_props />
+      <BS_PieChartFill ..owned_props />
     },
     implicit_clone::unsync::IString::Static("RCircleFill") => html! {
-      <MD_RCircleFill ..owned_props />
+      <BS_RCircleFill ..owned_props />
     },
     implicit_clone::unsync::IString::Static("TaxiFrontFill") => html! {
-      <MD_TaxiFrontFill ..owned_props />
+      <BS_TaxiFrontFill ..owned_props />
     },
     implicit_clone::unsync::IString::Static("StarFill") => html! {
-      <MD_StarFill ..owned_props />
+      <BS_StarFill ..owned_props />
     },
     implicit_clone::unsync::IString::Static("Calendar4") => html! {
-      <MD_Calendar4 ..owned_props />
+      <BS_Calendar4 ..owned_props />
     },
     implicit_clone::unsync::IString::Static("SignIntersection") => html! {
-      <MD_SignIntersection ..owned_props />
+      <BS_SignIntersection ..owned_props />
     },
     implicit_clone::unsync::IString::Static("CaretRightSquare") => html! {
-      <MD_CaretRightSquare ..owned_props />
+      <BS_CaretRightSquare ..owned_props />
     },
     implicit_clone::unsync::IString::Static("PatchQuestionFill") => html! {
-      <MD_PatchQuestionFill ..owned_props />
+      <BS_PatchQuestionFill ..owned_props />
     },
     implicit_clone::unsync::IString::Static("X") => html! {
-      <MD_X ..owned_props />
+      <BS_X ..owned_props />
     },
     implicit_clone::unsync::IString::Static("Record") => html! {
-      <MD_Record ..owned_props />
+      <BS_Record ..owned_props />
     },
     implicit_clone::unsync::IString::Static("CloudMoonFill") => html! {
-      <MD_CloudMoonFill ..owned_props />
+      <BS_CloudMoonFill ..owned_props />
     },
     implicit_clone::unsync::IString::Static("HddNetworkFill") => html! {
-      <MD_HddNetworkFill ..owned_props />
+      <BS_HddNetworkFill ..owned_props />
     },
     implicit_clone::unsync::IString::Static("TrainFrontFill") => html! {
-      <MD_TrainFrontFill ..owned_props />
+      <BS_TrainFrontFill ..owned_props />
     },
     implicit_clone::unsync::IString::Static("ListCheck") => html! {
-      <MD_ListCheck ..owned_props />
+      <BS_ListCheck ..owned_props />
     },
     implicit_clone::unsync::IString::Static("CloudRain") => html! {
-      <MD_CloudRain ..owned_props />
+      <BS_CloudRain ..owned_props />
     },
     implicit_clone::unsync::IString::Static("BuildingExclamation") => html! {
-      <MD_BuildingExclamation ..owned_props />
+      <BS_BuildingExclamation ..owned_props />
     },
     implicit_clone::unsync::IString::Static("PlayFill") => html! {
-      <MD_PlayFill ..owned_props />
+      <BS_PlayFill ..owned_props />
     },
     implicit_clone::unsync::IString::Static("SignDeadEndFill") => html! {
-      <MD_SignDeadEndFill ..owned_props />
+      <BS_SignDeadEndFill ..owned_props />
     },
     implicit_clone::unsync::IString::Static("ShieldMinus") => html! {
-      <MD_ShieldMinus ..owned_props />
+      <BS_ShieldMinus ..owned_props />
     },
     implicit_clone::unsync::IString::Static("HddRack") => html! {
-      <MD_HddRack ..owned_props />
+      <BS_HddRack ..owned_props />
     },
     implicit_clone::unsync::IString::Static("CloudArrowDownFill") => html! {
-      <MD_CloudArrowDownFill ..owned_props />
+      <BS_CloudArrowDownFill ..owned_props />
     },
     implicit_clone::unsync::IString::Static("DatabaseX") => html! {
-      <MD_DatabaseX ..owned_props />
+      <BS_DatabaseX ..owned_props />
     },
     implicit_clone::unsync::IString::Static("CloudPlusFill") => html! {
-      <MD_CloudPlusFill ..owned_props />
+      <BS_CloudPlusFill ..owned_props />
     },
     implicit_clone::unsync::IString::Static("SortNumericUp") => html! {
-      <MD_SortNumericUp ..owned_props />
+      <BS_SortNumericUp ..owned_props />
     },
     implicit_clone::unsync::IString::Static("Archive") => html! {
-      <MD_Archive ..owned_props />
+      <BS_Archive ..owned_props />
     },
     implicit_clone::unsync::IString::Static("BorderAll") => html! {
-      <MD_BorderAll ..owned_props />
+      <BS_BorderAll ..owned_props />
     },
     implicit_clone::unsync::IString::Static("CalendarDateFill") => html! {
-      <MD_CalendarDateFill ..owned_props />
+      <BS_CalendarDateFill ..owned_props />
     },
     implicit_clone::unsync::IString::Static("PhoneFlip") => html! {
-      <MD_PhoneFlip ..owned_props />
+      <BS_PhoneFlip ..owned_props />
     },
     implicit_clone::unsync::IString::Static("PersonUp") => html! {
-      <MD_PersonUp ..owned_props />
+      <BS_PersonUp ..owned_props />
     },
     implicit_clone::unsync::IString::Static("CartXFill") => html! {
-      <MD_CartXFill ..owned_props />
+      <BS_CartXFill ..owned_props />
     },
     implicit_clone::unsync::IString::Static("PaletteFill") => html! {
-      <MD_PaletteFill ..owned_props />
+      <BS_PaletteFill ..owned_props />
     },
     implicit_clone::unsync::IString::Static("Snow") => html! {
-      <MD_Snow ..owned_props />
+      <BS_Snow ..owned_props />
     },
     implicit_clone::unsync::IString::Static("SuitDiamond") => html! {
-      <MD_SuitDiamond ..owned_props />
+      <BS_SuitDiamond ..owned_props />
     },
     implicit_clone::unsync::IString::Static("CalendarEvent") => html! {
-      <MD_CalendarEvent ..owned_props />
+      <BS_CalendarEvent ..owned_props />
     },
     implicit_clone::unsync::IString::Static("Grid") => html! {
-      <MD_Grid ..owned_props />
+      <BS_Grid ..owned_props />
     },
     implicit_clone::unsync::IString::Static("PcHorizontal") => html! {
-      <MD_PcHorizontal ..owned_props />
+      <BS_PcHorizontal ..owned_props />
     },
     implicit_clone::unsync::IString::Static("XDiamond") => html! {
-      <MD_XDiamond ..owned_props />
+      <BS_XDiamond ..owned_props />
     },
     implicit_clone::unsync::IString::Static("Speedometer2") => html! {
-      <MD_Speedometer2 ..owned_props />
+      <BS_Speedometer2 ..owned_props />
     },
     implicit_clone::unsync::IString::Static("SignIntersectionFill") => html! {
-      <MD_SignIntersectionFill ..owned_props />
+      <BS_SignIntersectionFill ..owned_props />
     },
     implicit_clone::unsync::IString::Static("Hash") => html! {
-      <MD_Hash ..owned_props />
+      <BS_Hash ..owned_props />
     },
     implicit_clone::unsync::IString::Static("ExclamationSquare") => html! {
-      <MD_ExclamationSquare ..owned_props />
+      <BS_ExclamationSquare ..owned_props />
     },
     implicit_clone::unsync::IString::Static("EmojiSmile") => html! {
-      <MD_EmojiSmile ..owned_props />
+      <BS_EmojiSmile ..owned_props />
     },
     implicit_clone::unsync::IString::Static("SkipStartCircleFill") => html! {
-      <MD_SkipStartCircleFill ..owned_props />
+      <BS_SkipStartCircleFill ..owned_props />
     },
     implicit_clone::unsync::IString::Static("DoorClosedFill") => html! {
-      <MD_DoorClosedFill ..owned_props />
+      <BS_DoorClosedFill ..owned_props />
     },
     implicit_clone::unsync::IString::Static("ChevronCompactRight") => html! {
-      <MD_ChevronCompactRight ..owned_props />
+      <BS_ChevronCompactRight ..owned_props />
     },
     implicit_clone::unsync::IString::Static("CurrencyPound") => html! {
-      <MD_CurrencyPound ..owned_props />
+      <BS_CurrencyPound ..owned_props />
     },
     implicit_clone::unsync::IString::Static("FileFill") => html! {
-      <MD_FileFill ..owned_props />
+      <BS_FileFill ..owned_props />
     },
     implicit_clone::unsync::IString::Static("Boombox") => html! {
-      <MD_Boombox ..owned_props />
+      <BS_Boombox ..owned_props />
     },
     implicit_clone::unsync::IString::Static("TypeItalic") => html! {
-      <MD_TypeItalic ..owned_props />
+      <BS_TypeItalic ..owned_props />
     },
     implicit_clone::unsync::IString::Static("Toggles2") => html! {
-      <MD_Toggles2 ..owned_props />
+      <BS_Toggles2 ..owned_props />
     },
     implicit_clone::unsync::IString::Static("BriefcaseFill") => html! {
-      <MD_BriefcaseFill ..owned_props />
+      <BS_BriefcaseFill ..owned_props />
     },
     implicit_clone::unsync::IString::Static("ModemFill") => html! {
-      <MD_ModemFill ..owned_props />
+      <BS_ModemFill ..owned_props />
     },
     implicit_clone::unsync::IString::Static("Calendar") => html! {
-      <MD_Calendar ..owned_props />
+      <BS_Calendar ..owned_props />
     },
     implicit_clone::unsync::IString::Static("LayersHalf") => html! {
-      <MD_LayersHalf ..owned_props />
+      <BS_LayersHalf ..owned_props />
     },
     implicit_clone::unsync::IString::Static("WalletFill") => html! {
-      <MD_WalletFill ..owned_props />
+      <BS_WalletFill ..owned_props />
     },
     implicit_clone::unsync::IString::Static("SendPlusFill") => html! {
-      <MD_SendPlusFill ..owned_props />
+      <BS_SendPlusFill ..owned_props />
     },
     implicit_clone::unsync::IString::Static("BorderRight") => html! {
-      <MD_BorderRight ..owned_props />
+      <BS_BorderRight ..owned_props />
     },
     implicit_clone::unsync::IString::Static("PersonFillAdd") => html! {
-      <MD_PersonFillAdd ..owned_props />
+      <BS_PersonFillAdd ..owned_props />
     },
     implicit_clone::unsync::IString::Static("GridFill") => html! {
-      <MD_GridFill ..owned_props />
+      <BS_GridFill ..owned_props />
     },
     implicit_clone::unsync::IString::Static("PencilSquare") => html! {
-      <MD_PencilSquare ..owned_props />
+      <BS_PencilSquare ..owned_props />
     },
     implicit_clone::unsync::IString::Static("BadgeHd") => html! {
-      <MD_BadgeHd ..owned_props />
+      <BS_BadgeHd ..owned_props />
     },
     implicit_clone::unsync::IString::Static("ChatLeft") => html! {
-      <MD_ChatLeft ..owned_props />
+      <BS_ChatLeft ..owned_props />
     },
     implicit_clone::unsync::IString::Static("8Circle") => html! {
-      <MD_8Circle ..owned_props />
+      <BS_8Circle ..owned_props />
     },
     implicit_clone::unsync::IString::Static("FileCheckFill") => html! {
-      <MD_FileCheckFill ..owned_props />
+      <BS_FileCheckFill ..owned_props />
     },
     implicit_clone::unsync::IString::Static("Tags") => html! {
-      <MD_Tags ..owned_props />
+      <BS_Tags ..owned_props />
     },
     implicit_clone::unsync::IString::Static("RecordFill") => html! {
-      <MD_RecordFill ..owned_props />
+      <BS_RecordFill ..owned_props />
     },
     implicit_clone::unsync::IString::Static("Cart4") => html! {
-      <MD_Cart4 ..owned_props />
+      <BS_Cart4 ..owned_props />
     },
     implicit_clone::unsync::IString::Static("CheckLg") => html! {
-      <MD_CheckLg ..owned_props />
+      <BS_CheckLg ..owned_props />
     },
     implicit_clone::unsync::IString::Static("ChatFill") => html! {
-      <MD_ChatFill ..owned_props />
+      <BS_ChatFill ..owned_props />
     },
     implicit_clone::unsync::IString::Static("CalendarMinusFill") => html! {
-      <MD_CalendarMinusFill ..owned_props />
+      <BS_CalendarMinusFill ..owned_props />
     },
     implicit_clone::unsync::IString::Static("ChevronBarContract") => html! {
-      <MD_ChevronBarContract ..owned_props />
+      <BS_ChevronBarContract ..owned_props />
     },
     implicit_clone::unsync::IString::Static("AlarmFill") => html! {
-      <MD_AlarmFill ..owned_props />
+      <BS_AlarmFill ..owned_props />
     },
     implicit_clone::unsync::IString::Static("CloudDownload") => html! {
-      <MD_CloudDownload ..owned_props />
+      <BS_CloudDownload ..owned_props />
     },
     implicit_clone::unsync::IString::Static("Usb") => html! {
-      <MD_Usb ..owned_props />
+      <BS_Usb ..owned_props />
     },
     implicit_clone::unsync::IString::Static("Diagram3Fill") => html! {
-      <MD_Diagram3Fill ..owned_props />
+      <BS_Diagram3Fill ..owned_props />
     },
     implicit_clone::unsync::IString::Static("CcCircle") => html! {
-      <MD_CcCircle ..owned_props />
+      <BS_CcCircle ..owned_props />
     },
     implicit_clone::unsync::IString::Static("TextareaT") => html! {
-      <MD_TextareaT ..owned_props />
+      <BS_TextareaT ..owned_props />
     },
     implicit_clone::unsync::IString::Static("CalculatorFill") => html! {
-      <MD_CalculatorFill ..owned_props />
+      <BS_CalculatorFill ..owned_props />
     },
     implicit_clone::unsync::IString::Static("BusFront") => html! {
-      <MD_BusFront ..owned_props />
+      <BS_BusFront ..owned_props />
     },
     implicit_clone::unsync::IString::Static("Sun") => html! {
-      <MD_Sun ..owned_props />
+      <BS_Sun ..owned_props />
     },
     implicit_clone::unsync::IString::Static("QuestionCircle") => html! {
-      <MD_QuestionCircle ..owned_props />
+      <BS_QuestionCircle ..owned_props />
     },
     implicit_clone::unsync::IString::Static("CloudPlus") => html! {
-      <MD_CloudPlus ..owned_props />
+      <BS_CloudPlus ..owned_props />
     },
     implicit_clone::unsync::IString::Static("SearchHeart") => html! {
-      <MD_SearchHeart ..owned_props />
+      <BS_SearchHeart ..owned_props />
     },
     implicit_clone::unsync::IString::Static("HandIndexThumbFill") => html! {
-      <MD_HandIndexThumbFill ..owned_props />
+      <BS_HandIndexThumbFill ..owned_props />
     },
     implicit_clone::unsync::IString::Static("Inboxes") => html! {
-      <MD_Inboxes ..owned_props />
+      <BS_Inboxes ..owned_props />
     },
     implicit_clone::unsync::IString::Static("SquareHalf") => html! {
-      <MD_SquareHalf ..owned_props />
+      <BS_SquareHalf ..owned_props />
     },
     implicit_clone::unsync::IString::Static("MenuButtonWideFill") => html! {
-      <MD_MenuButtonWideFill ..owned_props />
+      <BS_MenuButtonWideFill ..owned_props />
     },
     implicit_clone::unsync::IString::Static("DoorOpen") => html! {
-      <MD_DoorOpen ..owned_props />
+      <BS_DoorOpen ..owned_props />
     },
     implicit_clone::unsync::IString::Static("Ticket") => html! {
-      <MD_Ticket ..owned_props />
+      <BS_Ticket ..owned_props />
     },
     implicit_clone::unsync::IString::Static("CurrencyYen") => html! {
-      <MD_CurrencyYen ..owned_props />
+      <BS_CurrencyYen ..owned_props />
     },
     implicit_clone::unsync::IString::Static("Stack") => html! {
-      <MD_Stack ..owned_props />
+      <BS_Stack ..owned_props />
     },
     implicit_clone::unsync::IString::Static("Download") => html! {
-      <MD_Download ..owned_props />
+      <BS_Download ..owned_props />
     },
     implicit_clone::unsync::IString::Static("Clipboard2X") => html! {
-      <MD_Clipboard2X ..owned_props />
+      <BS_Clipboard2X ..owned_props />
     },
     implicit_clone::unsync::IString::Static("MarkdownFill") => html! {
-      <MD_MarkdownFill ..owned_props />
+      <BS_MarkdownFill ..owned_props />
     },
     implicit_clone::unsync::IString::Static("ForwardFill") => html! {
-      <MD_ForwardFill ..owned_props />
+      <BS_ForwardFill ..owned_props />
     },
     implicit_clone::unsync::IString::Static("Binoculars") => html! {
-      <MD_Binoculars ..owned_props />
+      <BS_Binoculars ..owned_props />
     },
     implicit_clone::unsync::IString::Static("Play") => html! {
-      <MD_Play ..owned_props />
+      <BS_Play ..owned_props />
     },
     implicit_clone::unsync::IString::Static("Clipboard2Check") => html! {
-      <MD_Clipboard2Check ..owned_props />
+      <BS_Clipboard2Check ..owned_props />
     },
     implicit_clone::unsync::IString::Static("StopBtn") => html! {
-      <MD_StopBtn ..owned_props />
+      <BS_StopBtn ..owned_props />
     },
     implicit_clone::unsync::IString::Static("PlusSquare") => html! {
-      <MD_PlusSquare ..owned_props />
+      <BS_PlusSquare ..owned_props />
     },
     implicit_clone::unsync::IString::Static("GpuCard") => html! {
-      <MD_GpuCard ..owned_props />
+      <BS_GpuCard ..owned_props />
     },
     implicit_clone::unsync::IString::Static("LightningFill") => html! {
-      <MD_LightningFill ..owned_props />
+      <BS_LightningFill ..owned_props />
     },
     implicit_clone::unsync::IString::Static("ReplyAll") => html! {
-      <MD_ReplyAll ..owned_props />
+      <BS_ReplyAll ..owned_props />
     },
     implicit_clone::unsync::IString::Static("UiChecksGrid") => html! {
-      <MD_UiChecksGrid ..owned_props />
+      <BS_UiChecksGrid ..owned_props />
     },
     implicit_clone::unsync::IString::Static("ClipboardDataFill") => html! {
-      <MD_ClipboardDataFill ..owned_props />
+      <BS_ClipboardDataFill ..owned_props />
     },
     implicit_clone::unsync::IString::Static("RecordBtn") => html! {
-      <MD_RecordBtn ..owned_props />
+      <BS_RecordBtn ..owned_props />
     },
     implicit_clone::unsync::IString::Static("8Square") => html! {
-      <MD_8Square ..owned_props />
+      <BS_8Square ..owned_props />
     },
     implicit_clone::unsync::IString::Static("ShareFill") => html! {
-      <MD_ShareFill ..owned_props />
+      <BS_ShareFill ..owned_props />
     },
     implicit_clone::unsync::IString::Static("SortNumericUpAlt") => html! {
-      <MD_SortNumericUpAlt ..owned_props />
+      <BS_SortNumericUpAlt ..owned_props />
     },
     implicit_clone::unsync::IString::Static("ChatSquareQuoteFill") => html! {
-      <MD_ChatSquareQuoteFill ..owned_props />
+      <BS_ChatSquareQuoteFill ..owned_props />
     },
     implicit_clone::unsync::IString::Static("BusFrontFill") => html! {
-      <MD_BusFrontFill ..owned_props />
+      <BS_BusFrontFill ..owned_props />
     },
     implicit_clone::unsync::IString::Static("Mouse2") => html! {
-      <MD_Mouse2 ..owned_props />
+      <BS_Mouse2 ..owned_props />
     },
     implicit_clone::unsync::IString::Static("TicketPerforated") => html! {
-      <MD_TicketPerforated ..owned_props />
+      <BS_TicketPerforated ..owned_props />
     },
     implicit_clone::unsync::IString::Static("ChatLeftHeart") => html! {
-      <MD_ChatLeftHeart ..owned_props />
+      <BS_ChatLeftHeart ..owned_props />
     },
     implicit_clone::unsync::IString::Static("RewindCircleFill") => html! {
-      <MD_RewindCircleFill ..owned_props />
+      <BS_RewindCircleFill ..owned_props />
     },
     implicit_clone::unsync::IString::Static("Calendar3Range") => html! {
-      <MD_Calendar3Range ..owned_props />
+      <BS_Calendar3Range ..owned_props />
     },
     implicit_clone::unsync::IString::Static("AppIndicator") => html! {
-      <MD_AppIndicator ..owned_props />
+      <BS_AppIndicator ..owned_props />
     },
     implicit_clone::unsync::IString::Static("Alarm") => html! {
-      <MD_Alarm ..owned_props />
+      <BS_Alarm ..owned_props />
     },
     implicit_clone::unsync::IString::Static("CalendarFill") => html! {
-      <MD_CalendarFill ..owned_props />
+      <BS_CalendarFill ..owned_props />
     },
     implicit_clone::unsync::IString::Static("WindowPlus") => html! {
-      <MD_WindowPlus ..owned_props />
+      <BS_WindowPlus ..owned_props />
     },
     implicit_clone::unsync::IString::Static("ChatSquare") => html! {
-      <MD_ChatSquare ..owned_props />
+      <BS_ChatSquare ..owned_props />
     },
     implicit_clone::unsync::IString::Static("Github") => html! {
-      <MD_Github ..owned_props />
+      <BS_Github ..owned_props />
     },
     implicit_clone::unsync::IString::Static("HandThumbsDown") => html! {
-      <MD_HandThumbsDown ..owned_props />
+      <BS_HandThumbsDown ..owned_props />
     },
     implicit_clone::unsync::IString::Static("Bookmarks") => html! {
-      <MD_Bookmarks ..owned_props />
+      <BS_Bookmarks ..owned_props />
     },
     implicit_clone::unsync::IString::Static("Flag") => html! {
-      <MD_Flag ..owned_props />
+      <BS_Flag ..owned_props />
     },
     implicit_clone::unsync::IString::Static("ShieldFillExclamation") => html! {
-      <MD_ShieldFillExclamation ..owned_props />
+      <BS_ShieldFillExclamation ..owned_props />
     },
     implicit_clone::unsync::IString::Static("PiggyBank") => html! {
-      <MD_PiggyBank ..owned_props />
+      <BS_PiggyBank ..owned_props />
     },
     implicit_clone::unsync::IString::Static("RecordBtnFill") => html! {
-      <MD_RecordBtnFill ..owned_props />
+      <BS_RecordBtnFill ..owned_props />
     },
     implicit_clone::unsync::IString::Static("DeviceSsd") => html! {
-      <MD_DeviceSsd ..owned_props />
+      <BS_DeviceSsd ..owned_props />
     },
     implicit_clone::unsync::IString::Static("PersonFillGear") => html! {
-      <MD_PersonFillGear ..owned_props />
+      <BS_PersonFillGear ..owned_props />
     },
     implicit_clone::unsync::IString::Static("SignStopLights") => html! {
-      <MD_SignStopLights ..owned_props />
+      <BS_SignStopLights ..owned_props />
     },
     implicit_clone::unsync::IString::Static("0Square") => html! {
-      <MD_0Square ..owned_props />
+      <BS_0Square ..owned_props />
     },
     implicit_clone::unsync::IString::Static("EnvelopeDash") => html! {
-      <MD_EnvelopeDash ..owned_props />
+      <BS_EnvelopeDash ..owned_props />
     },
     implicit_clone::unsync::IString::Static("List") => html! {
-      <MD_List ..owned_props />
+      <BS_List ..owned_props />
     },
     implicit_clone::unsync::IString::Static("ListColumnsReverse") => html! {
-      <MD_ListColumnsReverse ..owned_props />
+      <BS_ListColumnsReverse ..owned_props />
     },
     implicit_clone::unsync::IString::Static("Command") => html! {
-      <MD_Command ..owned_props />
+      <BS_Command ..owned_props />
     },
     implicit_clone::unsync::IString::Static("EmojiFrownFill") => html! {
-      <MD_EmojiFrownFill ..owned_props />
+      <BS_EmojiFrownFill ..owned_props />
     },
     implicit_clone::unsync::IString::Static("ChevronBarRight") => html! {
-      <MD_ChevronBarRight ..owned_props />
+      <BS_ChevronBarRight ..owned_props />
     },
     implicit_clone::unsync::IString::Static("HouseSlash") => html! {
-      <MD_HouseSlash ..owned_props />
+      <BS_HouseSlash ..owned_props />
     },
     implicit_clone::unsync::IString::Static("ClipboardFill") => html! {
-      <MD_ClipboardFill ..owned_props />
+      <BS_ClipboardFill ..owned_props />
     },
     implicit_clone::unsync::IString::Static("InputCursor") => html! {
-      <MD_InputCursor ..owned_props />
+      <BS_InputCursor ..owned_props />
     },
     implicit_clone::unsync::IString::Static("ArrowsFullscreen") => html! {
-      <MD_ArrowsFullscreen ..owned_props />
+      <BS_ArrowsFullscreen ..owned_props />
     },
     implicit_clone::unsync::IString::Static("SkipEndCircle") => html! {
-      <MD_SkipEndCircle ..owned_props />
+      <BS_SkipEndCircle ..owned_props />
     },
     implicit_clone::unsync::IString::Static("Cast") => html! {
-      <MD_Cast ..owned_props />
+      <BS_Cast ..owned_props />
     },
     implicit_clone::unsync::IString::Static("TencentQq") => html! {
-      <MD_TencentQq ..owned_props />
+      <BS_TencentQq ..owned_props />
     },
     implicit_clone::unsync::IString::Static("Calendar2Date") => html! {
-      <MD_Calendar2Date ..owned_props />
+      <BS_Calendar2Date ..owned_props />
     },
     implicit_clone::unsync::IString::Static("CcSquareFill") => html! {
-      <MD_CcSquareFill ..owned_props />
+      <BS_CcSquareFill ..owned_props />
     },
     implicit_clone::unsync::IString::Static("TelephoneInbound") => html! {
-      <MD_TelephoneInbound ..owned_props />
+      <BS_TelephoneInbound ..owned_props />
     },
     implicit_clone::unsync::IString::Static("HexagonHalf") => html! {
-      <MD_HexagonHalf ..owned_props />
+      <BS_HexagonHalf ..owned_props />
     },
     implicit_clone::unsync::IString::Static("Megaphone") => html! {
-      <MD_Megaphone ..owned_props />
+      <BS_Megaphone ..owned_props />
     },
     implicit_clone::unsync::IString::Static("ChatSquareFill") => html! {
-      <MD_ChatSquareFill ..owned_props />
+      <BS_ChatSquareFill ..owned_props />
     },
     implicit_clone::unsync::IString::Static("FiletypeYml") => html! {
-      <MD_FiletypeYml ..owned_props />
+      <BS_FiletypeYml ..owned_props />
     },
     implicit_clone::unsync::IString::Static("Dice5Fill") => html! {
-      <MD_Dice5Fill ..owned_props />
+      <BS_Dice5Fill ..owned_props />
     },
     implicit_clone::unsync::IString::Static("PatchCheckFill") => html! {
-      <MD_PatchCheckFill ..owned_props />
+      <BS_PatchCheckFill ..owned_props />
     },
     implicit_clone::unsync::IString::Static("BoxSeam") => html! {
-      <MD_BoxSeam ..owned_props />
+      <BS_BoxSeam ..owned_props />
     },
     implicit_clone::unsync::IString::Static("AlignEnd") => html! {
-      <MD_AlignEnd ..owned_props />
+      <BS_AlignEnd ..owned_props />
     },
     implicit_clone::unsync::IString::Static("BadgeSd") => html! {
-      <MD_BadgeSd ..owned_props />
+      <BS_BadgeSd ..owned_props />
     },
     implicit_clone::unsync::IString::Static("InboxesFill") => html! {
-      <MD_InboxesFill ..owned_props />
+      <BS_InboxesFill ..owned_props />
     },
     implicit_clone::unsync::IString::Static("CameraVideoOff") => html! {
-      <MD_CameraVideoOff ..owned_props />
+      <BS_CameraVideoOff ..owned_props />
     },
     implicit_clone::unsync::IString::Static("ClipboardMinus") => html! {
-      <MD_ClipboardMinus ..owned_props />
+      <BS_ClipboardMinus ..owned_props />
     },
     implicit_clone::unsync::IString::Static("CloudCheck") => html! {
-      <MD_CloudCheck ..owned_props />
+      <BS_CloudCheck ..owned_props />
     },
     implicit_clone::unsync::IString::Static("FastForward") => html! {
-      <MD_FastForward ..owned_props />
+      <BS_FastForward ..owned_props />
     },
     implicit_clone::unsync::IString::Static("JournalCode") => html! {
-      <MD_JournalCode ..owned_props />
+      <BS_JournalCode ..owned_props />
     },
     implicit_clone::unsync::IString::Static("CcCircleFill") => html! {
-      <MD_CcCircleFill ..owned_props />
+      <BS_CcCircleFill ..owned_props />
     },
     implicit_clone::unsync::IString::Static("TelephoneXFill") => html! {
-      <MD_TelephoneXFill ..owned_props />
+      <BS_TelephoneXFill ..owned_props />
     },
     implicit_clone::unsync::IString::Static("Wallet") => html! {
-      <MD_Wallet ..owned_props />
+      <BS_Wallet ..owned_props />
     },
     implicit_clone::unsync::IString::Static("ChevronCompactDown") => html! {
-      <MD_ChevronCompactDown ..owned_props />
+      <BS_ChevronCompactDown ..owned_props />
     },
     implicit_clone::unsync::IString::Static("Printer") => html! {
-      <MD_Printer ..owned_props />
+      <BS_Printer ..owned_props />
     },
     implicit_clone::unsync::IString::Static("PersonWorkspace") => html! {
-      <MD_PersonWorkspace ..owned_props />
+      <BS_PersonWorkspace ..owned_props />
     },
     implicit_clone::unsync::IString::Static("Calendar2DayFill") => html! {
-      <MD_Calendar2DayFill ..owned_props />
+      <BS_Calendar2DayFill ..owned_props />
     },
     implicit_clone::unsync::IString::Static("CarFrontFill") => html! {
-      <MD_CarFrontFill ..owned_props />
+      <BS_CarFrontFill ..owned_props />
     },
     implicit_clone::unsync::IString::Static("Stickies") => html! {
-      <MD_Stickies ..owned_props />
+      <BS_Stickies ..owned_props />
     },
     implicit_clone::unsync::IString::Static("TextWrap") => html! {
-      <MD_TextWrap ..owned_props />
+      <BS_TextWrap ..owned_props />
     },
     implicit_clone::unsync::IString::Static("ThunderboltFill") => html! {
-      <MD_ThunderboltFill ..owned_props />
+      <BS_ThunderboltFill ..owned_props />
     },
     implicit_clone::unsync::IString::Static("BoxArrowInDownRight") => html! {
-      <MD_BoxArrowInDownRight ..owned_props />
+      <BS_BoxArrowInDownRight ..owned_props />
     },
     implicit_clone::unsync::IString::Static("HouseX") => html! {
-      <MD_HouseX ..owned_props />
+      <BS_HouseX ..owned_props />
     },
     implicit_clone::unsync::IString::Static("FilterCircleFill") => html! {
-      <MD_FilterCircleFill ..owned_props />
+      <BS_FilterCircleFill ..owned_props />
     },
     implicit_clone::unsync::IString::Static("JustifyLeft") => html! {
-      <MD_JustifyLeft ..owned_props />
+      <BS_JustifyLeft ..owned_props />
     },
     implicit_clone::unsync::IString::Static("WindowStack") => html! {
-      <MD_WindowStack ..owned_props />
+      <BS_WindowStack ..owned_props />
     },
     implicit_clone::unsync::IString::Static("FastForwardBtnFill") => html! {
-      <MD_FastForwardBtnFill ..owned_props />
+      <BS_FastForwardBtnFill ..owned_props />
     },
     implicit_clone::unsync::IString::Static("FileBinaryFill") => html! {
-      <MD_FileBinaryFill ..owned_props />
+      <BS_FileBinaryFill ..owned_props />
     },
     implicit_clone::unsync::IString::Static("SignNoRightTurn") => html! {
-      <MD_SignNoRightTurn ..owned_props />
+      <BS_SignNoRightTurn ..owned_props />
     },
     implicit_clone::unsync::IString::Static("Badge8kFill") => html! {
-      <MD_Badge8kFill ..owned_props />
+      <BS_Badge8kFill ..owned_props />
     },
     implicit_clone::unsync::IString::Static("Postcard") => html! {
-      <MD_Postcard ..owned_props />
+      <BS_Postcard ..owned_props />
     },
     implicit_clone::unsync::IString::Static("5Square") => html! {
-      <MD_5Square ..owned_props />
+      <BS_5Square ..owned_props />
     },
     implicit_clone::unsync::IString::Static("ListTask") => html! {
-      <MD_ListTask ..owned_props />
+      <BS_ListTask ..owned_props />
     },
     implicit_clone::unsync::IString::Static("ClipboardPlus") => html! {
-      <MD_ClipboardPlus ..owned_props />
+      <BS_ClipboardPlus ..owned_props />
     },
     implicit_clone::unsync::IString::Static("JournalArrowDown") => html! {
-      <MD_JournalArrowDown ..owned_props />
+      <BS_JournalArrowDown ..owned_props />
     },
     implicit_clone::unsync::IString::Static("EyeSlash") => html! {
-      <MD_EyeSlash ..owned_props />
+      <BS_EyeSlash ..owned_props />
     },
     implicit_clone::unsync::IString::Static("CloudLightning") => html! {
-      <MD_CloudLightning ..owned_props />
+      <BS_CloudLightning ..owned_props />
     },
     implicit_clone::unsync::IString::Static("FileEarmarkPost") => html! {
-      <MD_FileEarmarkPost ..owned_props />
+      <BS_FileEarmarkPost ..owned_props />
     },
     implicit_clone::unsync::IString::Static("BagCheckFill") => html! {
-      <MD_BagCheckFill ..owned_props />
+      <BS_BagCheckFill ..owned_props />
     },
     implicit_clone::unsync::IString::Static("Spotify") => html! {
-      <MD_Spotify ..owned_props />
+      <BS_Spotify ..owned_props />
     },
     implicit_clone::unsync::IString::Static("Superscript") => html! {
-      <MD_Superscript ..owned_props />
+      <BS_Superscript ..owned_props />
     },
     implicit_clone::unsync::IString::Static("HeptagonFill") => html! {
-      <MD_HeptagonFill ..owned_props />
+      <BS_HeptagonFill ..owned_props />
     },
     implicit_clone::unsync::IString::Static("HSquareFill") => html! {
-      <MD_HSquareFill ..owned_props />
+      <BS_HSquareFill ..owned_props />
     },
     implicit_clone::unsync::IString::Static("AlignCenter") => html! {
-      <MD_AlignCenter ..owned_props />
+      <BS_AlignCenter ..owned_props />
     },
     implicit_clone::unsync::IString::Static("PatchMinus") => html! {
-      <MD_PatchMinus ..owned_props />
+      <BS_PatchMinus ..owned_props />
     },
     implicit_clone::unsync::IString::Static("Mask") => html! {
-      <MD_Mask ..owned_props />
+      <BS_Mask ..owned_props />
     },
     implicit_clone::unsync::IString::Static("CloudUpload") => html! {
-      <MD_CloudUpload ..owned_props />
+      <BS_CloudUpload ..owned_props />
     },
     implicit_clone::unsync::IString::Static("Snow3") => html! {
-      <MD_Snow3 ..owned_props />
+      <BS_Snow3 ..owned_props />
     },
     implicit_clone::unsync::IString::Static("MinecartLoaded") => html! {
-      <MD_MinecartLoaded ..owned_props />
+      <BS_MinecartLoaded ..owned_props />
     },
     implicit_clone::unsync::IString::Static("CloudMinus") => html! {
-      <MD_CloudMinus ..owned_props />
+      <BS_CloudMinus ..owned_props />
     },
     implicit_clone::unsync::IString::Static("ThermometerHigh") => html! {
-      <MD_ThermometerHigh ..owned_props />
+      <BS_ThermometerHigh ..owned_props />
     },
     implicit_clone::unsync::IString::Static("TerminalDash") => html! {
-      <MD_TerminalDash ..owned_props />
+      <BS_TerminalDash ..owned_props />
     },
     implicit_clone::unsync::IString::Static("ThreeDots") => html! {
-      <MD_ThreeDots ..owned_props />
+      <BS_ThreeDots ..owned_props />
     },
     implicit_clone::unsync::IString::Static("ArrowBarDown") => html! {
-      <MD_ArrowBarDown ..owned_props />
+      <BS_ArrowBarDown ..owned_props />
     },
     implicit_clone::unsync::IString::Static("Thunderbolt") => html! {
-      <MD_Thunderbolt ..owned_props />
+      <BS_Thunderbolt ..owned_props />
     },
     implicit_clone::unsync::IString::Static("ThermometerSnow") => html! {
-      <MD_ThermometerSnow ..owned_props />
+      <BS_ThermometerSnow ..owned_props />
     },
     implicit_clone::unsync::IString::Static("Microsoft") => html! {
-      <MD_Microsoft ..owned_props />
+      <BS_Microsoft ..owned_props />
     },
     implicit_clone::unsync::IString::Static("TelephoneForwardFill") => html! {
-      <MD_TelephoneForwardFill ..owned_props />
+      <BS_TelephoneForwardFill ..owned_props />
     },
     implicit_clone::unsync::IString::Static("CaretUpFill") => html! {
-      <MD_CaretUpFill ..owned_props />
+      <BS_CaretUpFill ..owned_props />
     },
     implicit_clone::unsync::IString::Static("Lightning") => html! {
-      <MD_Lightning ..owned_props />
+      <BS_Lightning ..owned_props />
     },
     implicit_clone::unsync::IString::Static("RewindCircle") => html! {
-      <MD_RewindCircle ..owned_props />
+      <BS_RewindCircle ..owned_props />
     },
     implicit_clone::unsync::IString::Static("Clipboard2") => html! {
-      <MD_Clipboard2 ..owned_props />
+      <BS_Clipboard2 ..owned_props />
     },
     implicit_clone::unsync::IString::Static("DatabaseFillUp") => html! {
-      <MD_DatabaseFillUp ..owned_props />
+      <BS_DatabaseFillUp ..owned_props />
     },
     implicit_clone::unsync::IString::Static("CupHot") => html! {
-      <MD_CupHot ..owned_props />
+      <BS_CupHot ..owned_props />
     },
     implicit_clone::unsync::IString::Static("UsbMicro") => html! {
-      <MD_UsbMicro ..owned_props />
+      <BS_UsbMicro ..owned_props />
     },
     implicit_clone::unsync::IString::Static("BuildingX") => html! {
-      <MD_BuildingX ..owned_props />
+      <BS_BuildingX ..owned_props />
     },
     implicit_clone::unsync::IString::Static("CloudLightningRainFill") => html! {
-      <MD_CloudLightningRainFill ..owned_props />
+      <BS_CloudLightningRainFill ..owned_props />
     },
     implicit_clone::unsync::IString::Static("Union") => html! {
-      <MD_Union ..owned_props />
+      <BS_Union ..owned_props />
     },
     implicit_clone::unsync::IString::Static("Signpost2") => html! {
-      <MD_Signpost2 ..owned_props />
+      <BS_Signpost2 ..owned_props />
     },
 
     _ => html! {},
