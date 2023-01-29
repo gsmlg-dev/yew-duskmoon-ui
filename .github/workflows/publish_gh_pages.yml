@@ -8,8 +8,8 @@ on:
 
 jobs:
   publish:
-    # runs-on: [self-hosted, linux, x64, hpc]
-    runs-on: ubuntu-latest
+    runs-on: [self-hosted, linux, x64, hpc]
+    # runs-on: ubuntu-latest
 
     steps:
       - name: 🛑 Cancel Previous Runs
