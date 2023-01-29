@@ -1,5 +1,3 @@
-use wasm_bindgen::prelude::*;
-
 #[cfg(feature = "mdi")]
 pub mod mdi;
 
