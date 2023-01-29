@@ -32,10 +32,9 @@ pub fn component() -> Html {
       box-shadow: 0 0 2px 6px rgb(233 233 233 / 40%);
       padding: 1.4em;
     }
-    .t::after {
-      content: ":";
-      display: inline-flex;
-      padding: 0 0.1em;
+    .t {
+      font-size: 1.5em;
+      font-weight: bold;
     }
     .t,.v,.c {
       display: flex;
@@ -55,19 +54,17 @@ pub fn component() -> Html {
           }}
         >
           <div class="icon-container">
-            {BSI_NAMES.into_iter().map(|n| {
+            {NAMES.into_iter().map(|n| {
               html!{
-                <div class="icon">
+                <pre class="icon">
                   <label class="t">{ format!("{}", n) }</label>
                   <div class="v">
                     <BSIcon name={n} size={AttrValue::from("32")} />
                   </div>
-                  <div class="c">
-                    {format!("html!{{ <BS_{} /> }}", n)}
-                  </div>
-                  <div class="c">
+                  <pre class="c">
+                    {format!("html!{{ <BS_{} /> }}\n", n)}
                     {format!("html!{{ <BSIcon name=\"{}\" /> }}", n)}
-                  </div>
+                  </pre>
                 </div>
               }
             }).collect::<Html>()}
