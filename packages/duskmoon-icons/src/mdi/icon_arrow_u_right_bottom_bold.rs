@@ -1,7 +1,7 @@
 #![allow(non_camel_case_types)]
 
 use yew::prelude::*;
-use self::props::IconProps;
+use super::props::IconProps;
 
 #[function_component(MD_ArrowURightBottomBold)]
 pub fn r#icon_arrow_u_right_bottom_bold(props: &IconProps) -> Html {

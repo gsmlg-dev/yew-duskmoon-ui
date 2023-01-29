@@ -1,7 +1,7 @@
 #![allow(non_camel_case_types)]
 
 use yew::prelude::*;
-use self::props::IconProps;
+use super::props::IconProps;
 
 #[function_component(MD_SyllabaryKatakanaHalfwidth)]
 pub fn r#icon_syllabary_katakana_halfwidth(props: &IconProps) -> Html {

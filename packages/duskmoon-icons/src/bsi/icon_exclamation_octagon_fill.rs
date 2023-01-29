@@ -1,7 +1,7 @@
 #![allow(non_camel_case_types)]
 
 use yew::prelude::*;
-use self::props::IconProps;
+use super::props::IconProps;
 
 #[function_component(BS_ExclamationOctagonFill)]
 pub fn r#icon_exclamation_octagon_fill(props: &IconProps) -> Html {

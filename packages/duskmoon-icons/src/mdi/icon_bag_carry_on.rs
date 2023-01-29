@@ -1,7 +1,7 @@
 #![allow(non_camel_case_types)]
 
 use yew::prelude::*;
-use self::props::IconProps;
+use super::props::IconProps;
 
 #[function_component(MD_BagCarryOn)]
 pub fn r#icon_bag_carry_on(props: &IconProps) -> Html {

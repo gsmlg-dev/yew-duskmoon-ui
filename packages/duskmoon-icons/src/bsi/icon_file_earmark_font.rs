@@ -1,7 +1,7 @@
 #![allow(non_camel_case_types)]
 
 use yew::prelude::*;
-use self::props::IconProps;
+use super::props::IconProps;
 
 #[function_component(BS_FileEarmarkFont)]
 pub fn r#icon_file_earmark_font(props: &IconProps) -> Html {

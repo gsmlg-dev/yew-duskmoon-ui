@@ -1,7 +1,7 @@
 #![allow(non_camel_case_types)]
 
 use yew::prelude::*;
-use self::props::IconProps;
+use super::props::IconProps;
 
 #[function_component(MD_FlashRedEye)]
 pub fn r#icon_flash_red_eye(props: &IconProps) -> Html {

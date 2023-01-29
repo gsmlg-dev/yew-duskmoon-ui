@@ -1,7 +1,7 @@
 #![allow(non_camel_case_types)]
 
 use yew::prelude::*;
-use self::props::IconProps;
+use super::props::IconProps;
 
 #[function_component(MD_RollerShadeClosed)]
 pub fn r#icon_roller_shade_closed(props: &IconProps) -> Html {

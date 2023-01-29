@@ -1,7 +1,7 @@
 #![allow(non_camel_case_types)]
 
 use yew::prelude::*;
-use self::props::IconProps;
+use super::props::IconProps;
 
 #[function_component(MD_FormatTextRotationAngleDown)]
 pub fn r#icon_format_text_rotation_angle_down(props: &IconProps) -> Html {

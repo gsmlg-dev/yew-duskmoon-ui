@@ -1,7 +1,7 @@
 #![allow(non_camel_case_types)]
 
 use yew::prelude::*;
-use self::props::IconProps;
+use super::props::IconProps;
 
 #[function_component(MD_DebugStepInto)]
 pub fn r#icon_debug_step_into(props: &IconProps) -> Html {

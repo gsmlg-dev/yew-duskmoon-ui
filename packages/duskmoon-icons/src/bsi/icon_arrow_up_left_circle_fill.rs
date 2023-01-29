@@ -1,7 +1,7 @@
 #![allow(non_camel_case_types)]
 
 use yew::prelude::*;
-use self::props::IconProps;
+use super::props::IconProps;
 
 #[function_component(BS_ArrowUpLeftCircleFill)]
 pub fn r#icon_arrow_up_left_circle_fill(props: &IconProps) -> Html {

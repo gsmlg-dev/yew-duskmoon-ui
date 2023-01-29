@@ -1,7 +1,7 @@
 #![allow(non_camel_case_types)]
 
 use yew::prelude::*;
-use self::props::IconProps;
+use super::props::IconProps;
 
 #[function_component(MD_CursorDefault)]
 pub fn r#icon_cursor_default(props: &IconProps) -> Html {

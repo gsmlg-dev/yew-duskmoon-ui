@@ -1,7 +1,7 @@
 #![allow(non_camel_case_types)]
 
 use yew::prelude::*;
-use self::props::IconProps;
+use super::props::IconProps;
 
 #[function_component(MD_PrinterPosOffOutline)]
 pub fn r#icon_printer_pos_off_outline(props: &IconProps) -> Html {

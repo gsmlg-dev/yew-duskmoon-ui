@@ -1,7 +1,7 @@
 #![allow(non_camel_case_types)]
 
 use yew::prelude::*;
-use self::props::IconProps;
+use super::props::IconProps;
 
 #[function_component(MD_LayersEdit)]
 pub fn r#icon_layers_edit(props: &IconProps) -> Html {

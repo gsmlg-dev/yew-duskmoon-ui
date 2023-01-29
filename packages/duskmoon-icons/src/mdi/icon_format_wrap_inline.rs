@@ -1,7 +1,7 @@
 #![allow(non_camel_case_types)]
 
 use yew::prelude::*;
-use self::props::IconProps;
+use super::props::IconProps;
 
 #[function_component(MD_FormatWrapInline)]
 pub fn r#icon_format_wrap_inline(props: &IconProps) -> Html {

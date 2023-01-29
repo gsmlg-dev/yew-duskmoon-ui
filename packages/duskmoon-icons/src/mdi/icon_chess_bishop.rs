@@ -1,7 +1,7 @@
 #![allow(non_camel_case_types)]
 
 use yew::prelude::*;
-use self::props::IconProps;
+use super::props::IconProps;
 
 #[function_component(MD_ChessBishop)]
 pub fn r#icon_chess_bishop(props: &IconProps) -> Html {

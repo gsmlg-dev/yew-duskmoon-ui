@@ -1,7 +1,7 @@
 #![allow(non_camel_case_types)]
 
 use yew::prelude::*;
-use self::props::IconProps;
+use super::props::IconProps;
 
 #[function_component(MD_ScrewMachineFlatTop)]
 pub fn r#icon_screw_machine_flat_top(props: &IconProps) -> Html {

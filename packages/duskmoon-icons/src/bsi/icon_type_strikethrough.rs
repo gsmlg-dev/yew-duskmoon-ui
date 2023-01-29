@@ -1,7 +1,7 @@
 #![allow(non_camel_case_types)]
 
 use yew::prelude::*;
-use self::props::IconProps;
+use super::props::IconProps;
 
 #[function_component(BS_TypeStrikethrough)]
 pub fn r#icon_type_strikethrough(props: &IconProps) -> Html {

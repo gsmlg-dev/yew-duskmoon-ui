@@ -1,7 +1,7 @@
 #![allow(non_camel_case_types)]
 
 use yew::prelude::*;
-use self::props::IconProps;
+use super::props::IconProps;
 
 #[function_component(MD_StarFourPointsOutline)]
 pub fn r#icon_star_four_points_outline(props: &IconProps) -> Html {

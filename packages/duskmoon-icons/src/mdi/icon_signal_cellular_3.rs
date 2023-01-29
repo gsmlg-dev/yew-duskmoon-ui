@@ -1,7 +1,7 @@
 #![allow(non_camel_case_types)]
 
 use yew::prelude::*;
-use self::props::IconProps;
+use super::props::IconProps;
 
 #[function_component(MD_SignalCellular3)]
 pub fn r#icon_signal_cellular_3(props: &IconProps) -> Html {

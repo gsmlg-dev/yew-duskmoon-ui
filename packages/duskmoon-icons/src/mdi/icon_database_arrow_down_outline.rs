@@ -1,7 +1,7 @@
 #![allow(non_camel_case_types)]
 
 use yew::prelude::*;
-use self::props::IconProps;
+use super::props::IconProps;
 
 #[function_component(MD_DatabaseArrowDownOutline)]
 pub fn r#icon_database_arrow_down_outline(props: &IconProps) -> Html {

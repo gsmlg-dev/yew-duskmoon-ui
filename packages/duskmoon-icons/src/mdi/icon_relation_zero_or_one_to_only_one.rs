@@ -1,7 +1,7 @@
 #![allow(non_camel_case_types)]
 
 use yew::prelude::*;
-use self::props::IconProps;
+use super::props::IconProps;
 
 #[function_component(MD_RelationZeroOrOneToOnlyOne)]
 pub fn r#icon_relation_zero_or_one_to_only_one(props: &IconProps) -> Html {

@@ -1,7 +1,7 @@
 #![allow(non_camel_case_types)]
 
 use yew::prelude::*;
-use self::props::IconProps;
+use super::props::IconProps;
 
 #[function_component(MD_BedKingOutline)]
 pub fn r#icon_bed_king_outline(props: &IconProps) -> Html {

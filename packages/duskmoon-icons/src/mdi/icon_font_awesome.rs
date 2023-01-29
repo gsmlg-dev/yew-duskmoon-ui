@@ -1,7 +1,7 @@
 #![allow(non_camel_case_types)]
 
 use yew::prelude::*;
-use self::props::IconProps;
+use super::props::IconProps;
 
 #[function_component(MD_FontAwesome)]
 pub fn r#icon_font_awesome(props: &IconProps) -> Html {

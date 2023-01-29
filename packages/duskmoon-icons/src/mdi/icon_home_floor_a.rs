@@ -1,7 +1,7 @@
 #![allow(non_camel_case_types)]
 
 use yew::prelude::*;
-use self::props::IconProps;
+use super::props::IconProps;
 
 #[function_component(MD_HomeFloorA)]
 pub fn r#icon_home_floor_a(props: &IconProps) -> Html {

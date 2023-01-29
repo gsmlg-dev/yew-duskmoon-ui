@@ -1,7 +1,7 @@
 #![allow(non_camel_case_types)]
 
 use yew::prelude::*;
-use self::props::IconProps;
+use super::props::IconProps;
 
 #[function_component(MD_FolderMultipleOutline)]
 pub fn r#icon_folder_multiple_outline(props: &IconProps) -> Html {

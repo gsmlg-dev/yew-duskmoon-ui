@@ -1,7 +1,7 @@
 #![allow(non_camel_case_types)]
 
 use yew::prelude::*;
-use self::props::IconProps;
+use super::props::IconProps;
 
 #[function_component(MD_NetworkStrength4Cog)]
 pub fn r#icon_network_strength_4_cog(props: &IconProps) -> Html {

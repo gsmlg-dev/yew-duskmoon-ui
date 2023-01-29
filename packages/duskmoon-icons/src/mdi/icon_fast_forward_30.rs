@@ -1,7 +1,7 @@
 #![allow(non_camel_case_types)]
 
 use yew::prelude::*;
-use self::props::IconProps;
+use super::props::IconProps;
 
 #[function_component(MD_FastForward30)]
 pub fn r#icon_fast_forward_30(props: &IconProps) -> Html {

@@ -1,7 +1,7 @@
 #![allow(non_camel_case_types)]
 
 use yew::prelude::*;
-use self::props::IconProps;
+use super::props::IconProps;
 
 #[function_component(MD_PineTreeFire)]
 pub fn r#icon_pine_tree_fire(props: &IconProps) -> Html {

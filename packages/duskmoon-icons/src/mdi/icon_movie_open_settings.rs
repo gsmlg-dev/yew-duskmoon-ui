@@ -1,7 +1,7 @@
 #![allow(non_camel_case_types)]
 
 use yew::prelude::*;
-use self::props::IconProps;
+use super::props::IconProps;
 
 #[function_component(MD_MovieOpenSettings)]
 pub fn r#icon_movie_open_settings(props: &IconProps) -> Html {

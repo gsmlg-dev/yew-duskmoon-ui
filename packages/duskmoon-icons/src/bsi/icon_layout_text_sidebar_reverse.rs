@@ -1,7 +1,7 @@
 #![allow(non_camel_case_types)]
 
 use yew::prelude::*;
-use self::props::IconProps;
+use super::props::IconProps;
 
 #[function_component(BS_LayoutTextSidebarReverse)]
 pub fn r#icon_layout_text_sidebar_reverse(props: &IconProps) -> Html {

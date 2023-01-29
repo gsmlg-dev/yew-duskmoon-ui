@@ -1,7 +1,7 @@
 #![allow(non_camel_case_types)]
 
 use yew::prelude::*;
-use self::props::IconProps;
+use super::props::IconProps;
 
 #[function_component(MD_AlertCircle)]
 pub fn r#icon_alert_circle(props: &IconProps) -> Html {

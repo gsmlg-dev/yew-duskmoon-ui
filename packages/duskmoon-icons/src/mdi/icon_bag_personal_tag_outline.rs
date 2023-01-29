@@ -1,7 +1,7 @@
 #![allow(non_camel_case_types)]
 
 use yew::prelude::*;
-use self::props::IconProps;
+use super::props::IconProps;
 
 #[function_component(MD_BagPersonalTagOutline)]
 pub fn r#icon_bag_personal_tag_outline(props: &IconProps) -> Html {

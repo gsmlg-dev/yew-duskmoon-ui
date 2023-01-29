@@ -1,7 +1,7 @@
 #![allow(non_camel_case_types)]
 
 use yew::prelude::*;
-use self::props::IconProps;
+use super::props::IconProps;
 
 #[function_component(MD_AirConditioner)]
 pub fn r#icon_air_conditioner(props: &IconProps) -> Html {

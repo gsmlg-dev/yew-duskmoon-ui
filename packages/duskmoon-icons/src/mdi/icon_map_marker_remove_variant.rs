@@ -1,7 +1,7 @@
 #![allow(non_camel_case_types)]
 
 use yew::prelude::*;
-use self::props::IconProps;
+use super::props::IconProps;
 
 #[function_component(MD_MapMarkerRemoveVariant)]
 pub fn r#icon_map_marker_remove_variant(props: &IconProps) -> Html {

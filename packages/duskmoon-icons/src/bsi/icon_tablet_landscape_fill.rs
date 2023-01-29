@@ -1,7 +1,7 @@
 #![allow(non_camel_case_types)]
 
 use yew::prelude::*;
-use self::props::IconProps;
+use super::props::IconProps;
 
 #[function_component(BS_TabletLandscapeFill)]
 pub fn r#icon_tablet_landscape_fill(props: &IconProps) -> Html {

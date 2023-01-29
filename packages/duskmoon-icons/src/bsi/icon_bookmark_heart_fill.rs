@@ -1,7 +1,7 @@
 #![allow(non_camel_case_types)]
 
 use yew::prelude::*;
-use self::props::IconProps;
+use super::props::IconProps;
 
 #[function_component(BS_BookmarkHeartFill)]
 pub fn r#icon_bookmark_heart_fill(props: &IconProps) -> Html {

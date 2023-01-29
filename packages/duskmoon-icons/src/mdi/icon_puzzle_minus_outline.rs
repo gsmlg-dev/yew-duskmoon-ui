@@ -1,7 +1,7 @@
 #![allow(non_camel_case_types)]
 
 use yew::prelude::*;
-use self::props::IconProps;
+use super::props::IconProps;
 
 #[function_component(MD_PuzzleMinusOutline)]
 pub fn r#icon_puzzle_minus_outline(props: &IconProps) -> Html {

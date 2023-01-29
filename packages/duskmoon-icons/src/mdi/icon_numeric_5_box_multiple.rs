@@ -1,7 +1,7 @@
 #![allow(non_camel_case_types)]
 
 use yew::prelude::*;
-use self::props::IconProps;
+use super::props::IconProps;
 
 #[function_component(MD_Numeric5BoxMultiple)]
 pub fn r#icon_numeric_5_box_multiple(props: &IconProps) -> Html {

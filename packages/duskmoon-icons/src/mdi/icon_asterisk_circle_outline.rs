@@ -1,7 +1,7 @@
 #![allow(non_camel_case_types)]
 
 use yew::prelude::*;
-use self::props::IconProps;
+use super::props::IconProps;
 
 #[function_component(MD_AsteriskCircleOutline)]
 pub fn r#icon_asterisk_circle_outline(props: &IconProps) -> Html {

@@ -1,7 +1,7 @@
 #![allow(non_camel_case_types)]
 
 use yew::prelude::*;
-use self::props::IconProps;
+use super::props::IconProps;
 
 #[function_component(MD_SortAlphabeticalAscendingVariant)]
 pub fn r#icon_sort_alphabetical_ascending_variant(props: &IconProps) -> Html {

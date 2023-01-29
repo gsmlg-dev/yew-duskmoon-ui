@@ -1,7 +1,7 @@
 #![allow(non_camel_case_types)]
 
 use yew::prelude::*;
-use self::props::IconProps;
+use super::props::IconProps;
 
 #[function_component(MD_GestureSwipeVertical)]
 pub fn r#icon_gesture_swipe_vertical(props: &IconProps) -> Html {

@@ -1,7 +1,7 @@
 #![allow(non_camel_case_types)]
 
 use yew::prelude::*;
-use self::props::IconProps;
+use super::props::IconProps;
 
 #[function_component(BS_SortNumericDown)]
 pub fn r#icon_sort_numeric_down(props: &IconProps) -> Html {

@@ -1,7 +1,7 @@
 #![allow(non_camel_case_types)]
 
 use yew::prelude::*;
-use self::props::IconProps;
+use super::props::IconProps;
 
 #[function_component(MD_TableRowPlusBefore)]
 pub fn r#icon_table_row_plus_before(props: &IconProps) -> Html {

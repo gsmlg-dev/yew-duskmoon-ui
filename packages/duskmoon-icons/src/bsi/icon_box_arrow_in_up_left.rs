@@ -1,7 +1,7 @@
 #![allow(non_camel_case_types)]
 
 use yew::prelude::*;
-use self::props::IconProps;
+use super::props::IconProps;
 
 #[function_component(BS_BoxArrowInUpLeft)]
 pub fn r#icon_box_arrow_in_up_left(props: &IconProps) -> Html {

@@ -1,7 +1,7 @@
 #![allow(non_camel_case_types)]
 
 use yew::prelude::*;
-use self::props::IconProps;
+use super::props::IconProps;
 
 #[function_component(MD_PuzzleHeart)]
 pub fn r#icon_puzzle_heart(props: &IconProps) -> Html {

@@ -1,7 +1,7 @@
 #![allow(non_camel_case_types)]
 
 use yew::prelude::*;
-use self::props::IconProps;
+use super::props::IconProps;
 
 #[function_component(MD_NoteTextOutline)]
 pub fn r#icon_note_text_outline(props: &IconProps) -> Html {

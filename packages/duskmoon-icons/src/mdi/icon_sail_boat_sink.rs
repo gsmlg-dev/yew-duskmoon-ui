@@ -1,7 +1,7 @@
 #![allow(non_camel_case_types)]
 
 use yew::prelude::*;
-use self::props::IconProps;
+use super::props::IconProps;
 
 #[function_component(MD_SailBoatSink)]
 pub fn r#icon_sail_boat_sink(props: &IconProps) -> Html {

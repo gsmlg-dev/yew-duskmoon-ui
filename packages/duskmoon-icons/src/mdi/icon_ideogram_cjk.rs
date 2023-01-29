@@ -1,7 +1,7 @@
 #![allow(non_camel_case_types)]
 
 use yew::prelude::*;
-use self::props::IconProps;
+use super::props::IconProps;
 
 #[function_component(MD_IdeogramCjk)]
 pub fn r#icon_ideogram_cjk(props: &IconProps) -> Html {

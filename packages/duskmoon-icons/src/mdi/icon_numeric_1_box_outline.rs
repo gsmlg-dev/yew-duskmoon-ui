@@ -1,7 +1,7 @@
 #![allow(non_camel_case_types)]
 
 use yew::prelude::*;
-use self::props::IconProps;
+use super::props::IconProps;
 
 #[function_component(MD_Numeric1BoxOutline)]
 pub fn r#icon_numeric_1_box_outline(props: &IconProps) -> Html {

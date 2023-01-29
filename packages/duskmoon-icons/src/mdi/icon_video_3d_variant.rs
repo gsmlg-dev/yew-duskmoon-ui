@@ -1,7 +1,7 @@
 #![allow(non_camel_case_types)]
 
 use yew::prelude::*;
-use self::props::IconProps;
+use super::props::IconProps;
 
 #[function_component(MD_Video3dVariant)]
 pub fn r#icon_video_3d_variant(props: &IconProps) -> Html {

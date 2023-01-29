@@ -1,7 +1,7 @@
 #![allow(non_camel_case_types)]
 
 use yew::prelude::*;
-use self::props::IconProps;
+use super::props::IconProps;
 
 #[function_component(MD_FolderArrowUpDownOutline)]
 pub fn r#icon_folder_arrow_up_down_outline(props: &IconProps) -> Html {

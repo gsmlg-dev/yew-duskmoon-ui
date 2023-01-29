@@ -1,7 +1,7 @@
 #![allow(non_camel_case_types)]
 
 use yew::prelude::*;
-use self::props::IconProps;
+use super::props::IconProps;
 
 #[function_component(MD_LocationExit)]
 pub fn r#icon_location_exit(props: &IconProps) -> Html {

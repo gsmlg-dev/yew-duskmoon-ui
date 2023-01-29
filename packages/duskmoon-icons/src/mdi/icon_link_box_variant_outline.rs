@@ -1,7 +1,7 @@
 #![allow(non_camel_case_types)]
 
 use yew::prelude::*;
-use self::props::IconProps;
+use super::props::IconProps;
 
 #[function_component(MD_LinkBoxVariantOutline)]
 pub fn r#icon_link_box_variant_outline(props: &IconProps) -> Html {

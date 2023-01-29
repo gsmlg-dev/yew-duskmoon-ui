@@ -1,7 +1,7 @@
 #![allow(non_camel_case_types)]
 
 use yew::prelude::*;
-use self::props::IconProps;
+use super::props::IconProps;
 
 #[function_component(MD_StickerCheckOutline)]
 pub fn r#icon_sticker_check_outline(props: &IconProps) -> Html {

@@ -1,7 +1,7 @@
 #![allow(non_camel_case_types)]
 
 use yew::prelude::*;
-use self::props::IconProps;
+use super::props::IconProps;
 
 #[function_component(MD_AxisXYArrowLock)]
 pub fn r#icon_axis_x_y_arrow_lock(props: &IconProps) -> Html {

@@ -1,7 +1,7 @@
 #![allow(non_camel_case_types)]
 
 use yew::prelude::*;
-use self::props::IconProps;
+use super::props::IconProps;
 
 #[function_component(MD_ShieldLinkVariant)]
 pub fn r#icon_shield_link_variant(props: &IconProps) -> Html {

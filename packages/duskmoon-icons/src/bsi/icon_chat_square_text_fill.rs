@@ -1,7 +1,7 @@
 #![allow(non_camel_case_types)]
 
 use yew::prelude::*;
-use self::props::IconProps;
+use super::props::IconProps;
 
 #[function_component(BS_ChatSquareTextFill)]
 pub fn r#icon_chat_square_text_fill(props: &IconProps) -> Html {

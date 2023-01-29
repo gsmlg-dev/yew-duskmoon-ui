@@ -1,7 +1,7 @@
 #![allow(non_camel_case_types)]
 
 use yew::prelude::*;
-use self::props::IconProps;
+use super::props::IconProps;
 
 #[function_component(MD_SurroundSound512)]
 pub fn r#icon_surround_sound_5_1_2(props: &IconProps) -> Html {

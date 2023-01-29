@@ -1,7 +1,7 @@
 #![allow(non_camel_case_types)]
 
 use yew::prelude::*;
-use self::props::IconProps;
+use super::props::IconProps;
 
 #[function_component(MD_DiamondStone)]
 pub fn r#icon_diamond_stone(props: &IconProps) -> Html {

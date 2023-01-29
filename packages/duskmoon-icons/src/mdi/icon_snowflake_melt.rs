@@ -1,7 +1,7 @@
 #![allow(non_camel_case_types)]
 
 use yew::prelude::*;
-use self::props::IconProps;
+use super::props::IconProps;
 
 #[function_component(MD_SnowflakeMelt)]
 pub fn r#icon_snowflake_melt(props: &IconProps) -> Html {

@@ -1,7 +1,7 @@
 #![allow(non_camel_case_types)]
 
 use yew::prelude::*;
-use self::props::IconProps;
+use super::props::IconProps;
 
 #[function_component(MD_HexagonSlice4)]
 pub fn r#icon_hexagon_slice_4(props: &IconProps) -> Html {

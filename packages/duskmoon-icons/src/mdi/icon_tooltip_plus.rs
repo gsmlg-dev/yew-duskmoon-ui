@@ -1,7 +1,7 @@
 #![allow(non_camel_case_types)]
 
 use yew::prelude::*;
-use self::props::IconProps;
+use super::props::IconProps;
 
 #[function_component(MD_TooltipPlus)]
 pub fn r#icon_tooltip_plus(props: &IconProps) -> Html {

@@ -1,7 +1,7 @@
 #![allow(non_camel_case_types)]
 
 use yew::prelude::*;
-use self::props::IconProps;
+use super::props::IconProps;
 
 #[function_component(MD_DeleteEmptyOutline)]
 pub fn r#icon_delete_empty_outline(props: &IconProps) -> Html {

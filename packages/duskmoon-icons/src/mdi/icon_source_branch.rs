@@ -1,7 +1,7 @@
 #![allow(non_camel_case_types)]
 
 use yew::prelude::*;
-use self::props::IconProps;
+use super::props::IconProps;
 
 #[function_component(MD_SourceBranch)]
 pub fn r#icon_source_branch(props: &IconProps) -> Html {

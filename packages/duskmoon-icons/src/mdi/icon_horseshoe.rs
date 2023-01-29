@@ -1,7 +1,7 @@
 #![allow(non_camel_case_types)]
 
 use yew::prelude::*;
-use self::props::IconProps;
+use super::props::IconProps;
 
 #[function_component(MD_Horseshoe)]
 pub fn r#icon_horseshoe(props: &IconProps) -> Html {

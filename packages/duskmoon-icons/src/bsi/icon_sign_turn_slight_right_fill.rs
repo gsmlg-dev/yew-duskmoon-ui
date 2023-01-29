@@ -1,7 +1,7 @@
 #![allow(non_camel_case_types)]
 
 use yew::prelude::*;
-use self::props::IconProps;
+use super::props::IconProps;
 
 #[function_component(BS_SignTurnSlightRightFill)]
 pub fn r#icon_sign_turn_slight_right_fill(props: &IconProps) -> Html {

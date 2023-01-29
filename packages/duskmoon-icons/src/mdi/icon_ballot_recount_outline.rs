@@ -1,7 +1,7 @@
 #![allow(non_camel_case_types)]
 
 use yew::prelude::*;
-use self::props::IconProps;
+use super::props::IconProps;
 
 #[function_component(MD_BallotRecountOutline)]
 pub fn r#icon_ballot_recount_outline(props: &IconProps) -> Html {

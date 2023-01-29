@@ -1,7 +1,7 @@
 #![allow(non_camel_case_types)]
 
 use yew::prelude::*;
-use self::props::IconProps;
+use super::props::IconProps;
 
 #[function_component(MD_RayVertex)]
 pub fn r#icon_ray_vertex(props: &IconProps) -> Html {

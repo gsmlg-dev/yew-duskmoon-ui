@@ -1,7 +1,7 @@
 #![allow(non_camel_case_types)]
 
 use yew::prelude::*;
-use self::props::IconProps;
+use super::props::IconProps;
 
 #[function_component(MD_BellRingOutline)]
 pub fn r#icon_bell_ring_outline(props: &IconProps) -> Html {

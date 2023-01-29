@@ -1,7 +1,7 @@
 #![allow(non_camel_case_types)]
 
 use yew::prelude::*;
-use self::props::IconProps;
+use super::props::IconProps;
 
 #[function_component(MD_CloudLockOpen)]
 pub fn r#icon_cloud_lock_open(props: &IconProps) -> Html {

@@ -1,7 +1,7 @@
 #![allow(non_camel_case_types)]
 
 use yew::prelude::*;
-use self::props::IconProps;
+use super::props::IconProps;
 
 #[function_component(MD_AccountAlertOutline)]
 pub fn r#icon_account_alert_outline(props: &IconProps) -> Html {

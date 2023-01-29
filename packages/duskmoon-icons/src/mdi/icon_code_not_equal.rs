@@ -1,7 +1,7 @@
 #![allow(non_camel_case_types)]
 
 use yew::prelude::*;
-use self::props::IconProps;
+use super::props::IconProps;
 
 #[function_component(MD_CodeNotEqual)]
 pub fn r#icon_code_not_equal(props: &IconProps) -> Html {

@@ -1,7 +1,7 @@
 #![allow(non_camel_case_types)]
 
 use yew::prelude::*;
-use self::props::IconProps;
+use super::props::IconProps;
 
 #[function_component(MD_FlowerTulip)]
 pub fn r#icon_flower_tulip(props: &IconProps) -> Html {

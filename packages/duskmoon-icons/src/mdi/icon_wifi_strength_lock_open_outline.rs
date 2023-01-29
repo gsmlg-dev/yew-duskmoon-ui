@@ -1,7 +1,7 @@
 #![allow(non_camel_case_types)]
 
 use yew::prelude::*;
-use self::props::IconProps;
+use super::props::IconProps;
 
 #[function_component(MD_WifiStrengthLockOpenOutline)]
 pub fn r#icon_wifi_strength_lock_open_outline(props: &IconProps) -> Html {

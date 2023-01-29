@@ -1,7 +1,7 @@
 #![allow(non_camel_case_types)]
 
 use yew::prelude::*;
-use self::props::IconProps;
+use super::props::IconProps;
 
 #[function_component(BS_TextareaResize)]
 pub fn r#icon_textarea_resize(props: &IconProps) -> Html {

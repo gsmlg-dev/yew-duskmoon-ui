@@ -1,7 +1,7 @@
 #![allow(non_camel_case_types)]
 
 use yew::prelude::*;
-use self::props::IconProps;
+use super::props::IconProps;
 
 #[function_component(BS_Grid3x2)]
 pub fn r#icon_grid_3x2(props: &IconProps) -> Html {

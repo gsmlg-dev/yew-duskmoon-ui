@@ -1,7 +1,7 @@
 #![allow(non_camel_case_types)]
 
 use yew::prelude::*;
-use self::props::IconProps;
+use super::props::IconProps;
 
 #[function_component(BS_OpticalAudio)]
 pub fn r#icon_optical_audio(props: &IconProps) -> Html {

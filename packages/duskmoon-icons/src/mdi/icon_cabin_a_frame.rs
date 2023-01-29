@@ -1,7 +1,7 @@
 #![allow(non_camel_case_types)]
 
 use yew::prelude::*;
-use self::props::IconProps;
+use super::props::IconProps;
 
 #[function_component(MD_CabinAFrame)]
 pub fn r#icon_cabin_a_frame(props: &IconProps) -> Html {

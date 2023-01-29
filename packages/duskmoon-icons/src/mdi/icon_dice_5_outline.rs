@@ -1,7 +1,7 @@
 #![allow(non_camel_case_types)]
 
 use yew::prelude::*;
-use self::props::IconProps;
+use super::props::IconProps;
 
 #[function_component(MD_Dice5Outline)]
 pub fn r#icon_dice_5_outline(props: &IconProps) -> Html {

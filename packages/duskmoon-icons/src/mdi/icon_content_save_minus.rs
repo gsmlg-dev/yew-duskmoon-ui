@@ -1,7 +1,7 @@
 #![allow(non_camel_case_types)]
 
 use yew::prelude::*;
-use self::props::IconProps;
+use super::props::IconProps;
 
 #[function_component(MD_ContentSaveMinus)]
 pub fn r#icon_content_save_minus(props: &IconProps) -> Html {

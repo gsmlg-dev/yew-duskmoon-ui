@@ -1,7 +1,7 @@
 #![allow(non_camel_case_types)]
 
 use yew::prelude::*;
-use self::props::IconProps;
+use super::props::IconProps;
 
 #[function_component(MD_Cpu64Bit)]
 pub fn r#icon_cpu_64_bit(props: &IconProps) -> Html {

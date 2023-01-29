@@ -1,7 +1,7 @@
 #![allow(non_camel_case_types)]
 
 use yew::prelude::*;
-use self::props::IconProps;
+use super::props::IconProps;
 
 #[function_component(BS_LayoutTextWindowReverse)]
 pub fn r#icon_layout_text_window_reverse(props: &IconProps) -> Html {

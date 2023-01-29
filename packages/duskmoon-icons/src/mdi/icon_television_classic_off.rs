@@ -1,7 +1,7 @@
 #![allow(non_camel_case_types)]
 
 use yew::prelude::*;
-use self::props::IconProps;
+use super::props::IconProps;
 
 #[function_component(MD_TelevisionClassicOff)]
 pub fn r#icon_television_classic_off(props: &IconProps) -> Html {

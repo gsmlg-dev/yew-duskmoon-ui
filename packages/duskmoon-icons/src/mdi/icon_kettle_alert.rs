@@ -1,7 +1,7 @@
 #![allow(non_camel_case_types)]
 
 use yew::prelude::*;
-use self::props::IconProps;
+use super::props::IconProps;
 
 #[function_component(MD_KettleAlert)]
 pub fn r#icon_kettle_alert(props: &IconProps) -> Html {

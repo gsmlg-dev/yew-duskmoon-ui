@@ -1,7 +1,7 @@
 #![allow(non_camel_case_types)]
 
 use yew::prelude::*;
-use self::props::IconProps;
+use super::props::IconProps;
 
 #[function_component(MD_MicrosoftXboxControllerBatteryFull)]
 pub fn r#icon_microsoft_xbox_controller_battery_full(props: &IconProps) -> Html {

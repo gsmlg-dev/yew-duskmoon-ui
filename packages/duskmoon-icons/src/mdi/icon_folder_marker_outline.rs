@@ -1,7 +1,7 @@
 #![allow(non_camel_case_types)]
 
 use yew::prelude::*;
-use self::props::IconProps;
+use super::props::IconProps;
 
 #[function_component(MD_FolderMarkerOutline)]
 pub fn r#icon_folder_marker_outline(props: &IconProps) -> Html {

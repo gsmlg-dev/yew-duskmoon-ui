@@ -1,7 +1,7 @@
 #![allow(non_camel_case_types)]
 
 use yew::prelude::*;
-use self::props::IconProps;
+use super::props::IconProps;
 
 #[function_component(MD_ContentSaveCheckOutline)]
 pub fn r#icon_content_save_check_outline(props: &IconProps) -> Html {

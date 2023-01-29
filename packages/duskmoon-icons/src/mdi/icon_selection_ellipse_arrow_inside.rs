@@ -1,7 +1,7 @@
 #![allow(non_camel_case_types)]
 
 use yew::prelude::*;
-use self::props::IconProps;
+use super::props::IconProps;
 
 #[function_component(MD_SelectionEllipseArrowInside)]
 pub fn r#icon_selection_ellipse_arrow_inside(props: &IconProps) -> Html {

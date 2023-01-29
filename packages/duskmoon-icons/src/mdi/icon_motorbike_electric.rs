@@ -1,7 +1,7 @@
 #![allow(non_camel_case_types)]
 
 use yew::prelude::*;
-use self::props::IconProps;
+use super::props::IconProps;
 
 #[function_component(MD_MotorbikeElectric)]
 pub fn r#icon_motorbike_electric(props: &IconProps) -> Html {

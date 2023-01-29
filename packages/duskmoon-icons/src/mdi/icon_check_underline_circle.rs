@@ -1,7 +1,7 @@
 #![allow(non_camel_case_types)]
 
 use yew::prelude::*;
-use self::props::IconProps;
+use super::props::IconProps;
 
 #[function_component(MD_CheckUnderlineCircle)]
 pub fn r#icon_check_underline_circle(props: &IconProps) -> Html {

@@ -1,7 +1,7 @@
 #![allow(non_camel_case_types)]
 
 use yew::prelude::*;
-use self::props::IconProps;
+use super::props::IconProps;
 
 #[function_component(MD_WeatherPartlyRainy)]
 pub fn r#icon_weather_partly_rainy(props: &IconProps) -> Html {

@@ -1,7 +1,7 @@
 #![allow(non_camel_case_types)]
 
 use yew::prelude::*;
-use self::props::IconProps;
+use super::props::IconProps;
 
 #[function_component(MD_CreditCardWirelessOutline)]
 pub fn r#icon_credit_card_wireless_outline(props: &IconProps) -> Html {

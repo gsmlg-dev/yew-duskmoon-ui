@@ -1,7 +1,7 @@
 #![allow(non_camel_case_types)]
 
 use yew::prelude::*;
-use self::props::IconProps;
+use super::props::IconProps;
 
 #[function_component(MD_BookMusicOutline)]
 pub fn r#icon_book_music_outline(props: &IconProps) -> Html {

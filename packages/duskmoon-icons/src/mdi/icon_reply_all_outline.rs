@@ -1,7 +1,7 @@
 #![allow(non_camel_case_types)]
 
 use yew::prelude::*;
-use self::props::IconProps;
+use super::props::IconProps;
 
 #[function_component(MD_ReplyAllOutline)]
 pub fn r#icon_reply_all_outline(props: &IconProps) -> Html {

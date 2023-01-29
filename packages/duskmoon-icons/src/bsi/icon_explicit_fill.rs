@@ -1,7 +1,7 @@
 #![allow(non_camel_case_types)]
 
 use yew::prelude::*;
-use self::props::IconProps;
+use super::props::IconProps;
 
 #[function_component(BS_ExplicitFill)]
 pub fn r#icon_explicit_fill(props: &IconProps) -> Html {

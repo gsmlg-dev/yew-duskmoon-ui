@@ -1,7 +1,7 @@
 #![allow(non_camel_case_types)]
 
 use yew::prelude::*;
-use self::props::IconProps;
+use super::props::IconProps;
 
 #[function_component(MD_CogSyncOutline)]
 pub fn r#icon_cog_sync_outline(props: &IconProps) -> Html {

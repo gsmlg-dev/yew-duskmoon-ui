@@ -1,7 +1,7 @@
 #![allow(non_camel_case_types)]
 
 use yew::prelude::*;
-use self::props::IconProps;
+use super::props::IconProps;
 
 #[function_component(BS_Calendar3Week)]
 pub fn r#icon_calendar3_week(props: &IconProps) -> Html {

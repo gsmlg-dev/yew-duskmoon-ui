@@ -1,7 +1,7 @@
 #![allow(non_camel_case_types)]
 
 use yew::prelude::*;
-use self::props::IconProps;
+use super::props::IconProps;
 
 #[function_component(MD_UsbFlashDriveOutline)]
 pub fn r#icon_usb_flash_drive_outline(props: &IconProps) -> Html {

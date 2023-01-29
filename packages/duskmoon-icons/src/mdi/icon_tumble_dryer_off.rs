@@ -1,7 +1,7 @@
 #![allow(non_camel_case_types)]
 
 use yew::prelude::*;
-use self::props::IconProps;
+use super::props::IconProps;
 
 #[function_component(MD_TumbleDryerOff)]
 pub fn r#icon_tumble_dryer_off(props: &IconProps) -> Html {

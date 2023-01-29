@@ -1,7 +1,7 @@
 #![allow(non_camel_case_types)]
 
 use yew::prelude::*;
-use self::props::IconProps;
+use super::props::IconProps;
 
 #[function_component(BS_FilePlayFill)]
 pub fn r#icon_file_play_fill(props: &IconProps) -> Html {

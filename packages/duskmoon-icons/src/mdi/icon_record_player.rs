@@ -1,7 +1,7 @@
 #![allow(non_camel_case_types)]
 
 use yew::prelude::*;
-use self::props::IconProps;
+use super::props::IconProps;
 
 #[function_component(MD_RecordPlayer)]
 pub fn r#icon_record_player(props: &IconProps) -> Html {

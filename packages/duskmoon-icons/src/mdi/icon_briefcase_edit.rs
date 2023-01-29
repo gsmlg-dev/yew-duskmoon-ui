@@ -1,7 +1,7 @@
 #![allow(non_camel_case_types)]
 
 use yew::prelude::*;
-use self::props::IconProps;
+use super::props::IconProps;
 
 #[function_component(MD_BriefcaseEdit)]
 pub fn r#icon_briefcase_edit(props: &IconProps) -> Html {

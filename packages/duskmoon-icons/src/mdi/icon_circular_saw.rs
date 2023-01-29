@@ -1,7 +1,7 @@
 #![allow(non_camel_case_types)]
 
 use yew::prelude::*;
-use self::props::IconProps;
+use super::props::IconProps;
 
 #[function_component(MD_CircularSaw)]
 pub fn r#icon_circular_saw(props: &IconProps) -> Html {

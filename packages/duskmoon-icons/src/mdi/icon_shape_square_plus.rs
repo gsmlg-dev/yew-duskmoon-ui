@@ -1,7 +1,7 @@
 #![allow(non_camel_case_types)]
 
 use yew::prelude::*;
-use self::props::IconProps;
+use super::props::IconProps;
 
 #[function_component(MD_ShapeSquarePlus)]
 pub fn r#icon_shape_square_plus(props: &IconProps) -> Html {

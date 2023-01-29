@@ -1,7 +1,7 @@
 #![allow(non_camel_case_types)]
 
 use yew::prelude::*;
-use self::props::IconProps;
+use super::props::IconProps;
 
 #[function_component(MD_Numeric3CircleOutline)]
 pub fn r#icon_numeric_3_circle_outline(props: &IconProps) -> Html {

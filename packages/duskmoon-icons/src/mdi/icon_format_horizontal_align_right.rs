@@ -1,7 +1,7 @@
 #![allow(non_camel_case_types)]
 
 use yew::prelude::*;
-use self::props::IconProps;
+use super::props::IconProps;
 
 #[function_component(MD_FormatHorizontalAlignRight)]
 pub fn r#icon_format_horizontal_align_right(props: &IconProps) -> Html {

@@ -1,7 +1,7 @@
 #![allow(non_camel_case_types)]
 
 use yew::prelude::*;
-use self::props::IconProps;
+use super::props::IconProps;
 
 #[function_component(BS_SignDoNotEnterFill)]
 pub fn r#icon_sign_do_not_enter_fill(props: &IconProps) -> Html {

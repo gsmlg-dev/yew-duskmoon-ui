@@ -1,7 +1,7 @@
 #![allow(non_camel_case_types)]
 
 use yew::prelude::*;
-use self::props::IconProps;
+use super::props::IconProps;
 
 #[function_component(MD_ArrowLeftRightBoldOutline)]
 pub fn r#icon_arrow_left_right_bold_outline(props: &IconProps) -> Html {

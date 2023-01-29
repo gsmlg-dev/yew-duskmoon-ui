@@ -1,7 +1,7 @@
 #![allow(non_camel_case_types)]
 
 use yew::prelude::*;
-use self::props::IconProps;
+use super::props::IconProps;
 
 #[function_component(MD_LessThanOrEqual)]
 pub fn r#icon_less_than_or_equal(props: &IconProps) -> Html {

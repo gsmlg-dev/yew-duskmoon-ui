@@ -1,7 +1,7 @@
 #![allow(non_camel_case_types)]
 
 use yew::prelude::*;
-use self::props::IconProps;
+use super::props::IconProps;
 
 #[function_component(MD_CashMultiple)]
 pub fn r#icon_cash_multiple(props: &IconProps) -> Html {

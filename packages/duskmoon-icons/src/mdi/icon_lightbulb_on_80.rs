@@ -1,7 +1,7 @@
 #![allow(non_camel_case_types)]
 
 use yew::prelude::*;
-use self::props::IconProps;
+use super::props::IconProps;
 
 #[function_component(MD_LightbulbOn80)]
 pub fn r#icon_lightbulb_on_80(props: &IconProps) -> Html {

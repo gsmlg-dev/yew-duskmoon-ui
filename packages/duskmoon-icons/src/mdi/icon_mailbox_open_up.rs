@@ -1,7 +1,7 @@
 #![allow(non_camel_case_types)]
 
 use yew::prelude::*;
-use self::props::IconProps;
+use super::props::IconProps;
 
 #[function_component(MD_MailboxOpenUp)]
 pub fn r#icon_mailbox_open_up(props: &IconProps) -> Html {

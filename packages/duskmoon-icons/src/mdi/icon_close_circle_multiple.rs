@@ -1,7 +1,7 @@
 #![allow(non_camel_case_types)]
 
 use yew::prelude::*;
-use self::props::IconProps;
+use super::props::IconProps;
 
 #[function_component(MD_CloseCircleMultiple)]
 pub fn r#icon_close_circle_multiple(props: &IconProps) -> Html {

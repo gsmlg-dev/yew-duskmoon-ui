@@ -1,7 +1,7 @@
 #![allow(non_camel_case_types)]
 
 use yew::prelude::*;
-use self::props::IconProps;
+use super::props::IconProps;
 
 #[function_component(MD_PaletteSwatch)]
 pub fn r#icon_palette_swatch(props: &IconProps) -> Html {

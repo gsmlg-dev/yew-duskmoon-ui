@@ -1,7 +1,7 @@
 #![allow(non_camel_case_types)]
 
 use yew::prelude::*;
-use self::props::IconProps;
+use super::props::IconProps;
 
 #[function_component(MD_CompareHorizontal)]
 pub fn r#icon_compare_horizontal(props: &IconProps) -> Html {

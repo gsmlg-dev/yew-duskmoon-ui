@@ -1,7 +1,7 @@
 #![allow(non_camel_case_types)]
 
 use yew::prelude::*;
-use self::props::IconProps;
+use super::props::IconProps;
 
 #[function_component(MD_HeartHalfOutline)]
 pub fn r#icon_heart_half_outline(props: &IconProps) -> Html {

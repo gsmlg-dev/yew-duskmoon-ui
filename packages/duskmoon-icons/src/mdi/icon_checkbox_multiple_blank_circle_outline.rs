@@ -1,7 +1,7 @@
 #![allow(non_camel_case_types)]
 
 use yew::prelude::*;
-use self::props::IconProps;
+use super::props::IconProps;
 
 #[function_component(MD_CheckboxMultipleBlankCircleOutline)]
 pub fn r#icon_checkbox_multiple_blank_circle_outline(props: &IconProps) -> Html {

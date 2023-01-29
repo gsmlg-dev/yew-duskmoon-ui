@@ -1,7 +1,7 @@
 #![allow(non_camel_case_types)]
 
 use yew::prelude::*;
-use self::props::IconProps;
+use super::props::IconProps;
 
 #[function_component(MD_PhoneIncomingOutgoingOutline)]
 pub fn r#icon_phone_incoming_outgoing_outline(props: &IconProps) -> Html {

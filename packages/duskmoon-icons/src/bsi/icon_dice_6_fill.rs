@@ -1,7 +1,7 @@
 #![allow(non_camel_case_types)]
 
 use yew::prelude::*;
-use self::props::IconProps;
+use super::props::IconProps;
 
 #[function_component(BS_Dice6Fill)]
 pub fn r#icon_dice_6_fill(props: &IconProps) -> Html {

@@ -1,7 +1,7 @@
 #![allow(non_camel_case_types)]
 
 use yew::prelude::*;
-use self::props::IconProps;
+use super::props::IconProps;
 
 #[function_component(MD_Printer3dNozzleOffOutline)]
 pub fn r#icon_printer_3d_nozzle_off_outline(props: &IconProps) -> Html {

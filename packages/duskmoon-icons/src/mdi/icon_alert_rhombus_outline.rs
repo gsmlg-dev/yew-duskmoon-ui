@@ -1,7 +1,7 @@
 #![allow(non_camel_case_types)]
 
 use yew::prelude::*;
-use self::props::IconProps;
+use super::props::IconProps;
 
 #[function_component(MD_AlertRhombusOutline)]
 pub fn r#icon_alert_rhombus_outline(props: &IconProps) -> Html {

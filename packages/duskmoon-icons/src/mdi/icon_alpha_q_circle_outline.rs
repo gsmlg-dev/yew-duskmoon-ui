@@ -1,7 +1,7 @@
 #![allow(non_camel_case_types)]
 
 use yew::prelude::*;
-use self::props::IconProps;
+use super::props::IconProps;
 
 #[function_component(MD_AlphaQCircleOutline)]
 pub fn r#icon_alpha_q_circle_outline(props: &IconProps) -> Html {

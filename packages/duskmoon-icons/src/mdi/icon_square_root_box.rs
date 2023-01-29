@@ -1,7 +1,7 @@
 #![allow(non_camel_case_types)]
 
 use yew::prelude::*;
-use self::props::IconProps;
+use super::props::IconProps;
 
 #[function_component(MD_SquareRootBox)]
 pub fn r#icon_square_root_box(props: &IconProps) -> Html {

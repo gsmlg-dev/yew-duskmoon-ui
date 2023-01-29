@@ -1,7 +1,7 @@
 #![allow(non_camel_case_types)]
 
 use yew::prelude::*;
-use self::props::IconProps;
+use super::props::IconProps;
 
 #[function_component(MD_LockOffOutline)]
 pub fn r#icon_lock_off_outline(props: &IconProps) -> Html {

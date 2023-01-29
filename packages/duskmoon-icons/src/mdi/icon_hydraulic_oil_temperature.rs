@@ -1,7 +1,7 @@
 #![allow(non_camel_case_types)]
 
 use yew::prelude::*;
-use self::props::IconProps;
+use super::props::IconProps;
 
 #[function_component(MD_HydraulicOilTemperature)]
 pub fn r#icon_hydraulic_oil_temperature(props: &IconProps) -> Html {

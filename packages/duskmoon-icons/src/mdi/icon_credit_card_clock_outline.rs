@@ -1,7 +1,7 @@
 #![allow(non_camel_case_types)]
 
 use yew::prelude::*;
-use self::props::IconProps;
+use super::props::IconProps;
 
 #[function_component(MD_CreditCardClockOutline)]
 pub fn r#icon_credit_card_clock_outline(props: &IconProps) -> Html {

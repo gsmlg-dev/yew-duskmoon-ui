@@ -1,7 +1,7 @@
 #![allow(non_camel_case_types)]
 
 use yew::prelude::*;
-use self::props::IconProps;
+use super::props::IconProps;
 
 #[function_component(MD_RomanNumeral5)]
 pub fn r#icon_roman_numeral_5(props: &IconProps) -> Html {

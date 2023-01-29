@@ -1,7 +1,7 @@
 #![allow(non_camel_case_types)]
 
 use yew::prelude::*;
-use self::props::IconProps;
+use super::props::IconProps;
 
 #[function_component(BS_StopCircleFill)]
 pub fn r#icon_stop_circle_fill(props: &IconProps) -> Html {

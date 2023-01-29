@@ -1,7 +1,7 @@
 #![allow(non_camel_case_types)]
 
 use yew::prelude::*;
-use self::props::IconProps;
+use super::props::IconProps;
 
 #[function_component(MD_SealVariant)]
 pub fn r#icon_seal_variant(props: &IconProps) -> Html {

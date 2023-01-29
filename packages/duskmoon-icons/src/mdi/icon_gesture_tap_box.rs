@@ -1,7 +1,7 @@
 #![allow(non_camel_case_types)]
 
 use yew::prelude::*;
-use self::props::IconProps;
+use super::props::IconProps;
 
 #[function_component(MD_GestureTapBox)]
 pub fn r#icon_gesture_tap_box(props: &IconProps) -> Html {

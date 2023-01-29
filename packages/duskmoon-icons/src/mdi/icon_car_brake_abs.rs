@@ -1,7 +1,7 @@
 #![allow(non_camel_case_types)]
 
 use yew::prelude::*;
-use self::props::IconProps;
+use super::props::IconProps;
 
 #[function_component(MD_CarBrakeAbs)]
 pub fn r#icon_car_brake_abs(props: &IconProps) -> Html {

@@ -1,7 +1,7 @@
 #![allow(non_camel_case_types)]
 
 use yew::prelude::*;
-use self::props::IconProps;
+use super::props::IconProps;
 
 #[function_component(MD_InvertColorsOff)]
 pub fn r#icon_invert_colors_off(props: &IconProps) -> Html {

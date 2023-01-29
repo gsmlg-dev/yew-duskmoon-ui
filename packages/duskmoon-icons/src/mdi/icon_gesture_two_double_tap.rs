@@ -1,7 +1,7 @@
 #![allow(non_camel_case_types)]
 
 use yew::prelude::*;
-use self::props::IconProps;
+use super::props::IconProps;
 
 #[function_component(MD_GestureTwoDoubleTap)]
 pub fn r#icon_gesture_two_double_tap(props: &IconProps) -> Html {

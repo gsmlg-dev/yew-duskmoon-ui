@@ -1,7 +1,7 @@
 #![allow(non_camel_case_types)]
 
 use yew::prelude::*;
-use self::props::IconProps;
+use super::props::IconProps;
 
 #[function_component(MD_FlipVertical)]
 pub fn r#icon_flip_vertical(props: &IconProps) -> Html {
