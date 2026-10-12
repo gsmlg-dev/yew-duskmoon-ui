@@ -1,8 +1,6 @@
 use yew::prelude::*;
 use yew::virtual_dom::AttrValue;
 
-use super::variants;
-
 #[derive(Properties, Clone, PartialEq)]
 pub struct FileUploadProps {
     #[prop_or_default]
@@ -44,22 +42,9 @@ pub fn file_upload(props: &FileUploadProps) -> Html {
         dropzone_classes.push("disabled");
     }
 
-    let dropzone_style = variants::style(
-        props.variant.as_deref(),
-        "color: var(--component-color, var(--color-primary)); border-color: var(--component-color, var(--color-primary)); background: color-mix(in oklch, var(--component-container, var(--color-surface-container)) 36%, var(--color-surface));",
-    );
-    let title_style = variants::style(
-        props.variant.as_deref(),
-        "color: var(--component-color, var(--color-primary));",
-    );
-    let subtitle_style = variants::style(
-        props.variant.as_deref(),
-        "color: color-mix(in oklch, var(--component-color, var(--dm-paper)) 58%, var(--dm-paper));",
-    );
-
     html! {
         <div class={classes}>
-            <label class={dropzone_classes} style={dropzone_style}>
+            <label class={dropzone_classes}>
                 <input
                     id={optional_attr(&props.id)}
                     class="file-upload-input"
@@ -76,8 +61,8 @@ pub fn file_upload(props: &FileUploadProps) -> Html {
                         if props.children.is_empty() {
                             html! {
                                 <>
-                                    <div class="file-upload-title" style={title_style}>{ props.title.clone() }</div>
-                                    <div class="file-upload-subtitle" style={subtitle_style}>
+                                    <div class="file-upload-title">{ props.title.clone() }</div>
+                                    <div class="file-upload-subtitle">
                                         { props.subtitle.clone() }
                                         {
                                             if props.browse_label.is_empty() {

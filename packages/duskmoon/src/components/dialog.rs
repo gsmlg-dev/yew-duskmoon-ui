@@ -5,6 +5,10 @@ pub struct DialogProps {
     /// Stable DOM id targeted by `commandfor` on dialog invoker buttons.
     pub id: AttrValue,
     #[prop_or_default]
+    pub aria_label: Option<AttrValue>,
+    #[prop_or_default]
+    pub aria_labelledby: Option<AttrValue>,
+    #[prop_or_default]
     pub class: Classes,
     #[prop_or_default]
     pub children: Children,
@@ -25,7 +29,7 @@ pub(crate) fn dialog_view(props: &DialogProps) -> Html {
     classes.push(props.class.clone());
 
     html! {
-        <dialog id={props.id.clone()} class={classes}>
+        <dialog id={props.id.clone()} class={classes} aria-label={props.aria_label.clone()} aria-labelledby={props.aria_labelledby.clone()}>
             { for props.children.iter() }
         </dialog>
     }
@@ -42,6 +46,8 @@ mod tests {
     fn renders_a_native_dialog_target() {
         let props = DialogProps {
             id: "confirm-deploy".into(),
+            aria_label: None,
+            aria_labelledby: Some("confirm-title".into()),
             class: classes!("dialog-divider"),
             children: Children::default(),
             variant: Some("primary".to_owned()),
@@ -58,5 +64,6 @@ mod tests {
             Some(&"dialog dialog-primary dialog-divider")
         );
         assert_eq!(attributes.get("open"), None);
+        assert_eq!(attributes.get("aria-labelledby"), Some(&"confirm-title"));
     }
 }

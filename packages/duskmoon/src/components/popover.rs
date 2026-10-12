@@ -157,7 +157,7 @@ fn popover_classes(props: &PopoverProps) -> Classes {
     classes
 }
 
-fn popover_anchor_name(id: &str) -> String {
+pub(crate) fn popover_anchor_name(id: &str) -> String {
     if id.is_empty() {
         "--popover-empty".to_owned()
     } else if id

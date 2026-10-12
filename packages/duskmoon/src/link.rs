@@ -39,27 +39,10 @@ where
 {
     let np = props.clone();
 
-    // Default link styles mimicking original layout with Tailwind
-    let link_classes = classes!(
-        "link",
-        "inline-flex",
-        "items-center",
-        "justify-center",
-        "px-3",
-        "py-1.5",
-        "text-center",
-        "cursor-pointer",
-        "transition-all",
-        "duration-300",
-        "no-underline",
-        "hover:text-opacity-80",
-    );
-    let mut link_classes = link_classes;
+    let mut link_classes = classes!("link");
 
     if let Some(variant) = &np.variant {
         link_classes.push(format!("link-{}", variant));
-    } else {
-        link_classes.push("text-primary");
     }
 
     link_classes.push(np.classes.clone());

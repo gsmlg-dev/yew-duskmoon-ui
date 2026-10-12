@@ -144,7 +144,7 @@ fn render_automatic_pagination(props: &PaginationProps, classes: Classes, total:
 
     html! {
         <div class={classes} role="navigation" aria-label={props.aria_label.clone()}>
-            <span class="pagination-total">
+            <span class="pagination-total pagination-info-text">
                 { format!("{}-{} / {}", state.range_start, state.range_end, total) }
             </span>
 
@@ -158,6 +158,7 @@ fn render_automatic_pagination(props: &PaginationProps, classes: Classes, total:
                 { "<" }
             </button>
 
+            <span class="pagination-input">
             <input
                 class="pagination-current-input"
                 type="number"
@@ -168,6 +169,7 @@ fn render_automatic_pagination(props: &PaginationProps, classes: Classes, total:
                 aria-label="Current page"
                 onchange={jump_to_page}
             />
+            </span>
 
             <span class="pagination-slash">{ "/" }</span>
             <span class="pagination-page-total">{ state.total_pages }</span>
@@ -206,7 +208,7 @@ fn render_automatic_pagination(props: &PaginationProps, classes: Classes, total:
                 if props.show_refresh {
                     html! {
                         <button
-                            class="pagination-refresh"
+                            class="pagination-refresh pagination-item"
                             type="button"
                             aria-label={props.refresh_label.clone()}
                             onclick={props.on_refresh.clone()}
@@ -225,7 +227,8 @@ fn render_automatic_pagination(props: &PaginationProps, classes: Classes, total:
 
 #[cfg(test)]
 mod tests {
-    use super::calculate_state;
+    use super::*;
+    use yew::virtual_dom::VNode;
 
     #[test]
     fn calculates_page_count_and_visible_range() {
@@ -254,5 +257,60 @@ mod tests {
         assert_eq!(state.total_pages, 1);
         assert_eq!(state.range_start, 0);
         assert_eq!(state.range_end, 0);
+    }
+
+    #[test]
+    fn automatic_controls_use_core_input_and_button_contracts() {
+        let props = PaginationProps {
+            class: Classes::new(),
+            children: Children::default(),
+            variant: None,
+            total: Some(15),
+            page_size: 10,
+            current: 1,
+            page_size_options: default_page_size_options(),
+            on_change: Callback::default(),
+            on_page_size_change: Callback::default(),
+            on_refresh: Callback::default(),
+            show_refresh: true,
+            page_size_label: "items/page".into(),
+            refresh_label: "Refresh".into(),
+            aria_label: "Pagination".into(),
+        };
+        let node = render_automatic_pagination(&props, classes!("pagination"), 15);
+
+        fn find_class<'a>(node: &'a VNode, class: &str) -> Option<&'a yew::virtual_dom::VTag> {
+            match node {
+                VNode::VTag(tag) => {
+                    if tag.attributes.iter().any(|(key, value)| {
+                        key == "class" && value.split_whitespace().any(|value| value == class)
+                    }) {
+                        Some(tag)
+                    } else {
+                        tag.children()
+                            .and_then(|children| find_class(children, class))
+                    }
+                }
+                VNode::VList(children) => {
+                    children.iter().find_map(|child| find_class(child, class))
+                }
+                _ => None,
+            }
+        }
+
+        let input_group = find_class(&node, "pagination-input").expect("Core input group");
+        let Some(VNode::VTag(input)) = input_group.children() else {
+            panic!("expected input");
+        };
+        assert_eq!(input.tag(), "input");
+        assert!(input
+            .attributes
+            .iter()
+            .any(|(key, value)| key == "aria-label" && value == "Current page"));
+        let refresh = find_class(&node, "pagination-refresh").expect("refresh control");
+        assert!(refresh.attributes.iter().any(|(key, value)| key == "class"
+            && value
+                .split_whitespace()
+                .any(|value| value == "pagination-item")));
     }
 }

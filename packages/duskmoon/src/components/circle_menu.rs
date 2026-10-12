@@ -1,7 +1,4 @@
 use yew::prelude::*;
-use yew::virtual_dom::AttrValue;
-
-use super::variants;
 
 #[derive(Properties, Clone, PartialEq)]
 pub struct CircleMenuProps {
@@ -20,22 +17,10 @@ pub fn circle_menu(props: &CircleMenuProps) -> Html {
         classes.push(format!("circle-menu-{}", variant));
     }
     classes.push(props.class.clone());
-    let style = circle_menu_style(props.variant.as_deref());
 
     html! {
-        <div class={classes} style={style}>
+        <div class={classes}>
             { for props.children.iter() }
         </div>
     }
-}
-
-fn circle_menu_style(variant: Option<&str>) -> AttrValue {
-    if variants::vars(variant).is_empty() {
-        return AttrValue::default();
-    }
-
-    variants::style(
-        variant,
-        "color: var(--component-content); --circle-menu-btn-bg: var(--component-solid, var(--component-color)); --circle-menu-bar-color: var(--component-content); --circle-menu-item-bg: var(--component-solid, var(--component-color)); --circle-menu-item-color: var(--component-content); --circle-menu-item-ring: color-mix(in oklch, var(--component-color) 40%, transparent);",
-    )
 }

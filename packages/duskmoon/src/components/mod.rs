@@ -180,5 +180,83 @@ pub use tooltip::{Tooltip, TooltipContent, TooltipPlacement, TooltipTone};
 pub mod tree_select;
 pub use tree_select::TreeSelect;
 
+pub mod dropdown;
+pub use dropdown::{Dropdown, DropdownPlacement};
+
+pub mod fab;
+pub use fab::Fab;
+
+pub mod swap;
+pub use swap::Swap;
+
+pub mod megamenu;
+pub use megamenu::Megamenu;
+
+pub mod validator;
+pub use validator::Validator;
+
+pub mod range;
+pub use range::Range;
+
+pub mod file_input;
+pub use file_input::FileInput;
+
+pub mod filter_group;
+pub use filter_group::FilterGroup;
+
+pub mod toggle_switch;
+pub use toggle_switch::ToggleSwitch;
+
+pub mod loading;
+pub use loading::Loading;
+
+pub mod radial_progress;
+pub use radial_progress::RadialProgress;
+
+pub mod countdown;
+pub use countdown::Countdown;
+
+pub mod stat;
+pub use stat::Stat;
+
+pub mod kbd;
+pub use kbd::Kbd;
+
+pub mod console_page;
+pub use console_page::ConsolePage;
+
+pub mod footer;
+pub use footer::Footer;
+
+pub mod hero;
+pub use hero::Hero;
+
+pub mod home_page;
+pub use home_page::HomePage;
+
+pub mod indicator;
+pub use indicator::Indicator;
+
+pub mod join;
+pub use join::Join;
+
+pub mod mask;
+pub use mask::Mask;
+
+pub mod sidebar_layout;
+pub use sidebar_layout::SidebarLayout;
+
+pub mod sign_page;
+pub use sign_page::SignPage;
+
+pub mod stack;
+pub use stack::Stack;
+
+pub mod carousel;
+pub use carousel::Carousel;
+
+pub mod diff;
+pub use diff::Diff;
+
 mod variants;
 pub use variants::Color;

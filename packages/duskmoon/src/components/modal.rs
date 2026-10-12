@@ -7,6 +7,10 @@ pub struct ModalProps {
     /// Stable DOM id targeted by `commandfor` on dialog invoker buttons.
     pub id: AttrValue,
     #[prop_or_default]
+    pub aria_label: Option<AttrValue>,
+    #[prop_or_default]
+    pub aria_labelledby: Option<AttrValue>,
+    #[prop_or_default]
     pub class: Classes,
     #[prop_or_default]
     pub children: Children,
@@ -24,6 +28,8 @@ pub fn modal(props: &ModalProps) -> Html {
 fn modal_view(props: &ModalProps) -> Html {
     dialog_view(&DialogProps {
         id: props.id.clone(),
+        aria_label: props.aria_label.clone(),
+        aria_labelledby: props.aria_labelledby.clone(),
         class: props.class.clone(),
         children: props.children.clone(),
         variant: props.variant.clone(),
@@ -41,6 +47,8 @@ mod tests {
     fn legacy_name_uses_the_native_dialog_contract() {
         let props = ModalProps {
             id: "legacy-modal".into(),
+            aria_label: Some("Legacy confirmation".into()),
+            aria_labelledby: None,
             class: Classes::new(),
             children: Children::default(),
             variant: None,
@@ -53,5 +61,6 @@ mod tests {
         assert_eq!(tag.tag(), "dialog");
         assert_eq!(attributes.get("id"), Some(&"legacy-modal"));
         assert_eq!(attributes.get("class"), Some(&"dialog"));
+        assert_eq!(attributes.get("aria-label"), Some(&"Legacy confirmation"));
     }
 }

@@ -12,15 +12,52 @@ pub struct BottomNavigationProps {
 
 #[function_component(BottomNavigation)]
 pub fn bottom_navigation(props: &BottomNavigationProps) -> Html {
-    let mut classes = classes!("bottom-navigation");
+    bottom_navigation_view(props)
+}
+
+fn bottom_navigation_view(props: &BottomNavigationProps) -> Html {
+    let mut classes = classes!("bottom-nav", "bottom-navigation");
     if let Some(variant) = &props.variant {
-        classes.push(format!("bottom-navigation-{}", variant));
+        classes.push(format!("bottom-nav-{variant}"));
+        classes.push(format!("bottom-navigation-{variant}"));
     }
     classes.push(props.class.clone());
 
     html! {
-        <div class={classes}>
+        <nav class={classes}>
             { for props.children.iter() }
-        </div>
+        </nav>
+    }
+}
+
+#[cfg(test)]
+mod tests {
+    use super::*;
+    use yew::virtual_dom::VNode;
+
+    #[test]
+    fn emits_core_navigation_classes_and_retains_legacy_classes() {
+        let props = BottomNavigationProps {
+            class: Classes::new(),
+            children: Children::default(),
+            variant: Some("primary".into()),
+        };
+        let VNode::VTag(tag) = bottom_navigation_view(&props) else {
+            panic!("expected navigation");
+        };
+        assert_eq!(tag.tag(), "nav");
+        let class = tag
+            .attributes
+            .iter()
+            .find_map(|(key, value)| (key == "class").then_some(value))
+            .unwrap();
+        for required in [
+            "bottom-nav",
+            "bottom-nav-primary",
+            "bottom-navigation",
+            "bottom-navigation-primary",
+        ] {
+            assert!(class.split_whitespace().any(|class| class == required));
+        }
     }
 }
