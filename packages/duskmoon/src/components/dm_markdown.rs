@@ -175,6 +175,7 @@ fn markdown_options() -> Options {
         | Options::ENABLE_STRIKETHROUGH
         | Options::ENABLE_TASKLISTS
         | Options::ENABLE_GFM
+        | Options::ENABLE_FOOTNOTES
 }
 
 #[derive(Clone, Copy, Debug, PartialEq, Eq)]
@@ -6026,6 +6027,60 @@ mod tests {
         assert!(html.contains("<h1>Release</h1>"));
         assert!(html.contains(r#"<input disabled="" type="checkbox" checked=""/>"#));
         assert!(html.contains("<table>"));
+    }
+
+    #[test]
+    fn renders_footnotes_consistently_with_parser_and_default_options() {
+        let markdown =
+            "A reference[^note], then another[^note].\n\n[^note]: A *formatted* footnote.\n";
+        let mut expected = String::new();
+        pulldown_cmark::html::push_html(
+            &mut expected,
+            pulldown_cmark::Parser::new_ext(markdown, pulldown_cmark::Options::ENABLE_FOOTNOTES),
+        );
+
+        let html = render_markdown_to_html(markdown);
+        assert_eq!(html, expected);
+        assert_eq!(
+            html,
+            render_markdown_to_html_with_options(markdown, DmMarkdownOptions::default())
+        );
+        assert_eq!(html.matches(r#"class="footnote-reference""#).count(), 2);
+        assert!(html.contains(r##"href="#note">1</a>"##));
+        assert!(html.contains(r#"class="footnote-definition" id="note""#));
+        assert!(html.contains("A <em>formatted</em> footnote."));
+    }
+
+    #[test]
+    fn footnotes_preserve_html_safety_and_relative_link_resolution() {
+        let html = render_markdown_to_html_with_options(
+            "Source[^note].\n\n[^note]: Details <script>alert(1)</script> [Guide](guide.md)\n",
+            DmMarkdownOptions {
+                base_url: Some("https://example.com/docs/".to_string()),
+                ..DmMarkdownOptions::default()
+            },
+        );
+
+        assert!(html.contains(r#"class="footnote-definition" id="note""#));
+        assert!(html.contains("&lt;script&gt;alert(1)&lt;/script&gt;"));
+        assert!(!html.contains("<script>"));
+        assert!(html.contains(r#"href="https://example.com/docs/guide.md""#));
+        assert!(html.contains(r##"href="#note""##));
+    }
+
+    #[test]
+    fn footnotes_render_when_raw_html_is_disabled() {
+        let html = render_markdown_to_html_with_options(
+            "Source[^note].\n\n[^note]: <strong>Details</strong>.\n",
+            DmMarkdownOptions {
+                allow_html: false,
+                ..DmMarkdownOptions::default()
+            },
+        );
+
+        assert!(html.contains(r#"class="footnote-definition" id="note""#));
+        assert!(html.contains("&lt;strong&gt;Details&lt;/strong&gt;"));
+        assert!(!html.contains("<strong>"));
     }
 
     #[test]
