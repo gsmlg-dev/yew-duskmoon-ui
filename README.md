@@ -223,6 +223,28 @@ html! {
 - `Popover` no longer accepts `PopoverTrigger` or manages open state. Give it a stable `id`; the generated button uses `command="toggle-popover"`, and browser state is represented by `:popover-open`.
 - `Dialog` and the legacy `Modal` name now require an `id` and render a native `<dialog>`. This is a breaking markup migration: replace `.modal-open`, old `.modal-*` children, conditional overlay wrappers, and click-state handlers with the `.dialog-*` structure and `show-modal` / `close` commands.
 
+## Bounded Markdown rendering
+
+`DmMarkdown` and the direct HTML renderers support Markdown footnotes. For export jobs that need explicit limits, use `render_markdown_to_html_with_limits` with the same `DmMarkdownOptions` used by the ordinary renderer:
+
+```rust
+use yew_duskmoon::{
+    render_markdown_to_html_with_limits, DmMarkdownLimits, DmMarkdownOptions,
+};
+
+let html = render_markdown_to_html_with_limits(
+    "A reference[^note].\n\n[^note]: Details.",
+    DmMarkdownOptions::default(),
+    DmMarkdownLimits {
+        max_input_bytes: 1024 * 1024,
+        max_output_bytes: 8 * 1024 * 1024,
+        max_mermaid_bytes: 16 * 1024,
+    },
+)?;
+```
+
+`max_input_bytes` includes the Markdown source and URL/custom-element configuration. `max_output_bytes` caps generated HTML while it is written, including syntax highlighting, front matter, color chips, and Mermaid diagrams. `max_mermaid_bytes` caps each diagram's source before parsing and layout. A limit violation returns `DmMarkdownRenderError` without a partial HTML result. These byte limits do not specify total process memory or a wall-clock timeout. The existing rendering APIs keep their unlimited behavior.
+
 ## Components
 
 The crate includes components for actions, data display, data entry, feedback, layout, navigation, and surfaces.

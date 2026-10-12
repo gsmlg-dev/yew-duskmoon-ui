@@ -236,6 +236,28 @@ Relative Markdown link and image destinations are preserved by default. Set `bas
 
 For direct string rendering, configure the same behavior with `DmMarkdownOptions` and `render_markdown_to_html_with_options`. `FrontMatterMode::Hidden` removes initial front matter while keeping the body, and `FrontMatterMode::Disabled` parses the complete source as ordinary Markdown.
 
+## Bounded Markdown rendering
+
+`DmMarkdown` and the direct HTML renderers support Markdown footnotes. For export jobs that need explicit limits, use `render_markdown_to_html_with_limits` with the same `DmMarkdownOptions` used by the ordinary renderer:
+
+```rust
+use yew_duskmoon::{
+    render_markdown_to_html_with_limits, DmMarkdownLimits, DmMarkdownOptions,
+};
+
+let html = render_markdown_to_html_with_limits(
+    "A reference[^note].\n\n[^note]: Details.",
+    DmMarkdownOptions::default(),
+    DmMarkdownLimits {
+        max_input_bytes: 1024 * 1024,
+        max_output_bytes: 8 * 1024 * 1024,
+        max_mermaid_bytes: 16 * 1024,
+    },
+)?;
+```
+
+`max_input_bytes` includes the Markdown source and URL/custom-element configuration. `max_output_bytes` caps generated HTML while it is written, including syntax highlighting, front matter, color chips, and Mermaid diagrams. `max_mermaid_bytes` caps each diagram's source before parsing and layout. A limit violation returns `DmMarkdownRenderError` without a partial HTML result. These byte limits do not specify total process memory or a wall-clock timeout. The existing rendering APIs keep their unlimited behavior.
+
 ## Components
 
 Common exports include `Accordion`, `Alert`, `Appbar`, `Autocomplete`, `Avatar`, `Badge`, `BottomNavigation`, `Breadcrumbs`, `Button`, `Card`, `Checkbox`, `Chip`, `CodeBlock`, `CodeEditor`, `DatePicker`, `Dialog`, `DmMarkdown`, `Drawer`, `FileUpload`, `Form`, `Grid`, `IconButton`, `Input`, `Link`, `List`, `MarkdownBody`, `Menu`, `Modal`, `Pagination`, `Progress`, `Radio`, `Select`, `Switch`, `Table`, `Tabs`, `Textarea`, `ThemeController`, `Toast`, `Tooltip`, `TreeSelect`, and `Typography`.

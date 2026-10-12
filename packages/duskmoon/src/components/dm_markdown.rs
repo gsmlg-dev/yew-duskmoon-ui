@@ -1,3 +1,6 @@
+use std::cell::Cell;
+use std::fmt::{self, Write};
+
 use pulldown_cmark::{html, CodeBlockKind, CowStr, Event, LinkType, Options, Parser, Tag, TagEnd};
 use yew::prelude::*;
 use yew::virtual_dom::AttrValue;
@@ -100,6 +103,142 @@ pub fn render_markdown_to_html(markdown: &str) -> String {
 }
 
 pub fn render_markdown_to_html_with_options(markdown: &str, options: DmMarkdownOptions) -> String {
+    render_markdown_to_html_with_limits(
+        markdown,
+        options,
+        DmMarkdownLimits {
+            max_input_bytes: usize::MAX,
+            max_output_bytes: usize::MAX,
+            max_mermaid_bytes: usize::MAX,
+        },
+    )
+    .expect("unlimited Markdown rendering failed")
+}
+
+/// Byte budgets for Markdown rendering. Parser and layout scratch depend on the
+/// input budgets; these limits do not impose a wall-clock or total-memory ceiling.
+#[derive(Clone, Copy, Debug, PartialEq, Eq)]
+pub struct DmMarkdownLimits {
+    /// Combined UTF-8 bytes of Markdown, `base_url`, and custom element names.
+    pub max_input_bytes: usize,
+    /// Maximum generated HTML bytes, including front matter and special blocks.
+    pub max_output_bytes: usize,
+    /// Maximum source bytes per Mermaid block, checked before parsing or layout.
+    pub max_mermaid_bytes: usize,
+}
+
+/// Failure to render within the supplied budgets.
+#[derive(Clone, Copy, Debug, PartialEq, Eq)]
+pub enum DmMarkdownRenderError {
+    InputLimitExceeded,
+    OutputLimitExceeded,
+    MermaidLimitExceeded,
+    /// The allocator could not reserve the requested, budgeted output storage.
+    AllocationFailed,
+}
+
+impl fmt::Display for DmMarkdownRenderError {
+    fn fmt(&self, output: &mut fmt::Formatter<'_>) -> fmt::Result {
+        output.write_str(match self {
+            Self::InputLimitExceeded => "Markdown input byte limit exceeded",
+            Self::OutputLimitExceeded => "Markdown output byte limit exceeded",
+            Self::MermaidLimitExceeded => "Mermaid source byte limit exceeded",
+            Self::AllocationFailed => "Markdown output allocation failed",
+        })
+    }
+}
+
+impl std::error::Error for DmMarkdownRenderError {}
+
+struct RenderBudget {
+    remaining: Cell<usize>,
+    error: Cell<Option<DmMarkdownRenderError>>,
+    limits: DmMarkdownLimits,
+}
+
+impl RenderBudget {
+    fn fail(&self, error: DmMarkdownRenderError) -> fmt::Error {
+        if self.error.get().is_none() {
+            self.error.set(Some(error));
+        }
+        fmt::Error
+    }
+}
+
+/// A generated fragment never reserves or appends beyond its byte ceiling.
+/// Scratch fragments share the main writer's remaining budget and error state.
+struct CappedHtml<'a> {
+    value: String,
+    limit: usize,
+    budget: &'a RenderBudget,
+    main: bool,
+}
+
+impl<'a> CappedHtml<'a> {
+    fn new(budget: &'a RenderBudget, main: bool) -> Self {
+        Self {
+            value: String::new(),
+            limit: budget.remaining.get(),
+            budget,
+            main,
+        }
+    }
+}
+
+impl fmt::Write for CappedHtml<'_> {
+    fn write_str(&mut self, value: &str) -> fmt::Result {
+        if self.budget.error.get().is_some() {
+            return Err(fmt::Error);
+        }
+        let required = self
+            .value
+            .len()
+            .checked_add(value.len())
+            .filter(|&required| required <= self.limit)
+            .ok_or_else(|| self.budget.fail(DmMarkdownRenderError::OutputLimitExceeded))?;
+        if required > self.value.capacity() {
+            let capacity = self
+                .value
+                .capacity()
+                .saturating_mul(2)
+                .max(64)
+                .max(required)
+                .min(self.limit);
+            self.value
+                .try_reserve_exact(capacity - self.value.len())
+                .map_err(|_| self.budget.fail(DmMarkdownRenderError::AllocationFailed))?;
+        }
+        self.value.push_str(value);
+        if self.main {
+            self.budget.remaining.set(self.limit - required);
+        }
+        Ok(())
+    }
+}
+
+/// Render lazily, rejecting oversized input before parsing and generated HTML
+/// before each append. On failure no partial document is returned. Mermaid source
+/// limits are checked before layout; ordinary code and sanitization use the same
+/// capped writer as the document. Existing rendering behavior is preserved.
+pub fn render_markdown_to_html_with_limits(
+    markdown: &str,
+    options: DmMarkdownOptions,
+    limits: DmMarkdownLimits,
+) -> Result<String, DmMarkdownRenderError> {
+    options
+        .custom_elements
+        .iter()
+        .map(String::len)
+        .chain(options.base_url.iter().map(String::len))
+        .try_fold(markdown.len(), usize::checked_add)
+        .filter(|&bytes| bytes <= limits.max_input_bytes)
+        .ok_or(DmMarkdownRenderError::InputLimitExceeded)?;
+    let budget = RenderBudget {
+        remaining: Cell::new(limits.max_output_bytes),
+        error: Cell::new(None),
+        limits,
+    };
+    let mut output = CappedHtml::new(&budget, true);
     let front_matter = if options.front_matter == FrontMatterMode::Disabled {
         None
     } else {
@@ -108,21 +247,23 @@ pub fn render_markdown_to_html_with_options(markdown: &str, options: DmMarkdownO
     let body = front_matter
         .as_ref()
         .map_or(markdown, |front_matter| front_matter.body);
-
-    let parser = coalesce_html_blocks(Parser::new_ext(body, markdown_options()))
-        .map(|event| sanitize_event(event, &options));
-    let parser = transform_inline_colors(parser, options.color_chips);
-    let parser = render_special_blocks(parser);
-    let mut output = String::new();
-
-    if options.front_matter == FrontMatterMode::Render {
-        if let Some(front_matter) = front_matter {
-            output.push_str(&render_front_matter(front_matter.source));
+    let result = (|| {
+        if options.front_matter == FrontMatterMode::Render {
+            if let Some(front_matter) = front_matter {
+                render_front_matter(front_matter.source, &mut output)?;
+            }
         }
+        let parser = coalesce_html_blocks(Parser::new_ext(body, markdown_options()));
+        let parser = sanitize_events(parser, &options, &budget);
+        let parser = transform_inline_colors(parser, options.color_chips, &budget);
+        let parser = render_special_blocks(parser, &budget);
+        html::write_html_fmt(&mut output, parser)
+    })();
+    if let Some(error) = budget.error.get() {
+        return Err(error);
     }
-
-    html::push_html(&mut output, parser.into_iter());
-    output
+    result.map_err(|_| DmMarkdownRenderError::OutputLimitExceeded)?;
+    Ok(output.value)
 }
 
 #[derive(Debug, PartialEq, Eq)]
@@ -196,16 +337,24 @@ enum ColorChannelUnit {
 fn transform_inline_colors<'a>(
     events: impl IntoIterator<Item = Event<'a>>,
     enabled: bool,
-) -> Vec<Event<'a>> {
-    events
-        .into_iter()
-        .map(|event| match event {
+    budget: &'a RenderBudget,
+) -> impl Iterator<Item = Event<'a>> {
+    let mut events = events.into_iter();
+    std::iter::from_fn(move || {
+        if budget.error.get().is_some() {
+            return None;
+        }
+        match events.next()? {
             Event::Code(code) if enabled && parse_css_color(&code).is_some() => {
-                Event::InlineHtml(CowStr::Boxed(render_color_chip(&code).into_boxed_str()))
+                let mut output = CappedHtml::new(budget, false);
+                render_color_chip_into(&code, &mut output).ok()?;
+                Some(Event::InlineHtml(CowStr::Boxed(
+                    output.value.into_boxed_str(),
+                )))
             }
-            event => event,
-        })
-        .collect()
+            event => Some(event),
+        }
+    })
 }
 
 fn parse_css_color(value: &str) -> Option<CssColor> {
@@ -350,10 +499,17 @@ const COLOR_CHIP_STYLE: &str = concat!(
 );
 const COLOR_CHIP_SWATCH_STYLE: &str = "position:absolute;inset:0;";
 
+#[cfg(test)]
 fn render_color_chip(value: &str) -> String {
-    let text = escape_html(value);
-    let attribute = escape_attribute(value);
-    format!(
+    let mut output = String::new();
+    render_color_chip_into(value, &mut output).unwrap();
+    output
+}
+
+fn render_color_chip_into(value: &str, output: &mut impl fmt::Write) -> fmt::Result {
+    let text = Escaped(value);
+    let attribute = Escaped(value);
+    write!(output,
         "<code class=\"dm-color-code\" style=\"{COLOR_CODE_STYLE}\">{text}<span class=\"dm-color-chip\" role=\"img\" aria-label=\"Color {attribute}\" style=\"{COLOR_CHIP_STYLE}\"><span class=\"dm-color-chip-swatch\" style=\"{COLOR_CHIP_SWATCH_STYLE}background-color:{attribute};\" aria-hidden=\"true\"></span></span></code>"
     )
 }
@@ -386,10 +542,12 @@ where
     })
 }
 
-fn sanitize_event<'a>(event: Event<'a>, options: &DmMarkdownOptions) -> Event<'a> {
-    match event {
-        Event::Html(html) => sanitize_html_event(html, false, options),
-        Event::InlineHtml(html) => sanitize_html_event(html, true, options),
+fn sanitize_event<'a>(
+    event: Event<'a>,
+    options: &DmMarkdownOptions,
+    budget: &RenderBudget,
+) -> Result<Event<'a>, fmt::Error> {
+    Ok(match event {
         Event::Start(Tag::Link {
             link_type,
             dest_url,
@@ -400,7 +558,7 @@ fn sanitize_event<'a>(event: Event<'a>, options: &DmMarkdownOptions) -> Event<'a
             dest_url: if link_type == LinkType::Email {
                 safe_url(dest_url)
             } else {
-                resolve_url(dest_url, options.base_url.as_deref())
+                resolve_url(dest_url, options.base_url.as_deref(), budget)?
             },
             title,
             id,
@@ -412,38 +570,42 @@ fn sanitize_event<'a>(event: Event<'a>, options: &DmMarkdownOptions) -> Event<'a
             id,
         }) => Event::Start(Tag::Image {
             link_type,
-            dest_url: resolve_url(dest_url, options.base_url.as_deref()),
+            dest_url: resolve_url(dest_url, options.base_url.as_deref(), budget)?,
             title,
             id,
         }),
         event => event,
-    }
+    })
 }
 
-fn sanitize_html_event<'a>(
-    html: CowStr<'a>,
-    inline: bool,
-    options: &DmMarkdownOptions,
-) -> Event<'a> {
-    if !options.allow_html {
-        return Event::Text(html);
-    }
-
-    let html = escape_disabled_html_tags(&html, options)
-        .map(|sanitized| CowStr::Boxed(sanitized.into_boxed_str()))
-        .unwrap_or(html);
-    let html = options
-        .base_url
-        .as_deref()
-        .and_then(|base_url| resolve_raw_html_urls(&html, base_url))
-        .map(|resolved| CowStr::Boxed(resolved.into_boxed_str()))
-        .unwrap_or(html);
-
-    if inline {
-        Event::InlineHtml(html)
-    } else {
-        Event::Html(html)
-    }
+fn sanitize_events<'a>(
+    events: impl IntoIterator<Item = Event<'a>>,
+    options: &'a DmMarkdownOptions,
+    budget: &'a RenderBudget,
+) -> impl Iterator<Item = Event<'a>> {
+    let mut events = events.into_iter();
+    std::iter::from_fn(move || {
+        if budget.error.get().is_some() {
+            return None;
+        }
+        let event = events.next()?;
+        let (html, inline) = match event {
+            Event::Html(html) => (html, false),
+            Event::InlineHtml(html) => (html, true),
+            event => return sanitize_event(event, options, budget).ok(),
+        };
+        if !options.allow_html {
+            return Some(Event::Text(html));
+        }
+        let mut output = CappedHtml::new(budget, false);
+        sanitize_html_into(&html, options, budget, &mut output).ok()?;
+        let html = CowStr::Boxed(output.value.into_boxed_str());
+        Some(if inline {
+            Event::InlineHtml(html)
+        } else {
+            Event::Html(html)
+        })
+    })
 }
 
 struct RawHtmlTag<'a> {
@@ -454,48 +616,57 @@ struct RawHtmlTag<'a> {
     self_closing: bool,
 }
 
-fn escape_disabled_html_tags(html: &str, options: &DmMarkdownOptions) -> Option<String> {
-    let mut output = String::new();
+fn sanitize_html_into(
+    html: &str,
+    options: &DmMarkdownOptions,
+    budget: &RenderBudget,
+    output: &mut impl fmt::Write,
+) -> fmt::Result {
     let mut cursor = 0;
     let mut search = 0;
-    let mut changed = false;
-
     while let Some(relative_start) = html[search..].find('<') {
         let start = search + relative_start;
         let Some(tag) = parse_raw_html_tag(html, start) else {
             search = start + 1;
             continue;
         };
-
         let Some(name) = tag.name else {
             search = tag.end;
             continue;
         };
-
         if should_escape_html_tag(name, options) {
             let escape_end = if tag.closing || tag.self_closing {
                 tag.end
             } else {
                 find_closing_html_tag_end(html, name, tag.end).unwrap_or(tag.end)
             };
-
-            output.push_str(&html[cursor..start]);
-            output.push_str(&escape_html(&html[start..escape_end]));
+            resolve_html_region(
+                &html[cursor..start],
+                options.base_url.as_deref(),
+                budget,
+                output,
+            )?;
+            write!(output, "{}", Escaped(&html[start..escape_end]))?;
             cursor = escape_end;
             search = escape_end;
-            changed = true;
         } else if !tag.closing && is_raw_text_html_tag(name) {
             search = raw_text_html_tag_end(html, name, tag.end);
         } else {
             search = tag.end;
         }
     }
+    resolve_html_region(&html[cursor..], options.base_url.as_deref(), budget, output)
+}
 
-    if changed {
-        output.push_str(&html[cursor..]);
-        Some(output)
-    } else {
-        None
+fn resolve_html_region(
+    html: &str,
+    base_url: Option<&str>,
+    budget: &RenderBudget,
+    output: &mut impl fmt::Write,
+) -> fmt::Result {
+    match base_url {
+        Some(base_url) => resolve_raw_html_urls(html, base_url, budget, output),
+        None => output.write_str(html),
     }
 }
 
@@ -557,11 +728,14 @@ fn parse_raw_html_tag(html: &str, start: usize) -> Option<RawHtmlTag<'_>> {
     })
 }
 
-fn resolve_raw_html_urls(html: &str, base_url: &str) -> Option<String> {
-    let mut output = String::new();
+fn resolve_raw_html_urls(
+    html: &str,
+    base_url: &str,
+    budget: &RenderBudget,
+    output: &mut impl fmt::Write,
+) -> fmt::Result {
     let mut output_cursor = 0;
     let mut search = 0;
-    let mut changed = false;
 
     while let Some(relative_start) = html[search..].find('<') {
         let start = search + relative_start;
@@ -645,12 +819,11 @@ fn resolve_raw_html_urls(html: &str, base_url: &str) -> Option<String> {
             let name = &html[name_start..name_end];
             if name.eq_ignore_ascii_case("href") || name.eq_ignore_ascii_case("src") {
                 let decoded = htmlize::unescape_attribute(&html[value_start..value_end]);
-                let resolved = resolve_url(CowStr::Borrowed(&decoded), Some(base_url));
+                let resolved = resolve_url(CowStr::Borrowed(&decoded), Some(base_url), budget)?;
                 if resolved.as_ref() != decoded.as_ref() {
-                    output.push_str(&html[output_cursor..value_with_quotes_start]);
-                    push_raw_html_attribute_value(&mut output, &resolved);
+                    output.write_str(&html[output_cursor..value_with_quotes_start])?;
+                    write!(output, "\"{}\"", Escaped(&resolved))?;
                     output_cursor = value_with_quotes_end;
-                    changed = true;
                 }
             }
 
@@ -666,12 +839,7 @@ fn resolve_raw_html_urls(html: &str, base_url: &str) -> Option<String> {
         };
     }
 
-    if changed {
-        output.push_str(&html[output_cursor..]);
-        Some(output)
-    } else {
-        None
-    }
+    output.write_str(&html[output_cursor..])
 }
 
 fn skip_ascii_whitespace(html: &str, mut cursor: usize, end: usize) -> usize {
@@ -682,12 +850,6 @@ fn skip_ascii_whitespace(html: &str, mut cursor: usize, end: usize) -> usize {
         cursor += ch.len_utf8();
     }
     cursor
-}
-
-fn push_raw_html_attribute_value(output: &mut String, value: &str) {
-    output.push('"');
-    output.push_str(&escape_attribute(value));
-    output.push('"');
 }
 
 fn find_html_tag_end(html: &str, from: usize) -> Option<usize> {
@@ -810,49 +972,63 @@ fn is_html_tag_name_char(ch: char) -> bool {
     ch.is_ascii_alphanumeric() || matches!(ch, '-' | ':')
 }
 
-struct FencedBlock {
-    language: String,
-    source: String,
-}
-
-fn render_special_blocks<'a>(events: impl IntoIterator<Item = Event<'a>>) -> Vec<Event<'static>> {
-    let mut rendered = Vec::new();
-    let mut fenced_block: Option<FencedBlock> = None;
-
-    for event in events {
-        if let Some(block) = &mut fenced_block {
-            match event {
-                Event::Text(text) => block.source.push_str(&text),
-                Event::SoftBreak | Event::HardBreak => block.source.push('\n'),
-                Event::End(TagEnd::CodeBlock) => {
-                    rendered.push(Event::Html(CowStr::Boxed(
-                        render_fenced_block(&block.language, &block.source).into_boxed_str(),
-                    )));
-                    fenced_block = None;
-                }
-                _ => {}
-            }
-            continue;
+fn render_special_blocks<'a>(
+    events: impl IntoIterator<Item = Event<'a>>,
+    budget: &'a RenderBudget,
+) -> impl Iterator<Item = Event<'a>> {
+    let mut events = events.into_iter();
+    std::iter::from_fn(move || {
+        if budget.error.get().is_some() {
+            return None;
         }
-
-        match event {
-            Event::Start(Tag::CodeBlock(kind)) => {
-                fenced_block = Some(FencedBlock {
-                    language: code_block_language(kind),
-                    source: String::new(),
-                });
-            }
-            event => rendered.push(event.into_static()),
+        let event = events.next()?;
+        let Event::Start(Tag::CodeBlock(kind)) = event else {
+            return Some(event);
+        };
+        if budget.remaining.get() == 0 {
+            budget.fail(DmMarkdownRenderError::OutputLimitExceeded);
+            return None;
         }
-    }
-
-    if let Some(block) = fenced_block {
-        rendered.push(Event::Html(CowStr::Boxed(
-            render_fenced_block(&block.language, &block.source).into_boxed_str(),
-        )));
-    }
-
-    rendered
+        let language = code_block_language(kind);
+        let mermaid = normalize_language(&language) == "mermaid";
+        let mut source = String::new();
+        for event in events.by_ref() {
+            let text = match event {
+                Event::Text(text) => text,
+                Event::SoftBreak | Event::HardBreak => CowStr::Borrowed("\n"),
+                Event::End(TagEnd::CodeBlock) => break,
+                _ => continue,
+            };
+            let limit = if mermaid {
+                budget.limits.max_mermaid_bytes
+            } else {
+                budget.limits.max_input_bytes
+            };
+            let error = if mermaid {
+                DmMarkdownRenderError::MermaidLimitExceeded
+            } else {
+                DmMarkdownRenderError::InputLimitExceeded
+            };
+            let Some(required) = source
+                .len()
+                .checked_add(text.len())
+                .filter(|&bytes| bytes <= limit)
+            else {
+                budget.fail(error);
+                return None;
+            };
+            if required > source.capacity()
+                && source.try_reserve_exact(required - source.len()).is_err()
+            {
+                budget.fail(DmMarkdownRenderError::AllocationFailed);
+                return None;
+            }
+            source.push_str(&text);
+        }
+        let mut output = CappedHtml::new(budget, false);
+        render_fenced_block(&language, &source, &mut output).ok()?;
+        Some(Event::Html(CowStr::Boxed(output.value.into_boxed_str())))
+    })
 }
 
 fn code_block_language(kind: CodeBlockKind<'_>) -> String {
@@ -862,26 +1038,24 @@ fn code_block_language(kind: CodeBlockKind<'_>) -> String {
     }
 }
 
-fn render_front_matter(source: &str) -> String {
-    format!(
-        "<div class=\"dm-front-matter\">{}</div>",
-        render_fenced_block("yaml", source)
-    )
+fn render_front_matter(source: &str, output: &mut impl fmt::Write) -> fmt::Result {
+    output.write_str("<div class=\"dm-front-matter\">")?;
+    render_fenced_block("yaml", source, output)?;
+    output.write_str("</div>")
 }
 
-fn render_fenced_block(language: &str, source: &str) -> String {
+fn render_fenced_block(language: &str, source: &str, output: &mut impl fmt::Write) -> fmt::Result {
     let language = normalize_language(language);
-    if matches!(language, "mermaid" | "mmd") {
-        return render_mermaid_chart(source);
+    if language == "mermaid" {
+        return render_mermaid_chart(source, output);
     }
-
     let label = language_label(language);
-    let highlighted = highlight_source(language, source);
-    let class_language = escape_attribute(language);
-
-    format!(
-        "<div class=\"dm-code-block\" data-language=\"{class_language}\"><div class=\"dm-code-block-header\"><span>{label}</span></div><pre><code class=\"language-{class_language}\">{highlighted}</code></pre></div>"
-    )
+    let class_language = Escaped(language);
+    write!(output,
+        "<div class=\"dm-code-block\" data-language=\"{class_language}\"><div class=\"dm-code-block-header\"><span>{label}</span></div><pre><code class=\"language-{class_language}\">"
+    )?;
+    highlight_source(language, source, output)?;
+    output.write_str("</code></pre></div>")
 }
 
 fn normalize_language(language: &str) -> &str {
@@ -909,39 +1083,39 @@ fn language_label(language: &str) -> &'static str {
     }
 }
 
-fn render_mermaid_chart(source: &str) -> String {
+fn render_mermaid_chart(source: &str, output: &mut impl fmt::Write) -> fmt::Result {
     match detect_mermaid_kind(source) {
-        MermaidKind::Flowchart => render_mermaid_flowchart(source),
-        MermaidKind::Swimlanes => render_mermaid_swimlanes(source),
-        MermaidKind::Sequence => render_mermaid_sequence(source),
-        MermaidKind::Class => render_mermaid_class(source),
-        MermaidKind::State => render_mermaid_state(source),
-        MermaidKind::EntityRelationship => render_mermaid_er(source),
-        MermaidKind::Journey => render_mermaid_journey(source),
-        MermaidKind::Pie => render_mermaid_pie(source),
-        MermaidKind::Gantt => render_mermaid_gantt(source),
-        MermaidKind::Requirement => render_mermaid_requirement(source),
-        MermaidKind::GitGraph => render_mermaid_git_graph(source),
-        MermaidKind::C4 => render_mermaid_c4(source),
-        MermaidKind::Timeline => render_mermaid_timeline(source),
-        MermaidKind::ZenUml => render_mermaid_zenuml(source),
-        MermaidKind::Sankey => render_mermaid_sankey(source),
-        MermaidKind::XyChart => render_mermaid_xy_chart(source),
-        MermaidKind::Block => render_mermaid_block(source),
-        MermaidKind::Packet => render_mermaid_packet(source),
-        MermaidKind::Kanban => render_mermaid_kanban(source),
-        MermaidKind::Architecture => render_mermaid_architecture(source),
-        MermaidKind::Radar => render_mermaid_radar(source),
-        MermaidKind::EventModeling => render_mermaid_event_modeling(source),
-        MermaidKind::Treemap => render_mermaid_treemap(source),
-        MermaidKind::Venn => render_mermaid_venn(source),
-        MermaidKind::Ishikawa => render_mermaid_ishikawa(source),
-        MermaidKind::Wardley => render_mermaid_wardley(source),
-        MermaidKind::Cynefin => render_mermaid_cynefin(source),
-        MermaidKind::TreeView => render_mermaid_treeview(source),
-        MermaidKind::Mindmap => render_mermaid_mindmap(source),
-        MermaidKind::Quadrant => render_mermaid_quadrant(source),
-        MermaidKind::Unknown => render_plain_code("mermaid", source),
+        MermaidKind::Flowchart => render_mermaid_flowchart(source, output),
+        MermaidKind::Swimlanes => render_mermaid_swimlanes(source, output),
+        MermaidKind::Sequence => render_mermaid_sequence(source, output),
+        MermaidKind::Class => render_mermaid_class(source, output),
+        MermaidKind::State => render_mermaid_state(source, output),
+        MermaidKind::EntityRelationship => render_mermaid_er(source, output),
+        MermaidKind::Journey => render_mermaid_journey(source, output),
+        MermaidKind::Pie => render_mermaid_pie(source, output),
+        MermaidKind::Gantt => render_mermaid_gantt(source, output),
+        MermaidKind::Requirement => render_mermaid_requirement(source, output),
+        MermaidKind::GitGraph => render_mermaid_git_graph(source, output),
+        MermaidKind::C4 => render_mermaid_c4(source, output),
+        MermaidKind::Timeline => render_mermaid_timeline(source, output),
+        MermaidKind::ZenUml => render_mermaid_zenuml(source, output),
+        MermaidKind::Sankey => render_mermaid_sankey(source, output),
+        MermaidKind::XyChart => render_mermaid_xy_chart(source, output),
+        MermaidKind::Block => render_mermaid_block(source, output),
+        MermaidKind::Packet => render_mermaid_packet(source, output),
+        MermaidKind::Kanban => render_mermaid_kanban(source, output),
+        MermaidKind::Architecture => render_mermaid_architecture(source, output),
+        MermaidKind::Radar => render_mermaid_radar(source, output),
+        MermaidKind::EventModeling => render_mermaid_event_modeling(source, output),
+        MermaidKind::Treemap => render_mermaid_treemap(source, output),
+        MermaidKind::Venn => render_mermaid_venn(source, output),
+        MermaidKind::Ishikawa => render_mermaid_ishikawa(source, output),
+        MermaidKind::Wardley => render_mermaid_wardley(source, output),
+        MermaidKind::Cynefin => render_mermaid_cynefin(source, output),
+        MermaidKind::TreeView => render_mermaid_treeview(source, output),
+        MermaidKind::Mindmap => render_mermaid_mindmap(source, output),
+        MermaidKind::Quadrant => render_mermaid_quadrant(source, output),
+        MermaidKind::Unknown => render_plain_code("mermaid", source, output),
     }
 }
 
@@ -1058,22 +1232,23 @@ fn detect_mermaid_kind(source: &str) -> MermaidKind {
     }
 }
 
-fn render_mermaid_flowchart(source: &str) -> String {
+fn render_mermaid_flowchart(source: &str, output: &mut impl fmt::Write) -> fmt::Result {
     let flowchart = parse_mermaid_flowchart(source);
     if flowchart.nodes.is_empty() {
-        return render_plain_code("mermaid", source);
+        return render_plain_code("mermaid", source, output);
     }
     let layout = layout_mermaid_flowchart(&flowchart);
 
     let marker_id = mermaid_marker_id(source);
-    let mut svg = format!(
+    let svg = output;
+    write!(svg,
         "<div class=\"dm-mermaid-chart dm-mermaid-flowchart\" role=\"img\" aria-label=\"Rendered Mermaid flowchart\"><div class=\"dm-mermaid-chart-title\">Mermaid flowchart</div><svg viewBox=\"0 0 {:.0} {:.0}\" aria-hidden=\"true\"><defs><marker id=\"{marker_id}\" markerWidth=\"10\" markerHeight=\"10\" refX=\"8\" refY=\"3\" orient=\"auto\"><path d=\"M0,0 L0,6 L9,3 z\" class=\"dm-mermaid-arrow\" /></marker></defs>",
         layout.width, layout.height
-    );
+    )?;
 
     for (group_index, group) in flowchart.groups.iter().enumerate() {
         if let Some(bounds) = layout.groups.get(group_index).and_then(|bounds| *bounds) {
-            svg.push_str(&format!(
+            write!(svg,
                 "<g class=\"dm-mermaid-subgraph\"><rect x=\"{:.1}\" y=\"{:.1}\" width=\"{:.1}\" height=\"{:.1}\" rx=\"10\" /><text x=\"{:.1}\" y=\"{:.1}\">{}</text></g>",
                 bounds.0,
                 bounds.1,
@@ -1081,8 +1256,8 @@ fn render_mermaid_flowchart(source: &str) -> String {
                 bounds.3,
                 bounds.0 + 12.0,
                 bounds.1 + 20.0,
-                escape_html(&group.label)
-            ));
+                Escaped(&group.label)
+            )?;
         }
     }
 
@@ -1099,16 +1274,16 @@ fn render_mermaid_flowchart(source: &str) -> String {
             flowchart_edge_point(from, to.x, to.y, flowchart.nodes[from_index].shape);
         let (end_x, end_y) =
             flowchart_edge_point(to, from.x, from.y, flowchart.nodes[to_index].shape);
-        svg.push_str(&format!(
+        write!(svg,
             "<line class=\"dm-mermaid-edge\" x1=\"{start_x:.1}\" y1=\"{start_y:.1}\" x2=\"{end_x:.1}\" y2=\"{end_y:.1}\" marker-end=\"url(#{marker_id})\" />"
-        ));
+        )?;
         if let Some(label) = &edge.label {
-            svg.push_str(&format!(
+            write!(svg,
                 "<text class=\"dm-flowchart-edge-label\" x=\"{:.1}\" y=\"{:.1}\" text-anchor=\"middle\">{}</text>",
                 (start_x + end_x) / 2.0,
                 (start_y + end_y) / 2.0 - 6.0,
-                escape_html(label)
-            ));
+                Escaped(label)
+            )?;
         }
     }
 
@@ -1118,12 +1293,14 @@ fn render_mermaid_flowchart(source: &str) -> String {
         } else {
             "dm-mermaid-node"
         };
-        svg.push_str(&format!(
+        write!(
+            svg,
             "<g class=\"{class_name}\" data-node-id=\"{}\">",
-            escape_attribute(&node.id)
-        ));
+            Escaped(&node.id)
+        )?;
         if node.shape == FlowchartNodeShape::Decision {
-            svg.push_str(&format!(
+            write!(
+                svg,
                 "<polygon points=\"{:.1},{:.1} {:.1},{:.1} {:.1},{:.1} {:.1},{:.1}\" />",
                 position.x,
                 position.y - position.height / 2.0,
@@ -1133,26 +1310,28 @@ fn render_mermaid_flowchart(source: &str) -> String {
                 position.y + position.height / 2.0,
                 position.x - position.width / 2.0,
                 position.y
-            ));
+            )?;
         } else {
-            svg.push_str(&format!(
+            write!(
+                svg,
                 "<rect x=\"{:.1}\" y=\"{:.1}\" width=\"{:.1}\" height=\"{:.1}\" rx=\"8\" />",
                 position.x - position.width / 2.0,
                 position.y - position.height / 2.0,
                 position.width,
                 position.height
-            ));
+            )?;
         }
-        svg.push_str(&format!(
+        write!(
+            svg,
             "<text x=\"{:.1}\" y=\"{:.1}\" text-anchor=\"middle\">{}</text></g>",
             position.x,
             position.y + 5.0,
-            escape_html(&node.label)
-        ));
+            Escaped(&node.label)
+        )?;
     }
 
-    svg.push_str("</svg></div>");
-    svg
+    svg.write_str("</svg></div>")?;
+    Ok(())
 }
 
 #[derive(Clone, Copy, PartialEq, Eq)]
@@ -1289,7 +1468,7 @@ fn parse_flowchart_node(value: &str) -> FlowchartNode {
         ('{', '}', FlowchartNodeShape::Decision),
     ] {
         if let Some(start) = value.find(opening) {
-            if let Some(end) = value.rfind(closing) {
+            if let Some(end) = value.rfind(closing).filter(|&end| end > start) {
                 return FlowchartNode {
                     id: value[..start].trim().to_owned(),
                     label: clean_mermaid_label(&value[start + 1..end]),
@@ -1423,14 +1602,21 @@ fn mark_flowchart_back_edges(
         return;
     }
     states[index] = 1;
-    for &(target, edge) in &adjacency[index] {
-        if states[target] == 1 {
-            back_edges[edge] = true;
-        } else if states[target] == 0 {
-            mark_flowchart_back_edges(target, adjacency, states, back_edges);
+    let mut stack = vec![(index, 0)];
+    while let Some((node, next)) = stack.last_mut() {
+        if let Some(&(target, edge)) = adjacency[*node].get(*next) {
+            *next += 1;
+            if states[target] == 1 {
+                back_edges[edge] = true;
+            } else if states[target] == 0 {
+                states[target] = 1;
+                stack.push((target, 0));
+            }
+        } else {
+            states[*node] = 2;
+            stack.pop();
         }
     }
-    states[index] = 2;
 }
 
 fn layout_mermaid_flowchart(flowchart: &Flowchart) -> FlowchartLayout {
@@ -1625,7 +1811,7 @@ struct SwimlaneEdge {
     label: Option<String>,
 }
 
-fn render_mermaid_swimlanes(source: &str) -> String {
+fn render_mermaid_swimlanes(source: &str, output: &mut impl fmt::Write) -> fmt::Result {
     let mut lanes: Vec<Swimlane> = Vec::new();
     let mut nodes: Vec<SwimlaneNode> = Vec::new();
     let mut edges: Vec<SwimlaneEdge> = Vec::new();
@@ -1675,7 +1861,7 @@ fn render_mermaid_swimlanes(source: &str) -> String {
     }
 
     if lanes.is_empty() || nodes.is_empty() {
-        return render_mermaid_summary("Swimlanes diagram", "swimlanes", source);
+        return render_mermaid_summary("Swimlanes diagram", "swimlanes", source, output);
     }
 
     let width = 760.0;
@@ -1707,19 +1893,20 @@ fn render_mermaid_swimlanes(source: &str) -> String {
         }
     }
 
-    let mut svg = format!(
+    let svg = output;
+    write!(svg,
         "<div class=\"dm-mermaid-chart dm-mermaid-swimlanes\" role=\"img\" aria-label=\"Rendered Mermaid swimlanes diagram\"><div class=\"dm-mermaid-chart-title\">Mermaid Swimlanes diagram</div><svg viewBox=\"0 0 {width:.0} {height:.0}\" aria-hidden=\"true\"><defs><marker id=\"{marker_id}\" markerWidth=\"10\" markerHeight=\"10\" refX=\"8\" refY=\"3\" orient=\"auto\"><path d=\"M0,0 L0,6 L9,3 z\" class=\"dm-mermaid-arrow\" /></marker></defs>"
-    );
+    )?;
 
     for (index, lane) in lanes.iter().enumerate() {
         let y = top + index as f32 * lane_height;
         let label_y = y + lane_height / 2.0;
-        svg.push_str(&format!(
+        write!(svg,
             "<g class=\"dm-swimlane-lane\"><rect x=\"0\" y=\"{y:.1}\" width=\"{width:.0}\" height=\"{lane_height:.1}\" /><text x=\"{:.1}\" y=\"{label_y:.1}\" text-anchor=\"middle\" transform=\"rotate(-90 {:.1} {label_y:.1})\">{}</text></g>",
             lane_label_width / 2.0,
             lane_label_width / 2.0,
-            escape_html(&lane.label)
-        ));
+            Escaped(&lane.label)
+        )?;
     }
 
     for edge in &edges {
@@ -1737,30 +1924,30 @@ fn render_mermaid_swimlanes(source: &str) -> String {
         let label_x = (start_x + end_x) / 2.0;
         let label_y = (start_y + end_y) / 2.0 - 6.0;
 
-        svg.push_str(&format!(
+        write!(svg,
             "<line class=\"dm-mermaid-edge dm-swimlane-edge\" x1=\"{start_x:.1}\" y1=\"{start_y:.1}\" x2=\"{end_x:.1}\" y2=\"{end_y:.1}\" marker-end=\"url(#{marker_id})\" />"
-        ));
+        )?;
         if let Some(label) = &edge.label {
-            svg.push_str(&format!(
+            write!(svg,
                 "<text class=\"dm-swimlane-edge-label\" x=\"{label_x:.1}\" y=\"{label_y:.1}\" text-anchor=\"middle\">{}</text>",
-                escape_html(label)
-            ));
+                Escaped(label)
+            )?;
         }
     }
 
     for (id, label, x, y) in positions {
-        svg.push_str(&format!(
+        write!(svg,
             "<g class=\"dm-swimlane-node\" data-node-id=\"{}\"><rect x=\"{:.1}\" y=\"{:.1}\" width=\"{node_width:.1}\" height=\"{node_height:.1}\" rx=\"2\" /><text x=\"{x:.1}\" y=\"{:.1}\" text-anchor=\"middle\">{}</text></g>",
-            escape_attribute(&id),
+            Escaped(&id),
             x - node_width / 2.0,
             y - node_height / 2.0,
             y + 5.0,
-            escape_html(&label)
-        ));
+            Escaped(&label)
+        )?;
     }
 
-    svg.push_str("</svg></div>");
-    svg
+    svg.write_str("</svg></div>")?;
+    Ok(())
 }
 
 fn parse_swimlane_start(line: &str) -> Option<String> {
@@ -1770,7 +1957,7 @@ fn parse_swimlane_start(line: &str) -> Option<String> {
     }
 
     if let Some(start) = body.find('[') {
-        if let Some(end) = body.rfind(']') {
+        if let Some(end) = body.rfind(']').filter(|&end| end > start) {
             return Some(clean_mermaid_label(&body[start + 1..end]));
         }
     }
@@ -1823,7 +2010,7 @@ struct ClassPosition {
     height: f32,
 }
 
-fn render_mermaid_class(source: &str) -> String {
+fn render_mermaid_class(source: &str, output: &mut impl fmt::Write) -> fmt::Result {
     let mut classes = Vec::new();
     let mut relations = Vec::new();
     let mut namespaces: Vec<String> = Vec::new();
@@ -1854,7 +2041,11 @@ fn render_mermaid_class(source: &str) -> String {
             let namespace = if namespaces.is_empty() || namespace.contains('.') {
                 namespace
             } else {
-                format!("{}.{}", namespaces.join("."), namespace)
+                format!(
+                    "{}.{}",
+                    namespaces.last().expect("namespace stack is nonempty"),
+                    namespace
+                )
             };
             namespaces.push(namespace);
             continue;
@@ -1892,7 +2083,7 @@ fn render_mermaid_class(source: &str) -> String {
     }
 
     if classes.is_empty() {
-        return render_mermaid_summary("Class diagram", "class", source);
+        return render_mermaid_summary("Class diagram", "class", source, output);
     }
 
     let groups = class_groups(&classes);
@@ -1904,13 +2095,14 @@ fn render_mermaid_class(source: &str) -> String {
         .fold(220.0, f32::max)
         + 28.0;
     let marker_id = mermaid_marker_id(source);
-    let mut svg = format!(
+    let svg = output;
+    write!(svg,
         "<div class=\"dm-mermaid-chart dm-mermaid-class\" role=\"img\" aria-label=\"Rendered Mermaid class diagram\"><div class=\"dm-mermaid-chart-title\">Mermaid Class diagram</div><svg viewBox=\"0 0 760 {height:.0}\" aria-hidden=\"true\"><defs><marker id=\"{marker_id}\" markerWidth=\"10\" markerHeight=\"10\" refX=\"8\" refY=\"3\" orient=\"auto\"><path d=\"M0,0 L0,6 L9,3 z\" class=\"dm-mermaid-arrow\" /></marker></defs>"
-    );
+    )?;
 
     for group in &group_layouts {
         if let Some(namespace) = &group.namespace {
-            svg.push_str(&format!(
+            write!(svg,
                 "<g class=\"dm-class-namespace\"><rect x=\"{:.1}\" y=\"{:.1}\" width=\"{:.1}\" height=\"{:.1}\" /><text x=\"{:.1}\" y=\"{:.1}\" text-anchor=\"middle\">{}</text></g>",
                 group.x,
                 group.y,
@@ -1918,8 +2110,8 @@ fn render_mermaid_class(source: &str) -> String {
                 group.height,
                 group.x + group.width / 2.0,
                 group.y + 28.0,
-                escape_html(namespace)
-            ));
+                Escaped(namespace)
+            )?;
         }
     }
 
@@ -1943,16 +2135,16 @@ fn render_mermaid_class(source: &str) -> String {
         let label_x = (start_x + end_x) / 2.0;
         let label_y = (start_y + end_y) / 2.0 - 8.0;
 
-        svg.push_str(&format!(
+        write!(svg,
             "<path class=\"dm-class-relation\" d=\"M {start_x:.1} {start_y:.1} C {start_x:.1} {:.1}, {end_x:.1} {:.1}, {end_x:.1} {end_y:.1}\" marker-end=\"url(#{marker_id})\" />",
             start_y + control_offset,
             end_y - control_offset
-        ));
+        )?;
         if let Some(label) = &relation.label {
-            svg.push_str(&format!(
+            write!(svg,
                 "<text class=\"dm-class-relation-label\" x=\"{label_x:.1}\" y=\"{label_y:.1}\" text-anchor=\"middle\">{}</text>",
-                escape_html(label)
-            ));
+                Escaped(label)
+            )?;
         }
     }
 
@@ -1962,32 +2154,33 @@ fn render_mermaid_class(source: &str) -> String {
         let header_bottom = top + 42.0;
         let members_separator = header_bottom + 28.0;
         let members_top = header_bottom + 54.0;
-        svg.push_str(&format!(
+        write!(svg,
             "<g class=\"dm-class-node\" data-class-id=\"{}\"><rect x=\"{left:.1}\" y=\"{top:.1}\" width=\"{:.1}\" height=\"{:.1}\" /><text class=\"dm-class-name\" x=\"{:.1}\" y=\"{:.1}\" text-anchor=\"middle\">{}</text><line x1=\"{left:.1}\" y1=\"{header_bottom:.1}\" x2=\"{:.1}\" y2=\"{header_bottom:.1}\" /><line x1=\"{left:.1}\" y1=\"{:.1}\" x2=\"{:.1}\" y2=\"{:.1}\" />",
-            escape_attribute(&position.id),
+            Escaped(&position.id),
             position.width,
             position.height,
             position.x,
             top + 27.0,
-            escape_html(&position.label),
+            Escaped(&position.label),
             left + position.width,
             members_separator,
             left + position.width,
             members_separator
-        ));
+        )?;
         for (index, member) in position.members.iter().enumerate() {
-            svg.push_str(&format!(
+            write!(
+                svg,
                 "<text class=\"dm-class-member\" x=\"{:.1}\" y=\"{:.1}\">{}</text>",
                 left + 16.0,
                 members_top + index as f32 * 20.0,
-                escape_html(member)
-            ));
+                Escaped(member)
+            )?;
         }
-        svg.push_str("</g>");
+        svg.write_str("</g>")?;
     }
 
-    svg.push_str("</svg></div>");
-    svg
+    svg.write_str("</svg></div>")?;
+    Ok(())
 }
 
 fn parse_class_namespace_start(line: &str) -> Option<String> {
@@ -1998,7 +2191,7 @@ fn parse_class_namespace_start(line: &str) -> Option<String> {
     }
 
     if let Some(start) = body.find('[') {
-        if let Some(end) = body.rfind(']') {
+        if let Some(end) = body.rfind(']').filter(|&end| end > start) {
             return Some(clean_mermaid_label(&body[start + 1..end]));
         }
     }
@@ -2048,7 +2241,7 @@ fn parse_class_relation(line: &str) -> Option<ClassRelation> {
 fn parse_class_reference(value: &str) -> (String, String) {
     let value = value.trim().trim_end_matches(';').trim();
     if let Some(start) = value.find('[') {
-        if let Some(end) = value.rfind(']') {
+        if let Some(end) = value.rfind(']').filter(|&end| end > start) {
             let id = clean_class_id(&value[..start]);
             let label = clean_mermaid_label(&value[start + 1..end]);
             return (id, label);
@@ -2217,7 +2410,7 @@ struct StateTransition {
     label: Option<String>,
 }
 
-fn render_mermaid_state(source: &str) -> String {
+fn render_mermaid_state(source: &str, output: &mut impl fmt::Write) -> fmt::Result {
     let mut states = Vec::new();
     let mut state_labels: Vec<(String, String)> = Vec::new();
     let mut transitions = Vec::new();
@@ -2256,7 +2449,7 @@ fn render_mermaid_state(source: &str) -> String {
     }
 
     if states.is_empty() {
-        return render_mermaid_summary("State diagram", "state", source);
+        return render_mermaid_summary("State diagram", "state", source, output);
     }
 
     let width: f32 = 420.0;
@@ -2273,9 +2466,10 @@ fn render_mermaid_state(source: &str) -> String {
         .enumerate()
         .map(|(index, state)| (state.as_str(), x, first_y + index as f32 * step_y))
         .collect::<Vec<_>>();
-    let mut svg = format!(
+    let svg = output;
+    write!(svg,
         "<div class=\"dm-mermaid-chart dm-mermaid-state\" role=\"img\" aria-label=\"Rendered Mermaid state diagram\"><div class=\"dm-mermaid-chart-title\">Mermaid State diagram</div><svg viewBox=\"0 0 {width:.0} {height:.0}\" aria-hidden=\"true\"><defs><marker id=\"{marker_id}\" markerWidth=\"10\" markerHeight=\"10\" refX=\"8\" refY=\"3\" orient=\"auto\"><path d=\"M0,0 L0,6 L9,3 z\" class=\"dm-mermaid-arrow\" /></marker></defs>"
-    );
+    )?;
 
     for transition in &transitions {
         let (start_x, start_y) = if transition.from == "[*]" {
@@ -2301,47 +2495,48 @@ fn render_mermaid_state(source: &str) -> String {
 
         let vertical_gap = (end_y_line - start_y).abs();
         if (start_x - end_x).abs() < 0.1_f32 && start_y < end_y_line && vertical_gap <= step_y {
-            svg.push_str(&format!(
+            write!(svg,
                 "<line class=\"dm-state-transition\" x1=\"{start_x:.1}\" y1=\"{start_y:.1}\" x2=\"{end_x:.1}\" y2=\"{end_y_line:.1}\" marker-end=\"url(#{marker_id})\" />"
-            ));
+            )?;
         } else {
             let offset = if start_y <= end_y_line { -86.0 } else { 86.0 };
-            svg.push_str(&format!(
+            write!(svg,
                 "<path class=\"dm-state-transition\" d=\"M {start_x:.1} {start_y:.1} C {:.1} {start_y:.1}, {:.1} {end_y_line:.1}, {end_x:.1} {end_y_line:.1}\" marker-end=\"url(#{marker_id})\" />",
                 start_x + offset,
                 end_x + offset
-            ));
+            )?;
         }
         if let Some(label) = &transition.label {
-            svg.push_str(&format!(
+            write!(svg,
                 "<text class=\"dm-state-label\" x=\"{label_x:.1}\" y=\"{label_y:.1}\" text-anchor=\"middle\">{}</text>",
-                escape_html(label)
-            ));
+                Escaped(label)
+            )?;
         }
     }
 
-    svg.push_str(&format!(
+    write!(
+        svg,
         "<circle class=\"dm-state-start\" cx=\"{x:.1}\" cy=\"28\" r=\"10\" />"
-    ));
+    )?;
     for (state, x, y) in &positions {
         let label = state_labels
             .iter()
             .find(|(id, _)| id == state)
             .map(|(_, label)| label.as_str())
             .unwrap_or(state);
-        svg.push_str(&format!(
+        write!(svg,
             "<g class=\"dm-state-node\"><rect x=\"{:.1}\" y=\"{:.1}\" width=\"{state_width:.1}\" height=\"{state_height:.1}\" rx=\"8\" /><text x=\"{x:.1}\" y=\"{:.1}\" text-anchor=\"middle\">{}</text></g>",
             x - state_width / 2.0,
             y - state_height / 2.0,
             y + 6.0,
-            escape_html(label)
-        ));
+            Escaped(label)
+        )?;
     }
-    svg.push_str(&format!(
+    write!(svg,
         "<g class=\"dm-state-end\"><circle cx=\"{x:.1}\" cy=\"{end_y:.1}\" r=\"13\" /><circle cx=\"{x:.1}\" cy=\"{end_y:.1}\" r=\"7\" /></g>"
-    ));
-    svg.push_str("</svg></div>");
-    svg
+    )?;
+    svg.write_str("</svg></div>")?;
+    Ok(())
 }
 
 fn parse_state_definition(line: &str) -> Option<(String, String)> {
@@ -2392,7 +2587,7 @@ struct ErPosition {
     height: f32,
 }
 
-fn render_mermaid_er(source: &str) -> String {
+fn render_mermaid_er(source: &str, output: &mut impl fmt::Write) -> fmt::Result {
     let mut entities = Vec::new();
     let mut relations = Vec::new();
     let mut current_entity: Option<String> = None;
@@ -2426,14 +2621,15 @@ fn render_mermaid_er(source: &str) -> String {
     }
 
     if entities.is_empty() {
-        return render_mermaid_summary("Entity relationship", "er", source);
+        return render_mermaid_summary("Entity relationship", "er", source, output);
     }
 
     let positions = layout_er_positions(&entities);
     let marker_id = mermaid_marker_id(source);
-    let mut svg = format!(
+    let svg = output;
+    write!(svg,
         "<div class=\"dm-mermaid-chart dm-mermaid-er\" role=\"img\" aria-label=\"Rendered Mermaid entity relationship diagram\"><div class=\"dm-mermaid-chart-title\">Mermaid Entity relationship</div><svg viewBox=\"0 0 760 520\" aria-hidden=\"true\"><defs><marker id=\"{marker_id}\" markerWidth=\"10\" markerHeight=\"10\" refX=\"8\" refY=\"3\" orient=\"auto\"><path d=\"M0,0 L0,6 L9,3 z\" class=\"dm-mermaid-arrow\" /></marker></defs>"
-    );
+    )?;
 
     for relation in &relations {
         let Some(from) = positions
@@ -2456,41 +2652,42 @@ fn render_mermaid_er(source: &str) -> String {
         let to_label_x = start_x + (end_x - start_x) * 0.82;
         let to_label_y = start_y + (end_y - start_y) * 0.82 - 8.0;
 
-        svg.push_str(&format!(
+        write!(svg,
             "<path class=\"dm-er-relation\" d=\"M {start_x:.1} {start_y:.1} C {start_x:.1} {label_y:.1}, {end_x:.1} {label_y:.1}, {end_x:.1} {end_y:.1}\" marker-end=\"url(#{marker_id})\" />"
-        ));
-        svg.push_str(&format!(
+        )?;
+        write!(svg,
             "<text class=\"dm-er-cardinality\" x=\"{from_label_x:.1}\" y=\"{from_label_y:.1}\" text-anchor=\"middle\">{}</text><text class=\"dm-er-cardinality\" x=\"{to_label_x:.1}\" y=\"{to_label_y:.1}\" text-anchor=\"middle\">{}</text><text class=\"dm-er-label\" x=\"{label_x:.1}\" y=\"{label_y:.1}\" text-anchor=\"middle\">{}</text>",
-            escape_html(from_cardinality),
-            escape_html(to_cardinality),
-            escape_html(&relation.label)
-        ));
+            Escaped(from_cardinality),
+            Escaped(to_cardinality),
+            Escaped(&relation.label)
+        )?;
     }
 
     for position in positions {
         let left = position.x - position.width / 2.0;
         let top = position.y - position.height / 2.0;
-        svg.push_str(&format!(
+        write!(svg,
             "<g class=\"dm-er-entity\"><rect x=\"{left:.1}\" y=\"{top:.1}\" width=\"{:.1}\" height=\"{:.1}\" /><text class=\"dm-er-name\" x=\"{:.1}\" y=\"{:.1}\" text-anchor=\"middle\">{}</text>",
             position.width,
             position.height,
             position.x,
             top + 34.0,
-            escape_html(&position.id)
-        ));
+            Escaped(&position.id)
+        )?;
         for (index, attribute) in position.attributes.iter().enumerate() {
-            svg.push_str(&format!(
+            write!(
+                svg,
                 "<text class=\"dm-er-attribute\" x=\"{:.1}\" y=\"{:.1}\">{}</text>",
                 left + 16.0,
                 top + 64.0 + index as f32 * 18.0,
-                escape_html(attribute)
-            ));
+                Escaped(attribute)
+            )?;
         }
-        svg.push_str("</g>");
+        svg.write_str("</g>")?;
     }
 
-    svg.push_str("</svg></div>");
-    svg
+    svg.write_str("</svg></div>")?;
+    Ok(())
 }
 
 fn parse_er_entity_start(line: &str) -> Option<String> {
@@ -2595,7 +2792,7 @@ struct JourneyTask {
     actors: Vec<String>,
 }
 
-fn render_mermaid_journey(source: &str) -> String {
+fn render_mermaid_journey(source: &str, output: &mut impl fmt::Write) -> fmt::Result {
     let mut title = "User journey".to_owned();
     let mut current_section = String::new();
     let mut tasks = Vec::new();
@@ -2625,7 +2822,7 @@ fn render_mermaid_journey(source: &str) -> String {
     }
 
     if tasks.is_empty() {
-        return render_mermaid_summary("User journey", "journey", source);
+        return render_mermaid_summary("User journey", "journey", source, output);
     }
 
     if actors.is_empty() {
@@ -2639,24 +2836,25 @@ fn render_mermaid_journey(source: &str) -> String {
     let span = last_x - first_x;
     let task_width = (span / tasks.len().max(1) as f32 - 16.0).clamp(108.0, 178.0);
     let axis_y = 164.0;
-    let mut svg = format!(
+    let svg = output;
+    write!(svg,
         "<div class=\"dm-mermaid-chart dm-mermaid-journey\" role=\"img\" aria-label=\"Rendered Mermaid user journey\"><div class=\"dm-mermaid-chart-title\">Mermaid User journey</div><svg viewBox=\"0 0 {width:.0} {height:.0}\" aria-hidden=\"true\"><text class=\"dm-journey-title\" x=\"150\" y=\"34\">{}</text>",
-        escape_html(&title)
-    );
+        Escaped(&title)
+    )?;
 
     for (index, actor) in actors.iter().take(3).enumerate() {
         let y = 62.0 + index as f32 * 18.0;
-        svg.push_str(&format!(
+        write!(svg,
             "<circle class=\"dm-journey-actor-dot dm-journey-actor-{}\" cx=\"42\" cy=\"{y:.1}\" r=\"5\" /><text class=\"dm-journey-actor\" x=\"60\" y=\"{:.1}\">{}</text>",
             index + 1,
             y + 4.0,
-            escape_html(actor)
-        ));
+            Escaped(actor)
+        )?;
     }
 
-    svg.push_str(&format!(
+    write!(svg,
         "<line class=\"dm-journey-axis\" x1=\"120\" y1=\"{axis_y:.1}\" x2=\"722\" y2=\"{axis_y:.1}\" /><path class=\"dm-journey-axis-arrow\" d=\"M722 {axis_y:.1} l-14 -6 v12 z\" />"
-    ));
+    )?;
 
     let mut last_section = "";
     for (index, task) in tasks.iter().enumerate() {
@@ -2668,34 +2866,35 @@ fn render_mermaid_journey(source: &str) -> String {
         let box_y = 76.0;
         let score_y = 292.0 - task.score as f32 * 28.0;
         if task.section != last_section {
-            svg.push_str(&format!(
+            write!(
+                svg,
                 "<text class=\"dm-journey-section\" x=\"{:.1}\" y=\"62\">{}</text>",
                 x - task_width / 2.0,
-                escape_html(&task.section)
-            ));
+                Escaped(&task.section)
+            )?;
             last_section = &task.section;
         }
-        svg.push_str(&format!(
+        write!(svg,
             "<rect class=\"dm-journey-task\" x=\"{:.1}\" y=\"{box_y:.1}\" width=\"{task_width:.1}\" height=\"38\" rx=\"4\" /><text class=\"dm-journey-task-label\" x=\"{x:.1}\" y=\"{:.1}\" text-anchor=\"middle\">{}</text><line class=\"dm-journey-drop\" x1=\"{x:.1}\" y1=\"114\" x2=\"{x:.1}\" y2=\"276\" /><circle class=\"dm-journey-score\" cx=\"{x:.1}\" cy=\"{score_y:.1}\" r=\"13\" /><text class=\"dm-journey-score-text\" x=\"{x:.1}\" y=\"{:.1}\" text-anchor=\"middle\">{}</text>",
             x - task_width / 2.0,
             box_y + 24.0,
-            escape_html(&task.name),
+            Escaped(&task.name),
             score_y + 4.0,
             task.score
-        ));
+        )?;
         for (actor_index, actor) in task.actors.iter().take(3).enumerate() {
             if let Some(color_index) = actors.iter().position(|known| known == actor) {
-                svg.push_str(&format!(
+                write!(svg,
                     "<circle class=\"dm-journey-actor-dot dm-journey-actor-{}\" cx=\"{:.1}\" cy=\"76\" r=\"5\" />",
                     color_index + 1,
                     x - task_width / 2.0 + 10.0 + actor_index as f32 * 12.0
-                ));
+                )?;
             }
         }
     }
 
-    svg.push_str("</svg></div>");
-    svg
+    svg.write_str("</svg></div>")?;
+    Ok(())
 }
 
 fn parse_journey_task(line: &str, section: &str) -> Option<JourneyTask> {
@@ -2721,7 +2920,7 @@ fn parse_journey_task(line: &str, section: &str) -> Option<JourneyTask> {
     })
 }
 
-fn render_mermaid_sequence(source: &str) -> String {
+fn render_mermaid_sequence(source: &str, output: &mut impl fmt::Write) -> fmt::Result {
     let mut participants: Vec<String> = Vec::new();
     let mut messages: Vec<(String, String, String)> = Vec::new();
 
@@ -2769,21 +2968,22 @@ fn render_mermaid_sequence(source: &str) -> String {
     };
     let height = 110 + messages.len() as i32 * 42;
     let marker_id = mermaid_marker_id(source);
-    let mut svg = format!(
+    let svg = output;
+    write!(svg,
         "<div class=\"dm-mermaid-chart dm-mermaid-sequence\" role=\"img\" aria-label=\"Rendered Mermaid sequence diagram\"><div class=\"dm-mermaid-chart-title\">Mermaid sequence diagram</div><svg viewBox=\"0 0 {width:.0} {height}\" aria-hidden=\"true\"><defs><marker id=\"{marker_id}\" markerWidth=\"10\" markerHeight=\"10\" refX=\"8\" refY=\"3\" orient=\"auto\"><path d=\"M0,0 L0,6 L9,3 z\" class=\"dm-mermaid-arrow\" /></marker></defs>"
-    );
+    )?;
 
     for (index, participant) in participants.iter().enumerate() {
         let x = 80.0 + lane_gap * index as f32;
-        svg.push_str(&format!(
+        write!(svg,
             "<g class=\"dm-sequence-lane\"><rect x=\"{:.1}\" y=\"18\" width=\"118\" height=\"34\" rx=\"8\" /><text x=\"{:.1}\" y=\"40\" text-anchor=\"middle\">{}</text><line x1=\"{:.1}\" y1=\"54\" x2=\"{:.1}\" y2=\"{}\" /></g>",
             x - 59.0,
             x,
-            escape_html(participant),
+            Escaped(participant),
             x,
             x,
             height - 20
-        ));
+        )?;
     }
 
     for (index, (from, to, label)) in messages.iter().enumerate() {
@@ -2803,18 +3003,18 @@ fn render_mermaid_sequence(source: &str) -> String {
         let from_x = 80.0 + lane_gap * from_index as f32;
         let to_x = 80.0 + lane_gap * to_index as f32;
         let label_x = (from_x + to_x) / 2.0;
-        svg.push_str(&format!(
+        write!(svg,
             "<g class=\"dm-sequence-message\"><line x1=\"{from_x:.1}\" y1=\"{y:.1}\" x2=\"{to_x:.1}\" y2=\"{y:.1}\" marker-end=\"url(#{marker_id})\" /><text x=\"{label_x:.1}\" y=\"{:.1}\" text-anchor=\"middle\">{}</text></g>",
             y - 8.0,
-            escape_html(label)
-        ));
+            Escaped(label)
+        )?;
     }
 
-    svg.push_str("</svg></div>");
-    svg
+    svg.write_str("</svg></div>")?;
+    Ok(())
 }
 
-fn render_mermaid_pie(source: &str) -> String {
+fn render_mermaid_pie(source: &str, output: &mut impl fmt::Write) -> fmt::Result {
     let slices = source
         .lines()
         .filter_map(|line| {
@@ -2829,36 +3029,37 @@ fn render_mermaid_pie(source: &str) -> String {
         .collect::<Vec<_>>();
 
     if slices.is_empty() {
-        return render_mermaid_summary("Pie chart", "pie", source);
+        return render_mermaid_summary("Pie chart", "pie", source, output);
     }
 
     let total = slices.iter().map(|(_, value)| value).sum::<f32>().max(1.0);
+    let html = output;
+    html.write_str("<div class=\"dm-mermaid-chart dm-mermaid-pie\" role=\"img\" aria-label=\"Rendered Mermaid pie chart\"><div class=\"dm-mermaid-chart-title\">Mermaid pie chart</div><div class=\"dm-mermaid-pie-layout\"><div class=\"dm-mermaid-pie-graphic\" style=\"background: conic-gradient(")?;
     let mut start = 0.0;
-    let mut gradient_parts = Vec::new();
     for (index, (_, value)) in slices.iter().enumerate() {
         let end = start + (*value / total) * 100.0;
-        gradient_parts.push(format!(
+        if index != 0 {
+            html.write_str(", ")?;
+        }
+        write!(
+            html,
             "var(--dm-mermaid-slice-{}) {start:.1}% {end:.1}%",
             index % 6 + 1
-        ));
+        )?;
         start = end;
     }
-
-    let mut html = format!(
-        "<div class=\"dm-mermaid-chart dm-mermaid-pie\" role=\"img\" aria-label=\"Rendered Mermaid pie chart\"><div class=\"dm-mermaid-chart-title\">Mermaid pie chart</div><div class=\"dm-mermaid-pie-layout\"><div class=\"dm-mermaid-pie-graphic\" style=\"background: conic-gradient({})\"></div><ul>",
-        gradient_parts.join(", ")
-    );
+    html.write_str(")\"></div><ul>")?;
 
     for (index, (label, value)) in slices.iter().enumerate() {
-        html.push_str(&format!(
+        write!(html,
             "<li><span class=\"dm-mermaid-swatch dm-mermaid-swatch-{}\"></span><strong>{}</strong><span>{value:.0}</span></li>",
             index % 6 + 1,
-            escape_html(label)
-        ));
+            Escaped(label)
+        )?;
     }
 
-    html.push_str("</ul></div></div>");
-    html
+    html.write_str("</ul></div></div>")?;
+    Ok(())
 }
 
 struct GanttTask {
@@ -2869,7 +3070,7 @@ struct GanttTask {
     status: String,
 }
 
-fn render_mermaid_gantt(source: &str) -> String {
+fn render_mermaid_gantt(source: &str, output: &mut impl fmt::Write) -> fmt::Result {
     let mut title = "Gantt diagram".to_owned();
     let mut current_section = "Schedule".to_owned();
     let mut tasks = Vec::new();
@@ -2904,7 +3105,7 @@ fn render_mermaid_gantt(source: &str) -> String {
     }
 
     if tasks.is_empty() {
-        return render_mermaid_summary("Gantt chart", "gantt", source);
+        return render_mermaid_summary("Gantt chart", "gantt", source, output);
     }
 
     let min_day = tasks.iter().map(|task| task.start).min().unwrap_or(0);
@@ -2913,64 +3114,69 @@ fn render_mermaid_gantt(source: &str) -> String {
         .map(|task| task.end)
         .max()
         .unwrap_or(min_day + 1);
-    let total_days = (max_day - min_day).max(1) as f32;
+    let day_span = i64::from(max_day) - i64::from(min_day);
+    let total_days = day_span.max(1) as f32;
     let row_height = 36.0;
     let top = 54.0;
     let left = 118.0;
     let timeline_width = 590.0;
     let width = 760.0;
     let height = top + 44.0 + tasks.len() as f32 * row_height + 50.0;
-    let mut svg = format!(
+    let svg = output;
+    write!(svg,
         "<div class=\"dm-mermaid-chart dm-mermaid-gantt\" role=\"img\" aria-label=\"Rendered Mermaid gantt chart\"><div class=\"dm-mermaid-chart-title\">Mermaid gantt chart</div><svg viewBox=\"0 0 {width:.0} {height:.0}\" aria-hidden=\"true\"><text class=\"dm-gantt-title\" x=\"380\" y=\"28\" text-anchor=\"middle\">{}</text>",
-        escape_html(&title)
-    );
+        Escaped(&title)
+    )?;
 
     let axis_y = top + 20.0;
-    svg.push_str(&format!(
+    write!(svg,
         "<line class=\"dm-gantt-axis\" x1=\"{left:.1}\" y1=\"{axis_y:.1}\" x2=\"{:.1}\" y2=\"{axis_y:.1}\" />",
         left + timeline_width
-    ));
+    )?;
     for tick in 0..=5 {
         let ratio = tick as f32 / 5.0;
-        let day = min_day + ((max_day - min_day) as f32 * ratio).round() as i32;
+        let day = (i64::from(min_day) + (day_span as f32 * ratio).round() as i64)
+            .clamp(i64::from(min_day), i64::from(max_day)) as i32;
         let x = left + timeline_width * ratio;
-        svg.push_str(&format!(
+        write!(svg,
             "<line class=\"dm-gantt-tick\" x1=\"{x:.1}\" y1=\"{:.1}\" x2=\"{x:.1}\" y2=\"{:.1}\" /><text class=\"dm-gantt-date\" x=\"{x:.1}\" y=\"{:.1}\" text-anchor=\"middle\">{}</text>",
             top + 4.0,
             top + 32.0 + tasks.len() as f32 * row_height,
             top + 48.0 + tasks.len() as f32 * row_height,
-            escape_html(&format_ymd(day))
-        ));
+            Escaped(&format_ymd(day))
+        )?;
     }
 
     let mut last_section = "";
     for (index, task) in tasks.iter().enumerate() {
         let y = top + 42.0 + index as f32 * row_height;
         if task.section != last_section {
-            svg.push_str(&format!(
+            write!(svg,
                 "<rect class=\"dm-gantt-section-band\" x=\"10\" y=\"{:.1}\" width=\"730\" height=\"{row_height:.1}\" /><text class=\"dm-gantt-section\" x=\"22\" y=\"{:.1}\">{}</text>",
                 y - 16.0,
                 y + 7.0,
-                escape_html(&task.section)
-            ));
+                Escaped(&task.section)
+            )?;
             last_section = &task.section;
         }
 
-        let start_x = left + ((task.start - min_day) as f32 / total_days) * timeline_width;
-        let end_x = left + ((task.end - min_day) as f32 / total_days) * timeline_width;
+        let start_x = left
+            + ((i64::from(task.start) - i64::from(min_day)) as f32 / total_days) * timeline_width;
+        let end_x = left
+            + ((i64::from(task.end) - i64::from(min_day)) as f32 / total_days) * timeline_width;
         let bar_width = (end_x - start_x).max(16.0);
-        svg.push_str(&format!(
+        write!(svg,
             "<rect class=\"dm-gantt-bar dm-gantt-bar-{}\" x=\"{start_x:.1}\" y=\"{:.1}\" width=\"{bar_width:.1}\" height=\"14\" rx=\"3\" /><text class=\"dm-gantt-task\" x=\"{:.1}\" y=\"{:.1}\" text-anchor=\"middle\">{}</text>",
-            escape_attribute(&task.status),
+            Escaped(&task.status),
             y - 7.0,
             start_x + bar_width / 2.0,
             y + 4.0,
-            escape_html(&task.name)
-        ));
+            Escaped(&task.name)
+        )?;
     }
 
-    svg.push_str("</svg></div>");
-    svg
+    svg.write_str("</svg></div>")?;
+    Ok(())
 }
 
 fn parse_gantt_task(line: &str, section: &str) -> Option<GanttTask> {
@@ -2982,11 +3188,11 @@ fn parse_gantt_task(line: &str, section: &str) -> Option<GanttTask> {
         .get(start_index + 1)
         .and_then(|part| parse_ymd(part))
         .or_else(|| {
-            parts
-                .get(start_index + 1)
-                .and_then(|part| parse_duration_days(part).map(|duration| start + duration))
+            parts.get(start_index + 1).and_then(|part| {
+                parse_duration_days(part).and_then(|duration| start.checked_add(duration))
+            })
         })
-        .unwrap_or(start + 3);
+        .unwrap_or(start.checked_add(3)?);
     let status = parts
         .iter()
         .find(|part| matches!(**part, "done" | "active" | "crit" | "milestone"))
@@ -2998,7 +3204,7 @@ fn parse_gantt_task(line: &str, section: &str) -> Option<GanttTask> {
         section: section.to_owned(),
         name: clean_mermaid_label(name),
         start,
-        end: end.max(start + 1),
+        end: end.max(start.checked_add(1)?),
         status,
     })
 }
@@ -3022,51 +3228,37 @@ fn parse_ymd(value: &str) -> Option<i32> {
         return None;
     }
 
-    Some(days_before_year(year) + days_before_month(year, month) + day as i32 - 1)
+    i32::try_from(
+        days_before_year(year) + i64::from(days_before_month(year, month)) + i64::from(day) - 1,
+    )
+    .ok()
 }
 
 fn format_ymd(day_index: i32) -> String {
-    let mut year = 1970;
-    let mut day = day_index;
-
-    while day < 0 {
-        year -= 1;
-        day += days_in_year(year);
-    }
-    while day >= days_in_year(year) {
-        day -= days_in_year(year);
-        year += 1;
-    }
-
-    let mut month = 1;
-    while day >= days_in_month(year, month) as i32 {
-        day -= days_in_month(year, month) as i32;
-        month += 1;
-    }
-
-    format!("{year:04}-{month:02}-{:02}", day + 1)
+    // Gregorian 400-year eras avoid a loop controlled by an untrusted year.
+    let day = i64::from(day_index) + 719_468;
+    let era = day.div_euclid(146_097);
+    let day_of_era = day - era * 146_097;
+    let year_of_era =
+        (day_of_era - day_of_era / 1460 + day_of_era / 36_524 - day_of_era / 146_096) / 365;
+    let day_of_year = day_of_era - (365 * year_of_era + year_of_era / 4 - year_of_era / 100);
+    let month_index = (5 * day_of_year + 2) / 153;
+    let day = day_of_year - (153 * month_index + 2) / 5 + 1;
+    let month = month_index + if month_index < 10 { 3 } else { -9 };
+    let year = year_of_era + era * 400 + i64::from(month <= 2);
+    format!("{year:04}-{month:02}-{day:02}")
 }
 
-fn days_before_year(year: i32) -> i32 {
-    if year >= 1970 {
-        (1970..year).map(days_in_year).sum()
-    } else {
-        -(year..1970).map(days_in_year).sum::<i32>()
-    }
+fn days_before_year(year: i32) -> i64 {
+    let previous = i64::from(year) - 1;
+    365 * previous + previous.div_euclid(4) - previous.div_euclid(100) + previous.div_euclid(400)
+        - 719_162
 }
 
 fn days_before_month(year: i32, month: u32) -> i32 {
     (1..month)
         .map(|current_month| days_in_month(year, current_month) as i32)
         .sum()
-}
-
-fn days_in_year(year: i32) -> i32 {
-    if is_leap_year(year) {
-        366
-    } else {
-        365
-    }
 }
 
 fn days_in_month(year: i32, month: u32) -> u32 {
@@ -3088,7 +3280,7 @@ struct TimelineItem {
     events: Vec<String>,
 }
 
-fn render_mermaid_timeline(source: &str) -> String {
+fn render_mermaid_timeline(source: &str, output: &mut impl fmt::Write) -> fmt::Result {
     let mut title = "Timeline".to_owned();
     let mut items: Vec<TimelineItem> = Vec::new();
 
@@ -3122,7 +3314,7 @@ fn render_mermaid_timeline(source: &str) -> String {
     }
 
     if items.is_empty() {
-        return render_mermaid_summary("Timeline", "timeline", source);
+        return render_mermaid_summary("Timeline", "timeline", source, output);
     }
 
     let width: f32 = 760.0;
@@ -3130,10 +3322,11 @@ fn render_mermaid_timeline(source: &str) -> String {
     let start_x: f32 = 86.0;
     let end_x: f32 = 674.0;
     let axis_y: f32 = 144.0;
-    let mut svg = format!(
+    let svg = output;
+    write!(svg,
         "<div class=\"dm-mermaid-chart dm-mermaid-timeline\" role=\"img\" aria-label=\"Rendered Mermaid timeline\"><div class=\"dm-mermaid-chart-title\">Mermaid timeline</div><svg viewBox=\"0 0 {width:.0} {height:.0}\" aria-hidden=\"true\"><text class=\"dm-timeline-title\" x=\"380\" y=\"30\" text-anchor=\"middle\">{}</text><line class=\"dm-timeline-axis\" x1=\"{start_x:.1}\" y1=\"{axis_y:.1}\" x2=\"{end_x:.1}\" y2=\"{axis_y:.1}\" />",
-        escape_html(&title)
-    );
+        Escaped(&title)
+    )?;
 
     for (index, item) in items.iter().enumerate() {
         let x = if items.len() == 1 {
@@ -3141,21 +3334,20 @@ fn render_mermaid_timeline(source: &str) -> String {
         } else {
             start_x + (end_x - start_x) * index as f32 / (items.len() - 1) as f32
         };
-        let event_text = item.events.join(" / ");
         let box_y = if index % 2 == 0 { 54.0 } else { 178.0 };
         let stem_end = if index % 2 == 0 { box_y + 56.0 } else { box_y };
-        svg.push_str(&format!(
+        write!(svg,
             "<line class=\"dm-timeline-stem\" x1=\"{x:.1}\" y1=\"{axis_y:.1}\" x2=\"{x:.1}\" y2=\"{stem_end:.1}\" /><circle class=\"dm-timeline-point\" cx=\"{x:.1}\" cy=\"{axis_y:.1}\" r=\"8\" /><rect class=\"dm-timeline-event\" x=\"{:.1}\" y=\"{box_y:.1}\" width=\"170\" height=\"56\" rx=\"6\" /><text class=\"dm-timeline-period\" x=\"{x:.1}\" y=\"{:.1}\" text-anchor=\"middle\">{}</text><text class=\"dm-timeline-event-text\" x=\"{x:.1}\" y=\"{:.1}\" text-anchor=\"middle\">{}</text>",
             x - 85.0,
             box_y + 20.0,
-            escape_html(&item.period),
+            Escaped(&item.period),
             box_y + 40.0,
-            escape_html(&event_text)
-        ));
+            EscapedJoined(&item.events)
+        )?;
     }
 
-    svg.push_str("</svg></div>");
-    svg
+    svg.write_str("</svg></div>")?;
+    Ok(())
 }
 
 struct ZenUmlMessage {
@@ -3164,7 +3356,7 @@ struct ZenUmlMessage {
     label: String,
 }
 
-fn render_mermaid_zenuml(source: &str) -> String {
+fn render_mermaid_zenuml(source: &str, output: &mut impl fmt::Write) -> fmt::Result {
     let mut participants = Vec::new();
     let mut messages = Vec::new();
 
@@ -3181,7 +3373,7 @@ fn render_mermaid_zenuml(source: &str) -> String {
     }
 
     if messages.is_empty() || participants.is_empty() {
-        return render_mermaid_summary("ZenUML diagram", "zenuml", source);
+        return render_mermaid_summary("ZenUML diagram", "zenuml", source, output);
     }
 
     let width: f32 = 760.0;
@@ -3189,9 +3381,10 @@ fn render_mermaid_zenuml(source: &str) -> String {
     let row_gap: f32 = 52.0;
     let height = 112.0 + messages.len() as f32 * row_gap;
     let marker_id = mermaid_marker_id(source);
-    let mut svg = format!(
+    let svg = output;
+    write!(svg,
         "<div class=\"dm-mermaid-chart dm-mermaid-zenuml\" role=\"img\" aria-label=\"Rendered Mermaid ZenUML diagram\"><div class=\"dm-mermaid-chart-title\">Mermaid ZenUML diagram</div><svg viewBox=\"0 0 {width:.0} {height:.0}\" aria-hidden=\"true\"><defs><marker id=\"{marker_id}\" markerWidth=\"10\" markerHeight=\"10\" refX=\"8\" refY=\"3\" orient=\"auto\"><path d=\"M0,0 L0,6 L9,3 z\" class=\"dm-mermaid-arrow\" /></marker></defs>"
-    );
+    )?;
 
     let lane_step = if participants.len() == 1 {
         0.0
@@ -3212,14 +3405,14 @@ fn render_mermaid_zenuml(source: &str) -> String {
         .collect::<Vec<_>>();
 
     for (participant, x) in &positions {
-        svg.push_str(&format!(
+        write!(svg,
             "<g class=\"dm-zenuml-participant\"><rect x=\"{:.1}\" y=\"{lane_top:.1}\" width=\"128\" height=\"38\" rx=\"6\" /><text x=\"{x:.1}\" y=\"{:.1}\" text-anchor=\"middle\">{}</text><line x1=\"{x:.1}\" y1=\"{:.1}\" x2=\"{x:.1}\" y2=\"{:.1}\" /></g>",
             x - 64.0,
             lane_top + 24.0,
-            escape_html(participant),
+            Escaped(participant),
             lane_top + 38.0,
             height - 24.0
-        ));
+        )?;
     }
 
     for (index, message) in messages.iter().enumerate() {
@@ -3237,18 +3430,18 @@ fn render_mermaid_zenuml(source: &str) -> String {
             continue;
         };
         let direction = if from_x <= to_x { 1.0 } else { -1.0 };
-        svg.push_str(&format!(
+        write!(svg,
             "<line class=\"dm-zenuml-message\" x1=\"{:.1}\" y1=\"{y:.1}\" x2=\"{:.1}\" y2=\"{y:.1}\" marker-end=\"url(#{marker_id})\" /><text class=\"dm-zenuml-message-label\" x=\"{:.1}\" y=\"{:.1}\" text-anchor=\"middle\">{}</text>",
             from_x + direction * 64.0,
             to_x - direction * 64.0,
             (from_x + to_x) / 2.0,
             y - 8.0,
-            escape_html(&message.label)
-        ));
+            Escaped(&message.label)
+        )?;
     }
 
-    svg.push_str("</svg></div>");
-    svg
+    svg.write_str("</svg></div>")?;
+    Ok(())
 }
 
 fn parse_zenuml_message(line: &str) -> Option<ZenUmlMessage> {
@@ -3267,7 +3460,7 @@ struct SankeyLink {
     value: f32,
 }
 
-fn render_mermaid_sankey(source: &str) -> String {
+fn render_mermaid_sankey(source: &str, output: &mut impl fmt::Write) -> fmt::Result {
     let links = source
         .lines()
         .map(str::trim)
@@ -3276,7 +3469,7 @@ fn render_mermaid_sankey(source: &str) -> String {
         .collect::<Vec<_>>();
 
     if links.is_empty() {
-        return render_mermaid_summary("Sankey diagram", "sankey", source);
+        return render_mermaid_summary("Sankey diagram", "sankey", source, output);
     }
 
     let mut nodes = Vec::new();
@@ -3324,9 +3517,10 @@ fn render_mermaid_sankey(source: &str) -> String {
         positions.push((node.as_str(), x, y));
     }
 
-    let mut svg = format!(
+    let svg = output;
+    write!(svg,
         "<div class=\"dm-mermaid-chart dm-mermaid-sankey\" role=\"img\" aria-label=\"Rendered Mermaid Sankey diagram\"><div class=\"dm-mermaid-chart-title\">Mermaid Sankey diagram</div><svg viewBox=\"0 0 {width:.0} {height:.0}\" aria-hidden=\"true\">"
-    );
+    )?;
 
     for (index, link) in links.iter().enumerate() {
         let Some((_, from_x, from_y)) = positions.iter().find(|(node, _, _)| *node == link.from)
@@ -3337,28 +3531,28 @@ fn render_mermaid_sankey(source: &str) -> String {
             continue;
         };
         let stroke_width = 5.0 + (link.value / max_value) * 24.0;
-        svg.push_str(&format!(
+        write!(svg,
             "<path class=\"dm-sankey-link dm-sankey-link-{}\" d=\"M {:.1} {from_y:.1} C {:.1} {from_y:.1}, {:.1} {to_y:.1}, {:.1} {to_y:.1}\" style=\"stroke-width: {stroke_width:.1}\" />",
             index % 6 + 1,
             from_x + 64.0,
             from_x + 160.0,
             to_x - 160.0,
             to_x - 64.0
-        ));
+        )?;
     }
 
     for (node, x, y) in positions {
-        svg.push_str(&format!(
+        write!(svg,
             "<g class=\"dm-sankey-node\"><rect x=\"{:.1}\" y=\"{:.1}\" width=\"128\" height=\"38\" rx=\"5\" /><text x=\"{x:.1}\" y=\"{:.1}\" text-anchor=\"middle\">{}</text></g>",
             x - 64.0,
             y - 19.0,
             y + 5.0,
-            escape_html(node)
-        ));
+            Escaped(node)
+        )?;
     }
 
-    svg.push_str("</svg></div>");
-    svg
+    svg.write_str("</svg></div>")?;
+    Ok(())
 }
 
 fn parse_sankey_link(line: &str) -> Option<SankeyLink> {
@@ -3369,7 +3563,7 @@ fn parse_sankey_link(line: &str) -> Option<SankeyLink> {
     Some(SankeyLink { from, to, value })
 }
 
-fn render_mermaid_xy_chart(source: &str) -> String {
+fn render_mermaid_xy_chart(source: &str, output: &mut impl fmt::Write) -> fmt::Result {
     let mut title = "XY chart".to_owned();
     let mut labels = Vec::new();
     let mut values = Vec::new();
@@ -3403,7 +3597,7 @@ fn render_mermaid_xy_chart(source: &str) -> String {
     }
 
     if values.is_empty() {
-        return render_mermaid_summary("XY chart", "xy-chart", source);
+        return render_mermaid_summary("XY chart", "xy-chart", source, output);
     }
 
     if labels.is_empty() {
@@ -3421,47 +3615,48 @@ fn render_mermaid_xy_chart(source: &str) -> String {
     let chart_height: f32 = 210.0;
     let bar_slot = chart_width / values.len().max(1) as f32;
     let bar_width = (bar_slot * 0.56).clamp(24.0, 70.0);
-    let mut svg = format!(
+    let svg = output;
+    write!(svg,
         "<div class=\"dm-mermaid-chart dm-mermaid-xy\" role=\"img\" aria-label=\"Rendered Mermaid XY chart\"><div class=\"dm-mermaid-chart-title\">Mermaid XY chart</div><svg viewBox=\"0 0 {width:.0} {height:.0}\" aria-hidden=\"true\"><text class=\"dm-xy-title\" x=\"380\" y=\"28\" text-anchor=\"middle\">{}</text>",
-        escape_html(&title)
-    );
+        Escaped(&title)
+    )?;
 
     for tick in 0..=4 {
         let ratio = tick as f32 / 4.0;
         let y = top + chart_height - chart_height * ratio;
-        svg.push_str(&format!(
+        write!(svg,
             "<line class=\"dm-xy-grid\" x1=\"{left:.1}\" y1=\"{y:.1}\" x2=\"{:.1}\" y2=\"{y:.1}\" /><text class=\"dm-xy-tick\" x=\"{:.1}\" y=\"{:.1}\" text-anchor=\"end\">{:.0}</text>",
             left + chart_width,
             left - 10.0,
             y + 4.0,
             y_max * ratio
-        ));
+        )?;
     }
-    svg.push_str(&format!(
+    write!(svg,
         "<line class=\"dm-xy-axis\" x1=\"{left:.1}\" y1=\"{top:.1}\" x2=\"{left:.1}\" y2=\"{:.1}\" /><line class=\"dm-xy-axis\" x1=\"{left:.1}\" y1=\"{:.1}\" x2=\"{:.1}\" y2=\"{:.1}\" />",
         top + chart_height,
         top + chart_height,
         left + chart_width,
         top + chart_height
-    ));
+    )?;
 
     for (index, value) in values.iter().enumerate() {
         let x = left + bar_slot * index as f32 + bar_slot / 2.0;
         let bar_height = ((*value / y_max).clamp(0.0, 1.0)) * chart_height;
         let y = top + chart_height - bar_height;
         let label = labels.get(index).map(String::as_str).unwrap_or("");
-        svg.push_str(&format!(
+        write!(svg,
             "<rect class=\"dm-xy-bar dm-xy-bar-{}\" x=\"{:.1}\" y=\"{y:.1}\" width=\"{bar_width:.1}\" height=\"{bar_height:.1}\" rx=\"4\" /><text class=\"dm-xy-value\" x=\"{x:.1}\" y=\"{:.1}\" text-anchor=\"middle\">{value:.0}</text><text class=\"dm-xy-label\" x=\"{x:.1}\" y=\"{:.1}\" text-anchor=\"middle\">{}</text>",
             index % 6 + 1,
             x - bar_width / 2.0,
             y - 8.0,
             top + chart_height + 24.0,
-            escape_html(label)
-        ));
+            Escaped(label)
+        )?;
     }
 
-    svg.push_str("</svg></div>");
-    svg
+    svg.write_str("</svg></div>")?;
+    Ok(())
 }
 
 fn parse_bracketed_list(value: &str) -> Vec<String> {
@@ -3497,7 +3692,7 @@ struct BlockEdge {
     to: String,
 }
 
-fn render_mermaid_block(source: &str) -> String {
+fn render_mermaid_block(source: &str, output: &mut impl fmt::Write) -> fmt::Result {
     let mut nodes = Vec::new();
     let mut edges = Vec::new();
     let mut columns = 3_usize;
@@ -3531,7 +3726,7 @@ fn render_mermaid_block(source: &str) -> String {
     }
 
     if nodes.is_empty() {
-        return render_mermaid_summary("Block diagram", "block", source);
+        return render_mermaid_summary("Block diagram", "block", source, output);
     }
 
     let node_width: f32 = 156.0;
@@ -3551,9 +3746,10 @@ fn render_mermaid_block(source: &str) -> String {
             (node.id.as_str(), x, y)
         })
         .collect::<Vec<_>>();
-    let mut svg = format!(
+    let svg = output;
+    write!(svg,
         "<div class=\"dm-mermaid-chart dm-mermaid-block\" role=\"img\" aria-label=\"Rendered Mermaid block diagram\"><div class=\"dm-mermaid-chart-title\">Mermaid Block diagram</div><svg viewBox=\"0 0 {width:.0} {height:.0}\" aria-hidden=\"true\"><defs><marker id=\"{marker_id}\" markerWidth=\"10\" markerHeight=\"10\" refX=\"8\" refY=\"3\" orient=\"auto\"><path d=\"M0,0 L0,6 L9,3 z\" class=\"dm-mermaid-arrow\" /></marker></defs>"
-    );
+    )?;
 
     for edge in &edges {
         let Some((_, from_x, from_y)) = positions.iter().find(|(id, _, _)| *id == edge.from) else {
@@ -3566,24 +3762,24 @@ fn render_mermaid_block(source: &str) -> String {
             rect_edge_point(*from_x, *from_y, *to_x, *to_y, node_width, node_height);
         let (end_x, end_y) =
             rect_edge_point(*to_x, *to_y, *from_x, *from_y, node_width, node_height);
-        svg.push_str(&format!(
+        write!(svg,
             "<line class=\"dm-block-edge\" x1=\"{start_x:.1}\" y1=\"{start_y:.1}\" x2=\"{end_x:.1}\" y2=\"{end_y:.1}\" marker-end=\"url(#{marker_id})\" />"
-        ));
+        )?;
     }
 
     for (index, node) in nodes.iter().enumerate() {
         let (_, x, y) = positions[index];
-        svg.push_str(&format!(
+        write!(svg,
             "<g class=\"dm-block-node\"><rect x=\"{:.1}\" y=\"{:.1}\" width=\"{node_width:.1}\" height=\"{node_height:.1}\" rx=\"7\" /><text x=\"{x:.1}\" y=\"{:.1}\" text-anchor=\"middle\">{}</text></g>",
             x - node_width / 2.0,
             y - node_height / 2.0,
             y + 5.0,
-            escape_html(&node.label)
-        ));
+            Escaped(&node.label)
+        )?;
     }
 
-    svg.push_str("</svg></div>");
-    svg
+    svg.write_str("</svg></div>")?;
+    Ok(())
 }
 
 fn parse_block_nodes(line: &str) -> Vec<BlockNode> {
@@ -3648,7 +3844,7 @@ struct PacketField {
     label: String,
 }
 
-fn render_mermaid_packet(source: &str) -> String {
+fn render_mermaid_packet(source: &str, output: &mut impl fmt::Write) -> fmt::Result {
     let mut title = "Packet diagram".to_owned();
     let mut fields = Vec::new();
 
@@ -3668,7 +3864,7 @@ fn render_mermaid_packet(source: &str) -> String {
     }
 
     if fields.is_empty() {
-        return render_mermaid_summary("Packet diagram", "packet", source);
+        return render_mermaid_summary("Packet diagram", "packet", source, output);
     }
 
     let width: f32 = 760.0;
@@ -3682,16 +3878,18 @@ fn render_mermaid_packet(source: &str) -> String {
         .max()
         .unwrap_or(1)
         .max(1);
-    let mut svg = format!(
+    let svg = output;
+    write!(svg,
         "<div class=\"dm-mermaid-chart dm-mermaid-packet\" role=\"img\" aria-label=\"Rendered Mermaid packet diagram\"><div class=\"dm-mermaid-chart-title\">Mermaid Packet diagram</div><svg viewBox=\"0 0 {width:.0} 210\" aria-hidden=\"true\"><text class=\"dm-packet-title\" x=\"380\" y=\"32\" text-anchor=\"middle\">{}</text>",
-        escape_html(&title)
-    );
+        Escaped(&title)
+    )?;
 
     for field in &fields {
-        let x = left + (field.start as f32 / (max_bit + 1) as f32) * packet_width;
-        let end_x = left + ((field.end + 1) as f32 / (max_bit + 1) as f32) * packet_width;
+        let x = left + (field.start as f32 / (u64::from(max_bit) + 1) as f32) * packet_width;
+        let end_x = left
+            + ((u64::from(field.end) + 1) as f32 / (u64::from(max_bit) + 1) as f32) * packet_width;
         let field_width = (end_x - x).max(38.0);
-        svg.push_str(&format!(
+        write!(svg,
             "<g class=\"dm-packet-field\"><rect x=\"{x:.1}\" y=\"{top:.1}\" width=\"{field_width:.1}\" height=\"{field_height:.1}\" rx=\"3\" /><text class=\"dm-packet-range\" x=\"{:.1}\" y=\"{:.1}\" text-anchor=\"middle\">{}-{}</text><text class=\"dm-packet-label\" x=\"{:.1}\" y=\"{:.1}\" text-anchor=\"middle\">{}</text></g>",
             x + field_width / 2.0,
             top - 12.0,
@@ -3699,12 +3897,12 @@ fn render_mermaid_packet(source: &str) -> String {
             field.end,
             x + field_width / 2.0,
             top + 44.0,
-            escape_html(&field.label)
-        ));
+            Escaped(&field.label)
+        )?;
     }
 
-    svg.push_str("</svg></div>");
-    svg
+    svg.write_str("</svg></div>")?;
+    Ok(())
 }
 
 fn parse_packet_field(line: &str) -> Option<PacketField> {
@@ -3731,7 +3929,7 @@ struct KanbanColumn {
     cards: Vec<String>,
 }
 
-fn render_mermaid_kanban(source: &str) -> String {
+fn render_mermaid_kanban(source: &str, output: &mut impl fmt::Write) -> fmt::Result {
     let mut columns: Vec<KanbanColumn> = Vec::new();
     let mut current: Option<usize> = None;
 
@@ -3754,7 +3952,7 @@ fn render_mermaid_kanban(source: &str) -> String {
     }
 
     if columns.is_empty() {
-        return render_mermaid_summary("Kanban board", "kanban", source);
+        return render_mermaid_summary("Kanban board", "kanban", source, output);
     }
 
     let width: f32 = 760.0;
@@ -3769,34 +3967,35 @@ fn render_mermaid_kanban(source: &str) -> String {
     let board_width =
         columns.len() as f32 * column_width + (columns.len().saturating_sub(1)) as f32 * gap;
     let start_x = (width - board_width) / 2.0;
-    let mut svg = format!(
+    let svg = output;
+    write!(svg,
         "<div class=\"dm-mermaid-chart dm-mermaid-kanban\" role=\"img\" aria-label=\"Rendered Mermaid kanban board\"><div class=\"dm-mermaid-chart-title\">Mermaid Kanban board</div><svg viewBox=\"0 0 {width:.0} {height:.0}\" aria-hidden=\"true\">"
-    );
+    )?;
 
     for (index, column) in columns.iter().enumerate() {
         let x = start_x + index as f32 * (column_width + gap);
-        svg.push_str(&format!(
+        write!(svg,
             "<g class=\"dm-kanban-column\"><rect x=\"{x:.1}\" y=\"44\" width=\"{column_width:.1}\" height=\"{:.1}\" rx=\"8\" /><text class=\"dm-kanban-title\" x=\"{:.1}\" y=\"72\">{}</text>",
             height - 58.0,
             x + 14.0,
-            escape_html(&column.title)
-        ));
+            Escaped(&column.title)
+        )?;
         for (card_index, card) in column.cards.iter().enumerate() {
             let y = 92.0 + card_index as f32 * 52.0;
-            svg.push_str(&format!(
+            write!(svg,
                 "<rect class=\"dm-kanban-card\" x=\"{:.1}\" y=\"{y:.1}\" width=\"{:.1}\" height=\"38\" rx=\"6\" /><text class=\"dm-kanban-card-text\" x=\"{:.1}\" y=\"{:.1}\">{}</text>",
                 x + 12.0,
                 column_width - 24.0,
                 x + 24.0,
                 y + 24.0,
-                escape_html(card)
-            ));
+                Escaped(card)
+            )?;
         }
-        svg.push_str("</g>");
+        svg.write_str("</g>")?;
     }
 
-    svg.push_str("</svg></div>");
-    svg
+    svg.write_str("</svg></div>")?;
+    Ok(())
 }
 
 struct ArchitectureGroup {
@@ -3818,7 +4017,7 @@ struct ArchitectureEdge {
     label: String,
 }
 
-fn render_mermaid_architecture(source: &str) -> String {
+fn render_mermaid_architecture(source: &str, output: &mut impl fmt::Write) -> fmt::Result {
     let mut groups = Vec::new();
     let mut services = Vec::new();
     let mut edges = Vec::new();
@@ -3844,7 +4043,7 @@ fn render_mermaid_architecture(source: &str) -> String {
     }
 
     if services.is_empty() {
-        return render_mermaid_summary("Architecture diagram", "architecture", source);
+        return render_mermaid_summary("Architecture diagram", "architecture", source, output);
     }
 
     let width: f32 = 760.0;
@@ -3864,16 +4063,17 @@ fn render_mermaid_architecture(source: &str) -> String {
             (service.id.as_str(), x, 178.0)
         })
         .collect::<Vec<_>>();
-    let mut svg = format!(
+    let svg = output;
+    write!(svg,
         "<div class=\"dm-mermaid-chart dm-mermaid-architecture\" role=\"img\" aria-label=\"Rendered Mermaid architecture diagram\"><div class=\"dm-mermaid-chart-title\">Mermaid Architecture diagram</div><svg viewBox=\"0 0 {width:.0} {height:.0}\" aria-hidden=\"true\"><defs><marker id=\"{marker_id}\" markerWidth=\"10\" markerHeight=\"10\" refX=\"8\" refY=\"3\" orient=\"auto\"><path d=\"M0,0 L0,6 L9,3 z\" class=\"dm-mermaid-arrow\" /></marker></defs>"
-    );
+    )?;
 
     if let Some(group) = groups.first() {
-        svg.push_str(&format!(
+        write!(svg,
             "<g class=\"dm-architecture-group\"><rect x=\"76\" y=\"48\" width=\"608\" height=\"234\" rx=\"10\" /><text x=\"104\" y=\"78\">{} {}</text></g>",
-            escape_html(&architecture_icon(&group.icon)),
-            escape_html(&group.label)
-        ));
+            Escaped(&architecture_icon(&group.icon)),
+            Escaped(&group.label)
+        )?;
     }
 
     for edge in &edges {
@@ -3887,31 +4087,31 @@ fn render_mermaid_architecture(source: &str) -> String {
             rect_edge_point(*from_x, *from_y, *to_x, *to_y, node_width, node_height);
         let (end_x, end_y) =
             rect_edge_point(*to_x, *to_y, *from_x, *from_y, node_width, node_height);
-        svg.push_str(&format!(
+        write!(svg,
             "<line class=\"dm-architecture-edge\" x1=\"{start_x:.1}\" y1=\"{start_y:.1}\" x2=\"{end_x:.1}\" y2=\"{end_y:.1}\" marker-end=\"url(#{marker_id})\" /><text class=\"dm-architecture-edge-label\" x=\"{:.1}\" y=\"{:.1}\" text-anchor=\"middle\">{}</text>",
             (start_x + end_x) / 2.0,
             (start_y + end_y) / 2.0 - 8.0,
-            escape_html(&edge.label)
-        ));
+            Escaped(&edge.label)
+        )?;
     }
 
     for (index, service) in services.iter().enumerate() {
         let (_, x, y) = positions[index];
-        svg.push_str(&format!(
+        write!(svg,
             "<g class=\"dm-architecture-service\"><rect x=\"{:.1}\" y=\"{:.1}\" width=\"{node_width:.1}\" height=\"{node_height:.1}\" rx=\"8\" /><text class=\"dm-architecture-icon\" x=\"{x:.1}\" y=\"{:.1}\" text-anchor=\"middle\">{}</text><text class=\"dm-architecture-label\" x=\"{x:.1}\" y=\"{:.1}\" text-anchor=\"middle\">{}</text><text class=\"dm-architecture-service-kind\" x=\"{x:.1}\" y=\"{:.1}\" text-anchor=\"middle\">{}</text></g>",
             x - node_width / 2.0,
             y - node_height / 2.0,
             y - 12.0,
-            escape_html(&architecture_icon(&service.icon)),
+            Escaped(&architecture_icon(&service.icon)),
             y + 8.0,
-            escape_html(&service.label),
+            Escaped(&service.label),
             y + 30.0,
-            escape_html(service.group.as_deref().unwrap_or("service"))
-        ));
+            Escaped(service.group.as_deref().unwrap_or("service"))
+        )?;
     }
 
-    svg.push_str("</svg></div>");
-    svg
+    svg.write_str("</svg></div>")?;
+    Ok(())
 }
 
 fn parse_architecture_group(line: &str) -> Option<ArchitectureGroup> {
@@ -3975,7 +4175,7 @@ struct RadarCurve {
     values: Vec<f32>,
 }
 
-fn render_mermaid_radar(source: &str) -> String {
+fn render_mermaid_radar(source: &str, output: &mut impl fmt::Write) -> fmt::Result {
     let mut title = "Radar chart".to_owned();
     let mut axes = Vec::new();
     let mut curves = Vec::new();
@@ -4001,7 +4201,7 @@ fn render_mermaid_radar(source: &str) -> String {
     }
 
     if axes.is_empty() || curves.is_empty() {
-        return render_mermaid_summary("Radar chart", "radar", source);
+        return render_mermaid_summary("Radar chart", "radar", source, output);
     }
 
     let width: f32 = 760.0;
@@ -4014,17 +4214,19 @@ fn render_mermaid_radar(source: &str) -> String {
         .flat_map(|curve| curve.values.iter().copied())
         .fold(0.0_f32, f32::max)
         .max(1.0);
-    let mut svg = format!(
+    let svg = output;
+    write!(svg,
         "<div class=\"dm-mermaid-chart dm-mermaid-radar\" role=\"img\" aria-label=\"Rendered Mermaid radar chart\"><div class=\"dm-mermaid-chart-title\">Mermaid Radar chart</div><svg viewBox=\"0 0 {width:.0} {height:.0}\" aria-hidden=\"true\"><text class=\"dm-radar-title\" x=\"380\" y=\"32\" text-anchor=\"middle\">{}</text>",
-        escape_html(&title)
-    );
+        Escaped(&title)
+    )?;
 
     for level in 1..=4 {
         let points = radar_points(axes.len(), center_x, center_y, radius * level as f32 / 4.0);
-        svg.push_str(&format!(
+        write!(
+            svg,
             "<polygon class=\"dm-radar-grid\" points=\"{}\" />",
-            format_points(&points)
-        ));
+            FormattedPoints(&points)
+        )?;
     }
 
     for (index, axis) in axes.iter().enumerate() {
@@ -4034,10 +4236,10 @@ fn render_mermaid_radar(source: &str) -> String {
         let y = center_y + angle.sin() * radius;
         let label_x = center_x + angle.cos() * (radius + 32.0);
         let label_y = center_y + angle.sin() * (radius + 32.0);
-        svg.push_str(&format!(
+        write!(svg,
             "<line class=\"dm-radar-axis\" x1=\"{center_x:.1}\" y1=\"{center_y:.1}\" x2=\"{x:.1}\" y2=\"{y:.1}\" /><text class=\"dm-radar-axis-label\" x=\"{label_x:.1}\" y=\"{label_y:.1}\" text-anchor=\"middle\">{}</text>",
-            escape_html(axis)
-        ));
+            Escaped(axis)
+        )?;
     }
 
     for (curve_index, curve) in curves.iter().enumerate() {
@@ -4055,28 +4257,29 @@ fn render_mermaid_radar(source: &str) -> String {
                 )
             })
             .collect::<Vec<_>>();
-        svg.push_str(&format!(
+        write!(svg,
             "<polygon class=\"dm-radar-area dm-radar-area-{}\" points=\"{}\" /><polyline class=\"dm-radar-line dm-radar-line-{}\" points=\"{}\" />",
             curve_index % 6 + 1,
-            format_points(&points),
+            FormattedPoints(&points),
             curve_index % 6 + 1,
-            format_points(&points)
-        ));
-        svg.push_str(&format!(
+            FormattedPoints(&points)
+        )?;
+        write!(
+            svg,
             "<text class=\"dm-radar-legend\" x=\"612\" y=\"{}\">{}</text>",
             78 + curve_index * 22,
-            escape_html(&curve.label)
-        ));
+            Escaped(&curve.label)
+        )?;
     }
 
-    svg.push_str("</svg></div>");
-    svg
+    svg.write_str("</svg></div>")?;
+    Ok(())
 }
 
 fn parse_radar_curve(line: &str) -> Option<RadarCurve> {
     let value = line.strip_prefix("curve ")?;
     let open = value.find('{')?;
-    let close = value.rfind('}')?;
+    let close = value.rfind('}').filter(|&close| close > open)?;
     Some(RadarCurve {
         label: clean_mermaid_label(&value[..open]),
         values: value[open + 1..close]
@@ -4099,12 +4302,18 @@ fn radar_points(count: usize, center_x: f32, center_y: f32, radius: f32) -> Vec<
         .collect()
 }
 
-fn format_points(points: &[(f32, f32)]) -> String {
-    points
-        .iter()
-        .map(|(x, y)| format!("{x:.1},{y:.1}"))
-        .collect::<Vec<_>>()
-        .join(" ")
+struct FormattedPoints<'a>(&'a [(f32, f32)]);
+
+impl fmt::Display for FormattedPoints<'_> {
+    fn fmt(&self, output: &mut fmt::Formatter<'_>) -> fmt::Result {
+        for (index, (x, y)) in self.0.iter().enumerate() {
+            if index != 0 {
+                output.write_str(" ")?;
+            }
+            write!(output, "{x:.1},{y:.1}")?;
+        }
+        Ok(())
+    }
 }
 
 struct EventModelItem {
@@ -4112,7 +4321,7 @@ struct EventModelItem {
     label: String,
 }
 
-fn render_mermaid_event_modeling(source: &str) -> String {
+fn render_mermaid_event_modeling(source: &str, output: &mut impl fmt::Write) -> fmt::Result {
     let mut items = Vec::new();
     for line in source.lines().map(str::trim) {
         if line.is_empty() || line.starts_with("%%") || line.starts_with("eventModeling") {
@@ -4130,7 +4339,7 @@ fn render_mermaid_event_modeling(source: &str) -> String {
     }
 
     if items.is_empty() {
-        return render_mermaid_summary("Event modeling diagram", "event-modeling", source);
+        return render_mermaid_summary("Event modeling diagram", "event-modeling", source, output);
     }
 
     let width: f32 = 760.0;
@@ -4144,36 +4353,37 @@ fn render_mermaid_event_modeling(source: &str) -> String {
             (item.kind.as_str(), x, 128.0)
         })
         .collect::<Vec<_>>();
-    let mut svg = format!(
+    let svg = output;
+    write!(svg,
         "<div class=\"dm-mermaid-chart dm-mermaid-event-modeling\" role=\"img\" aria-label=\"Rendered Mermaid event modeling diagram\"><div class=\"dm-mermaid-chart-title\">Mermaid Event modeling diagram</div><svg viewBox=\"0 0 {width:.0} {height:.0}\" aria-hidden=\"true\"><defs><marker id=\"{marker_id}\" markerWidth=\"10\" markerHeight=\"10\" refX=\"8\" refY=\"3\" orient=\"auto\"><path d=\"M0,0 L0,6 L9,3 z\" class=\"dm-mermaid-arrow\" /></marker></defs>"
-    );
+    )?;
 
     for pair in positions.windows(2) {
         let (_, from_x, from_y) = pair[0];
         let (_, to_x, to_y) = pair[1];
-        svg.push_str(&format!(
+        write!(svg,
             "<line class=\"dm-event-modeling-edge\" x1=\"{:.1}\" y1=\"{from_y:.1}\" x2=\"{:.1}\" y2=\"{to_y:.1}\" marker-end=\"url(#{marker_id})\" />",
             from_x + 84.0,
             to_x - 84.0
-        ));
+        )?;
     }
 
     for (index, item) in items.iter().enumerate() {
         let (_, x, y) = positions[index];
-        svg.push_str(&format!(
+        write!(svg,
             "<g class=\"dm-event-modeling-node dm-event-modeling-{}\"><rect x=\"{:.1}\" y=\"{:.1}\" width=\"168\" height=\"76\" rx=\"8\" /><text class=\"dm-event-modeling-kind\" x=\"{x:.1}\" y=\"{:.1}\" text-anchor=\"middle\">{}</text><text class=\"dm-event-modeling-label\" x=\"{x:.1}\" y=\"{:.1}\" text-anchor=\"middle\">{}</text></g>",
-            escape_attribute(&item.kind),
+            Escaped(&item.kind),
             x - 84.0,
             y - 38.0,
             y - 10.0,
-            escape_html(&item.kind),
+            Escaped(&item.kind),
             y + 16.0,
-            escape_html(&item.label)
-        ));
+            Escaped(&item.label)
+        )?;
     }
 
-    svg.push_str("</svg></div>");
-    svg
+    svg.write_str("</svg></div>")?;
+    Ok(())
 }
 
 struct TreemapEntry {
@@ -4181,7 +4391,7 @@ struct TreemapEntry {
     value: f32,
 }
 
-fn render_mermaid_treemap(source: &str) -> String {
+fn render_mermaid_treemap(source: &str, output: &mut impl fmt::Write) -> fmt::Result {
     let mut root = "Treemap".to_owned();
     let mut entries = Vec::new();
 
@@ -4202,7 +4412,7 @@ fn render_mermaid_treemap(source: &str) -> String {
     }
 
     if entries.is_empty() {
-        return render_mermaid_summary("Treemap", "treemap", source);
+        return render_mermaid_summary("Treemap", "treemap", source, output);
     }
 
     let width: f32 = 760.0;
@@ -4217,10 +4427,11 @@ fn render_mermaid_treemap(source: &str) -> String {
         .sum::<f32>()
         .max(1.0);
     let mut cursor = left;
-    let mut svg = format!(
+    let svg = output;
+    write!(svg,
         "<div class=\"dm-mermaid-chart dm-mermaid-treemap\" role=\"img\" aria-label=\"Rendered Mermaid treemap\"><div class=\"dm-mermaid-chart-title\">Mermaid Treemap</div><svg viewBox=\"0 0 {width:.0} {height:.0}\" aria-hidden=\"true\"><text class=\"dm-treemap-title\" x=\"380\" y=\"34\" text-anchor=\"middle\">{}</text><rect class=\"dm-treemap-root\" x=\"{left:.1}\" y=\"{top:.1}\" width=\"{map_width:.1}\" height=\"{map_height:.1}\" rx=\"8\" />",
-        escape_html(&root)
-    );
+        Escaped(&root)
+    )?;
 
     for (index, entry) in entries.iter().enumerate() {
         let rect_width = if index == entries.len() - 1 {
@@ -4228,21 +4439,21 @@ fn render_mermaid_treemap(source: &str) -> String {
         } else {
             (map_width * entry.value / total).max(54.0)
         };
-        svg.push_str(&format!(
+        write!(svg,
             "<g class=\"dm-treemap-leaf dm-treemap-leaf-{}\"><rect x=\"{cursor:.1}\" y=\"{top:.1}\" width=\"{rect_width:.1}\" height=\"{map_height:.1}\" /><text x=\"{:.1}\" y=\"{:.1}\" text-anchor=\"middle\">{}</text><text x=\"{:.1}\" y=\"{:.1}\" text-anchor=\"middle\">{:.0}</text></g>",
             index % 6 + 1,
             cursor + rect_width / 2.0,
             top + 82.0,
-            escape_html(&entry.label),
+            Escaped(&entry.label),
             cursor + rect_width / 2.0,
             top + 106.0,
             entry.value
-        ));
+        )?;
         cursor += rect_width;
     }
 
-    svg.push_str("</svg></div>");
-    svg
+    svg.write_str("</svg></div>")?;
+    Ok(())
 }
 
 struct VennSet {
@@ -4250,7 +4461,7 @@ struct VennSet {
     value: f32,
 }
 
-fn render_mermaid_venn(source: &str) -> String {
+fn render_mermaid_venn(source: &str, output: &mut impl fmt::Write) -> fmt::Result {
     let mut sets = Vec::new();
     let mut intersection: Option<VennSet> = None;
 
@@ -4272,7 +4483,7 @@ fn render_mermaid_venn(source: &str) -> String {
     }
 
     if sets.len() < 2 {
-        return render_mermaid_summary("Venn diagram", "venn", source);
+        return render_mermaid_summary("Venn diagram", "venn", source, output);
     }
 
     let width: f32 = 760.0;
@@ -4283,22 +4494,23 @@ fn render_mermaid_venn(source: &str) -> String {
         label: format!("{} & {}", left.label, right.label),
         value: 0.0,
     });
-    let mut svg = format!(
+    let svg = output;
+    write!(svg,
         "<div class=\"dm-mermaid-chart dm-mermaid-venn\" role=\"img\" aria-label=\"Rendered Mermaid venn diagram\"><div class=\"dm-mermaid-chart-title\">Mermaid Venn diagram</div><svg viewBox=\"0 0 {width:.0} {height:.0}\" aria-hidden=\"true\">"
-    );
-    svg.push_str(
+    )?;
+    svg.write_str(
         "<circle class=\"dm-venn-circle dm-venn-left\" cx=\"330\" cy=\"160\" r=\"104\" /><circle class=\"dm-venn-circle dm-venn-right\" cx=\"430\" cy=\"160\" r=\"104\" />",
-    );
-    svg.push_str(&format!(
+    )?;
+    write!(svg,
         "<text class=\"dm-venn-label\" x=\"280\" y=\"152\" text-anchor=\"middle\">{}</text><text class=\"dm-venn-value\" x=\"280\" y=\"176\" text-anchor=\"middle\">{:.0}</text><text class=\"dm-venn-label\" x=\"480\" y=\"152\" text-anchor=\"middle\">{}</text><text class=\"dm-venn-value\" x=\"480\" y=\"176\" text-anchor=\"middle\">{:.0}</text><text class=\"dm-venn-label\" x=\"380\" y=\"152\" text-anchor=\"middle\">Both</text><text class=\"dm-venn-value\" x=\"380\" y=\"176\" text-anchor=\"middle\">{:.0}</text>",
-        escape_html(&left.label),
+        Escaped(&left.label),
         left.value,
-        escape_html(&right.label),
+        Escaped(&right.label),
         right.value,
         overlap.value
-    ));
-    svg.push_str("</svg></div>");
-    svg
+    )?;
+    svg.write_str("</svg></div>")?;
+    Ok(())
 }
 
 struct IshikawaBranch {
@@ -4306,7 +4518,7 @@ struct IshikawaBranch {
     causes: Vec<String>,
 }
 
-fn render_mermaid_ishikawa(source: &str) -> String {
+fn render_mermaid_ishikawa(source: &str, output: &mut impl fmt::Write) -> fmt::Result {
     let mut root = "Effect".to_owned();
     let mut branches = Vec::new();
     let mut current: Option<usize> = None;
@@ -4331,44 +4543,45 @@ fn render_mermaid_ishikawa(source: &str) -> String {
     }
 
     if branches.is_empty() {
-        return render_mermaid_summary("Ishikawa diagram", "ishikawa", source);
+        return render_mermaid_summary("Ishikawa diagram", "ishikawa", source, output);
     }
 
     let width: f32 = 760.0;
     let height: f32 = 340.0;
     let spine_y: f32 = 170.0;
-    let mut svg = format!(
+    let svg = output;
+    write!(svg,
         "<div class=\"dm-mermaid-chart dm-mermaid-ishikawa\" role=\"img\" aria-label=\"Rendered Mermaid ishikawa diagram\"><div class=\"dm-mermaid-chart-title\">Mermaid Ishikawa diagram</div><svg viewBox=\"0 0 {width:.0} {height:.0}\" aria-hidden=\"true\"><line class=\"dm-ishikawa-spine\" x1=\"96\" y1=\"{spine_y:.1}\" x2=\"592\" y2=\"{spine_y:.1}\" /><polygon class=\"dm-ishikawa-head\" points=\"592,138 704,170 592,202\" /><text class=\"dm-ishikawa-root\" x=\"638\" y=\"175\" text-anchor=\"middle\">{}</text>",
-        escape_html(&root)
-    );
+        Escaped(&root)
+    )?;
 
     for (index, branch) in branches.iter().enumerate() {
         let x = 150.0 + index as f32 * (380.0 / branches.len().max(1) as f32);
         let upward = index % 2 == 0;
         let end_y = if upward { 78.0 } else { 262.0 };
-        svg.push_str(&format!(
+        write!(svg,
             "<line class=\"dm-ishikawa-bone\" x1=\"{x:.1}\" y1=\"{spine_y:.1}\" x2=\"{:.1}\" y2=\"{end_y:.1}\" /><text class=\"dm-ishikawa-branch\" x=\"{:.1}\" y=\"{:.1}\" text-anchor=\"middle\">{}</text>",
             x + 82.0,
             x + 96.0,
             if upward { end_y - 10.0 } else { end_y + 22.0 },
-            escape_html(&branch.label)
-        ));
+            Escaped(&branch.label)
+        )?;
         for (cause_index, cause) in branch.causes.iter().take(2).enumerate() {
             let cause_y = if upward {
                 end_y + 24.0 + cause_index as f32 * 20.0
             } else {
                 end_y - 24.0 - cause_index as f32 * 20.0
             };
-            svg.push_str(&format!(
+            write!(svg,
                 "<text class=\"dm-ishikawa-cause\" x=\"{:.1}\" y=\"{cause_y:.1}\" text-anchor=\"middle\">{}</text>",
                 x + 86.0,
-                escape_html(cause)
-            ));
+                Escaped(cause)
+            )?;
         }
     }
 
-    svg.push_str("</svg></div>");
-    svg
+    svg.write_str("</svg></div>")?;
+    Ok(())
 }
 
 struct WardleyPoint {
@@ -4384,7 +4597,7 @@ struct WardleyEdge {
     to: String,
 }
 
-fn render_mermaid_wardley(source: &str) -> String {
+fn render_mermaid_wardley(source: &str, output: &mut impl fmt::Write) -> fmt::Result {
     let mut title = "Wardley map".to_owned();
     let mut points = Vec::new();
     let mut edges = Vec::new();
@@ -4410,7 +4623,7 @@ fn render_mermaid_wardley(source: &str) -> String {
     }
 
     if points.is_empty() {
-        return render_mermaid_summary("Wardley map", "wardley", source);
+        return render_mermaid_summary("Wardley map", "wardley", source, output);
     }
 
     let width: f32 = 760.0;
@@ -4430,13 +4643,14 @@ fn render_mermaid_wardley(source: &str) -> String {
             )
         })
         .collect::<Vec<_>>();
-    let mut svg = format!(
+    let svg = output;
+    write!(svg,
         "<div class=\"dm-mermaid-chart dm-mermaid-wardley\" role=\"img\" aria-label=\"Rendered Mermaid wardley map\"><div class=\"dm-mermaid-chart-title\">Mermaid Wardley map</div><svg viewBox=\"0 0 {width:.0} {height:.0}\" aria-hidden=\"true\"><defs><marker id=\"{marker_id}\" markerWidth=\"10\" markerHeight=\"10\" refX=\"8\" refY=\"3\" orient=\"auto\"><path d=\"M0,0 L0,6 L9,3 z\" class=\"dm-mermaid-arrow\" /></marker></defs><text class=\"dm-wardley-title\" x=\"380\" y=\"30\" text-anchor=\"middle\">{}</text><rect class=\"dm-wardley-plane\" x=\"{left:.1}\" y=\"{top:.1}\" width=\"{map_width:.1}\" height=\"{map_height:.1}\" /><text class=\"dm-wardley-axis\" x=\"{}\" y=\"318\" text-anchor=\"middle\">Genesis</text><text class=\"dm-wardley-axis\" x=\"{}\" y=\"318\" text-anchor=\"middle\">Commodity</text><text class=\"dm-wardley-axis\" x=\"40\" y=\"{}\" text-anchor=\"middle\">Visible</text>",
-        escape_html(&title),
+        Escaped(&title),
         left + 72.0,
         left + map_width - 72.0,
         top + 16.0
-    );
+    )?;
 
     for edge in &edges {
         let Some((_, from_x, from_y)) = positions.iter().find(|(id, _, _)| *id == edge.from) else {
@@ -4445,24 +4659,24 @@ fn render_mermaid_wardley(source: &str) -> String {
         let Some((_, to_x, to_y)) = positions.iter().find(|(id, _, _)| *id == edge.to) else {
             continue;
         };
-        svg.push_str(&format!(
+        write!(svg,
             "<line class=\"dm-wardley-edge\" x1=\"{from_x:.1}\" y1=\"{from_y:.1}\" x2=\"{to_x:.1}\" y2=\"{to_y:.1}\" marker-end=\"url(#{marker_id})\" />"
-        ));
+        )?;
     }
 
     for (index, point) in points.iter().enumerate() {
         let (_, x, y) = positions[index];
-        svg.push_str(&format!(
+        write!(svg,
             "<g class=\"dm-wardley-point dm-wardley-{}\"><circle cx=\"{x:.1}\" cy=\"{y:.1}\" r=\"8\" /><text x=\"{:.1}\" y=\"{:.1}\">{}</text></g>",
-            escape_attribute(&point.kind),
+            Escaped(&point.kind),
             x + 12.0,
             y - 10.0,
-            escape_html(&point.label)
-        ));
+            Escaped(&point.label)
+        )?;
     }
 
-    svg.push_str("</svg></div>");
-    svg
+    svg.write_str("</svg></div>")?;
+    Ok(())
 }
 
 fn parse_wardley_point(line: &str) -> Option<WardleyPoint> {
@@ -4494,7 +4708,7 @@ struct CynefinDomain {
     items: Vec<String>,
 }
 
-fn render_mermaid_cynefin(source: &str) -> String {
+fn render_mermaid_cynefin(source: &str, output: &mut impl fmt::Write) -> fmt::Result {
     let mut title = "Cynefin diagram".to_owned();
     let mut domains = Vec::new();
 
@@ -4525,7 +4739,7 @@ fn render_mermaid_cynefin(source: &str) -> String {
     }
 
     if domains.is_empty() {
-        return render_mermaid_summary("Cynefin diagram", "cynefin", source);
+        return render_mermaid_summary("Cynefin diagram", "cynefin", source, output);
     }
 
     let width: f32 = 760.0;
@@ -4536,10 +4750,11 @@ fn render_mermaid_cynefin(source: &str) -> String {
         ("Chaotic", 70.0, 190.0),
         ("Simple", 390.0, 190.0),
     ];
-    let mut svg = format!(
+    let svg = output;
+    write!(svg,
         "<div class=\"dm-mermaid-chart dm-mermaid-cynefin\" role=\"img\" aria-label=\"Rendered Mermaid cynefin diagram\"><div class=\"dm-mermaid-chart-title\">Mermaid Cynefin diagram</div><svg viewBox=\"0 0 {width:.0} {height:.0}\" aria-hidden=\"true\"><text class=\"dm-cynefin-title\" x=\"380\" y=\"34\" text-anchor=\"middle\">{}</text>",
-        escape_html(&title)
-    );
+        Escaped(&title)
+    )?;
     for (name, x, y) in cells {
         let domain = domains
             .iter()
@@ -4553,27 +4768,28 @@ fn render_mermaid_cynefin(source: &str) -> String {
                     None
                 }
             });
-        svg.push_str(&format!(
+        write!(svg,
             "<g class=\"dm-cynefin-domain\"><rect x=\"{x:.1}\" y=\"{y:.1}\" width=\"300\" height=\"96\" rx=\"8\" /><text class=\"dm-cynefin-domain-name\" x=\"{:.1}\" y=\"{:.1}\">{}</text>",
             x + 16.0,
             y + 26.0,
             name
-        ));
+        )?;
         if let Some(domain) = domain {
             for (index, item) in domain.items.iter().take(2).enumerate() {
-                svg.push_str(&format!(
+                write!(
+                    svg,
                     "<text class=\"dm-cynefin-item\" x=\"{:.1}\" y=\"{:.1}\">{}</text>",
                     x + 18.0,
                     y + 54.0 + index as f32 * 20.0,
-                    escape_html(item)
-                ));
+                    Escaped(item)
+                )?;
             }
         }
-        svg.push_str("</g>");
+        svg.write_str("</g>")?;
     }
-    svg.push_str("<circle class=\"dm-cynefin-center\" cx=\"380\" cy=\"180\" r=\"34\" /><text class=\"dm-cynefin-center-label\" x=\"380\" y=\"185\" text-anchor=\"middle\">Aporia</text>");
-    svg.push_str("</svg></div>");
-    svg
+    svg.write_str("<circle class=\"dm-cynefin-center\" cx=\"380\" cy=\"180\" r=\"34\" /><text class=\"dm-cynefin-center-label\" x=\"380\" y=\"185\" text-anchor=\"middle\">Aporia</text>")?;
+    svg.write_str("</svg></div>")?;
+    Ok(())
 }
 
 struct TreeViewNode {
@@ -4582,7 +4798,7 @@ struct TreeViewNode {
     is_dir: bool,
 }
 
-fn render_mermaid_treeview(source: &str) -> String {
+fn render_mermaid_treeview(source: &str, output: &mut impl fmt::Write) -> fmt::Result {
     let mut parsed = Vec::new();
 
     for line in source.lines() {
@@ -4598,7 +4814,7 @@ fn render_mermaid_treeview(source: &str) -> String {
     }
 
     if parsed.is_empty() {
-        return render_mermaid_summary("TreeView diagram", "treeview", source);
+        return render_mermaid_summary("TreeView diagram", "treeview", source, output);
     }
 
     let min_depth = parsed.iter().map(|(depth, _, _)| *depth).min().unwrap_or(0);
@@ -4618,31 +4834,33 @@ fn render_mermaid_treeview(source: &str) -> String {
     let width: f32 = 760.0;
     let row_height: f32 = 34.0;
     let height = 74.0 + nodes.len() as f32 * row_height;
-    let mut svg = format!(
+    let svg = output;
+    write!(svg,
         "<div class=\"dm-mermaid-chart dm-mermaid-treeview\" role=\"img\" aria-label=\"Rendered Mermaid treeview diagram\"><div class=\"dm-mermaid-chart-title\">Mermaid TreeView diagram</div><svg viewBox=\"0 0 {width:.0} {height:.0}\" aria-hidden=\"true\">"
-    );
+    )?;
     for (index, node) in nodes.iter().enumerate() {
         let y = 54.0 + index as f32 * row_height;
         let x = 80.0 + node.depth as f32 * 34.0;
         if node.depth > 0 {
-            svg.push_str(&format!(
+            write!(
+                svg,
                 "<path class=\"dm-treeview-connector\" d=\"M {:.1} {:.1} v17 h24\" />",
                 x - 22.0,
                 y - 22.0
-            ));
+            )?;
         }
-        svg.push_str(&format!(
+        write!(svg,
             "<rect class=\"dm-treeview-glyph{}\" x=\"{:.1}\" y=\"{:.1}\" width=\"14\" height=\"14\" rx=\"3\" /><text class=\"dm-treeview-label{}\" x=\"{:.1}\" y=\"{y:.1}\">{}</text>",
             if node.is_dir { " dm-treeview-glyph-dir" } else { "" },
             x,
             y - 12.0,
             if node.is_dir { " dm-treeview-dir" } else { "" },
             x + 24.0,
-            escape_html(&node.label)
-        ));
+            Escaped(&node.label)
+        )?;
     }
-    svg.push_str("</svg></div>");
-    svg
+    svg.write_str("</svg></div>")?;
+    Ok(())
 }
 
 struct MindmapNode {
@@ -4651,7 +4869,7 @@ struct MindmapNode {
     depth: usize,
 }
 
-fn render_mermaid_mindmap(source: &str) -> String {
+fn render_mermaid_mindmap(source: &str, output: &mut impl fmt::Write) -> fmt::Result {
     let mut parsed = Vec::new();
     for line in source.lines() {
         let trimmed = line.trim();
@@ -4667,7 +4885,7 @@ fn render_mermaid_mindmap(source: &str) -> String {
     }
 
     if parsed.is_empty() {
-        return render_mermaid_summary("Mindmap", "mindmap", source);
+        return render_mermaid_summary("Mindmap", "mindmap", source, output);
     }
 
     let min_depth = parsed.iter().map(|(depth, _)| *depth).min().unwrap_or(0);
@@ -4696,9 +4914,10 @@ fn render_mermaid_mindmap(source: &str) -> String {
     let max_depth = nodes.iter().map(|node| node.depth).max().unwrap_or(0);
     let height = 128.0 + max_depth as f32 * 96.0;
     let (width, positions) = layout_mindmap_nodes(&nodes, 760.0);
-    let mut svg = format!(
+    let svg = output;
+    write!(svg,
         "<div class=\"dm-mermaid-chart dm-mermaid-mindmap\" role=\"img\" aria-label=\"Rendered Mermaid mindmap\"><div class=\"dm-mermaid-chart-title\">Mermaid mindmap</div><svg viewBox=\"0 0 {width:.0} {height:.0}\" aria-hidden=\"true\">"
-    );
+    )?;
 
     for (index, node) in nodes.iter().enumerate().skip(1) {
         let Some(parent) = node.parent else {
@@ -4706,13 +4925,13 @@ fn render_mermaid_mindmap(source: &str) -> String {
         };
         let (from_x, from_y, from_w, from_h) = positions[parent];
         let (to_x, to_y, _, to_h) = positions[index];
-        svg.push_str(&format!(
+        write!(svg,
             "<path class=\"dm-mindmap-edge\" d=\"M {from_x:.1} {:.1} C {from_x:.1} {:.1}, {to_x:.1} {:.1}, {to_x:.1} {:.1}\" />",
             from_y + from_h / 2.0,
             from_y + from_h / 2.0 + 34.0,
             to_y - to_h / 2.0 - 34.0,
             to_y - to_h / 2.0
-        ));
+        )?;
     }
 
     for (index, node) in nodes.iter().enumerate() {
@@ -4724,16 +4943,16 @@ fn render_mermaid_mindmap(source: &str) -> String {
         } else {
             "dm-mindmap-node"
         };
-        svg.push_str(&format!(
+        write!(svg,
             "<g class=\"{class_name}\"><rect x=\"{left:.1}\" y=\"{top:.1}\" width=\"{node_width:.1}\" height=\"{node_height:.1}\" rx=\"{:.1}\" /><text x=\"{x:.1}\" y=\"{:.1}\" text-anchor=\"middle\">{}</text></g>",
             node_height / 2.0,
             y + 5.0,
-            escape_html(&node.label)
-        ));
+            Escaped(&node.label)
+        )?;
     }
 
-    svg.push_str("</svg></div>");
-    svg
+    svg.write_str("</svg></div>")?;
+    Ok(())
 }
 
 fn layout_mindmap_nodes(
@@ -4814,14 +5033,21 @@ fn measure_mindmap_subtree(
     subtree_widths: &mut [f32],
     gap: f32,
 ) -> f32 {
-    let children_width = children[index]
-        .iter()
-        .map(|&child| measure_mindmap_subtree(child, children, node_sizes, subtree_widths, gap))
-        .sum::<f32>()
-        + gap * children[index].len().saturating_sub(1) as f32;
-    let width = node_sizes[index].0.max(children_width);
-    subtree_widths[index] = width;
-    width
+    let mut stack = vec![(index, false)];
+    while let Some((node, measured_children)) = stack.pop() {
+        if measured_children {
+            let children_width = children[node]
+                .iter()
+                .map(|&child| subtree_widths[child])
+                .sum::<f32>()
+                + gap * children[node].len().saturating_sub(1) as f32;
+            subtree_widths[node] = node_sizes[node].0.max(children_width);
+        } else {
+            stack.push((node, true));
+            stack.extend(children[node].iter().rev().map(|&child| (child, false)));
+        }
+    }
+    subtree_widths[index]
 }
 
 #[allow(clippy::too_many_arguments)]
@@ -4835,33 +5061,26 @@ fn position_mindmap_subtree(
     positions: &mut [(f32, f32, f32, f32)],
     gap: f32,
 ) {
-    let subtree_width = subtree_widths[index];
-    let (node_width, node_height) = node_sizes[index];
-    positions[index] = (
-        left + subtree_width / 2.0,
-        58.0 + nodes[index].depth as f32 * 96.0,
-        node_width,
-        node_height,
-    );
-
-    let children_width = children[index]
-        .iter()
-        .map(|&child| subtree_widths[child])
-        .sum::<f32>()
-        + gap * children[index].len().saturating_sub(1) as f32;
-    let mut child_left = left + (subtree_width - children_width) / 2.0;
-    for &child in &children[index] {
-        position_mindmap_subtree(
-            child,
-            child_left,
-            nodes,
-            children,
-            node_sizes,
-            subtree_widths,
-            positions,
-            gap,
+    let mut stack = vec![(index, left)];
+    while let Some((node, left)) = stack.pop() {
+        let subtree_width = subtree_widths[node];
+        let (node_width, node_height) = node_sizes[node];
+        positions[node] = (
+            left + subtree_width / 2.0,
+            58.0 + nodes[node].depth as f32 * 96.0,
+            node_width,
+            node_height,
         );
-        child_left += subtree_widths[child] + gap;
+        let children_width = children[node]
+            .iter()
+            .map(|&child| subtree_widths[child])
+            .sum::<f32>()
+            + gap * children[node].len().saturating_sub(1) as f32;
+        let mut child_left = left + (subtree_width - children_width) / 2.0;
+        for &child in &children[node] {
+            stack.push((child, child_left));
+            child_left += subtree_widths[child] + gap;
+        }
     }
 }
 
@@ -4878,7 +5097,7 @@ fn clean_mermaid_label(label: &str) -> String {
         .to_owned()
 }
 
-fn render_mermaid_quadrant(source: &str) -> String {
+fn render_mermaid_quadrant(source: &str, output: &mut impl fmt::Write) -> fmt::Result {
     let mut points = Vec::new();
     for line in source.lines().map(str::trim) {
         if let Some((label, coords)) = line.split_once(':') {
@@ -4901,19 +5120,21 @@ fn render_mermaid_quadrant(source: &str) -> String {
         }
     }
 
-    let mut html = String::from(
+    let html = output;
+    html.write_str(
         "<div class=\"dm-mermaid-chart dm-mermaid-quadrant\" role=\"img\" aria-label=\"Rendered Mermaid quadrant chart\"><div class=\"dm-mermaid-chart-title\">Mermaid quadrant chart</div><div class=\"dm-mermaid-quadrant-plane\"><span>High impact</span><span>Low effort</span>",
-    );
+    )?;
     for (label, x, y) in points {
-        html.push_str(&format!(
+        write!(
+            html,
             "<b style=\"left: {:.1}%; bottom: {:.1}%\">{}</b>",
             x * 100.0,
             y * 100.0,
-            escape_html(&label)
-        ));
+            Escaped(&label)
+        )?;
     }
-    html.push_str("</div></div>");
-    html
+    html.write_str("</div></div>")?;
+    Ok(())
 }
 
 struct RequirementNode {
@@ -4928,7 +5149,7 @@ struct RequirementRelation {
     label: String,
 }
 
-fn render_mermaid_requirement(source: &str) -> String {
+fn render_mermaid_requirement(source: &str, output: &mut impl fmt::Write) -> fmt::Result {
     let mut nodes = Vec::new();
     let mut relations = Vec::new();
     let mut current: Option<RequirementNode> = None;
@@ -4979,7 +5200,7 @@ fn render_mermaid_requirement(source: &str) -> String {
     }
 
     if nodes.is_empty() {
-        return render_mermaid_summary("Requirement diagram", "requirement", source);
+        return render_mermaid_summary("Requirement diagram", "requirement", source, output);
     }
 
     let node_width: f32 = 244.0;
@@ -4999,9 +5220,10 @@ fn render_mermaid_requirement(source: &str) -> String {
         positions.push((node.name.as_str(), x, y));
     }
 
-    let mut svg = format!(
+    let svg = output;
+    write!(svg,
         "<div class=\"dm-mermaid-chart dm-mermaid-requirement\" role=\"img\" aria-label=\"Rendered Mermaid requirement diagram\"><div class=\"dm-mermaid-chart-title\">Mermaid Requirement diagram</div><svg viewBox=\"0 0 {width:.0} {height:.0}\" aria-hidden=\"true\"><defs><marker id=\"{marker_id}\" markerWidth=\"10\" markerHeight=\"10\" refX=\"8\" refY=\"3\" orient=\"auto\"><path d=\"M0,0 L0,6 L9,3 z\" class=\"dm-mermaid-arrow\" /></marker></defs>"
-    );
+    )?;
 
     for relation in &relations {
         let Some((_, from_x, from_y)) = positions.iter().find(|(id, _, _)| *id == relation.from)
@@ -5015,44 +5237,44 @@ fn render_mermaid_requirement(source: &str) -> String {
             rect_edge_point(*from_x, *from_y, *to_x, *to_y, node_width, node_height);
         let (end_x, end_y) =
             rect_edge_point(*to_x, *to_y, *from_x, *from_y, node_width, node_height);
-        svg.push_str(&format!(
+        write!(svg,
             "<path class=\"dm-requirement-relation\" d=\"M {start_x:.1} {start_y:.1} C {start_x:.1} {:.1}, {end_x:.1} {:.1}, {end_x:.1} {end_y:.1}\" marker-end=\"url(#{marker_id})\" /><text class=\"dm-requirement-relation-label\" x=\"{:.1}\" y=\"{:.1}\" text-anchor=\"middle\">{}</text>",
             (start_y + end_y) / 2.0,
             (start_y + end_y) / 2.0,
             (start_x + end_x) / 2.0,
             (start_y + end_y) / 2.0 - 8.0,
-            escape_html(&relation.label)
-        ));
+            Escaped(&relation.label)
+        )?;
     }
 
     for (index, node) in nodes.iter().enumerate() {
         let (_, x, y) = positions[index];
         let left = x - node_width / 2.0;
         let top = y - node_height / 2.0;
-        svg.push_str(&format!(
+        write!(svg,
             "<g class=\"dm-requirement-node\"><rect x=\"{left:.1}\" y=\"{top:.1}\" width=\"{node_width:.1}\" height=\"{node_height:.1}\" rx=\"4\" /><text class=\"dm-requirement-kind\" x=\"{x:.1}\" y=\"{:.1}\" text-anchor=\"middle\">&lt;&lt;{}&gt;&gt;</text><text class=\"dm-requirement-name\" x=\"{x:.1}\" y=\"{:.1}\" text-anchor=\"middle\">{}</text><line x1=\"{left:.1}\" y1=\"{:.1}\" x2=\"{:.1}\" y2=\"{:.1}\" />",
             top + 24.0,
-            escape_html(&node.kind),
+            Escaped(&node.kind),
             top + 50.0,
-            escape_html(&node.name),
+            Escaped(&node.name),
             top + 66.0,
             left + node_width,
             top + 66.0
-        ));
+        )?;
         for (field_index, (key, value)) in node.fields.iter().take(4).enumerate() {
-            svg.push_str(&format!(
+            write!(svg,
                 "<text class=\"dm-requirement-field\" x=\"{:.1}\" y=\"{:.1}\"><tspan class=\"dm-requirement-field-key\">{}:</tspan> {}</text>",
                 left + 16.0,
                 top + 90.0 + field_index as f32 * 18.0,
-                escape_html(key),
-                escape_html(value)
-            ));
+                Escaped(key),
+                Escaped(value)
+            )?;
         }
-        svg.push_str("</g>");
+        svg.write_str("</g>")?;
     }
 
-    svg.push_str("</svg></div>");
-    svg
+    svg.write_str("</svg></div>")?;
+    Ok(())
 }
 
 fn parse_requirement_relation(line: &str) -> Option<RequirementRelation> {
@@ -5078,7 +5300,7 @@ struct GitGraphBranchPoint {
     index: usize,
 }
 
-fn render_mermaid_git_graph(source: &str) -> String {
+fn render_mermaid_git_graph(source: &str, output: &mut impl fmt::Write) -> fmt::Result {
     let mut branches = vec!["main".to_owned()];
     let mut current_branch = "main".to_owned();
     let mut commits = Vec::new();
@@ -5141,7 +5363,7 @@ fn render_mermaid_git_graph(source: &str) -> String {
     }
 
     if commits.is_empty() {
-        return render_mermaid_summary("Git graph", "git", source);
+        return render_mermaid_summary("Git graph", "git", source, output);
     }
 
     let width: f32 = 760.0;
@@ -5151,21 +5373,22 @@ fn render_mermaid_git_graph(source: &str) -> String {
     let top: f32 = 78.0;
     let height = top + branches.len() as f32 * lane_gap + 44.0;
     let marker_id = mermaid_marker_id(source);
-    let mut svg = format!(
+    let svg = output;
+    write!(svg,
         "<div class=\"dm-mermaid-chart dm-mermaid-git\" role=\"img\" aria-label=\"Rendered Mermaid git graph\"><div class=\"dm-mermaid-chart-title\">Mermaid Git graph</div><svg viewBox=\"0 0 {width:.0} {height:.0}\" aria-hidden=\"true\"><defs><marker id=\"{marker_id}\" markerWidth=\"10\" markerHeight=\"10\" refX=\"8\" refY=\"3\" orient=\"auto\"><path d=\"M0,0 L0,6 L9,3 z\" class=\"dm-mermaid-arrow\" /></marker></defs>"
-    );
+    )?;
 
     let max_index = commits.iter().map(|commit| commit.index).max().unwrap_or(0);
     let end_x = (left + max_index as f32 * step_x + 72.0).min(width - 34.0);
 
     for (branch_index, branch) in branches.iter().enumerate() {
         let y = top + branch_index as f32 * lane_gap;
-        svg.push_str(&format!(
+        write!(svg,
             "<text class=\"dm-git-branch-label\" x=\"24\" y=\"{:.1}\">{}</text><line class=\"dm-git-lane dm-git-lane-{}\" x1=\"{left:.1}\" y1=\"{y:.1}\" x2=\"{end_x:.1}\" y2=\"{y:.1}\" />",
             y + 5.0,
-            escape_html(branch),
+            Escaped(branch),
             branch_index % 4
-        ));
+        )?;
     }
 
     for branch_point in &branch_points {
@@ -5184,12 +5407,12 @@ fn render_mermaid_git_graph(source: &str) -> String {
         let x = left + branch_point.index as f32 * step_x;
         let from_y = top + from_index as f32 * lane_gap;
         let to_y = top + to_index as f32 * lane_gap;
-        svg.push_str(&format!(
+        write!(svg,
             "<path class=\"dm-git-branch-edge\" d=\"M {x:.1} {from_y:.1} C {:.1} {from_y:.1}, {:.1} {to_y:.1}, {:.1} {to_y:.1}\" />",
             x + 42.0,
             x + 72.0,
             x + 104.0
-        ));
+        )?;
     }
 
     for commit in &commits {
@@ -5198,16 +5421,16 @@ fn render_mermaid_git_graph(source: &str) -> String {
         };
         let x = left + commit.index as f32 * step_x;
         let y = top + branch_index as f32 * lane_gap;
-        svg.push_str(&format!(
+        write!(svg,
             "<g class=\"dm-git-commit dm-git-commit-{}\"><circle cx=\"{x:.1}\" cy=\"{y:.1}\" r=\"10\" /><text x=\"{x:.1}\" y=\"{:.1}\" text-anchor=\"middle\">{}</text></g>",
-            escape_attribute(&commit.kind),
+            Escaped(&commit.kind),
             y - 20.0,
-            escape_html(&commit.label)
-        ));
+            Escaped(&commit.label)
+        )?;
     }
 
-    svg.push_str("</svg></div>");
-    svg
+    svg.write_str("</svg></div>")?;
+    Ok(())
 }
 
 fn parse_git_commit_label(line: &str) -> Option<String> {
@@ -5244,7 +5467,7 @@ struct C4Relation {
     label: String,
 }
 
-fn render_mermaid_c4(source: &str) -> String {
+fn render_mermaid_c4(source: &str, output: &mut impl fmt::Write) -> fmt::Result {
     let mut title = "C4 diagram".to_owned();
     let mut nodes = Vec::new();
     let mut relations = Vec::new();
@@ -5270,7 +5493,7 @@ fn render_mermaid_c4(source: &str) -> String {
     }
 
     if nodes.is_empty() {
-        return render_mermaid_summary("C4 diagram", "c4", source);
+        return render_mermaid_summary("C4 diagram", "c4", source, output);
     }
 
     let width: f32 = 760.0;
@@ -5290,10 +5513,11 @@ fn render_mermaid_c4(source: &str) -> String {
         positions.push((node.id.as_str(), x, y));
     }
 
-    let mut svg = format!(
+    let svg = output;
+    write!(svg,
         "<div class=\"dm-mermaid-chart dm-mermaid-c4\" role=\"img\" aria-label=\"Rendered Mermaid C4 diagram\"><div class=\"dm-mermaid-chart-title\">Mermaid C4 diagram</div><svg viewBox=\"0 0 {width:.0} {height:.0}\" aria-hidden=\"true\"><defs><marker id=\"{marker_id}\" markerWidth=\"10\" markerHeight=\"10\" refX=\"8\" refY=\"3\" orient=\"auto\"><path d=\"M0,0 L0,6 L9,3 z\" class=\"dm-mermaid-arrow\" /></marker></defs><text class=\"dm-c4-title\" x=\"380\" y=\"30\" text-anchor=\"middle\">{}</text>",
-        escape_html(&title)
-    );
+        Escaped(&title)
+    )?;
 
     for relation in &relations {
         let Some((_, from_x, from_y)) = positions.iter().find(|(id, _, _)| *id == relation.from)
@@ -5307,39 +5531,39 @@ fn render_mermaid_c4(source: &str) -> String {
             rect_edge_point(*from_x, *from_y, *to_x, *to_y, node_width, node_height);
         let (end_x, end_y) =
             rect_edge_point(*to_x, *to_y, *from_x, *from_y, node_width, node_height);
-        svg.push_str(&format!(
+        write!(svg,
             "<path class=\"dm-c4-relation\" d=\"M {start_x:.1} {start_y:.1} C {:.1} {start_y:.1}, {:.1} {end_y:.1}, {end_x:.1} {end_y:.1}\" marker-end=\"url(#{marker_id})\" /><text class=\"dm-c4-relation-label\" x=\"{:.1}\" y=\"{:.1}\" text-anchor=\"middle\">{}</text>",
             (start_x + end_x) / 2.0,
             (start_x + end_x) / 2.0,
             (start_x + end_x) / 2.0,
             (start_y + end_y) / 2.0 - 8.0,
-            escape_html(&relation.label)
-        ));
+            Escaped(&relation.label)
+        )?;
     }
 
     for (index, node) in nodes.iter().enumerate() {
         let (_, x, y) = positions[index];
         let left = x - node_width / 2.0;
         let top = y - node_height / 2.0;
-        svg.push_str(&format!(
+        write!(svg,
             "<g class=\"dm-c4-node dm-c4-node-{}\"><rect x=\"{left:.1}\" y=\"{top:.1}\" width=\"{node_width:.1}\" height=\"{node_height:.1}\" rx=\"6\" /><text class=\"dm-c4-label\" x=\"{x:.1}\" y=\"{:.1}\" text-anchor=\"middle\">{}</text><text class=\"dm-c4-kind\" x=\"{x:.1}\" y=\"{:.1}\" text-anchor=\"middle\">[{}]</text><text class=\"dm-c4-description\" x=\"{x:.1}\" y=\"{:.1}\" text-anchor=\"middle\">{}</text></g>",
-            escape_attribute(&node.kind.to_ascii_lowercase()),
+            Escaped(&node.kind.to_ascii_lowercase()),
             top + 30.0,
-            escape_html(&node.label),
+            Escaped(&node.label),
             top + 52.0,
-            escape_html(&node.kind),
+            Escaped(&node.kind),
             top + 74.0,
-            escape_html(&node.description)
-        ));
+            Escaped(&node.description)
+        )?;
     }
 
-    svg.push_str("</svg></div>");
-    svg
+    svg.write_str("</svg></div>")?;
+    Ok(())
 }
 
 fn parse_c4_node(line: &str) -> Option<C4Node> {
     let open = line.find('(')?;
-    let close = line.rfind(')')?;
+    let close = line.rfind(')').filter(|&close| close > open)?;
     let kind = clean_mermaid_label(&line[..open]);
     if !matches!(
         kind.as_str(),
@@ -5365,7 +5589,7 @@ fn parse_c4_node(line: &str) -> Option<C4Node> {
 
 fn parse_c4_relation(line: &str) -> Option<C4Relation> {
     let open = line.find('(')?;
-    let close = line.rfind(')')?;
+    let close = line.rfind(')').filter(|&close| close > open)?;
     let kind = clean_mermaid_label(&line[..open]);
     if !kind.starts_with("Rel") {
         return None;
@@ -5406,7 +5630,12 @@ fn split_mermaid_args(value: &str) -> Vec<String> {
     args
 }
 
-fn render_mermaid_summary(title: &str, class_name: &str, source: &str) -> String {
+fn render_mermaid_summary(
+    title: &str,
+    class_name: &str,
+    source: &str,
+    output: &mut impl fmt::Write,
+) -> fmt::Result {
     let mut items = Vec::new();
     let mut skipped_declaration = false;
     for line in source.lines().map(str::trim) {
@@ -5423,15 +5652,16 @@ fn render_mermaid_summary(title: &str, class_name: &str, source: &str) -> String
         }
     }
 
-    let mut html = format!(
+    let html = output;
+    write!(html,
         "<div class=\"dm-mermaid-chart dm-mermaid-summary dm-mermaid-summary-{class_name}\" role=\"img\" aria-label=\"Rendered Mermaid {class_name} diagram\"><div class=\"dm-mermaid-chart-title\">Mermaid {}</div><div class=\"dm-mermaid-summary-grid\">",
-        escape_html(title)
-    );
+        Escaped(title)
+    )?;
     for item in items {
-        html.push_str(&format!("<span>{}</span>", escape_html(item)));
+        write!(html, "<span>{}</span>", Escaped(item))?;
     }
-    html.push_str("</div></div>");
-    html
+    html.write_str("</div></div>")?;
+    Ok(())
 }
 
 fn rect_edge_point(
@@ -5480,7 +5710,7 @@ fn upsert_text(items: &mut Vec<String>, item: String) {
 fn parse_mermaid_node(value: &str) -> (String, String) {
     let value = value.trim().trim_end_matches(';').trim();
     if let Some(start) = value.find('[') {
-        if let Some(end) = value.rfind(']') {
+        if let Some(end) = value.rfind(']').filter(|&end| end > start) {
             let id = value[..start].trim().to_owned();
             let label = value[start + 1..end].trim_matches('"').trim().to_owned();
             return (id, label);
@@ -5507,47 +5737,46 @@ fn upsert_mermaid_node(nodes: &mut Vec<(String, String)>, node: &(String, String
     nodes.push(node.clone());
 }
 
-fn render_plain_code(language: &str, source: &str) -> String {
-    format!(
+fn render_plain_code(language: &str, source: &str, output: &mut impl fmt::Write) -> fmt::Result {
+    write!(
+        output,
         "<pre><code class=\"language-{}\">{}</code></pre>",
-        escape_attribute(language),
-        escape_html(source)
+        Escaped(language),
+        Escaped(source)
     )
 }
 
-fn highlight_source(language: &str, source: &str) -> String {
-    source
-        .split_inclusive('\n')
-        .map(|line| {
-            let (line, newline) = line
-                .strip_suffix('\n')
-                .map_or((line, ""), |line| (line, "\n"));
-            format!("{}{}", highlight_line(language, line), newline)
-        })
-        .collect()
+fn highlight_source(language: &str, source: &str, output: &mut impl fmt::Write) -> fmt::Result {
+    for line in source.split_inclusive('\n') {
+        let (line, newline) = line
+            .strip_suffix('\n')
+            .map_or((line, ""), |line| (line, "\n"));
+        highlight_line(language, line, output)?;
+        output.write_str(newline)?;
+    }
+    Ok(())
 }
 
-fn highlight_line(language: &str, line: &str) -> String {
+fn highlight_line(language: &str, line: &str, output: &mut impl fmt::Write) -> fmt::Result {
     let comment = if matches!(language, "elixir" | "yaml") {
         "#"
     } else {
         "//"
     };
-    let mut highlighted = String::new();
     let mut index = 0;
 
     while index < line.len() {
         let rest = &line[index..];
 
         if rest.starts_with(comment) {
-            push_token(&mut highlighted, "comment", rest);
+            push_token(output, "comment", rest)?;
             break;
         }
 
         let ch = rest.chars().next().expect("line has a char");
         if matches!(ch, '"' | '\'' | '`') {
             let next = consume_string(rest, ch);
-            push_token(&mut highlighted, "string", &rest[..next]);
+            push_token(output, "string", &rest[..next])?;
             index += next;
             continue;
         }
@@ -5556,7 +5785,7 @@ fn highlight_line(language: &str, line: &str) -> String {
             let next = consume_while(rest, |ch| {
                 ch.is_ascii_alphanumeric() || matches!(ch, '_' | '.')
             });
-            push_token(&mut highlighted, "number", &rest[..next]);
+            push_token(output, "number", &rest[..next])?;
             index += next;
             continue;
         }
@@ -5566,19 +5795,19 @@ fn highlight_line(language: &str, line: &str) -> String {
             let word = &rest[..next];
             let next_significant = rest[next..].trim_start().chars().next();
             if let Some(token) = classify_word(language, word, next_significant) {
-                push_token(&mut highlighted, token, word);
+                push_token(output, token, word)?;
             } else {
-                highlighted.push_str(&escape_html(word));
+                write!(output, "{}", Escaped(word))?;
             }
             index += next;
             continue;
         }
 
-        highlighted.push_str(&escape_html(&ch.to_string()));
+        write!(output, "{}", Escaped(ch.encode_utf8(&mut [0; 4])))?;
         index += ch.len_utf8();
     }
 
-    highlighted
+    Ok(())
 }
 
 fn consume_string(value: &str, quote: char) -> usize {
@@ -5831,50 +6060,68 @@ fn is_type(language: &str, word: &str) -> bool {
     }
 }
 
-fn push_token(output: &mut String, token: &str, value: &str) {
-    output.push_str("<span class=\"dm-token-");
-    output.push_str(token);
-    output.push_str("\">");
-    output.push_str(&escape_html(value));
-    output.push_str("</span>");
+fn push_token(output: &mut impl fmt::Write, token: &str, value: &str) -> fmt::Result {
+    write!(
+        output,
+        "<span class=\"dm-token-{token}\">{}</span>",
+        Escaped(value)
+    )
 }
 
-fn escape_attribute(value: &str) -> String {
-    escape_html(value)
-}
+struct Escaped<'a>(&'a str);
 
-fn escape_html(value: &str) -> String {
-    let mut escaped = String::with_capacity(value.len());
-    for ch in value.chars() {
-        match ch {
-            '&' => escaped.push_str("&amp;"),
-            '<' => escaped.push_str("&lt;"),
-            '>' => escaped.push_str("&gt;"),
-            '"' => escaped.push_str("&quot;"),
-            '\'' => escaped.push_str("&#39;"),
-            _ => escaped.push(ch),
+struct EscapedJoined<'a>(&'a [String]);
+
+impl fmt::Display for EscapedJoined<'_> {
+    fn fmt(&self, output: &mut fmt::Formatter<'_>) -> fmt::Result {
+        for (index, item) in self.0.iter().enumerate() {
+            if index != 0 {
+                output.write_str(" / ")?;
+            }
+            write!(output, "{}", Escaped(item))?;
         }
+        Ok(())
     }
-    escaped
 }
 
-fn resolve_url<'a>(url: CowStr<'a>, base_url: Option<&str>) -> CowStr<'a> {
+impl fmt::Display for Escaped<'_> {
+    fn fmt(&self, output: &mut fmt::Formatter<'_>) -> fmt::Result {
+        let mut cursor = 0;
+        for (index, ch) in self.0.char_indices() {
+            let escaped = match ch {
+                '&' => "&amp;",
+                '<' => "&lt;",
+                '>' => "&gt;",
+                '"' => "&quot;",
+                '\'' => "&#39;",
+                _ => continue,
+            };
+            output.write_str(&self.0[cursor..index])?;
+            output.write_str(escaped)?;
+            cursor = index + ch.len_utf8();
+        }
+        output.write_str(&self.0[cursor..])
+    }
+}
+
+fn resolve_url<'a>(
+    url: CowStr<'a>,
+    base_url: Option<&str>,
+    budget: &RenderBudget,
+) -> Result<CowStr<'a>, fmt::Error> {
     let url = safe_url(url);
     let Some(base_url) = base_url.filter(|base_url| !base_url.is_empty()) else {
-        return url;
+        return Ok(url);
     };
-
     if url.is_empty() || !is_relative_path_url(&url) {
-        return url;
+        return Ok(url);
     }
-
     if !is_resolvable_base_url(base_url) {
-        return CowStr::Borrowed("");
+        return Ok(CowStr::Borrowed(""));
     }
-
-    safe_url(CowStr::Boxed(
-        join_directory_url(base_url, &url).into_boxed_str(),
-    ))
+    let mut output = CappedHtml::new(budget, false);
+    join_directory_url(base_url, &url, &mut output)?;
+    Ok(safe_url(CowStr::Boxed(output.value.into_boxed_str())))
 }
 
 fn is_relative_path_url(url: &str) -> bool {
@@ -5896,25 +6143,63 @@ fn is_resolvable_base_url(url: &str) -> bool {
             || url_scheme_end(&normalized).is_none())
 }
 
-fn join_directory_url(base_url: &str, relative_url: &str) -> String {
+fn join_directory_url(
+    base_url: &str,
+    relative_url: &str,
+    output: &mut impl fmt::Write,
+) -> fmt::Result {
     let base_end = base_url.find(['?', '#']).unwrap_or(base_url.len());
     let base_url = &base_url[..base_end];
     let relative_suffix_start = relative_url.find(['?', '#']).unwrap_or(relative_url.len());
     let (relative_path, relative_suffix) = relative_url.split_at(relative_suffix_start);
     let (prefix, base_path) = split_url_prefix(base_url);
-
-    let mut combined_path = String::with_capacity(base_path.len() + relative_path.len() + 1);
-    combined_path.push_str(base_path);
-    if !combined_path.is_empty() && !combined_path.ends_with('/') {
-        combined_path.push('/');
+    let absolute = !prefix.is_empty() || base_path.starts_with('/');
+    let directory = relative_path.ends_with('/')
+        || relative_path.ends_with("/.")
+        || relative_path.ends_with("/..")
+        || matches!(relative_path, "." | "..");
+    // Normalize borrowed path segments instead of concatenating a potentially huge
+    // base URL into generated destinations before the output ceiling is checked.
+    let mut segments = Vec::new();
+    if !base_path.is_empty() && base_path != "/" {
+        let path = base_path.strip_suffix('/').unwrap_or(base_path);
+        let path = path.strip_prefix('/').unwrap_or(path);
+        for segment in path.split('/') {
+            normalize_url_segment(&mut segments, segment, absolute);
+        }
     }
-    combined_path.push_str(relative_path);
-    if !prefix.is_empty() && !combined_path.starts_with('/') {
-        combined_path.insert(0, '/');
+    for segment in relative_path.split('/') {
+        normalize_url_segment(&mut segments, segment, absolute);
     }
+    output.write_str(prefix)?;
+    if absolute {
+        output.write_str("/")?;
+    }
+    for (index, segment) in segments.iter().enumerate() {
+        if index != 0 {
+            output.write_str("/")?;
+        }
+        output.write_str(segment)?;
+    }
+    let ends_with_slash = (absolute && segments.is_empty())
+        || (segments.last().is_some_and(|segment| segment.is_empty())
+            && (absolute || segments.len() > 1));
+    if directory && !ends_with_slash {
+        output.write_str("/")?;
+    }
+    output.write_str(relative_suffix)
+}
 
-    let path = normalize_url_path(&combined_path);
-    format!("{prefix}{path}{relative_suffix}")
+fn normalize_url_segment<'a>(segments: &mut Vec<&'a str>, segment: &'a str, absolute: bool) {
+    match segment {
+        "." => {}
+        ".." if segments.last().is_some_and(|segment| *segment != "..") => {
+            segments.pop();
+        }
+        ".." if !absolute => segments.push(segment),
+        ".." => {}
+        _ => segments.push(segment),
+    }
 }
 
 fn split_url_prefix(url: &str) -> (&str, &str) {
@@ -5938,37 +6223,6 @@ fn split_url_prefix(url: &str) -> (&str, &str) {
         .find('/')
         .map_or(url.len(), |offset| authority_start + offset);
     url.split_at(path_start)
-}
-
-fn normalize_url_path(path: &str) -> String {
-    let absolute = path.starts_with('/');
-    let directory = path.ends_with('/')
-        || path.ends_with("/.")
-        || path.ends_with("/..")
-        || matches!(path, "." | "..");
-    let path = path.strip_prefix('/').unwrap_or(path);
-    let mut segments = Vec::new();
-
-    for segment in path.split('/') {
-        match segment {
-            "." => {}
-            ".." if segments.last().is_some_and(|segment| *segment != "..") => {
-                segments.pop();
-            }
-            ".." if !absolute => segments.push(segment),
-            ".." => {}
-            _ => segments.push(segment),
-        }
-    }
-
-    let mut normalized = segments.join("/");
-    if absolute {
-        normalized.insert(0, '/');
-    }
-    if directory && !normalized.ends_with('/') {
-        normalized.push('/');
-    }
-    normalized
 }
 
 fn safe_url(url: CowStr<'_>) -> CowStr<'_> {
@@ -6014,9 +6268,266 @@ fn url_scheme_end(url: &str) -> Option<usize> {
 mod tests {
     use super::{
         layout_mermaid_flowchart, layout_mindmap_nodes, parse_css_color, parse_mermaid_flowchart,
-        render_color_chip, render_markdown_to_html, render_markdown_to_html_with_options,
-        split_front_matter, DmMarkdownOptions, FrontMatterMode, MindmapNode,
+        render_color_chip, render_markdown_to_html_with_limits,
+        render_markdown_to_html_with_options as render_unbounded_with_options, split_front_matter,
+        DmMarkdownLimits, DmMarkdownOptions, DmMarkdownRenderError, FrontMatterMode, MindmapNode,
     };
+
+    fn render_markdown_to_html(markdown: &str) -> String {
+        render_markdown_to_html_with_options(markdown, DmMarkdownOptions::default())
+    }
+
+    fn render_markdown_to_html_with_options(markdown: &str, options: DmMarkdownOptions) -> String {
+        let expected = render_unbounded_with_options(markdown, options.clone());
+        let limits = DmMarkdownLimits {
+            max_input_bytes: usize::MAX,
+            max_output_bytes: expected.len(),
+            max_mermaid_bytes: markdown.len(),
+        };
+        assert_eq!(
+            render_markdown_to_html_with_limits(markdown, options.clone(), limits),
+            Ok(expected.clone())
+        );
+        if !expected.is_empty() {
+            assert_eq!(
+                render_markdown_to_html_with_limits(
+                    markdown,
+                    options,
+                    DmMarkdownLimits {
+                        max_output_bytes: expected.len() - 1,
+                        ..limits
+                    }
+                ),
+                Err(DmMarkdownRenderError::OutputLimitExceeded)
+            );
+        }
+        expected
+    }
+
+    fn limits(input: usize, output: usize, mermaid: usize) -> DmMarkdownLimits {
+        DmMarkdownLimits {
+            max_input_bytes: input,
+            max_output_bytes: output,
+            max_mermaid_bytes: mermaid,
+        }
+    }
+
+    #[test]
+    fn bounded_rendering_checks_utf8_bytes_and_zero_limits() {
+        let options = DmMarkdownOptions::default();
+        assert_eq!(
+            render_markdown_to_html_with_limits("", options.clone(), limits(0, 0, 0)),
+            Ok(String::new())
+        );
+        assert_eq!(
+            render_markdown_to_html_with_limits("é", options.clone(), limits(1, 100, 0)),
+            Err(DmMarkdownRenderError::InputLimitExceeded)
+        );
+        assert_eq!(
+            render_markdown_to_html_with_limits("é", options.clone(), limits(2, 10, 0)),
+            Ok("<p>é</p>\n".to_owned())
+        );
+        assert_eq!(
+            render_markdown_to_html_with_limits("é", options.clone(), limits(2, 9, 0)),
+            Err(DmMarkdownRenderError::OutputLimitExceeded)
+        );
+        assert_eq!(
+            render_markdown_to_html_with_limits("x", options, limits(1, 0, 0)),
+            Err(DmMarkdownRenderError::OutputLimitExceeded)
+        );
+    }
+
+    #[test]
+    fn bounded_rendering_counts_configuration_input_bytes() {
+        let options = DmMarkdownOptions {
+            base_url: Some("https://example.com/".to_owned()),
+            custom_elements: vec!["dm-note".to_owned()],
+            ..DmMarkdownOptions::default()
+        };
+        let bytes = 1 + options.base_url.as_ref().unwrap().len() + options.custom_elements[0].len();
+        assert_eq!(
+            render_markdown_to_html_with_limits("x", options.clone(), limits(bytes - 1, 100, 0)),
+            Err(DmMarkdownRenderError::InputLimitExceeded)
+        );
+        assert_eq!(
+            render_markdown_to_html_with_limits("x", options, limits(bytes, 100, 0)),
+            Ok("<p>x</p>\n".to_owned())
+        );
+    }
+
+    #[test]
+    fn bounded_rendering_rejects_expanding_html_and_special_blocks() {
+        for markdown in [
+            "<script>".repeat(1000),
+            format!("```rust\n{}\n```", "let x = 1;\n".repeat(1000)),
+            format!("---\n{}---\nBody", "title: '\"<&'\n".repeat(1000)),
+            "`#fff`".to_owned(),
+        ] {
+            assert_eq!(
+                render_markdown_to_html_with_limits(
+                    &markdown,
+                    DmMarkdownOptions::default(),
+                    limits(markdown.len(), 32, markdown.len())
+                ),
+                Err(DmMarkdownRenderError::OutputLimitExceeded)
+            );
+        }
+    }
+
+    #[test]
+    fn bounded_rendering_checks_mermaid_source_before_layout() {
+        let source = "gantt\nTask: 2147483647-01-01, 1d\n";
+        let markdown = format!("```mermaid\n{source}```");
+        assert_eq!(
+            render_markdown_to_html_with_limits(
+                &markdown,
+                DmMarkdownOptions::default(),
+                limits(markdown.len(), 100_000, source.len() - 1)
+            ),
+            Err(DmMarkdownRenderError::MermaidLimitExceeded)
+        );
+        assert!(render_markdown_to_html_with_limits(
+            &markdown,
+            DmMarkdownOptions::default(),
+            limits(markdown.len(), 100_000, source.len())
+        )
+        .is_ok());
+    }
+
+    #[test]
+    fn bounded_rendering_stops_before_later_oversized_diagrams() {
+        let markdown = format!("First.\n\n```mermaid\n{}\n```", "A --> B\n".repeat(1000));
+        assert_eq!(
+            render_markdown_to_html_with_limits(
+                &markdown,
+                DmMarkdownOptions::default(),
+                limits(markdown.len(), 1, 0)
+            ),
+            Err(DmMarkdownRenderError::OutputLimitExceeded)
+        );
+    }
+
+    #[test]
+    fn capped_writer_rejects_before_append_and_reserve() {
+        use std::fmt::Write;
+        let budget = super::RenderBudget {
+            remaining: std::cell::Cell::new(5),
+            error: std::cell::Cell::new(None),
+            limits: limits(0, 5, 0),
+        };
+        let mut output = super::CappedHtml::new(&budget, true);
+        output.write_str("é").unwrap();
+        assert!(output.value.capacity() <= 5);
+        let capacity = output.value.capacity();
+        assert!(output.write_str("four").is_err());
+        assert_eq!(output.value, "é");
+        assert_eq!(output.value.capacity(), capacity);
+        assert_eq!(budget.remaining.get(), 3);
+        assert_eq!(
+            budget.error.get(),
+            Some(DmMarkdownRenderError::OutputLimitExceeded)
+        );
+    }
+
+    #[test]
+    fn gantt_dates_are_constant_time_and_arithmetic_is_checked() {
+        for date in [
+            "1970-01-01",
+            "1969-12-31",
+            "2000-02-29",
+            "1900-03-01",
+            "9999-12-31",
+        ] {
+            assert_eq!(super::format_ymd(super::parse_ymd(date).unwrap()), date);
+        }
+        assert!(super::parse_ymd("2147483647-01-01").is_none());
+        assert!(super::parse_gantt_task("Task: 2026-01-01, 2147483647d", "Schedule").is_some());
+        let markdown = "```mermaid\npacket-beta\n0-4294967295: \"All bits\"\n```";
+        assert!(render_markdown_to_html(markdown).contains("dm-packet-field"));
+    }
+
+    #[test]
+    fn bounded_rendering_handles_malformed_mermaid_delimiters() {
+        for source in [
+            "flowchart TD\nA] [",
+            "swimlane-beta\nsubgraph A] [",
+            "classDiagram\nnamespace A] [",
+            "classDiagram\nclass A] [",
+            "sequenceDiagram\nA] [->>B: Message",
+            "radar-beta\ncurve A } {",
+            "C4Context\nRel) (",
+            "flowchart TD\nA --> B] [",
+        ] {
+            let markdown = format!("```mermaid\n{source}\n```");
+            assert_eq!(
+                render_markdown_to_html_with_limits(
+                    &markdown,
+                    DmMarkdownOptions::default(),
+                    limits(markdown.len(), 0, markdown.len())
+                ),
+                Err(DmMarkdownRenderError::OutputLimitExceeded)
+            );
+            assert!(
+                render_markdown_to_html_with_limits(
+                    &markdown,
+                    DmMarkdownOptions::default(),
+                    limits(markdown.len(), 100_000, markdown.len())
+                )
+                .is_ok(),
+                "{source}"
+            );
+        }
+    }
+
+    #[test]
+    fn nested_class_namespaces_do_not_duplicate_ancestor_paths() {
+        let source = format!(
+            "classDiagram\n{}class Leaf\n{}",
+            "namespace N {\n".repeat(30),
+            "}\n".repeat(30)
+        );
+        let markdown = format!("```mermaid\n{source}\n```");
+        let html = render_markdown_to_html_with_limits(
+            &markdown,
+            DmMarkdownOptions::default(),
+            limits(markdown.len(), 8192, source.len() + 1),
+        )
+        .unwrap();
+        let namespace = std::iter::repeat_n("N", 30).collect::<Vec<_>>().join(".");
+        assert!(html.contains(&namespace));
+        assert!(!html.contains(&format!("{namespace}.N")));
+    }
+
+    #[test]
+    fn bounded_url_resolution_uses_output_budget_before_destination_allocation() {
+        let options = DmMarkdownOptions {
+            base_url: Some(format!("https://example.com/{}/", "a".repeat(1024 * 1024))),
+            ..DmMarkdownOptions::default()
+        };
+        for markdown in ["[Link](guide.md)", "<a href=\"guide.md\">Link</a>"] {
+            let bytes = markdown.len() + options.base_url.as_ref().unwrap().len();
+            assert_eq!(
+                render_markdown_to_html_with_limits(
+                    markdown,
+                    options.clone(),
+                    limits(bytes, 32, 0)
+                ),
+                Err(DmMarkdownRenderError::OutputLimitExceeded)
+            );
+        }
+        let budget = super::RenderBudget {
+            remaining: std::cell::Cell::new(32),
+            error: std::cell::Cell::new(None),
+            limits: limits(usize::MAX, 32, 0),
+        };
+        let mut output = super::CappedHtml::new(&budget, false);
+        assert!(
+            super::join_directory_url(options.base_url.as_deref().unwrap(), "a", &mut output)
+                .is_err()
+        );
+        assert!(output.value.capacity() <= 32);
+        assert!(output.value.len() <= 32);
+    }
 
     #[test]
     fn renders_common_markdown() {
