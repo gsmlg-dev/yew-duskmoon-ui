@@ -51,10 +51,39 @@ pub struct PopoverProps {
     pub mode: PopoverMode,
     #[prop_or_default]
     pub command: PopoverCommand,
+    /// Whether activation invokes `command` on this popover. Set to `false`
+    /// when the trigger performs an application action instead.
+    #[prop_or(true)]
+    pub trigger_command_enabled: bool,
+    /// Show descriptive content through native hover/focus interest invokers.
+    /// This emits `interestfor` independently of click commands and requires
+    /// browser support for the native interest invoker API.
+    #[prop_or_default]
+    pub trigger_interest: bool,
     #[prop_or(AttrValue::from("Show popover"))]
     pub trigger_label: AttrValue,
     #[prop_or_else(default_trigger_class)]
     pub trigger_class: Classes,
+    /// Activation callback on the generated native button. Native keyboard
+    /// activation also emits this click event. Commands remain enabled unless
+    /// `trigger_command_enabled` is `false` or the callback prevents default.
+    #[prop_or_default]
+    pub trigger_onclick: Callback<MouseEvent>,
+    /// Accessible action name, independent of the visible `trigger_label`.
+    /// When omitted, the button's text supplies its accessible name.
+    #[prop_or_default]
+    pub trigger_aria_label: Option<AttrValue>,
+    /// IDs of descriptive content for the trigger, such as this popover's id.
+    #[prop_or_default]
+    pub trigger_aria_describedby: Option<AttrValue>,
+    /// Optional `aria-haspopup` value, such as `"menu"` or `"dialog"`.
+    /// Omit it for descriptive content that is not an interactive popup.
+    #[prop_or_default]
+    pub trigger_aria_haspopup: Option<AttrValue>,
+    /// Optional, caller-managed `aria-expanded` state. No value is inferred
+    /// from native popover visibility; `None` omits the attribute.
+    #[prop_or_default]
+    pub trigger_aria_expanded: Option<bool>,
 }
 
 /// An anchored native popover with a declarative HTML command trigger.
@@ -62,6 +91,13 @@ pub struct PopoverProps {
 /// Display, light-dismiss, Escape handling, and top-layer behavior are owned
 /// by the browser. Use [`PopoverMode::Manual`] when the surface must remain
 /// open until an explicit `hide-popover` command is invoked.
+///
+/// Use `trigger_onclick` with `trigger_command_enabled={false}` for a button
+/// whose activation performs an application action. Give it an independent
+/// `trigger_aria_label` and, when appropriate, `trigger_aria_describedby`.
+/// Popup and expansion ARIA attributes are optional and caller-managed.
+/// Set `trigger_interest={true}` to show content on hover/focus in browsers
+/// that support native `interestfor`; it does not change the click action.
 #[function_component(Popover)]
 pub fn popover(props: &PopoverProps) -> Html {
     popover_view(props)
@@ -77,8 +113,14 @@ fn popover_view(props: &PopoverProps) -> Html {
             <button
                 type="button"
                 class={props.trigger_class.clone()}
-                command={props.command.as_str()}
-                commandfor={props.id.clone()}
+                command={props.trigger_command_enabled.then_some(props.command.as_str())}
+                commandfor={props.trigger_command_enabled.then(|| props.id.clone())}
+                interestfor={props.trigger_interest.then(|| props.id.clone())}
+                onclick={props.trigger_onclick.clone()}
+                aria-label={props.trigger_aria_label.clone()}
+                aria-describedby={props.trigger_aria_describedby.clone()}
+                aria-haspopup={props.trigger_aria_haspopup.clone()}
+                aria-expanded={props.trigger_aria_expanded.map(|expanded| expanded.to_string())}
                 style={trigger_style}
             >
                 { props.trigger_label.clone() }
@@ -150,8 +192,15 @@ mod tests {
             variant: Some("primary".to_owned()),
             mode: PopoverMode::Auto,
             command: PopoverCommand::Toggle,
+            trigger_command_enabled: true,
+            trigger_interest: false,
             trigger_label: "Show options".into(),
             trigger_class: default_trigger_class(),
+            trigger_onclick: Callback::default(),
+            trigger_aria_label: None,
+            trigger_aria_describedby: None,
+            trigger_aria_haspopup: None,
+            trigger_aria_expanded: None,
         }
     }
 
@@ -178,6 +227,11 @@ mod tests {
         assert_eq!(trigger.tag(), "button");
         assert_eq!(trigger_attrs.get("command"), Some(&"toggle-popover"));
         assert_eq!(trigger_attrs.get("commandfor"), Some(&"deployment-options"));
+        assert!(!trigger_attrs.contains_key("aria-label"));
+        assert!(!trigger_attrs.contains_key("aria-describedby"));
+        assert!(!trigger_attrs.contains_key("aria-haspopup"));
+        assert!(!trigger_attrs.contains_key("aria-expanded"));
+        assert!(!trigger_attrs.contains_key("interestfor"));
         assert_eq!(
             trigger_attrs.get("style"),
             Some(&"anchor-name: --popover-s-deployment-options;")
@@ -223,5 +277,74 @@ mod tests {
             popover_anchor_name("deployment-options"),
             "--popover-s-deployment-options"
         );
+    }
+
+    #[test]
+    fn action_trigger_has_independent_name_and_no_native_command() {
+        let mut props = props();
+        props.trigger_command_enabled = false;
+        props.trigger_interest = true;
+        props.trigger_label = "urgent".into();
+        props.trigger_aria_label = Some("Filter notes by urgent".into());
+        props.trigger_aria_describedby = Some(props.id.clone());
+        props.trigger_onclick = Callback::from(|_: MouseEvent| ());
+
+        let VNode::VList(list) = popover_view(&props) else {
+            panic!("popover should render trigger and surface siblings");
+        };
+        let trigger = tag(&list[0]);
+        let attributes = attrs(trigger);
+        assert_eq!(attributes.get("type"), Some(&"button"));
+        assert_eq!(attributes.get("interestfor"), Some(&"deployment-options"));
+        assert_eq!(
+            attributes.get("aria-label"),
+            Some(&"Filter notes by urgent")
+        );
+        assert_eq!(
+            attributes.get("aria-describedby"),
+            Some(&"deployment-options")
+        );
+        assert_eq!(trigger.children(), Some(&html! { "urgent" }));
+        assert!(!attributes.contains_key("command"));
+        assert!(!attributes.contains_key("commandfor"));
+        assert!(!attributes.contains_key("aria-haspopup"));
+        assert!(!attributes.contains_key("aria-expanded"));
+
+        // The callback is attached to the generated button, not the surface.
+        let mut without_listeners = trigger.clone();
+        without_listeners.set_listeners(Box::default());
+        assert_ne!(*trigger, without_listeners);
+        assert_eq!(attrs(tag(&list[1])).get("popover"), Some(&"auto"));
+    }
+
+    #[test]
+    fn trigger_popup_and_expansion_aria_are_customizable_and_removable() {
+        let mut props = props();
+        props.trigger_aria_haspopup = Some("menu".into());
+        props.trigger_aria_expanded = Some(false);
+
+        let VNode::VList(list) = popover_view(&props) else {
+            panic!("popover should render trigger and surface siblings");
+        };
+        let attributes = attrs(tag(&list[0]));
+        assert_eq!(attributes.get("aria-haspopup"), Some(&"menu"));
+        assert_eq!(attributes.get("aria-expanded"), Some(&"false"));
+        assert_eq!(attributes.get("command"), Some(&"toggle-popover"));
+
+        props.trigger_aria_haspopup = Some("dialog".into());
+        props.trigger_aria_expanded = Some(true);
+        let VNode::VList(list) = popover_view(&props) else {
+            panic!("popover should render trigger and surface siblings");
+        };
+        assert_eq!(attrs(tag(&list[0])).get("aria-haspopup"), Some(&"dialog"));
+        assert_eq!(attrs(tag(&list[0])).get("aria-expanded"), Some(&"true"));
+
+        props.trigger_aria_haspopup = None;
+        props.trigger_aria_expanded = None;
+        let VNode::VList(list) = popover_view(&props) else {
+            panic!("popover should render trigger and surface siblings");
+        };
+        assert!(!attrs(tag(&list[0])).contains_key("aria-haspopup"));
+        assert!(!attrs(tag(&list[0])).contains_key("aria-expanded"));
     }
 }

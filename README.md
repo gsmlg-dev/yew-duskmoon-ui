@@ -185,6 +185,8 @@ Native tooltip overflow and sticky table-header fixes are available in `@duskmoo
 
 `Popover` requires a stable `id` and renders a command trigger next to a native `popover` surface. The default `PopoverMode::Auto` provides light-dismiss; use `Manual` with an explicit `hide-popover` command when dismissal must be controlled. The component also emits matching CSS anchor styles, so no Yew visibility state or `popover-show` class is needed.
 
+Use `trigger_onclick` for an application action and set `trigger_command_enabled={false}` to disable click commands. Set `trigger_interest={true}` for native hover/focus descriptions in browsers that support `interestfor`. The visible `trigger_label` and optional `trigger_aria_label` can differ; `trigger_aria_describedby`, `trigger_aria_haspopup`, and `trigger_aria_expanded` are optional and caller-managed. Leave popup and expansion ARIA unset for descriptive content.
+
 `Dialog` renders a native `<dialog>` and requires an `id`. `Button` and `IconButton` accept `command` and `command_for`, which map to the HTML `command` and `commandfor` attributes:
 
 ```rust
