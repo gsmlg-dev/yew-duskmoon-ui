@@ -1,6 +1,6 @@
 use crate::routes::components::catalog::ComponentSpec;
-use crate::routes::components::detail::page::{ApiRow, ComponentPage, primary_variant};
-use crate::routes::components::palette::{PaletteColor, variant};
+use crate::routes::components::detail::page::{primary_variant, ApiRow, ComponentPage};
+use crate::routes::components::palette::{variant, PaletteColor};
 use yew::prelude::*;
 use yew_duskmoon::TreeSelect;
 
@@ -34,7 +34,7 @@ fn usage(_: &ComponentSpec) -> String {
 
 html! {
     <TreeSelect variant={Some("primary".to_owned())}>
-        <button class="tree-select-trigger" type="button" command="toggle-popover" commandfor="team-tree">
+        <button class="tree-select-trigger" type="button" popovertarget="team-tree">
             <span class="tree-select-value tree-select-value-selected">
                 <span class="tree-select-path">{ "Engineering / Platform" }</span>
             </span>
@@ -45,13 +45,13 @@ html! {
         </div>
     </TreeSelect>
 }"#
-        .to_owned()
+    .to_owned()
 }
 
 fn demo(_: &ComponentSpec) -> Html {
     html! {
         <TreeSelect variant={primary_variant()} class="tree-select-outlined">
-            <button class="tree-select-trigger" type="button" command="toggle-popover" commandfor="demo-tree-select">
+            <button class="tree-select-trigger" type="button" popovertarget="demo-tree-select">
                 <span class="tree-select-value tree-select-value-selected">
                     <span class="tree-select-path">{ "Engineering / Platform" }</span>
                 </span>
@@ -85,7 +85,7 @@ fn color_variant(color: PaletteColor) -> Html {
 
     html! {
         <TreeSelect variant={variant(color)}>
-            <button class="tree-select-trigger" style="color: var(--component-color);" type="button" command="toggle-popover" commandfor={id.clone()}>
+            <button class="tree-select-trigger" type="button" popovertarget={id.clone()}>
                 <span class="tree-select-value tree-select-value-selected">
                     <span class="tree-select-path">{ color.label }</span>
                 </span>

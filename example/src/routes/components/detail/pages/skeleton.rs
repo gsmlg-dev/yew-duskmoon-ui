@@ -1,11 +1,10 @@
 use crate::routes::components::catalog::ComponentSpec;
 use crate::routes::components::detail::page::{ComponentPage, STANDARD_API};
-use crate::routes::components::palette::{variant, PaletteColor};
 use yew::prelude::*;
 use yew_duskmoon::Skeleton;
 
 pub fn page(spec: &'static ComponentSpec) -> ComponentPage {
-    ComponentPage::new(spec, usage, STANDARD_API, demo, color_variant)
+    ComponentPage::without_color_variants(spec, usage, STANDARD_API, demo)
 }
 
 fn usage(_: &ComponentSpec) -> String {
@@ -29,15 +28,5 @@ fn demo(_: &ComponentSpec) -> Html {
                 <Skeleton class="skeleton-line skeleton-line-short"></Skeleton>
             </div>
         </div>
-    }
-}
-
-fn color_variant(color: PaletteColor) -> Html {
-    html! {
-        <Skeleton variant={variant(color)} class="skeleton-card component-detail-color-demo">
-            <Skeleton class="skeleton-line"></Skeleton>
-            <Skeleton class="skeleton-line skeleton-line-medium"></Skeleton>
-            <code>{ format!("skeleton-{}", color.key) }</code>
-        </Skeleton>
     }
 }

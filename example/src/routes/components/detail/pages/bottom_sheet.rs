@@ -1,85 +1,86 @@
 use crate::routes::components::catalog::ComponentSpec;
-use crate::routes::components::detail::page::{primary_variant, ApiRow, ComponentPage};
-use crate::routes::components::palette::{variant, PaletteColor};
+use crate::routes::components::detail::page::{ApiRow, ComponentPage};
 use yew::prelude::*;
 use yew_duskmoon::BottomSheet;
 
 const API: &[ApiRow] = &[
     ApiRow {
+        prop: "id",
+        ty: "Option<AttrValue>",
+        default: "None",
+        docs: "Unique native dialog or popover target.",
+    },
+    ApiRow {
+        prop: "modal",
+        ty: "bool",
+        default: "true",
+        docs: "Modal dialog uses show-modal/close commands; false uses native auto popover.",
+    },
+    ApiRow {
+        prop: "aria_label",
+        ty: "Option<AttrValue>",
+        default: "None",
+        docs: "Accessible surface name.",
+    },
+    ApiRow {
         prop: "class",
         ty: "Classes",
         default: "empty",
-        docs: "Extra classes appended to the local bottomsheet root; add upstream-style classes such as bottom-sheet-show or bottom-sheet-modal here.",
+        docs: "Core position and size modifiers.",
     },
     ApiRow {
         prop: "children",
         ty: "Children",
         default: "empty",
-        docs: "Panel internals such as bottom-sheet-handle, header, title, close button, body, and footer actions.",
+        docs: "Header, content, and footer markup using bottomsheet classes.",
     },
     ApiRow {
         prop: "variant",
         ty: "Option<String>",
         default: "None",
-        docs: "Appends a local color class such as bottomsheet-primary to the root.",
+        docs: "Legacy modifier escape hatch; use supported Core size variants.",
     },
 ];
 
 pub fn page(spec: &'static ComponentSpec) -> ComponentPage {
-    ComponentPage::new(spec, usage, API, demo, color_variant)
+    ComponentPage::without_color_variants(spec, usage, API, demo)
 }
 
 fn usage(_: &ComponentSpec) -> String {
     r##"use yew_duskmoon::BottomSheet;
 
 html! {
-    <BottomSheet variant={Some("primary".to_owned())} class="bottom-sheet bottom-sheet-show bottom-sheet-modal">
-        <div class="bottom-sheet-handle"></div>
-        <div class="bottom-sheet-header">
-            <h2 class="bottom-sheet-title">{ "Actions" }</h2>
-            <button class="bottom-sheet-close" aria-label="Close">{ "x" }</button>
-        </div>
-        <div class="bottom-sheet-body">
-            <p>{ "Supplemental task content goes here." }</p>
-        </div>
-        <div class="bottom-sheet-footer">
-            <button class="btn btn-text">{ "Cancel" }</button>
-            <button class="btn btn-primary">{ "Confirm" }</button>
-        </div>
-    </BottomSheet>
-}"##
-    .to_owned()
+    <>
+        <button type="button" class="btn btn-primary" command="show-modal" commandfor="actions-sheet">{ "Open actions" }</button>
+        <BottomSheet id="actions-sheet" aria_label="Actions" class="bottomsheet-sm">
+            <div class="bottomsheet-header">
+                <h2 class="bottomsheet-title">{ "Actions" }</h2>
+                <button type="button" class="bottomsheet-close" aria-label="Close actions" command="close" commandfor="actions-sheet">{ "x" }</button>
+            </div>
+            <div class="bottomsheet-content">{ "Focused task content" }</div>
+        </BottomSheet>
+    </>
+}"##.to_owned()
 }
 
 fn demo(_: &ComponentSpec) -> Html {
-    html! {
-        <BottomSheet variant={primary_variant()} class="component-detail-bottomsheet-demo bottom-sheet bottom-sheet-show bottom-sheet-modal">
-            <div class="bottom-sheet-handle"></div>
-            <div class="bottom-sheet-header">
-                <h2 class="bottom-sheet-title">{ "Quick actions" }</h2>
-                <button class="bottom-sheet-close" aria-label="Close">{ "x" }</button>
-            </div>
-            <div class="bottom-sheet-body">
-                <p>{ "Bottom sheets keep focused mobile tasks close to the thumb zone." }</p>
-            </div>
-            <div class="bottom-sheet-footer">
-                <button class="btn btn-text">{ "Cancel" }</button>
-                <button class="btn btn-primary">{ "Apply" }</button>
-            </div>
-        </BottomSheet>
-    }
+    surface("demo-bottomsheet".into(), "Quick actions", "primary")
 }
 
-fn color_variant(color: PaletteColor) -> Html {
+fn surface(id: AttrValue, label: &'static str, color: &'static str) -> Html {
     html! {
-        <BottomSheet variant={variant(color)} class="component-detail-color-demo bottom-sheet bottom-sheet-show">
-            <div class="bottom-sheet-handle"></div>
-            <div class="bottom-sheet-header">
-                <h2 class="bottom-sheet-title">{ color.label }</h2>
-            </div>
-            <div class="bottom-sheet-body">
-                <p>{ format!("bottomsheet-{}", color.key) }</p>
-            </div>
-        </BottomSheet>
+        <>
+            <button type="button" class={classes!("btn", format!("btn-{color}"))} command="show-modal" commandfor={id.clone()}>{label}</button>
+            <BottomSheet id={id.clone()} aria_label={label} class="bottomsheet-sm">
+                <div class="bottomsheet-header">
+                    <h2 class="bottomsheet-title">{label}</h2>
+                    <button type="button" class="bottomsheet-close" aria-label="Close actions" command="close" commandfor={id.clone()}>{"x"}</button>
+                </div>
+                <div class="bottomsheet-content"><p>{"The browser manages modality, focus, and Escape."}</p></div>
+                <div class="bottomsheet-footer">
+                    <button type="button" class="btn btn-text" command="close" commandfor={id}>{"Done"}</button>
+                </div>
+            </BottomSheet>
+        </>
     }
 }

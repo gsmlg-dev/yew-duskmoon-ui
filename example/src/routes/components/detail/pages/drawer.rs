@@ -1,90 +1,86 @@
 use crate::routes::components::catalog::ComponentSpec;
-use crate::routes::components::detail::page::{primary_variant, ApiRow, ComponentPage};
-use crate::routes::components::palette::{variant, PaletteColor};
+use crate::routes::components::detail::page::{ApiRow, ComponentPage};
 use yew::prelude::*;
 use yew_duskmoon::Drawer;
 
 const API: &[ApiRow] = &[
     ApiRow {
+        prop: "id",
+        ty: "Option<AttrValue>",
+        default: "None",
+        docs: "Unique native dialog or popover target.",
+    },
+    ApiRow {
+        prop: "modal",
+        ty: "bool",
+        default: "true",
+        docs: "Modal dialog uses show-modal/close commands; false uses native auto popover.",
+    },
+    ApiRow {
+        prop: "aria_label",
+        ty: "Option<AttrValue>",
+        default: "None",
+        docs: "Accessible surface name.",
+    },
+    ApiRow {
         prop: "class",
         ty: "Classes",
         default: "empty",
-        docs: "Extra classes appended to the drawer root; use it for position, open state, size, and surface classes.",
+        docs: "Core position and size modifiers.",
     },
     ApiRow {
         prop: "children",
         ty: "Children",
         default: "empty",
-        docs: "Drawer sections such as drawer-header, drawer-body, drawer-item, dividers, labels, and footer actions.",
+        docs: "Header, content, and footer markup using drawer classes.",
     },
     ApiRow {
         prop: "variant",
         ty: "Option<String>",
         default: "None",
-        docs: "Appends a color class such as drawer-primary to the root.",
+        docs: "Legacy modifier escape hatch; use supported Core size variants.",
     },
 ];
 
 pub fn page(spec: &'static ComponentSpec) -> ComponentPage {
-    ComponentPage::new(spec, usage, API, demo, color_variant)
+    ComponentPage::without_color_variants(spec, usage, API, demo)
 }
 
 fn usage(_: &ComponentSpec) -> String {
     r##"use yew_duskmoon::Drawer;
 
 html! {
-    <Drawer variant={Some("primary".to_owned())} class="drawer-left drawer-open drawer-md">
-        <div class="drawer-header">
-            <h2 class="drawer-title">{ "Menu" }</h2>
-            <button class="drawer-close" aria-label="Close drawer">{ "x" }</button>
-        </div>
-        <div class="drawer-body">
-            <a href="#dashboard" class="drawer-item drawer-item-active">{ "Dashboard" }</a>
-            <a href="#settings" class="drawer-item">{ "Settings" }</a>
-        </div>
-    </Drawer>
-}"##
-    .to_owned()
+    <>
+        <button type="button" class="btn btn-primary" command="show-modal" commandfor="actions-sheet">{ "Open actions" }</button>
+        <Drawer id="actions-sheet" aria_label="Actions" class="drawer-right drawer-sm">
+            <div class="drawer-header">
+                <h2 class="drawer-title">{ "Actions" }</h2>
+                <button type="button" class="drawer-close" aria-label="Close actions" command="close" commandfor="actions-sheet">{ "x" }</button>
+            </div>
+            <div class="drawer-body">{ "Focused task content" }</div>
+        </Drawer>
+    </>
+}"##.to_owned()
 }
 
 fn demo(_: &ComponentSpec) -> Html {
-    html! {
-        <Drawer variant={primary_variant()} class="component-detail-drawer-demo drawer-left drawer-open drawer-md">
-            <div class="drawer-header">
-                <h2 class="drawer-title">{ "Workspace" }</h2>
-                <button class="drawer-close" aria-label="Close drawer">{ "x" }</button>
-            </div>
-            <div class="drawer-body">
-                <a href="#docs" class="drawer-item drawer-item-active">
-                    <span class="drawer-item-icon">{ "01" }</span>
-                    { "Docs" }
-                </a>
-                <a href="#api" class="drawer-item">
-                    <span class="drawer-item-icon">{ "02" }</span>
-                    { "API" }
-                </a>
-                <div class="drawer-divider"></div>
-                <span class="drawer-label">{ "Component" }</span>
-                <a href="#demo" class="drawer-item">{ "Rendered demo" }</a>
-                <a href="#colors" class="drawer-item">{ "Color variants" }</a>
-            </div>
-            <div class="drawer-footer">
-                <button class="btn btn-primary">{ "Open" }</button>
-            </div>
-        </Drawer>
-    }
+    surface("demo-drawer".into(), "Quick actions", "primary")
 }
 
-fn color_variant(color: PaletteColor) -> Html {
+fn surface(id: AttrValue, label: &'static str, color: &'static str) -> Html {
     html! {
-        <Drawer variant={variant(color)} class="component-detail-color-demo drawer-left drawer-open drawer-sm">
-            <div class="drawer-header">
-                <h2 class="drawer-title">{ color.label }</h2>
-            </div>
-            <div class="drawer-body">
-                <a href="#colors" class="drawer-item drawer-item-active">{ color.key }</a>
-                <a href="#demo" class="drawer-item">{ "Preview" }</a>
-            </div>
-        </Drawer>
+        <>
+            <button type="button" class={classes!("btn", format!("btn-{color}"))} command="show-modal" commandfor={id.clone()}>{label}</button>
+            <Drawer id={id.clone()} aria_label={label} class="drawer-right drawer-sm">
+                <div class="drawer-header">
+                    <h2 class="drawer-title">{label}</h2>
+                    <button type="button" class="drawer-close" aria-label="Close actions" command="close" commandfor={id.clone()}>{"x"}</button>
+                </div>
+                <div class="drawer-body"><p>{"The browser manages modality, focus, and Escape."}</p></div>
+                <div class="drawer-footer">
+                    <button type="button" class="btn btn-text" command="close" commandfor={id}>{"Done"}</button>
+                </div>
+            </Drawer>
+        </>
     }
 }

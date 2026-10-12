@@ -92,7 +92,7 @@ pub const STANDARD_API: &[ApiRow] = &[
         prop: "variant",
         ty: "Option<String>",
         default: "None",
-        docs: "Appends a component-specific modifier class such as component-primary.",
+        docs: "Appends a component-specific modifier class. Use only modifiers supported by this component's Core contract.",
     },
 ];
 

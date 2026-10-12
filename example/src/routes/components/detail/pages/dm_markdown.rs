@@ -1,6 +1,5 @@
 use crate::routes::components::catalog::ComponentSpec;
-use crate::routes::components::detail::page::{primary_variant, ApiRow, ComponentPage};
-use crate::routes::components::palette::{variant, PaletteColor};
+use crate::routes::components::detail::page::{ApiRow, ComponentPage};
 use yew::prelude::*;
 use yew_duskmoon::{DmMarkdown, FrontMatterMode};
 
@@ -51,7 +50,7 @@ const DM_MARKDOWN_API: &[ApiRow] = &[
         prop: "variant",
         ty: "Option<String>",
         default: "None",
-        docs: "Appends a color modifier class such as markdown-body-primary.",
+        docs: "Legacy modifier escape hatch; Core provides a neutral prose surface without root palette variants.",
     },
 ];
 
@@ -476,7 +475,7 @@ Delimiter lines are parsed as ordinary Markdown in disabled mode.
 "#;
 
 pub fn page(spec: &'static ComponentSpec) -> ComponentPage {
-    ComponentPage::new(spec, usage, DM_MARKDOWN_API, demo, color_variant)
+    ComponentPage::without_color_variants(spec, usage, DM_MARKDOWN_API, demo)
 }
 
 fn usage(_: &ComponentSpec) -> String {
@@ -487,32 +486,19 @@ fn demo(_: &ComponentSpec) -> Html {
     html! {
         <div class="component-detail-markdown-stack">
             <DmMarkdown
-                variant={primary_variant()}
                 class="component-detail-demo-control"
                 markdown={SAMPLE_MARKDOWN}
             />
             <DmMarkdown
-                variant={primary_variant()}
                 class="component-detail-demo-control"
                 front_matter={FrontMatterMode::Hidden}
                 markdown={HIDDEN_FRONT_MATTER_MARKDOWN}
             />
             <DmMarkdown
-                variant={primary_variant()}
                 class="component-detail-demo-control"
                 front_matter={FrontMatterMode::Disabled}
                 markdown={DISABLED_FRONT_MATTER_MARKDOWN}
             />
         </div>
-    }
-}
-
-fn color_variant(color: PaletteColor) -> Html {
-    html! {
-        <DmMarkdown
-            variant={variant(color)}
-            class="component-detail-color-demo"
-            markdown={format!("**{}** markdown renderer\n\n`markdown-body-{}`", color.label, color.key)}
-        />
     }
 }

@@ -4,6 +4,7 @@ use yew::prelude::*;
 use yew_duskmoon::{Button, Modal};
 
 const API: &[ApiRow] = &[
+    ApiRow { prop: "aria_label / aria_labelledby", ty: "Option<AttrValue>", default: "None", docs: "Accessible dialog name or referenced title id." },
     ApiRow {
         prop: "id",
         ty: "AttrValue",
@@ -41,7 +42,7 @@ use yew_duskmoon::{Button, Modal};
 html! {
     <>
         <Button command="show-modal" command_for="legacy-modal">{ "Open" }</Button>
-        <Modal id="legacy-modal">
+        <Modal aria_label="Native modal dialog" id="legacy-modal">
             <div class="dialog-box">
                 <div class="dialog-header">
                     <h2 class="dialog-title">{ "Native modal dialog" }</h2>
@@ -64,7 +65,7 @@ fn demo(_: &ComponentSpec) -> Html {
             <Button command="show-modal" command_for="demo-legacy-modal" variant={Some("primary".to_owned())}>
                 { "Open compatibility modal" }
             </Button>
-            <Modal id="demo-legacy-modal">
+            <Modal aria_label="Native modal dialog" id="demo-legacy-modal">
                 <div class="dialog-box">
                     <div class="dialog-header">
                         <h2 class="dialog-title">{ "Native modal dialog" }</h2>

@@ -65,8 +65,10 @@ body::before {
     mask-image: linear-gradient(180deg, black, transparent 82%);
 }
 
-a {
-    color: inherit;
+@layer base {
+    a {
+        color: inherit;
+    }
 }
 
 svg {
@@ -799,777 +801,6 @@ textarea {
     color: var(--dm-paper);
 }
 
-/* WORKAROUND(upstream): duskmoon-dev/duskmoonui#45 - bridge complete palette variants in the example until core owns all component color classes. */
-:where(
-    .accordion,
-    .alert,
-    .app-header,
-    .appbar,
-    .autocomplete,
-    .avatar,
-    .badge,
-    .bottom-navigation,
-    .bottomsheet,
-    .breadcrumbs,
-    .breadcrumb-token,
-    .btn,
-    .card,
-    .cascader,
-    .chat,
-    .checkbox,
-    .checkbox-group,
-    .chip,
-    .circle-menu,
-    .code-block,
-    .code-engine,
-    .collapse,
-    .color-list-row,
-    .datepicker,
-    .dialog,
-    .divider,
-    .drawer,
-    .form,
-    .form-group,
-    .grid,
-    .grid-demo-tile,
-    .input,
-    .link,
-    .list,
-    .markdown-body,
-    .menu,
-    .menu-color-item,
-    .modal,
-    .multi-select,
-    .navbar,
-    .navigation,
-    .nested-menu,
-    .otp-input,
-    .pagination,
-    .pin-input,
-    .popover,
-    .progress,
-    .radio,
-    .radio-group,
-    .rating,
-    .segment-control,
-    .select,
-    .skeleton,
-    .slider,
-    .snackbar,
-    .stepper,
-    .switch,
-    .table,
-    .table-color-row,
-    .tabs,
-    .textarea,
-    .theme-controller,
-    .time-input,
-    .timeline,
-    .toast,
-    .tooltip,
-    .tree-select,
-    .typography-token
-)[class*="-primary"],
-:where(.typography-primary) {
-    --component-color: var(--color-primary);
-    --component-content: var(--color-primary-content);
-    --component-container: var(--color-primary-container);
-    --component-on-container: var(--color-on-primary-container);
-}
-
-:where(
-    .accordion,
-    .alert,
-    .app-header,
-    .appbar,
-    .autocomplete,
-    .avatar,
-    .badge,
-    .bottom-navigation,
-    .bottomsheet,
-    .breadcrumbs,
-    .breadcrumb-token,
-    .btn,
-    .card,
-    .cascader,
-    .chat,
-    .checkbox,
-    .checkbox-group,
-    .chip,
-    .circle-menu,
-    .code-block,
-    .code-engine,
-    .collapse,
-    .color-list-row,
-    .datepicker,
-    .dialog,
-    .divider,
-    .drawer,
-    .form,
-    .form-group,
-    .grid,
-    .grid-demo-tile,
-    .input,
-    .link,
-    .list,
-    .markdown-body,
-    .menu,
-    .menu-color-item,
-    .modal,
-    .multi-select,
-    .navbar,
-    .navigation,
-    .nested-menu,
-    .otp-input,
-    .pagination,
-    .pin-input,
-    .popover,
-    .progress,
-    .radio,
-    .radio-group,
-    .rating,
-    .segment-control,
-    .select,
-    .skeleton,
-    .slider,
-    .snackbar,
-    .stepper,
-    .switch,
-    .table,
-    .table-color-row,
-    .tabs,
-    .textarea,
-    .theme-controller,
-    .time-input,
-    .timeline,
-    .toast,
-    .tooltip,
-    .tree-select,
-    .typography-token
-)[class*="-secondary"],
-:where(.typography-secondary) {
-    --component-color: var(--color-secondary);
-    --component-content: var(--color-secondary-content);
-    --component-container: var(--color-secondary-container);
-    --component-on-container: var(--color-on-secondary-container);
-}
-
-:where(
-    .accordion,
-    .alert,
-    .app-header,
-    .appbar,
-    .autocomplete,
-    .avatar,
-    .badge,
-    .bottom-navigation,
-    .bottomsheet,
-    .breadcrumbs,
-    .breadcrumb-token,
-    .btn,
-    .card,
-    .cascader,
-    .chat,
-    .checkbox,
-    .checkbox-group,
-    .chip,
-    .circle-menu,
-    .code-block,
-    .code-engine,
-    .collapse,
-    .color-list-row,
-    .datepicker,
-    .dialog,
-    .divider,
-    .drawer,
-    .form,
-    .form-group,
-    .grid,
-    .grid-demo-tile,
-    .input,
-    .link,
-    .list,
-    .markdown-body,
-    .menu,
-    .menu-color-item,
-    .modal,
-    .multi-select,
-    .navbar,
-    .navigation,
-    .nested-menu,
-    .otp-input,
-    .pagination,
-    .pin-input,
-    .popover,
-    .progress,
-    .radio,
-    .radio-group,
-    .rating,
-    .segment-control,
-    .select,
-    .skeleton,
-    .slider,
-    .snackbar,
-    .stepper,
-    .switch,
-    .table,
-    .table-color-row,
-    .tabs,
-    .textarea,
-    .theme-controller,
-    .time-input,
-    .timeline,
-    .toast,
-    .tooltip,
-    .tree-select,
-    .typography-token
-)[class*="-tertiary"],
-:where(.typography-tertiary) {
-    --component-color: var(--color-tertiary);
-    --component-content: var(--color-tertiary-content);
-    --component-container: var(--color-tertiary-container);
-    --component-on-container: var(--color-on-tertiary-container);
-}
-
-:where(
-    .accordion,
-    .alert,
-    .app-header,
-    .appbar,
-    .autocomplete,
-    .avatar,
-    .badge,
-    .bottom-navigation,
-    .bottomsheet,
-    .breadcrumbs,
-    .breadcrumb-token,
-    .btn,
-    .card,
-    .cascader,
-    .chat,
-    .checkbox,
-    .checkbox-group,
-    .chip,
-    .circle-menu,
-    .code-block,
-    .code-engine,
-    .collapse,
-    .color-list-row,
-    .datepicker,
-    .dialog,
-    .divider,
-    .drawer,
-    .form,
-    .form-group,
-    .grid,
-    .grid-demo-tile,
-    .input,
-    .link,
-    .list,
-    .markdown-body,
-    .menu,
-    .menu-color-item,
-    .modal,
-    .multi-select,
-    .navbar,
-    .navigation,
-    .nested-menu,
-    .otp-input,
-    .pagination,
-    .pin-input,
-    .popover,
-    .progress,
-    .radio,
-    .radio-group,
-    .rating,
-    .segment-control,
-    .select,
-    .skeleton,
-    .slider,
-    .snackbar,
-    .stepper,
-    .switch,
-    .table,
-    .table-color-row,
-    .tabs,
-    .textarea,
-    .theme-controller,
-    .time-input,
-    .timeline,
-    .toast,
-    .tooltip,
-    .tree-select,
-    .typography-token
-)[class*="-accent"],
-:where(.typography-accent) {
-    --component-color: var(--color-accent);
-    --component-content: var(--color-accent-content);
-    --component-container: color-mix(in oklch, var(--color-accent) 22%, var(--color-surface));
-    --component-on-container: var(--color-accent-content);
-}
-
-:where(
-    .accordion,
-    .alert,
-    .app-header,
-    .appbar,
-    .autocomplete,
-    .avatar,
-    .badge,
-    .bottom-navigation,
-    .bottomsheet,
-    .breadcrumbs,
-    .breadcrumb-token,
-    .btn,
-    .card,
-    .cascader,
-    .chat,
-    .checkbox,
-    .checkbox-group,
-    .chip,
-    .circle-menu,
-    .code-block,
-    .code-engine,
-    .collapse,
-    .color-list-row,
-    .datepicker,
-    .dialog,
-    .divider,
-    .drawer,
-    .form,
-    .form-group,
-    .grid,
-    .grid-demo-tile,
-    .input,
-    .link,
-    .list,
-    .markdown-body,
-    .menu,
-    .menu-color-item,
-    .modal,
-    .multi-select,
-    .navbar,
-    .navigation,
-    .nested-menu,
-    .otp-input,
-    .pagination,
-    .pin-input,
-    .popover,
-    .progress,
-    .radio,
-    .radio-group,
-    .rating,
-    .segment-control,
-    .select,
-    .skeleton,
-    .slider,
-    .snackbar,
-    .stepper,
-    .switch,
-    .table,
-    .table-color-row,
-    .tabs,
-    .textarea,
-    .theme-controller,
-    .time-input,
-    .timeline,
-    .toast,
-    .tooltip,
-    .tree-select,
-    .typography-token
-)[class*="-neutral"],
-:where(.typography-neutral) {
-    --component-color: var(--color-neutral);
-    --component-content: var(--color-neutral-content);
-    --component-container: color-mix(in oklch, var(--color-neutral) 24%, var(--color-surface));
-    --component-on-container: var(--color-neutral-content);
-}
-
-:where(
-    .accordion,
-    .alert,
-    .app-header,
-    .appbar,
-    .autocomplete,
-    .avatar,
-    .badge,
-    .bottom-navigation,
-    .bottomsheet,
-    .breadcrumbs,
-    .breadcrumb-token,
-    .btn,
-    .card,
-    .cascader,
-    .chat,
-    .checkbox,
-    .checkbox-group,
-    .chip,
-    .circle-menu,
-    .code-block,
-    .code-engine,
-    .collapse,
-    .color-list-row,
-    .datepicker,
-    .dialog,
-    .divider,
-    .drawer,
-    .form,
-    .form-group,
-    .grid,
-    .grid-demo-tile,
-    .input,
-    .link,
-    .list,
-    .markdown-body,
-    .menu,
-    .menu-color-item,
-    .modal,
-    .multi-select,
-    .navbar,
-    .navigation,
-    .nested-menu,
-    .otp-input,
-    .pagination,
-    .pin-input,
-    .popover,
-    .progress,
-    .radio,
-    .radio-group,
-    .rating,
-    .segment-control,
-    .select,
-    .skeleton,
-    .slider,
-    .snackbar,
-    .stepper,
-    .switch,
-    .table,
-    .table-color-row,
-    .tabs,
-    .textarea,
-    .theme-controller,
-    .time-input,
-    .timeline,
-    .toast,
-    .tooltip,
-    .tree-select,
-    .typography-token
-)[class*="-base"],
-:where(.typography-base) {
-    --component-color: var(--color-base-300);
-    --component-content: var(--color-base-content);
-    --component-container: var(--color-base-200);
-    --component-on-container: var(--color-base-content);
-}
-
-:where(
-    .accordion,
-    .alert,
-    .app-header,
-    .appbar,
-    .autocomplete,
-    .avatar,
-    .badge,
-    .bottom-navigation,
-    .bottomsheet,
-    .breadcrumbs,
-    .breadcrumb-token,
-    .btn,
-    .card,
-    .cascader,
-    .chat,
-    .checkbox,
-    .checkbox-group,
-    .chip,
-    .circle-menu,
-    .code-block,
-    .code-engine,
-    .collapse,
-    .color-list-row,
-    .datepicker,
-    .dialog,
-    .divider,
-    .drawer,
-    .form,
-    .form-group,
-    .grid,
-    .grid-demo-tile,
-    .input,
-    .link,
-    .list,
-    .markdown-body,
-    .menu,
-    .menu-color-item,
-    .modal,
-    .multi-select,
-    .navbar,
-    .navigation,
-    .nested-menu,
-    .otp-input,
-    .pagination,
-    .pin-input,
-    .popover,
-    .progress,
-    .radio,
-    .radio-group,
-    .rating,
-    .segment-control,
-    .select,
-    .skeleton,
-    .slider,
-    .snackbar,
-    .stepper,
-    .switch,
-    .table,
-    .table-color-row,
-    .tabs,
-    .textarea,
-    .theme-controller,
-    .time-input,
-    .timeline,
-    .toast,
-    .tooltip,
-    .tree-select,
-    .typography-token
-)[class*="-info"],
-:where(.typography-info) {
-    --component-color: var(--color-info);
-    --component-content: var(--color-info-content);
-    --component-container: var(--color-info-container);
-    --component-on-container: var(--color-on-info-container);
-}
-
-:where(
-    .accordion,
-    .alert,
-    .app-header,
-    .appbar,
-    .autocomplete,
-    .avatar,
-    .badge,
-    .bottom-navigation,
-    .bottomsheet,
-    .breadcrumbs,
-    .breadcrumb-token,
-    .btn,
-    .card,
-    .cascader,
-    .chat,
-    .checkbox,
-    .checkbox-group,
-    .chip,
-    .circle-menu,
-    .code-block,
-    .code-engine,
-    .collapse,
-    .color-list-row,
-    .datepicker,
-    .dialog,
-    .divider,
-    .drawer,
-    .form,
-    .form-group,
-    .grid,
-    .grid-demo-tile,
-    .input,
-    .link,
-    .list,
-    .markdown-body,
-    .menu,
-    .menu-color-item,
-    .modal,
-    .multi-select,
-    .navbar,
-    .navigation,
-    .nested-menu,
-    .otp-input,
-    .pagination,
-    .pin-input,
-    .popover,
-    .progress,
-    .radio,
-    .radio-group,
-    .rating,
-    .segment-control,
-    .select,
-    .skeleton,
-    .slider,
-    .snackbar,
-    .stepper,
-    .switch,
-    .table,
-    .table-color-row,
-    .tabs,
-    .textarea,
-    .theme-controller,
-    .time-input,
-    .timeline,
-    .toast,
-    .tooltip,
-    .tree-select,
-    .typography-token
-)[class*="-success"],
-:where(.typography-success) {
-    --component-color: var(--color-success);
-    --component-content: var(--color-success-content);
-    --component-container: var(--color-success-container);
-    --component-on-container: var(--color-on-success-container);
-}
-
-:where(
-    .accordion,
-    .alert,
-    .app-header,
-    .appbar,
-    .autocomplete,
-    .avatar,
-    .badge,
-    .bottom-navigation,
-    .bottomsheet,
-    .breadcrumbs,
-    .breadcrumb-token,
-    .btn,
-    .card,
-    .cascader,
-    .chat,
-    .checkbox,
-    .checkbox-group,
-    .chip,
-    .circle-menu,
-    .code-block,
-    .code-engine,
-    .collapse,
-    .color-list-row,
-    .datepicker,
-    .dialog,
-    .divider,
-    .drawer,
-    .form,
-    .form-group,
-    .grid,
-    .grid-demo-tile,
-    .input,
-    .link,
-    .list,
-    .markdown-body,
-    .menu,
-    .menu-color-item,
-    .modal,
-    .multi-select,
-    .navbar,
-    .navigation,
-    .nested-menu,
-    .otp-input,
-    .pagination,
-    .pin-input,
-    .popover,
-    .progress,
-    .radio,
-    .radio-group,
-    .rating,
-    .segment-control,
-    .select,
-    .skeleton,
-    .slider,
-    .snackbar,
-    .stepper,
-    .switch,
-    .table,
-    .table-color-row,
-    .tabs,
-    .textarea,
-    .theme-controller,
-    .time-input,
-    .timeline,
-    .toast,
-    .tooltip,
-    .tree-select,
-    .typography-token
-)[class*="-warning"],
-:where(.typography-warning) {
-    --component-color: var(--color-warning);
-    --component-content: var(--color-warning-content);
-    --component-container: var(--color-warning-container);
-    --component-on-container: var(--color-on-warning-container);
-}
-
-:where(
-    .accordion,
-    .alert,
-    .app-header,
-    .appbar,
-    .autocomplete,
-    .avatar,
-    .badge,
-    .bottom-navigation,
-    .bottomsheet,
-    .breadcrumbs,
-    .breadcrumb-token,
-    .btn,
-    .card,
-    .cascader,
-    .chat,
-    .checkbox,
-    .checkbox-group,
-    .chip,
-    .circle-menu,
-    .code-block,
-    .code-engine,
-    .collapse,
-    .color-list-row,
-    .datepicker,
-    .dialog,
-    .divider,
-    .drawer,
-    .form,
-    .form-group,
-    .grid,
-    .grid-demo-tile,
-    .input,
-    .link,
-    .list,
-    .markdown-body,
-    .menu,
-    .menu-color-item,
-    .modal,
-    .multi-select,
-    .navbar,
-    .navigation,
-    .nested-menu,
-    .otp-input,
-    .pagination,
-    .pin-input,
-    .popover,
-    .progress,
-    .radio,
-    .radio-group,
-    .rating,
-    .segment-control,
-    .select,
-    .skeleton,
-    .slider,
-    .snackbar,
-    .stepper,
-    .switch,
-    .table,
-    .table-color-row,
-    .tabs,
-    .textarea,
-    .theme-controller,
-    .time-input,
-    .timeline,
-    .toast,
-    .tooltip,
-    .tree-select,
-    .typography-token
-)[class*="-error"],
-:where(.typography-error) {
-    --component-color: var(--color-error);
-    --component-content: var(--color-error-content);
-    --component-container: var(--color-error-container);
-    --component-on-container: var(--color-on-error-container);
-}
-
 .component-main {
     gap: 24px !important;
 }
@@ -1641,57 +872,15 @@ textarea {
 .form-color-cell,
 .control-color-cell,
 .pagination-color-cell,
-.typography-token,
-.markdown-token-card,
-.code-token-block {
+.typography-token {
     display: flex;
     min-width: 0;
     flex-direction: column;
     gap: 10px;
     padding: 14px;
-    border: 1px solid color-mix(in oklch, var(--component-color, var(--dm-line-strong)) 36%, var(--dm-line));
+    border: 1px solid var(--dm-line);
     border-radius: 8px;
-    background: color-mix(in oklch, var(--component-container, var(--color-surface-container)) 82%, transparent);
-}
-
-.color-button,
-:where(.btn-accent, .btn-neutral, .btn-base) {
-    color: var(--component-content) !important;
-    background: var(--component-color) !important;
-    border-color: var(--component-color) !important;
-}
-
-:where(.badge-accent, .badge-neutral, .badge-base),
-:where(.chip-accent, .chip-neutral, .chip-base) {
-    color: var(--component-content);
-    background: var(--component-color);
-    border-color: var(--component-color);
-}
-
-:where(.badge-soft.badge-accent, .badge-soft.badge-neutral, .badge-soft.badge-base),
-:where(.chip-tonal.chip-accent, .chip-tonal.chip-neutral, .chip-tonal.chip-base) {
-    color: var(--component-on-container);
-    background: var(--component-container);
-    border-color: transparent;
-}
-
-:where(.card-accent, .card-neutral, .card-base) {
-    color: var(--component-on-container);
-    background: var(--component-container);
-}
-
-:where(.card-accent, .card-neutral, .card-base) .card-title {
-    color: var(--component-on-container);
-}
-
-:where(.link-primary, .link-secondary, .link-tertiary, .link-accent, .link-neutral, .link-base, .link-info, .link-success, .link-warning, .link-error),
-:where(.typography-primary, .typography-secondary, .typography-tertiary, .typography-accent, .typography-neutral, .typography-base, .typography-info, .typography-success, .typography-warning, .typography-error) {
-    color: var(--component-color) !important;
-}
-
-:where(.app-header-primary, .app-header-secondary, .app-header-tertiary, .app-header-accent, .app-header-neutral, .app-header-base, .app-header-info, .app-header-success, .app-header-warning, .app-header-error) {
-    color: var(--component-content);
-    background: var(--component-color) !important;
+    background: color-mix(in oklch, var(--color-surface-container) 82%, transparent);
 }
 
 .form-color-cell label,
@@ -1704,34 +893,27 @@ textarea {
 
 .color-input,
 .color-textarea {
-    display: flex;
-    align-items: center;
     min-height: 44px;
-    padding: 0.75rem 1rem;
-    border-color: var(--component-color) !important;
-    color: var(--dm-paper);
-    background: color-mix(in oklch, var(--component-container) 52%, transparent);
 }
 
 .color-textarea {
     min-height: 78px;
-    align-items: flex-start;
 }
 
 .code-engine {
-    --component-color: var(--color-primary);
-    --component-content: var(--color-primary-content);
-    --component-container: var(--color-primary-container);
-    --component-on-container: var(--color-on-primary-container);
+    --code-engine-color: var(--color-primary);
+    --code-engine-content: var(--color-primary-content);
+    --code-engine-container: var(--color-primary-container);
+    --code-engine-on-container: var(--color-on-primary-container);
     display: flex;
     width: min(100%, 860px);
     min-width: 0;
     flex-direction: column;
     overflow: hidden;
-    border: 1px solid color-mix(in oklch, var(--component-color) 36%, var(--dm-line));
+    border: 1px solid color-mix(in oklch, var(--code-engine-color) 36%, var(--dm-line));
     border-radius: 8px;
     color: var(--dm-paper);
-    background: color-mix(in oklch, var(--component-container) 36%, var(--color-surface-container));
+    background: color-mix(in oklch, var(--code-engine-container) 36%, var(--color-surface-container));
 }
 
 .code-engine-header {
@@ -1750,10 +932,10 @@ textarea {
     align-items: center;
     min-height: 24px;
     padding: 0 8px;
-    border: 1px solid color-mix(in oklch, var(--component-color) 52%, transparent);
+    border: 1px solid color-mix(in oklch, var(--code-engine-color) 52%, transparent);
     border-radius: 6px;
-    color: var(--component-content);
-    background: var(--component-color);
+    color: var(--code-engine-content);
+    background: var(--code-engine-color);
     font-family: var(--font-mono);
     font-size: 0.78rem;
     font-weight: 800;
@@ -1812,7 +994,7 @@ textarea {
 }
 
 .code-engine-input:focus-visible {
-    box-shadow: inset 0 0 0 2px var(--component-color);
+    box-shadow: inset 0 0 0 2px var(--code-engine-color);
 }
 
 .code-engine.is-readonly .code-engine-input {
@@ -1821,82 +1003,82 @@ textarea {
 }
 
 .markdown-input {
-    --component-color: var(--color-primary);
-    --component-content: var(--color-primary-content);
-    --component-container: var(--color-primary-container);
-    --component-on-container: var(--color-on-primary-container);
+    --markdown-input-color: var(--color-primary);
+    --markdown-input-content: var(--color-primary-content);
+    --markdown-input-container: var(--color-primary-container);
+    --markdown-input-on-container: var(--color-on-primary-container);
     display: flex;
     flex-direction: column;
     width: min(100%, 780px);
     min-width: 0;
     overflow: hidden;
-    border: 1px solid color-mix(in oklch, var(--component-color) 36%, var(--dm-line));
+    border: 1px solid color-mix(in oklch, var(--markdown-input-color) 36%, var(--dm-line));
     border-radius: 8px;
     color: var(--dm-paper);
-    background: color-mix(in oklch, var(--component-container) 42%, var(--color-surface-container));
+    background: color-mix(in oklch, var(--markdown-input-container) 42%, var(--color-surface-container));
 }
 
 .markdown-input-primary {
-    --component-color: var(--color-primary);
-    --component-content: var(--color-primary-content);
-    --component-container: var(--color-primary-container);
-    --component-on-container: var(--color-on-primary-container);
+    --markdown-input-color: var(--color-primary);
+    --markdown-input-content: var(--color-primary-content);
+    --markdown-input-container: var(--color-primary-container);
+    --markdown-input-on-container: var(--color-on-primary-container);
 }
 
 .markdown-input-secondary {
-    --component-color: var(--color-secondary);
-    --component-content: var(--color-secondary-content);
-    --component-container: var(--color-secondary-container);
-    --component-on-container: var(--color-on-secondary-container);
+    --markdown-input-color: var(--color-secondary);
+    --markdown-input-content: var(--color-secondary-content);
+    --markdown-input-container: var(--color-secondary-container);
+    --markdown-input-on-container: var(--color-on-secondary-container);
 }
 
 .markdown-input-tertiary {
-    --component-color: var(--color-tertiary);
-    --component-content: var(--color-tertiary-content);
-    --component-container: var(--color-tertiary-container);
-    --component-on-container: var(--color-on-tertiary-container);
+    --markdown-input-color: var(--color-tertiary);
+    --markdown-input-content: var(--color-tertiary-content);
+    --markdown-input-container: var(--color-tertiary-container);
+    --markdown-input-on-container: var(--color-on-tertiary-container);
 }
 
 .markdown-input-accent {
-    --component-color: var(--color-accent);
-    --component-content: var(--color-accent-content);
-    --component-container: var(--color-accent);
-    --component-on-container: var(--color-accent-content);
+    --markdown-input-color: var(--color-accent);
+    --markdown-input-content: var(--color-accent-content);
+    --markdown-input-container: var(--color-accent);
+    --markdown-input-on-container: var(--color-accent-content);
 }
 
 .markdown-input-neutral {
-    --component-color: var(--color-neutral);
-    --component-content: var(--color-neutral-content);
-    --component-container: var(--color-neutral);
-    --component-on-container: var(--color-neutral-content);
+    --markdown-input-color: var(--color-neutral);
+    --markdown-input-content: var(--color-neutral-content);
+    --markdown-input-container: var(--color-neutral);
+    --markdown-input-on-container: var(--color-neutral-content);
 }
 
 .markdown-input-info {
-    --component-color: var(--color-info);
-    --component-content: var(--color-info-content);
-    --component-container: var(--color-info);
-    --component-on-container: var(--color-info-content);
+    --markdown-input-color: var(--color-info);
+    --markdown-input-content: var(--color-info-content);
+    --markdown-input-container: var(--color-info);
+    --markdown-input-on-container: var(--color-info-content);
 }
 
 .markdown-input-success {
-    --component-color: var(--color-success);
-    --component-content: var(--color-success-content);
-    --component-container: var(--color-success);
-    --component-on-container: var(--color-success-content);
+    --markdown-input-color: var(--color-success);
+    --markdown-input-content: var(--color-success-content);
+    --markdown-input-container: var(--color-success);
+    --markdown-input-on-container: var(--color-success-content);
 }
 
 .markdown-input-warning {
-    --component-color: var(--color-warning);
-    --component-content: var(--color-warning-content);
-    --component-container: var(--color-warning);
-    --component-on-container: var(--color-warning-content);
+    --markdown-input-color: var(--color-warning);
+    --markdown-input-content: var(--color-warning-content);
+    --markdown-input-container: var(--color-warning);
+    --markdown-input-on-container: var(--color-warning-content);
 }
 
 .markdown-input-error {
-    --component-color: var(--color-error);
-    --component-content: var(--color-error-content);
-    --component-container: var(--color-error);
-    --component-on-container: var(--color-error-content);
+    --markdown-input-color: var(--color-error);
+    --markdown-input-content: var(--color-error-content);
+    --markdown-input-container: var(--color-error);
+    --markdown-input-on-container: var(--color-error-content);
 }
 
 .markdown-input-tabs {
@@ -1924,9 +1106,9 @@ textarea {
 }
 
 .markdown-input-tab.is-active {
-    color: var(--component-content);
-    border-color: var(--component-color);
-    background: var(--component-color);
+    color: var(--markdown-input-content);
+    border-color: var(--markdown-input-color);
+    background: var(--markdown-input-color);
 }
 
 .markdown-input-field {
@@ -1949,7 +1131,7 @@ textarea {
 }
 
 .markdown-input-field:focus-visible {
-    box-shadow: inset 0 0 0 2px var(--component-color);
+    box-shadow: inset 0 0 0 2px var(--markdown-input-color);
 }
 
 .markdown-input-field[readonly] {
@@ -1970,83 +1152,6 @@ textarea {
     gap: 16px;
 }
 
-.demo-check,
-.demo-radio {
-    position: relative;
-    display: inline-block;
-    flex: 0 0 auto;
-    width: 24px;
-    height: 24px;
-    border: 2px solid var(--component-color);
-    background: var(--component-color);
-}
-
-.demo-check::after {
-    position: absolute;
-    left: 7px;
-    top: 2px;
-    width: 7px;
-    height: 13px;
-    border: solid var(--component-content);
-    border-width: 0 2px 2px 0;
-    content: "";
-    transform: rotate(45deg);
-}
-
-.demo-radio {
-    border-radius: 50%;
-    background: transparent;
-}
-
-.demo-radio::after {
-    position: absolute;
-    inset: 5px;
-    border-radius: 50%;
-    background: var(--component-color);
-    content: "";
-}
-
-.demo-switch {
-    position: relative;
-    display: inline-block;
-    width: 48px;
-    height: 26px;
-    border-radius: 999px;
-    background: var(--component-color);
-    box-shadow: inset 0 0 0 1px color-mix(in oklch, var(--component-content) 26%, transparent);
-}
-
-.demo-switch::after {
-    position: absolute;
-    top: 4px;
-    right: 4px;
-    width: 18px;
-    height: 18px;
-    border-radius: 50%;
-    background: var(--component-content);
-    content: "";
-}
-
-.alert-color-grid .alert,
-:where(.alert-accent, .alert-neutral, .alert-base) {
-    border-color: color-mix(in oklch, var(--component-color) 42%, transparent);
-    color: var(--component-on-container);
-    background: var(--component-container);
-}
-
-.toast-color-grid .toast,
-:where(.toast-accent, .toast-neutral, .toast-base) {
-    opacity: 1;
-    transform: none;
-    border-color: var(--component-color);
-}
-
-.toast-color-grid .toast-icon,
-.toast-color-grid .toast-title,
-:where(.toast-accent, .toast-neutral, .toast-base) .toast-icon {
-    color: var(--component-color);
-}
-
 .color-list {
     display: grid;
     gap: 8px;
@@ -2058,12 +1163,12 @@ textarea {
     justify-content: space-between;
     gap: 12px;
     padding: 12px 14px;
-    border: 1px solid color-mix(in oklch, var(--component-color) 38%, var(--dm-line));
+    border: 1px solid color-mix(in oklch, var(--dm-copper) 38%, var(--dm-line));
     border-left-width: 5px;
-    border-left-color: var(--component-color);
+    border-left-color: var(--dm-copper);
     border-radius: 8px;
     color: var(--dm-paper);
-    background: color-mix(in oklch, var(--component-container) 50%, transparent);
+    background: color-mix(in oklch, var(--color-surface-container) 50%, transparent);
 }
 
 .divider-palette,
@@ -2080,13 +1185,6 @@ textarea {
     align-items: center;
 }
 
-.color-divider {
-    height: 3px;
-    min-height: 3px;
-    border-radius: 999px;
-    background: var(--component-color);
-}
-
 .layout-demo-grid {
     width: 100%;
 }
@@ -2099,10 +1197,10 @@ textarea {
     justify-content: space-between;
     gap: 12px;
     padding: 14px;
-    border: 1px solid color-mix(in oklch, var(--component-color, var(--dm-line-strong)) 40%, var(--dm-line));
+    border: 1px solid color-mix(in oklch, var(--grid-demo-color, var(--dm-line-strong)) 40%, var(--dm-line));
     border-radius: 8px;
-    color: var(--component-on-container, var(--dm-paper));
-    background: color-mix(in oklch, var(--component-container, var(--color-surface-container)) 82%, transparent);
+    color: var(--grid-demo-on-container, var(--dm-paper));
+    background: color-mix(in oklch, var(--grid-demo-container, var(--color-surface-container)) 82%, transparent);
 }
 
 .grid-demo-tile span {
@@ -2110,19 +1208,29 @@ textarea {
 }
 
 .grid-demo-tile code {
-    color: color-mix(in oklch, var(--component-color, var(--dm-copper)) 88%, white);
+    color: color-mix(in oklch, var(--grid-demo-color, var(--dm-copper)) 88%, white);
 }
 
-.grid-demo-tile-primary { --component-color: var(--color-primary); --component-container: var(--color-primary-container); --component-on-container: var(--color-on-primary-container); }
-.grid-demo-tile-secondary { --component-color: var(--color-secondary); --component-container: var(--color-secondary-container); --component-on-container: var(--color-on-secondary-container); }
-.grid-demo-tile-tertiary { --component-color: var(--color-tertiary); --component-container: var(--color-tertiary-container); --component-on-container: var(--color-on-tertiary-container); }
-.grid-demo-tile-accent { --component-color: var(--color-accent); --component-container: var(--color-accent-container); --component-on-container: var(--color-on-accent-container); }
-.grid-demo-tile-neutral { --component-color: var(--color-neutral); --component-container: var(--color-neutral-container); --component-on-container: var(--color-on-neutral-container); }
-.grid-demo-tile-base { --component-color: var(--color-base-content); --component-container: var(--color-base-200); --component-on-container: var(--color-base-content); }
-.grid-demo-tile-info { --component-color: var(--color-info); --component-container: var(--color-info-container); --component-on-container: var(--color-on-info-container); }
-.grid-demo-tile-success { --component-color: var(--color-success); --component-container: var(--color-success-container); --component-on-container: var(--color-on-success-container); }
-.grid-demo-tile-warning { --component-color: var(--color-warning); --component-container: var(--color-warning-container); --component-on-container: var(--color-on-warning-container); }
-.grid-demo-tile-error { --component-color: var(--color-error); --component-container: var(--color-error-container); --component-on-container: var(--color-on-error-container); }
+.grid-primary .grid-demo-tile,
+.grid-demo-tile-primary { --grid-demo-color: var(--color-primary); --grid-demo-container: var(--color-primary-container); --grid-demo-on-container: var(--color-on-primary-container); }
+.grid-secondary .grid-demo-tile,
+.grid-demo-tile-secondary { --grid-demo-color: var(--color-secondary); --grid-demo-container: var(--color-secondary-container); --grid-demo-on-container: var(--color-on-secondary-container); }
+.grid-tertiary .grid-demo-tile,
+.grid-demo-tile-tertiary { --grid-demo-color: var(--color-tertiary); --grid-demo-container: var(--color-tertiary-container); --grid-demo-on-container: var(--color-on-tertiary-container); }
+.grid-accent .grid-demo-tile,
+.grid-demo-tile-accent { --grid-demo-color: var(--color-accent); --grid-demo-container: var(--color-accent-container); --grid-demo-on-container: var(--color-on-accent-container); }
+.grid-neutral .grid-demo-tile,
+.grid-demo-tile-neutral { --grid-demo-color: var(--color-neutral); --grid-demo-container: var(--color-neutral-container); --grid-demo-on-container: var(--color-on-neutral-container); }
+.grid-base .grid-demo-tile,
+.grid-demo-tile-base { --grid-demo-color: var(--color-base-content); --grid-demo-container: var(--color-base-200); --grid-demo-on-container: var(--color-base-content); }
+.grid-info .grid-demo-tile,
+.grid-demo-tile-info { --grid-demo-color: var(--color-info); --grid-demo-container: var(--color-info-container); --grid-demo-on-container: var(--color-on-info-container); }
+.grid-success .grid-demo-tile,
+.grid-demo-tile-success { --grid-demo-color: var(--color-success); --grid-demo-container: var(--color-success-container); --grid-demo-on-container: var(--color-on-success-container); }
+.grid-warning .grid-demo-tile,
+.grid-demo-tile-warning { --grid-demo-color: var(--color-warning); --grid-demo-container: var(--color-warning-container); --grid-demo-on-container: var(--color-on-warning-container); }
+.grid-error .grid-demo-tile,
+.grid-demo-tile-error { --grid-demo-color: var(--color-error); --grid-demo-container: var(--color-error-container); --grid-demo-on-container: var(--color-on-error-container); }
 
 .surface-scale {
     grid-template-columns: repeat(5, minmax(0, 1fr));
@@ -2142,29 +1250,9 @@ textarea {
 .surface-token-base-400 { background: var(--color-base-400); }
 .surface-token-base-500 { background: var(--color-base-500); }
 
-.code-token-block {
-    background: color-mix(in oklch, var(--component-color) 18%, var(--color-surface));
-}
-
-.code-token-block pre {
-    margin: 0;
-    border-color: color-mix(in oklch, var(--component-color) 50%, var(--dm-line));
-    color: var(--component-color);
-    background: color-mix(in oklch, var(--color-surface) 78%, black);
-}
-
-.markdown-token-card {
-    color: var(--component-on-container);
-    background: var(--component-container);
-}
-
 .markdown-token-card h3,
 .markdown-token-card p {
     margin: 0;
-}
-
-.markdown-token-card strong {
-    color: var(--component-color);
 }
 
 .markdown-body .dm-front-matter {
@@ -2173,7 +1261,7 @@ textarea {
 
 .markdown-body .dm-front-matter .dm-code-block {
     margin-block-end: 0;
-    border-left: 3px solid color-mix(in oklch, var(--component-color, var(--dm-copper)) 82%, white);
+    border-left: 3px solid color-mix(in oklch, var(--dm-copper) 82%, white);
 }
 
 .markdown-body .dm-code-block {
@@ -2189,7 +1277,7 @@ textarea {
 
     margin-block-end: 1rem;
     overflow: hidden;
-    border: 1px solid color-mix(in oklch, var(--component-color, var(--dm-copper)) 38%, var(--dm-line));
+    border: 1px solid color-mix(in oklch, var(--dm-copper) 38%, var(--dm-line));
     border-radius: 8px;
     background: #101720;
 }
@@ -2199,8 +1287,8 @@ textarea {
     align-items: center;
     min-height: 34px;
     padding: 0 12px;
-    border-bottom: 1px solid color-mix(in oklch, var(--component-color, var(--dm-copper)) 30%, var(--dm-line));
-    color: color-mix(in oklch, var(--component-color, var(--dm-copper)) 88%, white);
+    border-bottom: 1px solid color-mix(in oklch, var(--dm-copper) 30%, var(--dm-line));
+    color: color-mix(in oklch, var(--dm-copper) 88%, white);
     background: color-mix(in oklch, var(--color-surface-container-highest) 84%, black);
     font-size: 0.76rem;
     font-weight: 900;
@@ -2254,8 +1342,8 @@ textarea {
 }
 
 .markdown-body .dm-mermaid-chart {
-    --dm-mermaid-accent: color-mix(in oklch, var(--component-color, var(--dm-copper)) 80%, white);
-    --dm-mermaid-panel: color-mix(in oklch, var(--component-container, var(--color-surface-container-high)) 84%, transparent);
+    --dm-mermaid-accent: color-mix(in oklch, var(--dm-copper) 80%, white);
+    --dm-mermaid-panel: color-mix(in oklch, var(--color-surface-container-high) 84%, transparent);
     --dm-mermaid-slice-1: #82aaff;
     --dm-mermaid-slice-2: #a5d977;
     --dm-mermaid-slice-3: #ffb454;
@@ -2266,17 +1354,17 @@ textarea {
     margin-block: 1rem;
     padding: 14px;
     overflow-x: auto;
-    border: 1px solid color-mix(in oklch, var(--component-color, var(--dm-copper)) 42%, var(--dm-line));
+    border: 1px solid color-mix(in oklch, var(--dm-copper) 42%, var(--dm-line));
     border-radius: 8px;
-    color: var(--component-on-container, var(--dm-paper));
+    color: var(--dm-paper);
     background:
-        linear-gradient(135deg, color-mix(in oklch, var(--component-container, var(--color-primary-container)) 44%, transparent), transparent 58%),
+        linear-gradient(135deg, color-mix(in oklch, var(--color-primary-container) 44%, transparent), transparent 58%),
         color-mix(in oklch, var(--color-surface-container) 88%, black);
 }
 
 .markdown-body .dm-mermaid-chart-title {
     margin-bottom: 10px;
-    color: color-mix(in oklch, var(--component-color, var(--dm-copper)) 90%, white);
+    color: color-mix(in oklch, var(--dm-copper) 90%, white);
     font-size: 0.78rem;
     font-weight: 900;
     text-transform: uppercase;
@@ -2302,12 +1390,12 @@ textarea {
 .markdown-body .dm-mermaid-node rect,
 .markdown-body .dm-mermaid-node polygon {
     fill: var(--dm-mermaid-panel);
-    stroke: color-mix(in oklch, var(--component-color, var(--dm-copper)) 52%, var(--dm-line));
+    stroke: color-mix(in oklch, var(--dm-copper) 52%, var(--dm-line));
     stroke-width: 1.5;
 }
 
 .markdown-body .dm-mermaid-node text {
-    fill: var(--component-on-container, var(--dm-paper));
+    fill: var(--dm-paper);
     font-family: var(--font-body);
     font-size: 0.78rem;
     font-weight: 900;
@@ -2322,7 +1410,7 @@ textarea {
 
 .markdown-body .dm-mermaid-subgraph text,
 .markdown-body .dm-flowchart-edge-label {
-    fill: var(--component-on-container, var(--dm-paper));
+    fill: var(--dm-paper);
     font-family: var(--font-body);
     font-size: 0.72rem;
     font-weight: 800;
@@ -2342,19 +1430,19 @@ textarea {
 }
 
 .markdown-body .dm-swimlane-lane text {
-    fill: var(--component-on-container, var(--dm-paper));
+    fill: var(--dm-paper);
     font-family: var(--font-body);
     font-size: 0.74rem;
     font-weight: 900;
 }
 
 .markdown-body .dm-swimlane-edge {
-    stroke: color-mix(in oklch, var(--component-on-container, var(--dm-paper)) 58%, transparent);
+    stroke: color-mix(in oklch, var(--dm-paper) 58%, transparent);
     stroke-width: 1.7;
 }
 
 .markdown-body .dm-swimlane-edge-label {
-    fill: color-mix(in oklch, var(--component-on-container, var(--dm-paper)) 82%, transparent);
+    fill: color-mix(in oklch, var(--dm-paper) 82%, transparent);
     stroke: color-mix(in oklch, var(--color-surface-container-high) 92%, black);
     stroke-width: 5;
     paint-order: stroke;
@@ -2365,12 +1453,12 @@ textarea {
 
 .markdown-body .dm-swimlane-node rect {
     fill: color-mix(in oklch, var(--color-surface) 90%, black);
-    stroke: color-mix(in oklch, var(--component-on-container, var(--dm-paper)) 58%, transparent);
+    stroke: color-mix(in oklch, var(--dm-paper) 58%, transparent);
     stroke-width: 1.2;
 }
 
 .markdown-body .dm-swimlane-node text {
-    fill: var(--component-on-container, var(--dm-paper));
+    fill: var(--dm-paper);
     font-family: var(--font-body);
     font-size: 0.76rem;
     font-weight: 800;
@@ -2378,12 +1466,12 @@ textarea {
 
 .markdown-body .dm-class-namespace rect {
     fill: color-mix(in oklch, var(--color-surface-container-high) 66%, transparent);
-    stroke: color-mix(in oklch, var(--component-on-container, var(--dm-paper)) 46%, transparent);
+    stroke: color-mix(in oklch, var(--dm-paper) 46%, transparent);
     stroke-width: 1.2;
 }
 
 .markdown-body .dm-class-namespace text {
-    fill: var(--component-on-container, var(--dm-paper));
+    fill: var(--dm-paper);
     font-family: var(--font-body);
     font-size: 0.95rem;
     font-weight: 800;
@@ -2391,13 +1479,13 @@ textarea {
 
 .markdown-body .dm-class-relation {
     fill: none;
-    stroke: color-mix(in oklch, var(--component-on-container, var(--dm-paper)) 64%, transparent);
+    stroke: color-mix(in oklch, var(--dm-paper) 64%, transparent);
     stroke-width: 1.7;
     stroke-linecap: round;
 }
 
 .markdown-body .dm-class-relation-label {
-    fill: color-mix(in oklch, var(--component-on-container, var(--dm-paper)) 88%, transparent);
+    fill: color-mix(in oklch, var(--dm-paper) 88%, transparent);
     stroke: color-mix(in oklch, var(--color-surface-container-high) 94%, black);
     stroke-width: 5;
     paint-order: stroke;
@@ -2408,17 +1496,17 @@ textarea {
 
 .markdown-body .dm-class-node rect {
     fill: color-mix(in oklch, var(--color-surface) 90%, black);
-    stroke: color-mix(in oklch, var(--component-on-container, var(--dm-paper)) 68%, transparent);
+    stroke: color-mix(in oklch, var(--dm-paper) 68%, transparent);
     stroke-width: 1.4;
 }
 
 .markdown-body .dm-class-node line {
-    stroke: color-mix(in oklch, var(--component-on-container, var(--dm-paper)) 52%, transparent);
+    stroke: color-mix(in oklch, var(--dm-paper) 52%, transparent);
     stroke-width: 1.1;
 }
 
 .markdown-body .dm-class-node text {
-    fill: var(--component-on-container, var(--dm-paper));
+    fill: var(--dm-paper);
     font-family: var(--font-body);
 }
 
@@ -2434,13 +1522,13 @@ textarea {
 
 .markdown-body .dm-state-transition {
     fill: none;
-    stroke: color-mix(in oklch, var(--component-on-container, var(--dm-paper)) 70%, transparent);
+    stroke: color-mix(in oklch, var(--dm-paper) 70%, transparent);
     stroke-width: 1.8;
     stroke-linecap: round;
 }
 
 .markdown-body .dm-state-label {
-    fill: color-mix(in oklch, var(--component-on-container, var(--dm-paper)) 86%, transparent);
+    fill: color-mix(in oklch, var(--dm-paper) 86%, transparent);
     stroke: color-mix(in oklch, var(--color-surface-container-high) 94%, black);
     stroke-width: 5;
     paint-order: stroke;
@@ -2450,27 +1538,27 @@ textarea {
 }
 
 .markdown-body .dm-state-start {
-    fill: var(--component-on-container, var(--dm-paper));
+    fill: var(--dm-paper);
 }
 
 .markdown-body .dm-state-end circle:first-child {
     fill: transparent;
-    stroke: var(--component-on-container, var(--dm-paper));
+    stroke: var(--dm-paper);
     stroke-width: 3;
 }
 
 .markdown-body .dm-state-end circle:last-child {
-    fill: var(--component-on-container, var(--dm-paper));
+    fill: var(--dm-paper);
 }
 
 .markdown-body .dm-state-node rect {
     fill: color-mix(in oklch, var(--color-surface) 90%, black);
-    stroke: color-mix(in oklch, var(--component-on-container, var(--dm-paper)) 72%, transparent);
+    stroke: color-mix(in oklch, var(--dm-paper) 72%, transparent);
     stroke-width: 1.4;
 }
 
 .markdown-body .dm-state-node text {
-    fill: var(--component-on-container, var(--dm-paper));
+    fill: var(--dm-paper);
     font-family: var(--font-body);
     font-size: 0.9rem;
     font-weight: 800;
@@ -2478,14 +1566,14 @@ textarea {
 
 .markdown-body .dm-er-relation {
     fill: none;
-    stroke: color-mix(in oklch, var(--component-on-container, var(--dm-paper)) 68%, transparent);
+    stroke: color-mix(in oklch, var(--dm-paper) 68%, transparent);
     stroke-width: 1.7;
     stroke-linecap: round;
 }
 
 .markdown-body .dm-er-label,
 .markdown-body .dm-er-cardinality {
-    fill: color-mix(in oklch, var(--component-on-container, var(--dm-paper)) 88%, transparent);
+    fill: color-mix(in oklch, var(--dm-paper) 88%, transparent);
     stroke: color-mix(in oklch, var(--color-surface-container-high) 94%, black);
     stroke-width: 5;
     paint-order: stroke;
@@ -2501,12 +1589,12 @@ textarea {
 
 .markdown-body .dm-er-entity rect {
     fill: color-mix(in oklch, var(--color-surface) 90%, black);
-    stroke: color-mix(in oklch, var(--component-on-container, var(--dm-paper)) 68%, transparent);
+    stroke: color-mix(in oklch, var(--dm-paper) 68%, transparent);
     stroke-width: 1.3;
 }
 
 .markdown-body .dm-er-entity text {
-    fill: var(--component-on-container, var(--dm-paper));
+    fill: var(--dm-paper);
     font-family: var(--font-body);
 }
 
@@ -2521,7 +1609,7 @@ textarea {
 }
 
 .markdown-body .dm-journey-title {
-    fill: var(--component-on-container, var(--dm-paper));
+    fill: var(--dm-paper);
     font-family: var(--font-body);
     font-size: 1.05rem;
     font-weight: 900;
@@ -2531,7 +1619,7 @@ textarea {
 .markdown-body .dm-journey-section,
 .markdown-body .dm-journey-task-label,
 .markdown-body .dm-journey-score-text {
-    fill: var(--component-on-container, var(--dm-paper));
+    fill: var(--dm-paper);
     font-family: var(--font-body);
     font-weight: 800;
 }
@@ -2542,13 +1630,13 @@ textarea {
 }
 
 .markdown-body .dm-journey-section {
-    fill: color-mix(in oklch, var(--component-on-container, var(--dm-paper)) 72%, transparent);
+    fill: color-mix(in oklch, var(--dm-paper) 72%, transparent);
     text-transform: uppercase;
 }
 
 .markdown-body .dm-journey-task {
     fill: color-mix(in oklch, var(--color-surface) 86%, black);
-    stroke: color-mix(in oklch, var(--component-on-container, var(--dm-paper)) 48%, transparent);
+    stroke: color-mix(in oklch, var(--dm-paper) 48%, transparent);
     stroke-width: 1.1;
 }
 
@@ -2558,7 +1646,7 @@ textarea {
 
 .markdown-body .dm-journey-axis,
 .markdown-body .dm-journey-drop {
-    stroke: color-mix(in oklch, var(--component-on-container, var(--dm-paper)) 62%, transparent);
+    stroke: color-mix(in oklch, var(--dm-paper) 62%, transparent);
     stroke-width: 1.3;
 }
 
@@ -2567,12 +1655,12 @@ textarea {
 }
 
 .markdown-body .dm-journey-axis-arrow {
-    fill: color-mix(in oklch, var(--component-on-container, var(--dm-paper)) 72%, transparent);
+    fill: color-mix(in oklch, var(--dm-paper) 72%, transparent);
 }
 
 .markdown-body .dm-journey-score {
     fill: color-mix(in oklch, var(--color-surface-container-high) 96%, white);
-    stroke: color-mix(in oklch, var(--component-on-container, var(--dm-paper)) 62%, transparent);
+    stroke: color-mix(in oklch, var(--dm-paper) 62%, transparent);
     stroke-width: 1.4;
 }
 
@@ -2598,7 +1686,7 @@ textarea {
 .markdown-body .dm-gantt-section,
 .markdown-body .dm-gantt-date,
 .markdown-body .dm-gantt-task {
-    fill: var(--component-on-container, var(--dm-paper));
+    fill: var(--dm-paper);
     font-family: var(--font-body);
 }
 
@@ -2609,12 +1697,12 @@ textarea {
 
 .markdown-body .dm-gantt-axis,
 .markdown-body .dm-gantt-tick {
-    stroke: color-mix(in oklch, var(--component-on-container, var(--dm-paper)) 50%, transparent);
+    stroke: color-mix(in oklch, var(--dm-paper) 50%, transparent);
     stroke-width: 1.1;
 }
 
 .markdown-body .dm-gantt-section-band {
-    fill: color-mix(in oklch, var(--component-container, var(--color-surface-container-high)) 52%, transparent);
+    fill: color-mix(in oklch, var(--color-surface-container-high) 52%, transparent);
 }
 
 .markdown-body .dm-gantt-section {
@@ -2623,14 +1711,14 @@ textarea {
 }
 
 .markdown-body .dm-gantt-date {
-    fill: color-mix(in oklch, var(--component-on-container, var(--dm-paper)) 70%, transparent);
+    fill: color-mix(in oklch, var(--dm-paper) 70%, transparent);
     font-size: 0.64rem;
     font-weight: 700;
 }
 
 .markdown-body .dm-gantt-bar {
-    fill: color-mix(in oklch, var(--component-on-container, var(--dm-paper)) 38%, transparent);
-    stroke: var(--component-on-container, var(--dm-paper));
+    fill: color-mix(in oklch, var(--dm-paper) 38%, transparent);
+    stroke: var(--dm-paper);
     stroke-width: 1.1;
 }
 
@@ -2639,7 +1727,7 @@ textarea {
 }
 
 .markdown-body .dm-gantt-bar-active {
-    fill: color-mix(in oklch, var(--component-color, var(--dm-copper)) 54%, transparent);
+    fill: color-mix(in oklch, var(--dm-copper) 54%, transparent);
 }
 
 .markdown-body .dm-gantt-bar-crit {
@@ -2653,7 +1741,7 @@ textarea {
 
 .markdown-body .dm-sequence-lane rect {
     fill: var(--dm-mermaid-panel);
-    stroke: color-mix(in oklch, var(--component-color, var(--dm-copper)) 48%, var(--dm-line));
+    stroke: color-mix(in oklch, var(--dm-copper) 48%, var(--dm-line));
 }
 
 .markdown-body .dm-sequence-lane line {
@@ -2669,7 +1757,7 @@ textarea {
 
 .markdown-body .dm-sequence-lane text,
 .markdown-body .dm-sequence-message text {
-    fill: var(--component-on-container, var(--dm-paper));
+    fill: var(--dm-paper);
     font-family: var(--font-body);
     font-size: 0.72rem;
     font-weight: 800;
@@ -2690,7 +1778,7 @@ textarea {
 .markdown-body .dm-mermaid-pie-graphic {
     aspect-ratio: 1;
     width: min(220px, 100%);
-    border: 1px solid color-mix(in oklch, var(--component-color, var(--dm-copper)) 42%, var(--dm-line));
+    border: 1px solid color-mix(in oklch, var(--dm-copper) 42%, var(--dm-line));
     border-radius: 50%;
     box-shadow: inset 0 0 0 16px color-mix(in oklch, var(--color-surface) 46%, transparent);
 }
@@ -2718,7 +1806,7 @@ textarea {
 .markdown-body .dm-mermaid-pie-layout li strong,
 .markdown-body .dm-mermaid-pie-layout li span:last-child {
     min-width: 0;
-    color: var(--component-on-container, var(--dm-paper));
+    color: var(--dm-paper);
 }
 
 .markdown-body .dm-mermaid-swatch {
@@ -2749,7 +1837,7 @@ textarea {
 
 .markdown-body .dm-mermaid-gantt-row span {
     overflow: hidden;
-    color: var(--component-on-container, var(--dm-paper));
+    color: var(--dm-paper);
     font-weight: 800;
     text-overflow: ellipsis;
     white-space: nowrap;
@@ -2767,7 +1855,7 @@ textarea {
 .markdown-body .dm-xy-axis,
 .markdown-body .dm-xy-grid {
     fill: none;
-    stroke: color-mix(in oklch, var(--component-on-container, var(--dm-paper)) 50%, transparent);
+    stroke: color-mix(in oklch, var(--dm-paper) 50%, transparent);
     stroke-width: 1.2;
 }
 
@@ -2798,7 +1886,7 @@ textarea {
 .markdown-body .dm-xy-tick,
 .markdown-body .dm-xy-label,
 .markdown-body .dm-xy-value {
-    fill: var(--component-on-container, var(--dm-paper));
+    fill: var(--dm-paper);
     font-family: var(--font-body);
 }
 
@@ -2819,7 +1907,7 @@ textarea {
 .markdown-body .dm-zenuml-message-label,
 .markdown-body .dm-xy-label,
 .markdown-body .dm-xy-value {
-    fill: color-mix(in oklch, var(--component-on-container, var(--dm-paper)) 82%, transparent);
+    fill: color-mix(in oklch, var(--dm-paper) 82%, transparent);
     font-size: 0.68rem;
     font-weight: 800;
 }
@@ -2827,12 +1915,12 @@ textarea {
 .markdown-body .dm-zenuml-participant rect,
 .markdown-body .dm-sankey-node rect {
     fill: color-mix(in oklch, var(--color-surface) 88%, black);
-    stroke: color-mix(in oklch, var(--component-on-container, var(--dm-paper)) 56%, transparent);
+    stroke: color-mix(in oklch, var(--dm-paper) 56%, transparent);
     stroke-width: 1.2;
 }
 
 .markdown-body .dm-zenuml-participant line {
-    stroke: color-mix(in oklch, var(--component-on-container, var(--dm-paper)) 38%, transparent);
+    stroke: color-mix(in oklch, var(--dm-paper) 38%, transparent);
     stroke-dasharray: 5 5;
 }
 
@@ -2872,7 +1960,7 @@ textarea {
 .markdown-body .dm-c4-relation,
 .markdown-body .dm-mindmap-edge {
     fill: none;
-    stroke: color-mix(in oklch, var(--component-on-container, var(--dm-paper)) 64%, transparent);
+    stroke: color-mix(in oklch, var(--dm-paper) 64%, transparent);
     stroke-width: 1.7;
     stroke-linecap: round;
 }
@@ -2881,12 +1969,12 @@ textarea {
 .markdown-body .dm-c4-node rect,
 .markdown-body .dm-mindmap-node rect {
     fill: color-mix(in oklch, var(--color-surface) 88%, black);
-    stroke: color-mix(in oklch, var(--component-on-container, var(--dm-paper)) 62%, transparent);
+    stroke: color-mix(in oklch, var(--dm-paper) 62%, transparent);
     stroke-width: 1.3;
 }
 
 .markdown-body .dm-requirement-node line {
-    stroke: color-mix(in oklch, var(--component-on-container, var(--dm-paper)) 38%, transparent);
+    stroke: color-mix(in oklch, var(--dm-paper) 38%, transparent);
     stroke-width: 1.1;
 }
 
@@ -2902,7 +1990,7 @@ textarea {
 .markdown-body .dm-c4-description,
 .markdown-body .dm-c4-relation-label,
 .markdown-body .dm-mindmap-node text {
-    fill: var(--component-on-container, var(--dm-paper));
+    fill: var(--dm-paper);
     font-family: var(--font-body);
 }
 
@@ -2910,7 +1998,7 @@ textarea {
 .markdown-body .dm-c4-kind,
 .markdown-body .dm-requirement-relation-label,
 .markdown-body .dm-c4-relation-label {
-    fill: color-mix(in oklch, var(--component-on-container, var(--dm-paper)) 74%, transparent);
+    fill: color-mix(in oklch, var(--dm-paper) 74%, transparent);
     font-size: 0.68rem;
     font-weight: 800;
 }
@@ -2924,7 +2012,7 @@ textarea {
 
 .markdown-body .dm-requirement-field,
 .markdown-body .dm-c4-description {
-    fill: color-mix(in oklch, var(--component-on-container, var(--dm-paper)) 82%, transparent);
+    fill: color-mix(in oklch, var(--dm-paper) 82%, transparent);
     font-size: 0.68rem;
     font-weight: 700;
 }
@@ -2935,7 +2023,7 @@ textarea {
 
 .markdown-body .dm-git-lane {
     fill: none;
-    stroke: color-mix(in oklch, var(--component-on-container, var(--dm-paper)) 52%, transparent);
+    stroke: color-mix(in oklch, var(--dm-paper) 52%, transparent);
     stroke-width: 2.1;
 }
 
@@ -2945,14 +2033,14 @@ textarea {
 }
 
 .markdown-body .dm-git-branch-label {
-    fill: color-mix(in oklch, var(--component-on-container, var(--dm-paper)) 82%, transparent);
+    fill: color-mix(in oklch, var(--dm-paper) 82%, transparent);
     font-size: 0.76rem;
     font-weight: 900;
 }
 
 .markdown-body .dm-git-commit circle {
     fill: var(--color-surface);
-    stroke: var(--component-on-container, var(--dm-paper));
+    stroke: var(--dm-paper);
     stroke-width: 3;
 }
 
@@ -2965,14 +2053,14 @@ textarea {
 }
 
 .markdown-body .dm-git-commit text {
-    fill: color-mix(in oklch, var(--component-on-container, var(--dm-paper)) 84%, transparent);
+    fill: color-mix(in oklch, var(--dm-paper) 84%, transparent);
     font-size: 0.68rem;
     font-weight: 800;
 }
 
 .markdown-body .dm-c4-node-person rect,
 .markdown-body .dm-c4-node-person_ext rect {
-    fill: color-mix(in oklch, var(--component-color, var(--dm-copper)) 28%, var(--color-surface));
+    fill: color-mix(in oklch, var(--dm-copper) 28%, var(--color-surface));
 }
 
 .markdown-body .dm-c4-node-system rect,
@@ -2981,7 +2069,7 @@ textarea {
 }
 
 .markdown-body .dm-c4-title {
-    fill: color-mix(in oklch, var(--component-on-container, var(--dm-paper)) 84%, transparent);
+    fill: color-mix(in oklch, var(--dm-paper) 84%, transparent);
     font-size: 0.92rem;
     font-weight: 900;
 }
@@ -2992,7 +2080,7 @@ textarea {
 
 .markdown-body .dm-mindmap-root rect {
     fill: var(--dm-mermaid-panel);
-    stroke: color-mix(in oklch, var(--component-color, var(--dm-copper)) 54%, var(--dm-line));
+    stroke: color-mix(in oklch, var(--dm-copper) 54%, var(--dm-line));
     stroke-width: 1.6;
 }
 
@@ -3008,7 +2096,7 @@ textarea {
 .markdown-body .dm-kanban-column > rect,
 .markdown-body .dm-architecture-service rect {
     fill: color-mix(in oklch, var(--color-surface) 88%, black);
-    stroke: color-mix(in oklch, var(--component-on-container, var(--dm-paper)) 58%, transparent);
+    stroke: color-mix(in oklch, var(--dm-paper) 58%, transparent);
     stroke-width: 1.2;
 }
 
@@ -3026,7 +2114,7 @@ textarea {
 .markdown-body .dm-radar-title,
 .markdown-body .dm-radar-axis-label,
 .markdown-body .dm-radar-legend {
-    fill: var(--component-on-container, var(--dm-paper));
+    fill: var(--dm-paper);
     font-family: var(--font-body);
 }
 
@@ -3040,7 +2128,7 @@ textarea {
 
 .markdown-body .dm-packet-title,
 .markdown-body .dm-radar-title {
-    fill: color-mix(in oklch, var(--component-on-container, var(--dm-paper)) 84%, transparent);
+    fill: color-mix(in oklch, var(--dm-paper) 84%, transparent);
     font-size: 0.92rem;
     font-weight: 900;
 }
@@ -3050,7 +2138,7 @@ textarea {
 .markdown-body .dm-architecture-edge-label,
 .markdown-body .dm-radar-axis-label,
 .markdown-body .dm-radar-legend {
-    fill: color-mix(in oklch, var(--component-on-container, var(--dm-paper)) 74%, transparent);
+    fill: color-mix(in oklch, var(--dm-paper) 74%, transparent);
     font-size: 0.68rem;
     font-weight: 800;
 }
@@ -3065,37 +2153,37 @@ textarea {
 
 .markdown-body .dm-kanban-card {
     fill: color-mix(in oklch, var(--color-surface) 94%, white);
-    stroke: color-mix(in oklch, var(--component-on-container, var(--dm-paper)) 28%, transparent);
+    stroke: color-mix(in oklch, var(--dm-paper) 28%, transparent);
     stroke-width: 1;
 }
 
 .markdown-body .dm-kanban-card-text {
-    fill: var(--component-on-container, var(--dm-paper));
+    fill: var(--dm-paper);
     font-size: 0.7rem;
     font-weight: 900;
 }
 
 .markdown-body .dm-architecture-group rect {
     fill: color-mix(in oklch, var(--color-surface-container-high) 42%, transparent);
-    stroke: color-mix(in oklch, var(--component-color, var(--dm-copper)) 42%, var(--dm-line));
+    stroke: color-mix(in oklch, var(--dm-copper) 42%, var(--dm-line));
     stroke-width: 1.4;
 }
 
 .markdown-body .dm-architecture-group text,
 .markdown-body .dm-architecture-icon {
-    fill: color-mix(in oklch, var(--dm-mermaid-accent) 80%, var(--component-on-container, var(--dm-paper)));
+    fill: color-mix(in oklch, var(--dm-mermaid-accent) 80%, var(--dm-paper));
     font-size: 0.72rem;
     font-weight: 900;
 }
 
 .markdown-body .dm-radar-grid {
     fill: color-mix(in oklch, var(--color-surface-container-high) 18%, transparent);
-    stroke: color-mix(in oklch, var(--component-on-container, var(--dm-paper)) 34%, transparent);
+    stroke: color-mix(in oklch, var(--dm-paper) 34%, transparent);
     stroke-width: 1;
 }
 
 .markdown-body .dm-radar-axis {
-    stroke: color-mix(in oklch, var(--component-on-container, var(--dm-paper)) 42%, transparent);
+    stroke: color-mix(in oklch, var(--dm-paper) 42%, transparent);
     stroke-width: 1;
 }
 
@@ -3124,7 +2212,7 @@ textarea {
 .markdown-body .dm-wardley-edge,
 .markdown-body .dm-treeview-connector {
     fill: none;
-    stroke: color-mix(in oklch, var(--component-on-container, var(--dm-paper)) 62%, transparent);
+    stroke: color-mix(in oklch, var(--dm-paper) 62%, transparent);
     stroke-linecap: round;
     stroke-width: 2;
 }
@@ -3132,7 +2220,7 @@ textarea {
 .markdown-body .dm-event-modeling-node rect,
 .markdown-body .dm-cynefin-domain rect {
     fill: color-mix(in oklch, var(--color-surface) 88%, black);
-    stroke: color-mix(in oklch, var(--component-on-container, var(--dm-paper)) 56%, transparent);
+    stroke: color-mix(in oklch, var(--dm-paper) 56%, transparent);
     stroke-width: 1.2;
 }
 
@@ -3165,14 +2253,14 @@ textarea {
 .markdown-body .dm-cynefin-item,
 .markdown-body .dm-cynefin-center-label,
 .markdown-body .dm-treeview-label {
-    fill: var(--component-on-container, var(--dm-paper));
+    fill: var(--dm-paper);
     font-family: var(--font-body);
 }
 
 .markdown-body .dm-event-modeling-kind,
 .markdown-body .dm-wardley-axis,
 .markdown-body .dm-cynefin-domain-name {
-    fill: color-mix(in oklch, var(--component-on-container, var(--dm-paper)) 74%, transparent);
+    fill: color-mix(in oklch, var(--dm-paper) 74%, transparent);
     font-size: 0.68rem;
     font-weight: 900;
     text-transform: uppercase;
@@ -3194,12 +2282,12 @@ textarea {
 .markdown-body .dm-treemap-root,
 .markdown-body .dm-wardley-plane {
     fill: color-mix(in oklch, var(--color-surface-container-high) 36%, transparent);
-    stroke: color-mix(in oklch, var(--component-on-container, var(--dm-paper)) 36%, transparent);
+    stroke: color-mix(in oklch, var(--dm-paper) 36%, transparent);
     stroke-width: 1.2;
 }
 
 .markdown-body .dm-treemap-leaf rect {
-    stroke: color-mix(in oklch, var(--component-on-container, var(--dm-paper)) 72%, transparent);
+    stroke: color-mix(in oklch, var(--dm-paper) 72%, transparent);
     stroke-width: 1;
 }
 
@@ -3219,7 +2307,7 @@ textarea {
 }
 
 .markdown-body .dm-venn-circle {
-    stroke: color-mix(in oklch, var(--component-on-container, var(--dm-paper)) 72%, transparent);
+    stroke: color-mix(in oklch, var(--dm-paper) 72%, transparent);
     stroke-width: 1.6;
 }
 
@@ -3242,7 +2330,7 @@ textarea {
 }
 
 .markdown-body .dm-ishikawa-branch {
-    fill: color-mix(in oklch, var(--dm-mermaid-accent) 82%, var(--component-on-container, var(--dm-paper)));
+    fill: color-mix(in oklch, var(--dm-mermaid-accent) 82%, var(--dm-paper));
 }
 
 .markdown-body .dm-wardley-plane {
@@ -3251,7 +2339,7 @@ textarea {
 
 .markdown-body .dm-wardley-point circle {
     fill: var(--color-surface);
-    stroke: var(--component-on-container, var(--dm-paper));
+    stroke: var(--dm-paper);
     stroke-width: 2.2;
 }
 
@@ -3274,13 +2362,13 @@ textarea {
 }
 
 .markdown-body .dm-treeview-connector {
-    stroke: color-mix(in oklch, var(--component-on-container, var(--dm-paper)) 38%, transparent);
+    stroke: color-mix(in oklch, var(--dm-paper) 38%, transparent);
     stroke-width: 1.4;
 }
 
 .markdown-body .dm-treeview-glyph {
-    fill: color-mix(in oklch, var(--component-on-container, var(--dm-paper)) 22%, transparent);
-    stroke: color-mix(in oklch, var(--component-on-container, var(--dm-paper)) 58%, transparent);
+    fill: color-mix(in oklch, var(--dm-paper) 22%, transparent);
+    stroke: color-mix(in oklch, var(--dm-paper) 58%, transparent);
     stroke-width: 1.2;
 }
 
@@ -3290,7 +2378,7 @@ textarea {
 }
 
 .markdown-body .dm-treeview-dir {
-    fill: color-mix(in oklch, var(--dm-mermaid-accent) 84%, var(--component-on-container, var(--dm-paper)));
+    fill: color-mix(in oklch, var(--dm-mermaid-accent) 84%, var(--dm-paper));
 }
 
 .markdown-body .dm-mermaid-summary-grid span {
@@ -3301,7 +2389,7 @@ textarea {
     padding: 8px 10px;
     border: 1px solid var(--dm-line);
     border-radius: 8px;
-    color: var(--component-on-container, var(--dm-paper));
+    color: var(--dm-paper);
     background: color-mix(in oklch, var(--color-surface-container-high) 64%, transparent);
     font-weight: 800;
 }
@@ -3322,7 +2410,7 @@ textarea {
 .markdown-body .dm-mermaid-quadrant-plane > span {
     position: absolute;
     z-index: 1;
-    color: color-mix(in oklch, var(--component-on-container, var(--dm-paper)) 72%, transparent);
+    color: color-mix(in oklch, var(--dm-paper) 72%, transparent);
     font-size: 0.72rem;
     font-weight: 900;
     text-transform: uppercase;
@@ -3587,18 +2675,8 @@ textarea {
 }
 
 .component-detail-demo-control,
-.component-detail-card-demo,
-.component-detail-bottomsheet-demo,
-.component-detail-popover-demo {
-    display: flex;
+.component-detail-card-demo {
     min-width: min(100%, 300px);
-    flex-direction: column;
-    gap: 8px;
-    padding: 16px;
-    border: 1px solid color-mix(in oklch, var(--component-color, var(--color-primary)) 34%, var(--dm-line));
-    border-radius: 8px;
-    color: var(--component-on-container, var(--dm-paper));
-    background: color-mix(in oklch, var(--component-container, var(--color-primary-container)) 44%, var(--color-surface-container));
 }
 
 .component-detail-action {
@@ -3619,11 +2697,6 @@ textarea {
 .component-detail-color-code-engine,
 .component-detail-color-markdown-input {
     min-width: 0;
-    padding: 12px;
-    border: 1px solid color-mix(in oklch, var(--component-color, var(--dm-line-strong)) 38%, var(--dm-line));
-    border-radius: 8px;
-    color: var(--component-on-container, var(--dm-paper));
-    background: color-mix(in oklch, var(--component-container, var(--color-surface-container)) 74%, transparent);
 }
 
 .component-detail-color-demo,
@@ -3632,17 +2705,12 @@ textarea {
 .component-detail-color-table,
 .component-detail-color-menu,
 .component-detail-color-navbar {
-    display: grid;
     gap: 8px;
 }
 
 .component-detail-color-button {
     width: 100%;
     justify-content: center;
-}
-
-.component-detail-color-radio {
-    --radio-color: var(--component-color);
 }
 
 .component-detail-color-grid-demo {
@@ -3672,27 +2740,6 @@ textarea {
     gap: 8px;
 }
 
-.component-detail-color-pagination button,
-.component-detail-color-tabs button {
-    min-height: 30px;
-    padding: 0 10px;
-    border: 1px solid color-mix(in oklch, var(--component-color, var(--dm-line-strong)) 42%, var(--dm-line));
-    border-radius: 999px;
-    color: var(--component-color);
-    background: transparent;
-    font-weight: 800;
-}
-
-.component-detail-color-pagination .is-active,
-.component-detail-color-tabs .is-active {
-    color: var(--component-content);
-    background: var(--component-color);
-}
-
-.component-detail-color-stepper .stepper-track {
-    flex: 1 1 120px;
-}
-
 .component-detail-grid-demo {
     width: min(100%, 760px);
 }
@@ -3702,8 +2749,8 @@ textarea {
     padding: 14px;
     border: 1px solid var(--dm-line);
     border-radius: 8px;
-    color: var(--component-on-container, var(--color-on-primary-container));
-    background: var(--component-container, var(--color-primary-container));
+    color: var(--grid-demo-on-container, var(--color-on-primary-container));
+    background: var(--grid-demo-container, var(--color-primary-container));
     font-weight: 800;
 }
 
@@ -3712,15 +2759,6 @@ textarea {
     display: grid;
     gap: 8px;
     width: min(100%, 360px);
-}
-
-.component-detail-list-demo > *,
-.component-detail-menu-demo > * {
-    padding: 10px 12px;
-    border: 1px solid color-mix(in oklch, var(--component-color, var(--dm-line-strong)) 38%, var(--dm-line));
-    border-radius: 8px;
-    color: var(--component-on-container, var(--dm-paper));
-    background: color-mix(in oklch, var(--component-container, var(--color-surface-container-high)) 54%, transparent);
 }
 
 .component-detail-data-management,
@@ -3774,33 +2812,7 @@ textarea {
 .component-detail-tabs-demo,
 .component-detail-navbar-demo,
 .component-detail-stepper-demo {
-    display: flex;
-    flex-wrap: wrap;
     gap: 10px;
-    align-items: center;
-    padding: 14px;
-    border: 1px solid color-mix(in oklch, var(--component-color, var(--dm-line-strong)) 34%, var(--dm-line));
-    border-radius: 8px;
-    color: var(--component-on-container, var(--dm-paper));
-    background: color-mix(in oklch, var(--component-container, var(--color-surface-container-high)) 48%, transparent);
-}
-
-.component-detail-pagination-demo button,
-.component-detail-tabs-demo button {
-    min-height: 32px;
-    padding: 0 12px;
-    border: 1px solid var(--dm-line);
-    border-radius: 999px;
-    color: var(--dm-paper);
-    background: transparent;
-    font-weight: 800;
-}
-
-.component-detail-pagination-demo .is-active,
-.component-detail-tabs-demo .is-active {
-    border-color: var(--component-color, var(--color-primary));
-    color: var(--component-content, var(--color-on-primary));
-    background: var(--component-color, var(--color-primary));
 }
 
 .pagination-auto {
@@ -3808,7 +2820,7 @@ textarea {
     --pagination-text: var(--color-on-surface, #111827);
     --pagination-muted: color-mix(in oklch, var(--pagination-text) 34%, transparent);
     --pagination-border: color-mix(in oklch, var(--pagination-text) 16%, transparent);
-    --pagination-focus: var(--component-color, var(--color-primary, #2563eb));
+    --pagination-focus: var(--color-primary, #2563eb);
 
     display: inline-flex;
     flex-wrap: wrap;
@@ -3986,10 +2998,6 @@ textarea {
     transform: rotate(-16deg);
 }
 
-.typography-token {
-    color: var(--component-color);
-}
-
 .typography-token p {
     color: var(--dm-paper-muted);
 }
@@ -3999,11 +3007,6 @@ textarea {
     flex-wrap: wrap;
     align-items: center;
     gap: 8px;
-}
-
-.breadcrumb-token {
-    color: var(--component-color);
-    font-weight: 800;
 }
 
 .breadcrumb-divider {
@@ -4022,40 +3025,9 @@ textarea {
     width: 100%;
 }
 
-.menu-color-item {
-    display: flex;
-    align-items: center;
-    justify-content: space-between;
-    gap: 10px;
-    min-height: 48px;
-    padding: 10px 12px;
-    border: 1px solid color-mix(in oklch, var(--component-color) 45%, var(--dm-line));
-    border-radius: 8px;
-    color: var(--component-color);
-    background: color-mix(in oklch, var(--component-container) 42%, transparent);
-    text-decoration: none;
-}
-
 .color-pagination {
     display: inline-flex;
     gap: 6px;
-}
-
-.pagination-item {
-    display: grid;
-    place-items: center;
-    width: 34px;
-    height: 34px;
-    border: 1px solid color-mix(in oklch, var(--component-color) 54%, var(--dm-line));
-    border-radius: 8px;
-    color: var(--component-color);
-    background: transparent;
-    font-weight: 900;
-}
-
-.pagination-item.is-active {
-    color: var(--component-content);
-    background: var(--component-color);
 }
 
 .color-stepper {
@@ -4063,38 +3035,6 @@ textarea {
     grid-template-columns: 110px minmax(0, 1fr);
     gap: 14px;
     align-items: center;
-}
-
-.stepper-track {
-    display: grid;
-    grid-template-columns: 34px minmax(24px, 1fr) 34px minmax(24px, 1fr) 34px;
-    align-items: center;
-}
-
-.stepper-track i,
-.stepper-track b {
-    display: block;
-}
-
-.stepper-track i {
-    display: grid;
-    place-items: center;
-    width: 34px;
-    height: 34px;
-    border-radius: 50%;
-    color: var(--component-content);
-    background: var(--component-color);
-    font-style: normal;
-    font-weight: 900;
-}
-
-.stepper-track b {
-    height: 3px;
-    background: var(--component-color);
-}
-
-.stepper-track .is-muted {
-    opacity: 0.38;
 }
 
 @media (max-width: 980px) {

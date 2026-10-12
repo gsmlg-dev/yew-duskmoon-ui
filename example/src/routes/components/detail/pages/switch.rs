@@ -1,6 +1,6 @@
 use crate::routes::components::catalog::ComponentSpec;
-use crate::routes::components::detail::page::{ApiRow, ComponentPage, primary_variant};
-use crate::routes::components::palette::{PaletteColor, variant};
+use crate::routes::components::detail::page::{primary_variant, ApiRow, ComponentPage};
+use crate::routes::components::palette::{variant, PaletteColor};
 use yew::prelude::*;
 use yew_duskmoon::Switch;
 
@@ -15,13 +15,37 @@ const SWITCH_API: &[ApiRow] = &[
         prop: "children",
         ty: "Children",
         default: "empty",
-        docs: "Optional content rendered inside the wrapper.",
+        docs: "Composition children; omission renders a native input.",
     },
     ApiRow {
         prop: "variant",
         ty: "Option<String>",
         default: "None",
         docs: "Appends a switch color class such as switch-primary.",
+    },
+    ApiRow {
+        prop: "id / name / value",
+        ty: "AttrValue",
+        default: "empty / empty / on",
+        docs: "Native control identity and submitted value in direct mode.",
+    },
+    ApiRow {
+        prop: "checked",
+        ty: "Option<bool>",
+        default: "None",
+        docs: "Controlled state when set; omission retains native browser toggling.",
+    },
+    ApiRow {
+        prop: "disabled / required",
+        ty: "bool",
+        default: "false",
+        docs: "Native control state in direct mode.",
+    },
+    ApiRow {
+        prop: "onchange",
+        ty: "Callback<Event>",
+        default: "noop",
+        docs: "Native change events in direct mode.",
     },
 ];
 

@@ -21,7 +21,7 @@ const API: &[ApiRow] = &[
         prop: "variant",
         ty: "Option<String>",
         default: "None",
-        docs: "Appends a color class such as stepper-primary to the root.",
+        docs: "Secondary and tertiary active-step colors; primary is the default.",
     },
 ];
 
@@ -84,13 +84,17 @@ fn demo(_: &ComponentSpec) -> Html {
 }
 
 fn color_variant(color: PaletteColor) -> Html {
+    if !matches!(color.key, "primary" | "secondary" | "tertiary") {
+        return Html::default();
+    }
     html! {
-        <Stepper variant={variant(color)} class="component-detail-color-stepper">
+        <Stepper variant={if color.key == "primary" { None } else { variant(color) }} class="component-detail-color-stepper">
             <span>{ color.label }</span>
-            <div class="stepper-track">
-                <i>{ "1" }</i>
-                <b></b>
-                <i>{ "2" }</i>
+            <div class="stepper-step stepper-step-active" aria-current="step">
+                <button type="button" class="stepper-step-button">
+                    <span class="stepper-step-icon">{"1"}</span>
+                    <span class="stepper-step-label">{color.label}</span>
+                </button>
             </div>
         </Stepper>
     }

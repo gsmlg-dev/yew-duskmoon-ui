@@ -13,7 +13,7 @@ fn usage(_: &ComponentSpec) -> String {
 
 html! {
     <MultiSelect variant={Some("primary".to_owned())}>
-        <button class="multi-select-trigger" type="button" command="toggle-popover" commandfor="framework-select">
+        <button class="multi-select-trigger" type="button" popovertarget="framework-select">
             <div class="multi-select-tags">
                 <span class="multi-select-tag">{ "React" }</span>
                 <span class="multi-select-tag">{ "Yew" }</span>
@@ -34,7 +34,7 @@ html! {
 fn demo(_: &ComponentSpec) -> Html {
     html! {
         <MultiSelect variant={Some("primary".to_owned())} class="component-detail-demo-control">
-            <button class="multi-select-trigger" type="button" command="toggle-popover" commandfor="demo-multi-select">
+            <button class="multi-select-trigger" type="button" popovertarget="demo-multi-select">
                 <div class="multi-select-tags">
                     <span class="multi-select-tag">
                         <span class="multi-select-tag-text">{ "Yew" }</span>
@@ -76,7 +76,7 @@ fn color_variant(color: PaletteColor) -> Html {
 
     html! {
         <MultiSelect variant={variant(color)} class="component-detail-color-demo">
-            <button class="multi-select-trigger" type="button" command="toggle-popover" commandfor={id.clone()}>
+            <button class="multi-select-trigger" type="button" popovertarget={id.clone()}>
                 <span class="multi-select-placeholder">{ color.label }</span>
                 <span class="multi-select-counter">{ "2" }</span>
             </button>

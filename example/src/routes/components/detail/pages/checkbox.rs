@@ -1,12 +1,46 @@
 use crate::routes::components::catalog::ComponentSpec;
-use crate::routes::components::detail::page::{ComponentPage, STANDARD_API};
+use crate::routes::components::detail::page::{ApiRow, ComponentPage, STANDARD_API};
 use crate::routes::components::palette::{variant, PaletteColor};
 use web_sys::HtmlInputElement;
 use yew::prelude::*;
 use yew_duskmoon::Checkbox;
 
+const NATIVE_API: &[ApiRow] = &[
+    ApiRow {
+        prop: "id / name / value",
+        ty: "AttrValue",
+        default: "empty / empty / on",
+        docs: "Native control identity and submitted value in direct mode.",
+    },
+    ApiRow {
+        prop: "checked",
+        ty: "Option<bool>",
+        default: "None",
+        docs: "Controlled state when set; omission retains native browser toggling.",
+    },
+    ApiRow {
+        prop: "disabled / required",
+        ty: "bool",
+        default: "false",
+        docs: "Native control state in direct mode.",
+    },
+    ApiRow {
+        prop: "onchange",
+        ty: "Callback<Event>",
+        default: "noop",
+        docs: "Native change events in direct mode.",
+    },
+    ApiRow {
+        prop: "aria_label",
+        ty: "AttrValue",
+        default: "empty",
+        docs: "Accessible name for direct native control rendering.",
+    },
+];
+
 pub fn page(spec: &'static ComponentSpec) -> ComponentPage {
     ComponentPage::new(spec, usage, STANDARD_API, demo, color_variant)
+        .with_additional_api("Native control props", NATIVE_API)
 }
 
 #[function_component(IndeterminateCheckbox)]

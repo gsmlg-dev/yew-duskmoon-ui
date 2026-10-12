@@ -1,6 +1,6 @@
 use crate::routes::components::catalog::ComponentSpec;
 use crate::routes::components::detail::page::{primary_variant, ApiRow, ComponentPage};
-use crate::routes::components::palette::{variant, PaletteColor};
+use crate::routes::components::palette::PaletteColor;
 use yew::prelude::*;
 use yew_duskmoon::Tabs;
 
@@ -21,7 +21,7 @@ const API: &[ApiRow] = &[
         prop: "variant",
         ty: "Option<String>",
         default: "None",
-        docs: "Appends a color class such as tabs-primary to the root.",
+        docs: "Legacy root modifier escape hatch. Color modifiers belong on active child tabs: tab-active-primary, secondary, or tertiary.",
     },
 ];
 
@@ -63,9 +63,12 @@ fn demo(_: &ComponentSpec) -> Html {
 }
 
 fn color_variant(color: PaletteColor) -> Html {
+    if !matches!(color.key, "primary" | "secondary" | "tertiary") {
+        return Html::default();
+    }
     html! {
-        <Tabs variant={variant(color)} class="component-detail-color-tabs">
-            <button class="tab tab-active is-active">{ color.label }</button>
+        <Tabs class="component-detail-color-tabs">
+            <button type="button" class={classes!("tab", format!("tab-active-{}", color.key))} aria-current="page">{ color.label }</button>
             <button class="tab">{ color.key }</button>
         </Tabs>
     }

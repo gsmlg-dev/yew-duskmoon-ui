@@ -64,6 +64,35 @@ pub fn component_page(slug: &str) -> Option<ComponentPage> {
         "toggle" => toggle::page(spec),
         "tooltip" => tooltip::page(spec),
         "tree-select" => tree_select::page(spec),
+        "stat" => stat::page(spec),
+        "kbd" => kbd::page(spec),
+        "carousel" => carousel::page(spec),
+        "diff" => diff::page(spec),
+        "console-page" => console_page::page(spec),
+        "footer" => footer::page(spec),
+        "hero" => hero::page(spec),
+        "home-page" => home_page::page(spec),
+        "indicator" => indicator::page(spec),
+        "join" => join::page(spec),
+        "mask" => mask::page(spec),
+        "sidebar-layout" => sidebar_layout::page(spec),
+        "sign-page" => sign_page::page(spec),
+        "stack" => stack::page(spec),
+        "dropdown" => dropdown::page(spec),
+        "fab" => fab::page(spec),
+        "swap" => swap::page(spec),
+        "megamenu" => megamenu::page(spec),
+        "validator" => validator::page(spec),
+        "range" => range::page(spec),
+        "file-input" => file_input::page(spec),
+        "filter-group" => filter_group::page(spec),
+        "toggle-switch" => toggle_switch::page(spec),
+        "loading" => loading::page(spec),
+        "radial-progress" => radial_progress::page(spec),
+        "countdown" => countdown::page(spec),
+        "chat" => chat::page(spec),
+        "theme-controller" => theme_controller::page(spec),
+        "link" => link::page(spec),
         _ => return None,
     })
 }
@@ -79,26 +108,45 @@ mod bottom_sheet;
 mod breadcrumbs;
 mod button;
 mod card;
+mod carousel;
 mod cascader;
+mod chat;
 mod checkbox;
 mod chip;
 mod circle_menu;
 mod code_block;
 mod code_engine;
 mod collapse;
+mod console_page;
+mod countdown;
 mod datepicker;
 mod dialog;
+mod diff;
 mod divider;
 mod dm_markdown;
 mod drawer;
+mod dropdown;
+mod fab;
+mod file_input;
 mod file_upload;
+mod filter_group;
+mod footer;
 mod form;
 mod form_group;
 mod grid;
+mod hero;
+mod home_page;
+mod indicator;
 mod input;
+mod join;
+mod kbd;
+mod link;
 mod list;
+mod loading;
 mod markdown_body;
 mod markdown_input;
+mod mask;
+mod megamenu;
 mod menu;
 mod modal;
 mod multi_select;
@@ -109,21 +157,31 @@ mod pagination;
 mod pin_input;
 mod popover;
 mod progress;
+mod radial_progress;
 mod radio;
+mod range;
 mod rating;
 mod segment_control;
 mod select;
+mod sidebar_layout;
+mod sign_page;
 mod skeleton;
 mod slider;
 mod snackbar;
+mod stack;
+mod stat;
 mod stepper;
+mod swap;
 mod switch;
 mod table;
 mod tabs;
 mod textarea;
+mod theme_controller;
 mod time_input;
 mod timeline;
 mod toast;
 mod toggle;
+mod toggle_switch;
 mod tooltip;
 mod tree_select;
+mod validator;

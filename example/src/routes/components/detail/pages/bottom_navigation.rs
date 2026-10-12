@@ -1,11 +1,10 @@
 use crate::routes::components::catalog::ComponentSpec;
 use crate::routes::components::detail::page::{primary_variant, ComponentPage, STANDARD_API};
-use crate::routes::components::palette::{variant, PaletteColor};
 use yew::prelude::*;
 use yew_duskmoon::BottomNavigation;
 
 pub fn page(spec: &'static ComponentSpec) -> ComponentPage {
-    ComponentPage::new(spec, usage, STANDARD_API, demo, color_variant)
+    ComponentPage::without_color_variants(spec, usage, STANDARD_API, demo)
 }
 
 fn usage(_: &ComponentSpec) -> String {
@@ -20,30 +19,26 @@ fn demo(_: &ComponentSpec) -> Html {
                 { nav_item("#home", "H", "Home", true, None) }
                 { nav_item("#search", "S", "Search", false, None) }
                 { nav_item("#inbox", "I", "Inbox", false, Some("3")) }
-                { nav_item("#profile", "P", "Profile", false, None) }
+                <a href="#secondary" class="bottom-nav-item bottom-nav-item-active-secondary">
+                    <span class="bottom-nav-indicator"><span class="bottom-nav-icon">{"S"}</span></span>
+                    <span class="bottom-nav-label">{"Secondary"}</span>
+                </a>
+                <a href="#tertiary" class="bottom-nav-item bottom-nav-item-active-tertiary">
+                    <span class="bottom-nav-indicator"><span class="bottom-nav-icon">{"T"}</span></span>
+                    <span class="bottom-nav-label">{"Tertiary"}</span>
+                </a>
             </BottomNavigation>
         </>
     }
 }
 
-fn color_variant(color: PaletteColor) -> Html {
-    html! {
-        <BottomNavigation
-            variant={variant(color)}
-            class={classes!(
-                "bottom-nav",
-                "bottom-nav-responsive",
-                "component-detail-bottom-navigation-preview",
-                format!("bottom-nav-{}", color.key),
-            )}
-        >
-            { nav_item("#catalog", "C", color.label, true, None) }
-            { nav_item("#docs", "D", "Docs", false, None) }
-        </BottomNavigation>
-    }
-}
-
-fn nav_item(href: &'static str, icon: &'static str, label: &'static str, active: bool, badge: Option<&'static str>) -> Html {
+fn nav_item(
+    href: &'static str,
+    icon: &'static str,
+    label: &'static str,
+    active: bool,
+    badge: Option<&'static str>,
+) -> Html {
     html! {
         <a href={href} class={classes!("bottom-nav-item", active.then_some("active"))}>
             <span class="bottom-nav-indicator">

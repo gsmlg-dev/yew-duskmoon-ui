@@ -1,51 +1,46 @@
 use crate::routes::components::catalog::ComponentSpec;
-use crate::routes::components::detail::page::{ComponentPage, STANDARD_API};
+use crate::routes::components::detail::page::{ApiRow, ComponentPage};
 use crate::routes::components::palette::{variant, PaletteColor};
 use yew::prelude::*;
 use yew_duskmoon::OtpInput;
 
+const API: &[ApiRow] = &[
+    ApiRow { prop: "class / variant", ty: "Classes / Option<String>", default: "empty / None", docs: "Core OTP root classes and semantic color." },
+    ApiRow { prop: "children", ty: "Children", default: "empty", docs: "Optional legacy OTP composition; omission renders one complete native code input over decorative cells." },
+    ApiRow { prop: "length", ty: "usize", default: "6", docs: "Code length clamped to the Core supported 1..8 cells." },
+    ApiRow { prop: "id / name / aria_label", ty: "AttrValue", default: "empty / empty / Verification code", docs: "Native input identity and accessible name." },
+    ApiRow { prop: "value", ty: "Option<AttrValue>", default: "None", docs: "Optional controlled complete code value." },
+    ApiRow { prop: "disabled / required", ty: "bool", default: "false", docs: "Native control state." },
+    ApiRow { prop: "oninput / onchange", ty: "Callback", default: "noop", docs: "Native events from the single complete input, supporting paste and browser editing." },
+];
+
 pub fn page(spec: &'static ComponentSpec) -> ComponentPage {
-    ComponentPage::new(spec, usage, STANDARD_API, demo, color_variant)
+    ComponentPage::new(spec, usage, API, demo, color_variant)
 }
 
 fn usage(_: &ComponentSpec) -> String {
     r#"use yew_duskmoon::OtpInput;
 
 html! {
-    <OtpInput variant={Some("primary".to_owned())} class="otp-input-6">
-        <input class="otp-input-field" type="text" maxlength="1" inputmode="numeric" />
-        <input class="otp-input-field" type="text" maxlength="1" inputmode="numeric" />
-        <input class="otp-input-field" type="text" maxlength="1" inputmode="numeric" />
-        <input class="otp-input-field" type="text" maxlength="1" inputmode="numeric" />
-        <input class="otp-input-field" type="text" maxlength="1" inputmode="numeric" />
-        <input class="otp-input-field" type="text" maxlength="1" inputmode="numeric" />
-    </OtpInput>
-}"#
-    .to_owned()
+    <OtpInput variant={Some("primary".to_owned())} length={6} name="code" aria_label="Verification code" />
+}"#.to_owned()
 }
 
 fn demo(_: &ComponentSpec) -> Html {
     html! {
         <div class="otp-group">
-            <label class="otp-label">{ "Verification code" }</label>
-            <OtpInput variant={Some("primary".to_owned())} class="otp-input-6 otp-input-wide">
-                { for ["4", "8", "2", "", "", ""].into_iter().map(|value| html! {
-                    <input class={classes!("otp-input-field", (!value.is_empty()).then_some("otp-input-field-filled"))} type="text" maxlength="1" inputmode="numeric" value={value} readonly={true} />
-                }) }
-            </OtpInput>
-            <span class="otp-helper">{ "Enter the 6-digit code from your authenticator app." }</span>
+            <label class="otp-label" for="otp_input-code">{ "Verification code" }</label>
+            <OtpInput variant={Some("primary".to_owned())} length={6} id="otp_input-code" name="code" required={true} />
+            <span class="otp-helper">{ "Enter or paste the complete 6-digit code." }</span>
         </div>
     }
 }
 
 fn color_variant(color: PaletteColor) -> Html {
     html! {
-        <OtpInput variant={variant(color)} class="component-detail-color-demo otp-input-4">
+        <div class="otp-group">
             <span class="otp-label">{ color.label }</span>
-            { for ["", "", "", ""].into_iter().map(|_| html! {
-                <input class="otp-input-field" type="text" maxlength="1" inputmode="numeric" placeholder="0" />
-            }) }
-            <code>{ format!("otp-input-{}", color.key) }</code>
-        </OtpInput>
+            <OtpInput variant={variant(color)} length={6} aria_label={format!("{} code", color.label)} />
+        </div>
     }
 }

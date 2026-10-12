@@ -15,7 +15,7 @@ html! {
     <DatePicker variant={Some("primary".to_owned())}>
         <div class="datepicker-input-container">
             <input class="datepicker-input" type="date" />
-            <button class="datepicker-trigger" type="button" command="toggle-popover" commandfor="date-calendar"><span class="datepicker-icon"></span></button>
+            <button class="datepicker-trigger" type="button" popovertarget="date-calendar"><span class="datepicker-icon"></span></button>
         </div>
         <div class="datepicker-dropdown" id="date-calendar" popover="auto">
             <div class="datepicker-header">
@@ -34,7 +34,7 @@ fn demo(_: &ComponentSpec) -> Html {
         <Datepicker variant={Some("primary".to_owned())} class="component-detail-demo-control">
             <div class="datepicker-input-container">
                 <input class="datepicker-input" type="date" value="2026-07-07" readonly={true} />
-                <button class="datepicker-trigger" type="button" aria-label="Open calendar" command="toggle-popover" commandfor="demo-datepicker">
+                <button class="datepicker-trigger" type="button" aria-label="Open calendar" popovertarget="demo-datepicker">
                     <span class="datepicker-icon"></span>
                 </button>
             </div>
@@ -75,7 +75,7 @@ fn color_variant(color: PaletteColor) -> Html {
             <label class="form-label">{ color.label }</label>
             <div class="datepicker-input-container">
                 <input class="datepicker-input" type="text" placeholder={format!("{} date", color.label)} />
-                <button class="datepicker-trigger" type="button" aria-label="Open calendar" command="toggle-popover" commandfor={id.clone()}>
+                <button class="datepicker-trigger" type="button" aria-label="Open calendar" popovertarget={id.clone()}>
                     <span class="datepicker-icon"></span>
                 </button>
             </div>

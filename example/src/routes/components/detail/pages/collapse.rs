@@ -15,13 +15,19 @@ const COLLAPSE_API: &[ApiRow] = &[
         prop: "children",
         ty: "Children",
         default: "empty",
-        docs: "Trigger and content markup rendered inside the collapse container.",
+        docs: "Native summary trigger and content markup rendered inside the details element.",
     },
     ApiRow {
         prop: "variant",
         ty: "Option<String>",
         default: "None",
         docs: "Appends a color modifier class such as collapse-primary.",
+    },
+    ApiRow {
+        prop: "open",
+        ty: "bool",
+        default: "false",
+        docs: "Initial native disclosure state; the browser handles subsequent toggling.",
     },
 ];
 
@@ -30,18 +36,18 @@ pub fn page(spec: &'static ComponentSpec) -> ComponentPage {
 }
 
 fn usage(_: &ComponentSpec) -> String {
-    "use yew_duskmoon::Collapse;\n\nhtml! {\n    <Collapse variant={Some(\"primary\".to_owned())} class=\"collapse-open collapse-card\">\n        <button type=\"button\" class=\"collapse-trigger\" aria-expanded=\"true\">\n            <span>{ \"Deployment details\" }</span>\n            <span class=\"collapse-icon\" aria-hidden=\"true\">{ \"v\" }</span>\n        </button>\n        <div class=\"collapse-content\">\n            <p>{ \"Build, check, and publish steps are visible.\" }</p>\n        </div>\n    </Collapse>\n}".to_owned()
+    "use yew_duskmoon::Collapse;\n\nhtml! {\n    <Collapse variant={Some(\"primary\".to_owned())} open={true} class=\"collapse-card\">\n        <summary class=\"collapse-trigger\">\n            <span>{ \"Deployment details\" }</span>\n            <span class=\"collapse-icon\" aria-hidden=\"true\">{ \"v\" }</span>\n        </summary>\n        <div class=\"collapse-content\">\n            <p>{ \"Build, check, and publish steps are visible.\" }</p>\n        </div>\n    </Collapse>\n}".to_owned()
 }
 
 fn demo(_: &ComponentSpec) -> Html {
     html! {
-        <Collapse variant={primary_variant()} class="collapse-open collapse-card component-detail-demo-control">
-            <button type="button" class="collapse-trigger" aria-expanded="true">
+        <Collapse variant={primary_variant()} open={true} class="collapse-card component-detail-demo-control">
+            <summary class="collapse-trigger">
                 <span>{ "Deployment details" }</span>
                 <span class="collapse-icon" aria-hidden="true">{ "v" }</span>
-            </button>
+            </summary>
             <div class="collapse-content">
-                <p>{ "The visible panel demonstrates the trigger, content slot, and open-state class expected by the upstream CSS." }</p>
+                <p>{ "Use the summary to toggle this native disclosure with a pointer or keyboard." }</p>
             </div>
         </Collapse>
     }
@@ -49,11 +55,11 @@ fn demo(_: &ComponentSpec) -> Html {
 
 fn color_variant(color: PaletteColor) -> Html {
     html! {
-        <Collapse variant={variant(color)} class="collapse-open component-detail-color-demo">
-            <button type="button" class="collapse-trigger" aria-expanded="true">
+        <Collapse variant={variant(color)} open={true} class="component-detail-color-demo">
+            <summary class="collapse-trigger">
                 <span>{ color.label }</span>
                 <span class="collapse-icon" aria-hidden="true">{ "v" }</span>
-            </button>
+            </summary>
             <div class="collapse-content">
                 <code>{ format!("collapse-{}", color.key) }</code>
             </div>

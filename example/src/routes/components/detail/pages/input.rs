@@ -1,46 +1,83 @@
 use crate::routes::components::catalog::ComponentSpec;
-use crate::routes::components::detail::page::{ComponentPage, STANDARD_API};
+use crate::routes::components::detail::page::{ApiRow, ComponentPage};
 use crate::routes::components::palette::{variant, PaletteColor};
 use yew::prelude::*;
 use yew_duskmoon::Input;
 
-pub fn page(spec: &'static ComponentSpec) -> ComponentPage {
-    ComponentPage::new(spec, usage, STANDARD_API, demo, color_variant)
-}
+const API: &[ApiRow] = &[
+    ApiRow {
+        prop: "class / variant",
+        ty: "Classes / Option<String>",
+        default: "empty / None",
+        docs: "Native input classes and Core semantic color.",
+    },
+    ApiRow {
+        prop: "children",
+        ty: "Children",
+        default: "empty",
+        docs:
+            "Text becomes the native value; existing nested input markup retains composition mode.",
+    },
+    ApiRow {
+        prop: "id / name / aria_label / placeholder",
+        ty: "AttrValue",
+        default: "empty",
+        docs: "Native identity, accessible name, and placeholder.",
+    },
+    ApiRow {
+        prop: "input_type",
+        ty: "Option<AttrValue>",
+        default: "text",
+        docs: "Native input type.",
+    },
+    ApiRow {
+        prop: "value",
+        ty: "Option<AttrValue>",
+        default: "None",
+        docs: "Optional controlled native input value.",
+    },
+    ApiRow {
+        prop: "required / disabled / readonly",
+        ty: "bool",
+        default: "false",
+        docs: "Native input state.",
+    },
+    ApiRow {
+        prop: "oninput / onchange",
+        ty: "Callback",
+        default: "noop",
+        docs: "Native input and change events.",
+    },
+];
 
+pub fn page(spec: &'static ComponentSpec) -> ComponentPage {
+    ComponentPage::new(spec, usage, API, demo, color_variant)
+}
 fn usage(_: &ComponentSpec) -> String {
     r#"use yew_duskmoon::Input;
 
 html! {
-    <Input variant={Some("primary".to_owned())} class="input-bordered">
-        <input class="input input-primary" type="text" placeholder="Enter text" />
-    </Input>
+    <label class="form-group">
+        <span class="form-label">{ "Repository name" }</span>
+        <Input variant={Some("primary".to_owned())} name="repository" placeholder="Enter a name" />
+    </label>
 }"#
     .to_owned()
 }
-
 fn demo(_: &ComponentSpec) -> Html {
     html! {
         <div class="detail-demo-stack">
-            <Input variant={Some("primary".to_owned())} class="component-detail-demo-control">
-                <label class="form-label">{ "Outlined input" }</label>
-                <input class="input input-primary" type="text" value="Repository name" readonly={true} />
-            </Input>
-            <Input variant={Some("success".to_owned())} class="component-detail-demo-control">
-                <label class="form-label">{ "Success state" }</label>
-                <input class="input input-success" type="text" value="yew-duskmoon-ui" readonly={true} />
-                <span class="form-hint">{ "Name is available." }</span>
-            </Input>
+            <label class="form-group"><span class="form-label">{ "Repository name" }</span>
+                <Input variant={Some("primary".to_owned())} class="input-bordered" name="repository" placeholder="Enter a name" />
+            </label>
+            <label class="form-group"><span class="form-label">{ "Email" }</span>
+                <Input variant={Some("success".to_owned())} input_type="email" name="email" placeholder="you@example.com" />
+            </label>
         </div>
     }
 }
-
 fn color_variant(color: PaletteColor) -> Html {
-    html! {
-        <Input variant={variant(color)} class="component-detail-color-demo">
-            <label class="form-label">{ color.label }</label>
-            <input class={classes!("input", format!("input-{}", color.key))} type="text" placeholder={color.label} />
-            <code>{ format!("input-{}", color.key) }</code>
-        </Input>
-    }
+    html! { <label class="form-group"><span class="form-label">{ color.label }</span>
+        <Input variant={variant(color)} placeholder={color.label} />
+    </label> }
 }

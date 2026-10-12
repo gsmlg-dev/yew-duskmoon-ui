@@ -1,6 +1,5 @@
 use crate::routes::components::catalog::ComponentSpec;
-use crate::routes::components::detail::page::{primary_variant, ApiRow, ComponentPage};
-use crate::routes::components::palette::{variant, PaletteColor};
+use crate::routes::components::detail::page::{ApiRow, ComponentPage};
 use yew::prelude::*;
 use yew_duskmoon::CodeBlock;
 
@@ -21,12 +20,12 @@ const CODE_BLOCK_API: &[ApiRow] = &[
         prop: "variant",
         ty: "Option<String>",
         default: "None",
-        docs: "Appends a color modifier class such as code-block-primary.",
+        docs: "Structural modifier escape hatch; Core keeps the code surface neutral.",
     },
 ];
 
 pub fn page(spec: &'static ComponentSpec) -> ComponentPage {
-    ComponentPage::new(spec, usage, CODE_BLOCK_API, demo, color_variant)
+    ComponentPage::without_color_variants(spec, usage, CODE_BLOCK_API, demo)
 }
 
 fn usage(_: &ComponentSpec) -> String {
@@ -35,7 +34,7 @@ fn usage(_: &ComponentSpec) -> String {
 
 fn demo(_: &ComponentSpec) -> Html {
     html! {
-        <CodeBlock variant={primary_variant()} class="code-block-compact">
+        <CodeBlock class="code-block-compact">
             <div class="code-header">
                 <span class="code-title">{ "example.rs" }</span>
                 <span class="code-language">{ "rust" }</span>
@@ -47,20 +46,5 @@ fn demo(_: &ComponentSpec) -> Html {
                 <pre><code>{ "html! {\n    <Button variant={Some(\"primary\".to_owned())}>{ \"Save\" }</Button>\n}" }</code></pre>
             </div>
         </CodeBlock>
-    }
-}
-
-fn color_variant(color: PaletteColor) -> Html {
-    html! {
-        <div class="component-detail-color-demo">
-            <CodeBlock variant={variant(color)} class="code-block-compact">
-                <div class="code-header">
-                    <span class="code-language">{ color.key }</span>
-                </div>
-                <div class="code-content">
-                    <pre><code>{ format!("code-block-{}", color.key) }</code></pre>
-                </div>
-            </CodeBlock>
-        </div>
     }
 }

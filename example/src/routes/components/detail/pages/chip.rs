@@ -30,20 +30,20 @@ pub fn page(spec: &'static ComponentSpec) -> ComponentPage {
 }
 
 fn usage(_: &ComponentSpec) -> String {
-    "use yew_duskmoon::Chip;\n\nhtml! {\n    <Chip variant={Some(\"primary\".to_owned())} class=\"chip-selectable chip-selected\">\n        { \"Selected filter\" }\n    </Chip>\n}".to_owned()
+    "use yew_duskmoon::Chip;\n\nhtml! {\n    <Chip variant={Some(\"primary\".to_owned())} class=\"chip-selected\">\n        { \"Selected filter\" }\n    </Chip>\n}".to_owned()
 }
 
 fn demo(_: &ComponentSpec) -> Html {
     html! {
         <div class="detail-demo-stack">
-            <Chip variant={primary_variant()} class="chip-selectable chip-selected">
+            <Chip variant={primary_variant()} class="chip-selected">
                 { "Selected filter" }
             </Chip>
             <Chip class="chip-clickable chip-outlined">{ "Assist action" }</Chip>
             <Chip variant={Some("info".to_owned())}>
-                <span class="chip-avatar" aria-hidden="true">{ "G" }</span>
+                <span class="chip-icon" aria-hidden="true">{ "G" }</span>
                 { "Gao" }
-                <button type="button" class="chip-remove" aria-label="Remove Gao">{ "x" }</button>
+                <button type="button" class="chip-close" aria-label="Remove Gao">{ "x" }</button>
             </Chip>
             <Chip variant={Some("warning".to_owned())} class="chip-sm">{ "Compact" }</Chip>
         </div>

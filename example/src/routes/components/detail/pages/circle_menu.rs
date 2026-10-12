@@ -34,7 +34,7 @@ fn usage(_: &ComponentSpec) -> String {
 
 html! {
     <CircleMenu variant={Some("primary".to_owned())} class="circle-menu-lg">
-        <input type="checkbox" class="circle-menu-toggler" id="actions-menu" />
+        <input type="checkbox" class="circle-menu-toggler" id="actions-menu" aria-label="Toggle quick actions" />
         <label class="circle-menu-label" for="actions-menu"></label>
         <ul class="circle-menu-list">
             <li class="circle-menu-item"><a href="#edit">{ "Edit" }</a></li>
@@ -49,7 +49,7 @@ html! {
 fn demo(_: &ComponentSpec) -> Html {
     html! {
         <CircleMenu variant={primary_variant()} class="component-detail-circle-menu-demo circle-menu-lg">
-            <input type="checkbox" class="circle-menu-toggler" id="detail-circle-menu" />
+            <input type="checkbox" class="circle-menu-toggler" id="detail-circle-menu" aria-label="Toggle quick actions" />
             <label class="circle-menu-label" for="detail-circle-menu" aria-label="Toggle quick actions"></label>
             <ul class="circle-menu-list">
                 <li class="circle-menu-item"><a href="#docs">{ "Docs" }</a></li>
@@ -68,7 +68,7 @@ fn color_variant(color: PaletteColor) -> Html {
 
     html! {
         <CircleMenu variant={variant(color)} class="component-detail-color-demo circle-menu-sm">
-            <input type="checkbox" class="circle-menu-toggler" id={id.clone()} />
+            <input type="checkbox" class="circle-menu-toggler" id={id.clone()} aria-label="Toggle color menu" />
             <label class="circle-menu-label" for={id} aria-label="Toggle color menu"></label>
             <ul class="circle-menu-list">
                 <li class="circle-menu-item"><a href="#colors">{ color.label }</a></li>

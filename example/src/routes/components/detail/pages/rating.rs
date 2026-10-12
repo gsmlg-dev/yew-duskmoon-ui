@@ -1,6 +1,6 @@
 use crate::routes::components::catalog::ComponentSpec;
 use crate::routes::components::detail::page::{ApiRow, ComponentPage};
-use crate::routes::components::palette::{PaletteColor, variant};
+use crate::routes::components::palette::{variant, PaletteColor};
 use yew::prelude::*;
 use yew_duskmoon::Rating;
 
@@ -52,9 +52,9 @@ fn demo(_: &ComponentSpec) -> Html {
 fn color_variant(color: PaletteColor) -> Html {
     html! {
         <Rating variant={variant(color)} class="rating-readonly rating-compact">
-            <span class="rating-item filled" style="color: var(--component-color);">{ "\u{2605}" }</span>
-            <span class="rating-item filled" style="color: var(--component-color);">{ "\u{2605}" }</span>
-            <span class="rating-item filled" style="color: var(--component-color);">{ "\u{2605}" }</span>
+            <span class="rating-item filled">{ "\u{2605}" }</span>
+            <span class="rating-item filled">{ "\u{2605}" }</span>
+            <span class="rating-item filled">{ "\u{2605}" }</span>
             <span class="rating-count">{ color.label }</span>
         </Rating>
     }

@@ -34,15 +34,15 @@ fn usage(_: &ComponentSpec) -> String {
 
 html! {
     <Accordion variant={Some("primary".to_owned())} class="accordion-outlined">
-        <div class="accordion-item accordion-item-open">
-            <button class="accordion-header">
+        <details class="accordion-item" open=true>
+            <summary class="accordion-header">
                 <span class="accordion-title">{ "What is Duskmoon?" }</span>
                 <span class="accordion-icon">{ "v" }</span>
-            </button>
+            </summary>
             <div class="accordion-content">
                 <div class="accordion-body">{ "A Material Design inspired UI system." }</div>
             </div>
-        </div>
+        </details>
     </Accordion>
 }"##
     .to_owned()
@@ -51,28 +51,28 @@ html! {
 fn demo(_: &ComponentSpec) -> Html {
     html! {
         <Accordion variant={primary_variant()} class="component-detail-accordion-demo accordion-outlined">
-            <div class="accordion-item accordion-item-open">
-                <button class="accordion-header">
+            <details class="accordion-item" open=true>
+                <summary class="accordion-header">
                     <span class="accordion-title">{ "Usage guidance" }</span>
                     <span class="accordion-icon">{ "v" }</span>
-                </button>
+                </summary>
                 <div class="accordion-content">
                     <div class="accordion-body">
                         { "Open items show related content inline while keeping the page context visible." }
                     </div>
                 </div>
-            </div>
-            <div class="accordion-item">
-                <button class="accordion-header">
+            </details>
+            <details class="accordion-item">
+                <summary class="accordion-header">
                     <span class="accordion-title">{ "API details" }</span>
                     <span class="accordion-icon">{ "v" }</span>
-                </button>
+                </summary>
                 <div class="accordion-content">
                     <div class="accordion-body">
                         { "Closed items keep secondary content compact until the user expands it." }
                     </div>
                 </div>
-            </div>
+            </details>
         </Accordion>
     }
 }
@@ -80,15 +80,15 @@ fn demo(_: &ComponentSpec) -> Html {
 fn color_variant(color: PaletteColor) -> Html {
     html! {
         <Accordion variant={variant(color)} class="component-detail-color-demo">
-            <div class="accordion-item accordion-item-open">
-                <button class="accordion-header">
+            <details class="accordion-item" open=true>
+                <summary class="accordion-header">
                     <span class="accordion-title">{ color.label }</span>
                     <span class="accordion-icon">{ "v" }</span>
-                </button>
+                </summary>
                 <div class="accordion-content">
                     <div class="accordion-body">{ format!("accordion-{}", color.key) }</div>
                 </div>
-            </div>
+            </details>
         </Accordion>
     }
 }

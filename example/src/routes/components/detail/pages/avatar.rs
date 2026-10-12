@@ -30,16 +30,16 @@ pub fn page(spec: &'static ComponentSpec) -> ComponentPage {
 }
 
 fn usage(_: &ComponentSpec) -> String {
-    "use yew_duskmoon::Avatar;\n\nhtml! {\n    <Avatar\n        variant={Some(\"primary\".to_owned())}\n        class=\"avatar-lg avatar-status avatar-status-online\"\n    >\n        { \"GD\" }\n    </Avatar>\n}".to_owned()
+    "use yew_duskmoon::Avatar;\n\nhtml! {\n    <Avatar\n        variant={Some(\"primary\".to_owned())}\n        class=\"avatar-lg avatar-status-online\"\n    >\n        { \"GD\" }\n    </Avatar>\n}".to_owned()
 }
 
 fn demo(_: &ComponentSpec) -> Html {
     html! {
         <div class="detail-demo-stack">
-            <Avatar variant={primary_variant()} class="avatar-lg avatar-status avatar-status-online">
+            <Avatar variant={primary_variant()} class="avatar-lg avatar-status-online">
                 { "GD" }
             </Avatar>
-            <Avatar class="avatar-md avatar-rounded avatar-secondary avatar-status avatar-status-away">
+            <Avatar class="avatar-md avatar-rounded avatar-secondary avatar-status-away">
                 { "UI" }
             </Avatar>
             <Avatar class="avatar-sm avatar-square avatar-tertiary avatar-bordered">

@@ -79,7 +79,7 @@ html! {
         </div>
     </Popover>
 }"##
-        .to_owned()
+    .to_owned()
 }
 
 fn demo(_: &ComponentSpec) -> Html {
@@ -128,6 +128,9 @@ fn demo(_: &ComponentSpec) -> Html {
 }
 
 fn color_variant(color: PaletteColor) -> Html {
+    if !matches!(color.key, "primary" | "secondary" | "tertiary") {
+        return Html::default();
+    }
     let id: AttrValue = format!("popover-color-{}", color.key).into();
 
     html! {

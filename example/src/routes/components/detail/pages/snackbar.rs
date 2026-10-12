@@ -14,20 +14,24 @@ fn usage(_: &ComponentSpec) -> String {
 
 fn demo(_: &ComponentSpec) -> Html {
     html! {
-        <Snackbar variant={Some("success".to_owned())} class="snackbar-show snackbar-multiline">
-            <span class="snackbar-icon">{ "OK" }</span>
-            <span class="snackbar-message">{ "Message sent. The snackbar can include an action and a close affordance." }</span>
-            <button class="snackbar-action">{ "Undo" }</button>
-            <button class="snackbar-close" aria-label="Dismiss snackbar">{ "x" }</button>
-        </Snackbar>
+        <div class="min-w-0 max-w-full overflow-x-auto">
+            <Snackbar variant={Some("success".to_owned())} class="snackbar-show snackbar-multiline">
+                <span class="snackbar-icon">{ "OK" }</span>
+                <span class="snackbar-message">{ "Message sent. The snackbar can include an action and a close affordance." }</span>
+                <button class="snackbar-action">{ "Undo" }</button>
+                <button class="snackbar-close" aria-label="Dismiss snackbar">{ "x" }</button>
+            </Snackbar>
+        </div>
     }
 }
 
 fn color_variant(color: PaletteColor) -> Html {
     html! {
-        <Snackbar variant={variant(color)} class="snackbar-show">
-            <span class="snackbar-message">{ color.label }</span>
-            <button class="snackbar-action">{ "Action" }</button>
-        </Snackbar>
+        <div class="min-w-0 max-w-full overflow-x-auto">
+            <Snackbar variant={variant(color)} class="snackbar-show">
+                <span class="snackbar-message">{ color.label }</span>
+                <button class="snackbar-action">{ "Action" }</button>
+            </Snackbar>
+        </div>
     }
 }

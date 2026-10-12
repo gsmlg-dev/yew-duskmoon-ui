@@ -5,6 +5,12 @@ use yew_duskmoon::{Button, Dialog, IconButton};
 
 const DIALOG_API: &[ApiRow] = &[
     ApiRow {
+        prop: "aria_label / aria_labelledby",
+        ty: "Option<AttrValue>",
+        default: "None",
+        docs: "Accessible dialog name or referenced title id.",
+    },
+    ApiRow {
         prop: "id",
         ty: "AttrValue",
         default: "required",
@@ -42,7 +48,7 @@ html! {
         <Button command="show-modal" command_for="confirm-deployment">
             { "Open dialog" }
         </Button>
-        <Dialog id="confirm-deployment" class="dialog-divider">
+        <Dialog aria_label="Confirm deployment" id="confirm-deployment" class="dialog-divider">
             <div class="dialog-box">
                 <div class="dialog-header">
                     <h2 class="dialog-title">{ "Confirm deployment" }</h2>
@@ -66,7 +72,7 @@ html! {
         </Dialog>
     </>
 }"#
-        .to_owned()
+    .to_owned()
 }
 
 fn demo(_: &ComponentSpec) -> Html {
@@ -75,7 +81,7 @@ fn demo(_: &ComponentSpec) -> Html {
             <Button command="show-modal" command_for="demo-dialog" variant={Some("primary".to_owned())}>
                 { "Open native dialog" }
             </Button>
-            <Dialog id="demo-dialog" class="dialog-divider">
+            <Dialog aria_label="Confirm deployment" id="demo-dialog" class="dialog-divider">
                 <div class="dialog-box">
                     <div class="dialog-header">
                         <h2 class="dialog-title">{ "Confirm deployment" }</h2>

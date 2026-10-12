@@ -6,16 +6,6 @@ use super::palette::{variant, PALETTE};
 
 #[function_component(FeedbackComponent)]
 pub fn feedback_component() -> Html {
-    let show_toast = use_state(|| false);
-    let trigger_toast = {
-        let show_toast = show_toast.clone();
-        Callback::from(move |_| show_toast.set(true))
-    };
-    let hide_toast = {
-        let show_toast = show_toast.clone();
-        Callback::from(move |_| show_toast.set(false))
-    };
-
     html! {
         <div class="app">
             <div class="app-main component-main">
@@ -72,7 +62,7 @@ pub fn feedback_component() -> Html {
                             {"Click the button below to show a toast message."}
                         </Typography>
                         <div>
-                            <Button onclick={trigger_toast} variant={Some("secondary".to_owned())}>{"Show Toast"}</Button>
+                            <Button command="show-popover" command_for="feedback-toast" variant={Some("secondary".to_owned())}>{"Show Toast"}</Button>
                         </div>
                     </div>
                 </Card>
@@ -99,24 +89,15 @@ pub fn feedback_component() -> Html {
                     </div>
                 </Dialog>
 
-                // Toast Rendering
-                {
-                    if *show_toast {
-                        html! {
-                            <div class="fixed bottom-4 right-4 z-50">
-                                <Toast variant={Some("success".to_string())} class="toast-show toast-filled">
-                                    <span class="toast-icon">{ "✓" }</span>
-                                    <span class="toast-content">
-                                        <Typography level={TypographyLevel::Default}>{"Notification message triggered!"}</Typography>
-                                    </span>
-                                    <Button onclick={hide_toast} classes="btn btn-sm btn-ghost">{"Dismiss"}</Button>
-                                </Toast>
-                            </div>
-                        }
-                    } else {
-                        html! {}
-                    }
-                }
+                <div id="feedback-toast" class="toast-container toast-container-bottom-end" popover="manual">
+                    <Toast variant={Some("success".to_owned())} class="toast-filled">
+                        <span class="toast-icon" aria-hidden="true">{ "✓" }</span>
+                        <span class="toast-content" role="status">
+                            <span class="toast-message">{ "Notification message triggered!" }</span>
+                        </span>
+                        <button type="button" class="toast-close" command="hide-popover" commandfor="feedback-toast" aria-label="Dismiss notification">{ "Dismiss" }</button>
+                    </Toast>
+                </div>
             </div>
         </div>
     }

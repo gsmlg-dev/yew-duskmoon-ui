@@ -9,7 +9,7 @@ const RADIO_API: &[ApiRow] = &[
         prop: "aria_label",
         ty: "AttrValue",
         default: "Radio options",
-        docs: "Accessible name applied when Radio wraps a group of options.",
+        docs: "Accessible name for the native control or option group.",
     },
     ApiRow {
         prop: "class",
@@ -21,13 +21,37 @@ const RADIO_API: &[ApiRow] = &[
         prop: "children",
         ty: "Children",
         default: "empty",
-        docs: "Optional content rendered inside the wrapper.",
+        docs: "Composition children; omission renders a native input.",
     },
     ApiRow {
         prop: "variant",
         ty: "Option<String>",
         default: "None",
         docs: "Appends a radio color class such as radio-primary.",
+    },
+    ApiRow {
+        prop: "id / name / value",
+        ty: "AttrValue",
+        default: "empty / empty / on",
+        docs: "Native control identity and submitted value in direct mode.",
+    },
+    ApiRow {
+        prop: "checked",
+        ty: "Option<bool>",
+        default: "None",
+        docs: "Controlled state when set; omission retains native browser toggling.",
+    },
+    ApiRow {
+        prop: "disabled / required",
+        ty: "bool",
+        default: "false",
+        docs: "Native control state in direct mode.",
+    },
+    ApiRow {
+        prop: "onchange",
+        ty: "Callback<Event>",
+        default: "noop",
+        docs: "Native change events in direct mode.",
     },
 ];
 

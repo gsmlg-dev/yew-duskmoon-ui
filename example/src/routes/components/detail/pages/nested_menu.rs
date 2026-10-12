@@ -1,6 +1,5 @@
 use crate::routes::components::catalog::ComponentSpec;
 use crate::routes::components::detail::page::{primary_variant, ApiRow, ComponentPage};
-use crate::routes::components::palette::{variant, PaletteColor};
 use yew::prelude::*;
 use yew_duskmoon::NestedMenu;
 
@@ -26,7 +25,7 @@ const API: &[ApiRow] = &[
 ];
 
 pub fn page(spec: &'static ComponentSpec) -> ComponentPage {
-    ComponentPage::new(spec, usage, API, demo, color_variant)
+    ComponentPage::without_color_variants(spec, usage, API, demo)
 }
 
 fn usage(_: &ComponentSpec) -> String {
@@ -74,23 +73,6 @@ fn demo(_: &ComponentSpec) -> Html {
                 </details>
             </li>
             <li class="disabled"><a href="#disabled" aria-disabled="true">{ "Archived" }</a></li>
-        </NestedMenu>
-    }
-}
-
-fn color_variant(color: PaletteColor) -> Html {
-    html! {
-        <NestedMenu variant={variant(color)} class="component-detail-color-demo nested-menu-compact">
-            <li class="nested-menu-title">{ color.label }</li>
-            <li><a href="#colors" class="active">{ color.key }</a></li>
-            <li>
-                <details open={true}>
-                    <summary>{ "Group" }</summary>
-                    <ul>
-                        <li><a href="#demo">{ "Preview" }</a></li>
-                    </ul>
-                </details>
-            </li>
         </NestedMenu>
     }
 }

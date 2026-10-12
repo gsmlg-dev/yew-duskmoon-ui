@@ -13,7 +13,7 @@ fn usage(_: &ComponentSpec) -> String {
 
 html! {
     <Cascader variant={Some("primary".to_owned())}>
-        <button class="cascader-trigger" type="button" command="toggle-popover" commandfor="location-cascader">
+        <button class="cascader-trigger" type="button" popovertarget="location-cascader">
             <span class="cascader-placeholder">{ "Select location" }</span>
             <span class="cascader-arrow">{ ">" }</span>
         </button>
@@ -34,7 +34,7 @@ html! {
 fn demo(_: &ComponentSpec) -> Html {
     html! {
         <Cascader variant={Some("primary".to_owned())} class="component-detail-demo-control">
-            <button class="cascader-trigger" type="button" command="toggle-popover" commandfor="demo-cascader">
+            <button class="cascader-trigger" type="button" popovertarget="demo-cascader">
                 <span class="cascader-value">{ "United States / California / San Francisco" }</span>
                 <span class="cascader-arrow">{ ">" }</span>
             </button>
@@ -88,7 +88,7 @@ fn color_variant(color: PaletteColor) -> Html {
 
     html! {
         <Cascader variant={variant(color)} class="component-detail-color-demo">
-            <button class="cascader-trigger" type="button" command="toggle-popover" commandfor={id.clone()}>
+            <button class="cascader-trigger" type="button" popovertarget={id.clone()}>
                 <span class="cascader-value">{ color.label }</span>
                 <span class="cascader-arrow">{ ">" }</span>
             </button>

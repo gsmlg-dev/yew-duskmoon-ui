@@ -1,6 +1,6 @@
 use crate::routes::components::catalog::ComponentSpec;
-use crate::routes::components::detail::page::{ApiRow, ComponentPage, primary_variant};
-use crate::routes::components::palette::{PaletteColor, variant};
+use crate::routes::components::detail::page::{primary_variant, ApiRow, ComponentPage};
+use crate::routes::components::palette::{variant, PaletteColor};
 use yew::prelude::*;
 use yew_duskmoon::SegmentControl;
 
@@ -46,7 +46,7 @@ fn demo(_: &ComponentSpec) -> Html {
 fn color_variant(color: PaletteColor) -> Html {
     html! {
         <SegmentControl variant={variant(color)}>
-            <button class="segment-item segment-item-active" style="background-color: var(--component-container); color: var(--component-on-container);">
+            <button class="segment-item segment-item-active">
                 { color.label }
             </button>
             <button class="segment-item">{ "Docs" }</button>

@@ -27,6 +27,9 @@ fn demo(spec: &ComponentSpec) -> Html {
 }
 
 fn color_variant(color: PaletteColor) -> Html {
+    if !matches!(color.key, "primary" | "secondary" | "tertiary") {
+        return Html::default();
+    }
     html! {
         <Breadcrumbs variant={variant(color)} class="breadcrumbs-contained component-detail-color-breadcrumbs">
             <a href="#catalog" class="breadcrumb-link">{ "Catalog" }</a>

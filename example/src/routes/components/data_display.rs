@@ -47,10 +47,10 @@ pub fn data_display_component() -> Html {
                 <Card title={html! { <Typography level={TypographyLevel::H4}>{"List Component"}</Typography> }} classes="component-card">
                     <div class="color-grid compact-color-grid">
                         { for PALETTE.into_iter().map(|color| html! {
-                            <List variant={variant(color)} class="color-list">
-                                <div class="color-list-row">
-                                    <span>{ color.label }</span>
-                                    <Badge color={color.color} size={BadgeSize::Small}>{ html! { color.key } }</Badge>
+                            <List class="list-bordered list-compact">
+                                <div class="list-item">
+                                    <span class="list-item-content"><span class="list-item-title">{ color.label }</span></span>
+                                    <span class="list-item-trailing"><Badge color={color.color} size={BadgeSize::Small}>{ html! { color.key } }</Badge></span>
                                 </div>
                             </List>
                         }) }
@@ -61,9 +61,7 @@ pub fn data_display_component() -> Html {
                     <div class="color-grid markdown-color-grid">
                         { for PALETTE.into_iter().map(|color| html! {
                             <DmMarkdown
-                                variant={variant(color)}
-                                class="markdown-token-card"
-                                markdown={format!("**{}** markdown\n\n- [x] Rendered from source\n- Uses `markdown-body-{}`", color.label, color.key)}
+                                markdown={format!("**{}** markdown\n\n- [x] Rendered from source\n- Theme-aware `markdown-body` for {}", color.label, color.key)}
                             />
                         }) }
                     </div>

@@ -1,6 +1,6 @@
 use crate::routes::components::catalog::ComponentSpec;
-use crate::routes::components::detail::page::{primary_variant, ApiRow, ComponentPage};
-use crate::routes::components::palette::{variant, PaletteColor};
+use crate::routes::components::detail::page::{ApiRow, ComponentPage};
+use crate::routes::components::palette::PaletteColor;
 use yew::prelude::*;
 use yew_duskmoon::Pagination;
 
@@ -21,7 +21,7 @@ const API: &[ApiRow] = &[
         prop: "variant",
         ty: "Option<String>",
         default: "None",
-        docs: "Appends a color class such as pagination-primary to the root.",
+        docs: "Legacy root modifier escape hatch. Active pages use pagination-item-active-primary; alternate current-page colors await a Core correction.",
     },
     ApiRow {
         prop: "total",
@@ -101,7 +101,6 @@ use yew_duskmoon::Pagination;
 
 html! {
     <Pagination
-        variant={Some("primary".to_owned())}
         total={Some(8038)}
         page_size={30}
         current={1}
@@ -117,7 +116,6 @@ html! {
 fn demo(_: &ComponentSpec) -> Html {
     html! {
         <Pagination
-            variant={primary_variant()}
             class="component-detail-pagination-demo"
             total={Some(8038)}
             page_size={30}
@@ -129,12 +127,17 @@ fn demo(_: &ComponentSpec) -> Html {
 }
 
 fn color_variant(color: PaletteColor) -> Html {
+    // TODO(upstream): duskmoon-dev/duskmoonui#74
+    // WORKAROUND(upstream): duskmoon-dev/duskmoonui#74 - retain aria-current and demonstrate primary until alternate colors are fixed.
+    if color.key != "primary" {
+        return Html::default();
+    }
     html! {
-        <Pagination variant={variant(color)} class="component-detail-color-pagination">
-            <button class="pagination-prev">{ "<" }</button>
+        <Pagination class="component-detail-color-pagination">
+            <button type="button" class="pagination-prev">{ "<" }</button>
             <a href="#colors" class="pagination-item">{ "1" }</a>
-            <a href="#demo" class="pagination-item pagination-item-active is-active">{ color.label }</a>
-            <button class="pagination-next">{ ">" }</button>
+            <a href="#demo" aria-current="page" class={classes!("pagination-item", format!("pagination-item-active-{}", color.key))}>{ color.label }</a>
+            <button type="button" class="pagination-next">{ ">" }</button>
         </Pagination>
     }
 }

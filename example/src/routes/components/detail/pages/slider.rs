@@ -1,6 +1,6 @@
 use crate::routes::components::catalog::ComponentSpec;
-use crate::routes::components::detail::page::{ApiRow, ComponentPage, primary_variant};
-use crate::routes::components::palette::{PaletteColor, variant};
+use crate::routes::components::detail::page::{primary_variant, ApiRow, ComponentPage};
+use crate::routes::components::palette::{variant, PaletteColor};
 use yew::prelude::*;
 use yew_duskmoon::Slider;
 
@@ -65,10 +65,10 @@ fn color_variant(color: PaletteColor) -> Html {
     html! {
         <Slider variant={variant(color)} class="slider-labels-always">
             <div class="slider-track">
-                <div class="slider-track-filled" style="width: 64%; background-color: var(--component-color);"></div>
+                <div class="slider-track-filled" style="width: 64%;"></div>
             </div>
-            <div class="slider-thumb" style="left: 64%; background-color: var(--component-color);">
-                <div class="slider-thumb-label" style="background-color: var(--component-color); color: var(--component-content);">
+            <div class="slider-thumb" style="left: 64%;">
+                <div class="slider-thumb-label">
                     { color.label }
                 </div>
             </div>
