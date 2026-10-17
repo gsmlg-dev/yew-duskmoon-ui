@@ -1370,10 +1370,61 @@ textarea {
     text-transform: uppercase;
 }
 
-.markdown-body .dm-mermaid-chart svg {
-    min-width: 560px;
-    width: 100%;
-    max-width: 760px;
+.markdown-body .dm-mermaid-zoom-trigger {
+    padding: 6px 10px;
+    border: 1px solid var(--dm-line);
+    border-radius: 6px;
+    color: var(--dm-paper);
+    background: var(--color-surface-container-high);
+    font: inherit;
+    font-size: 0.82rem;
+    cursor: zoom-in;
+}
+
+.markdown-body .dm-mermaid-zoom-trigger:focus-visible,
+.markdown-body .dm-mermaid-viewer-header button:focus-visible {
+    outline: 2px solid var(--color-primary);
+    outline-offset: 3px;
+}
+
+.markdown-body .dm-mermaid-zoom-trigger ~ .dm-mermaid-chart {
+    cursor: zoom-in;
+}
+
+.markdown-body .dm-mermaid-viewer {
+    padding: 16px;
+    border: 1px solid var(--dm-line);
+    border-radius: 12px;
+    color: var(--dm-paper);
+    background: var(--color-surface);
+}
+
+.markdown-body .dm-mermaid-viewer::backdrop {
+    background: color-mix(in oklch, black 65%, transparent);
+}
+
+.markdown-body .dm-mermaid-viewer-header {
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    gap: 16px;
+    margin-bottom: 12px;
+    font-weight: 700;
+}
+
+.markdown-body .dm-mermaid-viewer-header button {
+    padding: 6px 10px;
+    border: 1px solid var(--dm-line);
+    border-radius: 6px;
+    color: inherit;
+    background: var(--color-surface-container-high);
+    font: inherit;
+    font-size: 0.82rem;
+    cursor: pointer;
+}
+
+.markdown-body .dm-mermaid-viewer-body .dm-mermaid-chart {
+    margin: 0;
 }
 
 .markdown-body .dm-mermaid-edge {

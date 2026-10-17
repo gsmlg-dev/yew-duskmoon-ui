@@ -5,6 +5,8 @@ use pulldown_cmark::{html, CodeBlockKind, CowStr, Event, LinkType, Options, Pars
 use yew::prelude::*;
 use yew::virtual_dom::AttrValue;
 
+use super::markdown_mermaid_viewer::use_mermaid_viewer;
+
 /// Controls how YAML front matter at the start of a Markdown document is handled.
 #[derive(Clone, Copy, Debug, Default, PartialEq, Eq)]
 pub enum FrontMatterMode {
@@ -80,7 +82,7 @@ pub fn dm_markdown(props: &DmMarkdownProps) -> Html {
     }
     classes.push(props.class.clone());
 
-    let rendered = render_markdown_to_html_with_options(
+    let rendered: AttrValue = render_markdown_to_html_with_options(
         &props.markdown,
         DmMarkdownOptions {
             allow_html: props.allow_html,
@@ -89,11 +91,14 @@ pub fn dm_markdown(props: &DmMarkdownProps) -> Html {
             color_chips: props.color_chips,
             front_matter: props.front_matter,
         },
-    );
+    )
+    .into();
+    let (markdown_ref, onclick, viewer) = use_mermaid_viewer(rendered.clone());
 
     html! {
-        <div class={classes}>
-            { Html::from_html_unchecked(AttrValue::from(rendered)) }
+        <div class={classes} ref={markdown_ref} {onclick}>
+            { Html::from_html_unchecked(rendered) }
+            { viewer }
         </div>
     }
 }
@@ -1084,7 +1089,13 @@ fn language_label(language: &str) -> &'static str {
 }
 
 fn render_mermaid_chart(source: &str, output: &mut impl fmt::Write) -> fmt::Result {
-    match detect_mermaid_kind(source) {
+    let kind = detect_mermaid_kind(source);
+    if kind == MermaidKind::Unknown {
+        return render_plain_code("mermaid", source, output);
+    }
+
+    output.write_str("<div class=\"dm-mermaid-preview\">")?;
+    match kind {
         MermaidKind::Flowchart => render_mermaid_flowchart(source, output),
         MermaidKind::Swimlanes => render_mermaid_swimlanes(source, output),
         MermaidKind::Sequence => render_mermaid_sequence(source, output),
@@ -1115,7 +1126,20 @@ fn render_mermaid_chart(source: &str, output: &mut impl fmt::Write) -> fmt::Resu
         MermaidKind::TreeView => render_mermaid_treeview(source, output),
         MermaidKind::Mindmap => render_mermaid_mindmap(source, output),
         MermaidKind::Quadrant => render_mermaid_quadrant(source, output),
-        MermaidKind::Unknown => render_plain_code("mermaid", source, output),
+        MermaidKind::Unknown => unreachable!(),
+    }?;
+    output.write_str("</div>")
+}
+
+struct MermaidSvg(f32, f32);
+
+impl fmt::Display for MermaidSvg {
+    fn fmt(&self, formatter: &mut fmt::Formatter<'_>) -> fmt::Result {
+        let Self(width, height) = self;
+        write!(
+            formatter,
+            "<svg viewBox=\"0 0 {width:.0} {height:.0}\" width=\"{width:.0}\" height=\"{height:.0}\" preserveAspectRatio=\"xMidYMid meet\" style=\"display:block;width:{width:.0}px;max-width:100%;height:auto;min-width:0;min-height:0\" aria-hidden=\"true\">"
+        )
     }
 }
 
@@ -1240,10 +1264,10 @@ fn render_mermaid_flowchart(source: &str, output: &mut impl fmt::Write) -> fmt::
     let layout = layout_mermaid_flowchart(&flowchart);
 
     let marker_id = mermaid_marker_id(source);
+    let svg_start = MermaidSvg(layout.width, layout.height);
     let svg = output;
     write!(svg,
-        "<div class=\"dm-mermaid-chart dm-mermaid-flowchart\" role=\"img\" aria-label=\"Rendered Mermaid flowchart\"><div class=\"dm-mermaid-chart-title\">Mermaid flowchart</div><svg viewBox=\"0 0 {:.0} {:.0}\" aria-hidden=\"true\"><defs><marker id=\"{marker_id}\" markerWidth=\"10\" markerHeight=\"10\" refX=\"8\" refY=\"3\" orient=\"auto\"><path d=\"M0,0 L0,6 L9,3 z\" class=\"dm-mermaid-arrow\" /></marker></defs>",
-        layout.width, layout.height
+        "<div class=\"dm-mermaid-chart dm-mermaid-flowchart\" role=\"img\" aria-label=\"Rendered Mermaid flowchart\"><div class=\"dm-mermaid-chart-title\">Mermaid flowchart</div>{svg_start}<defs><marker id=\"{marker_id}\" markerWidth=\"10\" markerHeight=\"10\" refX=\"8\" refY=\"3\" orient=\"auto\"><path d=\"M0,0 L0,6 L9,3 z\" class=\"dm-mermaid-arrow\" /></marker></defs>",
     )?;
 
     for (group_index, group) in flowchart.groups.iter().enumerate() {
@@ -1893,9 +1917,10 @@ fn render_mermaid_swimlanes(source: &str, output: &mut impl fmt::Write) -> fmt::
         }
     }
 
+    let svg_start = MermaidSvg(width, height);
     let svg = output;
     write!(svg,
-        "<div class=\"dm-mermaid-chart dm-mermaid-swimlanes\" role=\"img\" aria-label=\"Rendered Mermaid swimlanes diagram\"><div class=\"dm-mermaid-chart-title\">Mermaid Swimlanes diagram</div><svg viewBox=\"0 0 {width:.0} {height:.0}\" aria-hidden=\"true\"><defs><marker id=\"{marker_id}\" markerWidth=\"10\" markerHeight=\"10\" refX=\"8\" refY=\"3\" orient=\"auto\"><path d=\"M0,0 L0,6 L9,3 z\" class=\"dm-mermaid-arrow\" /></marker></defs>"
+        "<div class=\"dm-mermaid-chart dm-mermaid-swimlanes\" role=\"img\" aria-label=\"Rendered Mermaid swimlanes diagram\"><div class=\"dm-mermaid-chart-title\">Mermaid Swimlanes diagram</div>{svg_start}<defs><marker id=\"{marker_id}\" markerWidth=\"10\" markerHeight=\"10\" refX=\"8\" refY=\"3\" orient=\"auto\"><path d=\"M0,0 L0,6 L9,3 z\" class=\"dm-mermaid-arrow\" /></marker></defs>"
     )?;
 
     for (index, lane) in lanes.iter().enumerate() {
@@ -2095,9 +2120,10 @@ fn render_mermaid_class(source: &str, output: &mut impl fmt::Write) -> fmt::Resu
         .fold(220.0, f32::max)
         + 28.0;
     let marker_id = mermaid_marker_id(source);
+    let svg_start = MermaidSvg(760.0, height);
     let svg = output;
     write!(svg,
-        "<div class=\"dm-mermaid-chart dm-mermaid-class\" role=\"img\" aria-label=\"Rendered Mermaid class diagram\"><div class=\"dm-mermaid-chart-title\">Mermaid Class diagram</div><svg viewBox=\"0 0 760 {height:.0}\" aria-hidden=\"true\"><defs><marker id=\"{marker_id}\" markerWidth=\"10\" markerHeight=\"10\" refX=\"8\" refY=\"3\" orient=\"auto\"><path d=\"M0,0 L0,6 L9,3 z\" class=\"dm-mermaid-arrow\" /></marker></defs>"
+        "<div class=\"dm-mermaid-chart dm-mermaid-class\" role=\"img\" aria-label=\"Rendered Mermaid class diagram\"><div class=\"dm-mermaid-chart-title\">Mermaid Class diagram</div>{svg_start}<defs><marker id=\"{marker_id}\" markerWidth=\"10\" markerHeight=\"10\" refX=\"8\" refY=\"3\" orient=\"auto\"><path d=\"M0,0 L0,6 L9,3 z\" class=\"dm-mermaid-arrow\" /></marker></defs>"
     )?;
 
     for group in &group_layouts {
@@ -2466,9 +2492,10 @@ fn render_mermaid_state(source: &str, output: &mut impl fmt::Write) -> fmt::Resu
         .enumerate()
         .map(|(index, state)| (state.as_str(), x, first_y + index as f32 * step_y))
         .collect::<Vec<_>>();
+    let svg_start = MermaidSvg(width, height);
     let svg = output;
     write!(svg,
-        "<div class=\"dm-mermaid-chart dm-mermaid-state\" role=\"img\" aria-label=\"Rendered Mermaid state diagram\"><div class=\"dm-mermaid-chart-title\">Mermaid State diagram</div><svg viewBox=\"0 0 {width:.0} {height:.0}\" aria-hidden=\"true\"><defs><marker id=\"{marker_id}\" markerWidth=\"10\" markerHeight=\"10\" refX=\"8\" refY=\"3\" orient=\"auto\"><path d=\"M0,0 L0,6 L9,3 z\" class=\"dm-mermaid-arrow\" /></marker></defs>"
+        "<div class=\"dm-mermaid-chart dm-mermaid-state\" role=\"img\" aria-label=\"Rendered Mermaid state diagram\"><div class=\"dm-mermaid-chart-title\">Mermaid State diagram</div>{svg_start}<defs><marker id=\"{marker_id}\" markerWidth=\"10\" markerHeight=\"10\" refX=\"8\" refY=\"3\" orient=\"auto\"><path d=\"M0,0 L0,6 L9,3 z\" class=\"dm-mermaid-arrow\" /></marker></defs>"
     )?;
 
     for transition in &transitions {
@@ -2626,9 +2653,10 @@ fn render_mermaid_er(source: &str, output: &mut impl fmt::Write) -> fmt::Result 
 
     let positions = layout_er_positions(&entities);
     let marker_id = mermaid_marker_id(source);
+    let svg_start = MermaidSvg(760.0, 520.0);
     let svg = output;
     write!(svg,
-        "<div class=\"dm-mermaid-chart dm-mermaid-er\" role=\"img\" aria-label=\"Rendered Mermaid entity relationship diagram\"><div class=\"dm-mermaid-chart-title\">Mermaid Entity relationship</div><svg viewBox=\"0 0 760 520\" aria-hidden=\"true\"><defs><marker id=\"{marker_id}\" markerWidth=\"10\" markerHeight=\"10\" refX=\"8\" refY=\"3\" orient=\"auto\"><path d=\"M0,0 L0,6 L9,3 z\" class=\"dm-mermaid-arrow\" /></marker></defs>"
+        "<div class=\"dm-mermaid-chart dm-mermaid-er\" role=\"img\" aria-label=\"Rendered Mermaid entity relationship diagram\"><div class=\"dm-mermaid-chart-title\">Mermaid Entity relationship</div>{svg_start}<defs><marker id=\"{marker_id}\" markerWidth=\"10\" markerHeight=\"10\" refX=\"8\" refY=\"3\" orient=\"auto\"><path d=\"M0,0 L0,6 L9,3 z\" class=\"dm-mermaid-arrow\" /></marker></defs>"
     )?;
 
     for relation in &relations {
@@ -2836,9 +2864,10 @@ fn render_mermaid_journey(source: &str, output: &mut impl fmt::Write) -> fmt::Re
     let span = last_x - first_x;
     let task_width = (span / tasks.len().max(1) as f32 - 16.0).clamp(108.0, 178.0);
     let axis_y = 164.0;
+    let svg_start = MermaidSvg(width, height);
     let svg = output;
     write!(svg,
-        "<div class=\"dm-mermaid-chart dm-mermaid-journey\" role=\"img\" aria-label=\"Rendered Mermaid user journey\"><div class=\"dm-mermaid-chart-title\">Mermaid User journey</div><svg viewBox=\"0 0 {width:.0} {height:.0}\" aria-hidden=\"true\"><text class=\"dm-journey-title\" x=\"150\" y=\"34\">{}</text>",
+        "<div class=\"dm-mermaid-chart dm-mermaid-journey\" role=\"img\" aria-label=\"Rendered Mermaid user journey\"><div class=\"dm-mermaid-chart-title\">Mermaid User journey</div>{svg_start}<text class=\"dm-journey-title\" x=\"150\" y=\"34\">{}</text>",
         Escaped(&title)
     )?;
 
@@ -2968,9 +2997,10 @@ fn render_mermaid_sequence(source: &str, output: &mut impl fmt::Write) -> fmt::R
     };
     let height = 110 + messages.len() as i32 * 42;
     let marker_id = mermaid_marker_id(source);
+    let svg_start = MermaidSvg(width, height as f32);
     let svg = output;
     write!(svg,
-        "<div class=\"dm-mermaid-chart dm-mermaid-sequence\" role=\"img\" aria-label=\"Rendered Mermaid sequence diagram\"><div class=\"dm-mermaid-chart-title\">Mermaid sequence diagram</div><svg viewBox=\"0 0 {width:.0} {height}\" aria-hidden=\"true\"><defs><marker id=\"{marker_id}\" markerWidth=\"10\" markerHeight=\"10\" refX=\"8\" refY=\"3\" orient=\"auto\"><path d=\"M0,0 L0,6 L9,3 z\" class=\"dm-mermaid-arrow\" /></marker></defs>"
+        "<div class=\"dm-mermaid-chart dm-mermaid-sequence\" role=\"img\" aria-label=\"Rendered Mermaid sequence diagram\"><div class=\"dm-mermaid-chart-title\">Mermaid sequence diagram</div>{svg_start}<defs><marker id=\"{marker_id}\" markerWidth=\"10\" markerHeight=\"10\" refX=\"8\" refY=\"3\" orient=\"auto\"><path d=\"M0,0 L0,6 L9,3 z\" class=\"dm-mermaid-arrow\" /></marker></defs>"
     )?;
 
     for (index, participant) in participants.iter().enumerate() {
@@ -3122,9 +3152,10 @@ fn render_mermaid_gantt(source: &str, output: &mut impl fmt::Write) -> fmt::Resu
     let timeline_width = 590.0;
     let width = 760.0;
     let height = top + 44.0 + tasks.len() as f32 * row_height + 50.0;
+    let svg_start = MermaidSvg(width, height);
     let svg = output;
     write!(svg,
-        "<div class=\"dm-mermaid-chart dm-mermaid-gantt\" role=\"img\" aria-label=\"Rendered Mermaid gantt chart\"><div class=\"dm-mermaid-chart-title\">Mermaid gantt chart</div><svg viewBox=\"0 0 {width:.0} {height:.0}\" aria-hidden=\"true\"><text class=\"dm-gantt-title\" x=\"380\" y=\"28\" text-anchor=\"middle\">{}</text>",
+        "<div class=\"dm-mermaid-chart dm-mermaid-gantt\" role=\"img\" aria-label=\"Rendered Mermaid gantt chart\"><div class=\"dm-mermaid-chart-title\">Mermaid gantt chart</div>{svg_start}<text class=\"dm-gantt-title\" x=\"380\" y=\"28\" text-anchor=\"middle\">{}</text>",
         Escaped(&title)
     )?;
 
@@ -3322,9 +3353,10 @@ fn render_mermaid_timeline(source: &str, output: &mut impl fmt::Write) -> fmt::R
     let start_x: f32 = 86.0;
     let end_x: f32 = 674.0;
     let axis_y: f32 = 144.0;
+    let svg_start = MermaidSvg(width, height);
     let svg = output;
     write!(svg,
-        "<div class=\"dm-mermaid-chart dm-mermaid-timeline\" role=\"img\" aria-label=\"Rendered Mermaid timeline\"><div class=\"dm-mermaid-chart-title\">Mermaid timeline</div><svg viewBox=\"0 0 {width:.0} {height:.0}\" aria-hidden=\"true\"><text class=\"dm-timeline-title\" x=\"380\" y=\"30\" text-anchor=\"middle\">{}</text><line class=\"dm-timeline-axis\" x1=\"{start_x:.1}\" y1=\"{axis_y:.1}\" x2=\"{end_x:.1}\" y2=\"{axis_y:.1}\" />",
+        "<div class=\"dm-mermaid-chart dm-mermaid-timeline\" role=\"img\" aria-label=\"Rendered Mermaid timeline\"><div class=\"dm-mermaid-chart-title\">Mermaid timeline</div>{svg_start}<text class=\"dm-timeline-title\" x=\"380\" y=\"30\" text-anchor=\"middle\">{}</text><line class=\"dm-timeline-axis\" x1=\"{start_x:.1}\" y1=\"{axis_y:.1}\" x2=\"{end_x:.1}\" y2=\"{axis_y:.1}\" />",
         Escaped(&title)
     )?;
 
@@ -3381,9 +3413,10 @@ fn render_mermaid_zenuml(source: &str, output: &mut impl fmt::Write) -> fmt::Res
     let row_gap: f32 = 52.0;
     let height = 112.0 + messages.len() as f32 * row_gap;
     let marker_id = mermaid_marker_id(source);
+    let svg_start = MermaidSvg(width, height);
     let svg = output;
     write!(svg,
-        "<div class=\"dm-mermaid-chart dm-mermaid-zenuml\" role=\"img\" aria-label=\"Rendered Mermaid ZenUML diagram\"><div class=\"dm-mermaid-chart-title\">Mermaid ZenUML diagram</div><svg viewBox=\"0 0 {width:.0} {height:.0}\" aria-hidden=\"true\"><defs><marker id=\"{marker_id}\" markerWidth=\"10\" markerHeight=\"10\" refX=\"8\" refY=\"3\" orient=\"auto\"><path d=\"M0,0 L0,6 L9,3 z\" class=\"dm-mermaid-arrow\" /></marker></defs>"
+        "<div class=\"dm-mermaid-chart dm-mermaid-zenuml\" role=\"img\" aria-label=\"Rendered Mermaid ZenUML diagram\"><div class=\"dm-mermaid-chart-title\">Mermaid ZenUML diagram</div>{svg_start}<defs><marker id=\"{marker_id}\" markerWidth=\"10\" markerHeight=\"10\" refX=\"8\" refY=\"3\" orient=\"auto\"><path d=\"M0,0 L0,6 L9,3 z\" class=\"dm-mermaid-arrow\" /></marker></defs>"
     )?;
 
     let lane_step = if participants.len() == 1 {
@@ -3517,9 +3550,10 @@ fn render_mermaid_sankey(source: &str, output: &mut impl fmt::Write) -> fmt::Res
         positions.push((node.as_str(), x, y));
     }
 
+    let svg_start = MermaidSvg(width, height);
     let svg = output;
     write!(svg,
-        "<div class=\"dm-mermaid-chart dm-mermaid-sankey\" role=\"img\" aria-label=\"Rendered Mermaid Sankey diagram\"><div class=\"dm-mermaid-chart-title\">Mermaid Sankey diagram</div><svg viewBox=\"0 0 {width:.0} {height:.0}\" aria-hidden=\"true\">"
+        "<div class=\"dm-mermaid-chart dm-mermaid-sankey\" role=\"img\" aria-label=\"Rendered Mermaid Sankey diagram\"><div class=\"dm-mermaid-chart-title\">Mermaid Sankey diagram</div>{svg_start}"
     )?;
 
     for (index, link) in links.iter().enumerate() {
@@ -3615,9 +3649,10 @@ fn render_mermaid_xy_chart(source: &str, output: &mut impl fmt::Write) -> fmt::R
     let chart_height: f32 = 210.0;
     let bar_slot = chart_width / values.len().max(1) as f32;
     let bar_width = (bar_slot * 0.56).clamp(24.0, 70.0);
+    let svg_start = MermaidSvg(width, height);
     let svg = output;
     write!(svg,
-        "<div class=\"dm-mermaid-chart dm-mermaid-xy\" role=\"img\" aria-label=\"Rendered Mermaid XY chart\"><div class=\"dm-mermaid-chart-title\">Mermaid XY chart</div><svg viewBox=\"0 0 {width:.0} {height:.0}\" aria-hidden=\"true\"><text class=\"dm-xy-title\" x=\"380\" y=\"28\" text-anchor=\"middle\">{}</text>",
+        "<div class=\"dm-mermaid-chart dm-mermaid-xy\" role=\"img\" aria-label=\"Rendered Mermaid XY chart\"><div class=\"dm-mermaid-chart-title\">Mermaid XY chart</div>{svg_start}<text class=\"dm-xy-title\" x=\"380\" y=\"28\" text-anchor=\"middle\">{}</text>",
         Escaped(&title)
     )?;
 
@@ -3746,9 +3781,10 @@ fn render_mermaid_block(source: &str, output: &mut impl fmt::Write) -> fmt::Resu
             (node.id.as_str(), x, y)
         })
         .collect::<Vec<_>>();
+    let svg_start = MermaidSvg(width, height);
     let svg = output;
     write!(svg,
-        "<div class=\"dm-mermaid-chart dm-mermaid-block\" role=\"img\" aria-label=\"Rendered Mermaid block diagram\"><div class=\"dm-mermaid-chart-title\">Mermaid Block diagram</div><svg viewBox=\"0 0 {width:.0} {height:.0}\" aria-hidden=\"true\"><defs><marker id=\"{marker_id}\" markerWidth=\"10\" markerHeight=\"10\" refX=\"8\" refY=\"3\" orient=\"auto\"><path d=\"M0,0 L0,6 L9,3 z\" class=\"dm-mermaid-arrow\" /></marker></defs>"
+        "<div class=\"dm-mermaid-chart dm-mermaid-block\" role=\"img\" aria-label=\"Rendered Mermaid block diagram\"><div class=\"dm-mermaid-chart-title\">Mermaid Block diagram</div>{svg_start}<defs><marker id=\"{marker_id}\" markerWidth=\"10\" markerHeight=\"10\" refX=\"8\" refY=\"3\" orient=\"auto\"><path d=\"M0,0 L0,6 L9,3 z\" class=\"dm-mermaid-arrow\" /></marker></defs>"
     )?;
 
     for edge in &edges {
@@ -3878,9 +3914,10 @@ fn render_mermaid_packet(source: &str, output: &mut impl fmt::Write) -> fmt::Res
         .max()
         .unwrap_or(1)
         .max(1);
+    let svg_start = MermaidSvg(width, 210.0);
     let svg = output;
     write!(svg,
-        "<div class=\"dm-mermaid-chart dm-mermaid-packet\" role=\"img\" aria-label=\"Rendered Mermaid packet diagram\"><div class=\"dm-mermaid-chart-title\">Mermaid Packet diagram</div><svg viewBox=\"0 0 {width:.0} 210\" aria-hidden=\"true\"><text class=\"dm-packet-title\" x=\"380\" y=\"32\" text-anchor=\"middle\">{}</text>",
+        "<div class=\"dm-mermaid-chart dm-mermaid-packet\" role=\"img\" aria-label=\"Rendered Mermaid packet diagram\"><div class=\"dm-mermaid-chart-title\">Mermaid Packet diagram</div>{svg_start}<text class=\"dm-packet-title\" x=\"380\" y=\"32\" text-anchor=\"middle\">{}</text>",
         Escaped(&title)
     )?;
 
@@ -3967,9 +4004,10 @@ fn render_mermaid_kanban(source: &str, output: &mut impl fmt::Write) -> fmt::Res
     let board_width =
         columns.len() as f32 * column_width + (columns.len().saturating_sub(1)) as f32 * gap;
     let start_x = (width - board_width) / 2.0;
+    let svg_start = MermaidSvg(width, height);
     let svg = output;
     write!(svg,
-        "<div class=\"dm-mermaid-chart dm-mermaid-kanban\" role=\"img\" aria-label=\"Rendered Mermaid kanban board\"><div class=\"dm-mermaid-chart-title\">Mermaid Kanban board</div><svg viewBox=\"0 0 {width:.0} {height:.0}\" aria-hidden=\"true\">"
+        "<div class=\"dm-mermaid-chart dm-mermaid-kanban\" role=\"img\" aria-label=\"Rendered Mermaid kanban board\"><div class=\"dm-mermaid-chart-title\">Mermaid Kanban board</div>{svg_start}"
     )?;
 
     for (index, column) in columns.iter().enumerate() {
@@ -4063,9 +4101,10 @@ fn render_mermaid_architecture(source: &str, output: &mut impl fmt::Write) -> fm
             (service.id.as_str(), x, 178.0)
         })
         .collect::<Vec<_>>();
+    let svg_start = MermaidSvg(width, height);
     let svg = output;
     write!(svg,
-        "<div class=\"dm-mermaid-chart dm-mermaid-architecture\" role=\"img\" aria-label=\"Rendered Mermaid architecture diagram\"><div class=\"dm-mermaid-chart-title\">Mermaid Architecture diagram</div><svg viewBox=\"0 0 {width:.0} {height:.0}\" aria-hidden=\"true\"><defs><marker id=\"{marker_id}\" markerWidth=\"10\" markerHeight=\"10\" refX=\"8\" refY=\"3\" orient=\"auto\"><path d=\"M0,0 L0,6 L9,3 z\" class=\"dm-mermaid-arrow\" /></marker></defs>"
+        "<div class=\"dm-mermaid-chart dm-mermaid-architecture\" role=\"img\" aria-label=\"Rendered Mermaid architecture diagram\"><div class=\"dm-mermaid-chart-title\">Mermaid Architecture diagram</div>{svg_start}<defs><marker id=\"{marker_id}\" markerWidth=\"10\" markerHeight=\"10\" refX=\"8\" refY=\"3\" orient=\"auto\"><path d=\"M0,0 L0,6 L9,3 z\" class=\"dm-mermaid-arrow\" /></marker></defs>"
     )?;
 
     if let Some(group) = groups.first() {
@@ -4214,9 +4253,10 @@ fn render_mermaid_radar(source: &str, output: &mut impl fmt::Write) -> fmt::Resu
         .flat_map(|curve| curve.values.iter().copied())
         .fold(0.0_f32, f32::max)
         .max(1.0);
+    let svg_start = MermaidSvg(width, height);
     let svg = output;
     write!(svg,
-        "<div class=\"dm-mermaid-chart dm-mermaid-radar\" role=\"img\" aria-label=\"Rendered Mermaid radar chart\"><div class=\"dm-mermaid-chart-title\">Mermaid Radar chart</div><svg viewBox=\"0 0 {width:.0} {height:.0}\" aria-hidden=\"true\"><text class=\"dm-radar-title\" x=\"380\" y=\"32\" text-anchor=\"middle\">{}</text>",
+        "<div class=\"dm-mermaid-chart dm-mermaid-radar\" role=\"img\" aria-label=\"Rendered Mermaid radar chart\"><div class=\"dm-mermaid-chart-title\">Mermaid Radar chart</div>{svg_start}<text class=\"dm-radar-title\" x=\"380\" y=\"32\" text-anchor=\"middle\">{}</text>",
         Escaped(&title)
     )?;
 
@@ -4353,9 +4393,10 @@ fn render_mermaid_event_modeling(source: &str, output: &mut impl fmt::Write) -> 
             (item.kind.as_str(), x, 128.0)
         })
         .collect::<Vec<_>>();
+    let svg_start = MermaidSvg(width, height);
     let svg = output;
     write!(svg,
-        "<div class=\"dm-mermaid-chart dm-mermaid-event-modeling\" role=\"img\" aria-label=\"Rendered Mermaid event modeling diagram\"><div class=\"dm-mermaid-chart-title\">Mermaid Event modeling diagram</div><svg viewBox=\"0 0 {width:.0} {height:.0}\" aria-hidden=\"true\"><defs><marker id=\"{marker_id}\" markerWidth=\"10\" markerHeight=\"10\" refX=\"8\" refY=\"3\" orient=\"auto\"><path d=\"M0,0 L0,6 L9,3 z\" class=\"dm-mermaid-arrow\" /></marker></defs>"
+        "<div class=\"dm-mermaid-chart dm-mermaid-event-modeling\" role=\"img\" aria-label=\"Rendered Mermaid event modeling diagram\"><div class=\"dm-mermaid-chart-title\">Mermaid Event modeling diagram</div>{svg_start}<defs><marker id=\"{marker_id}\" markerWidth=\"10\" markerHeight=\"10\" refX=\"8\" refY=\"3\" orient=\"auto\"><path d=\"M0,0 L0,6 L9,3 z\" class=\"dm-mermaid-arrow\" /></marker></defs>"
     )?;
 
     for pair in positions.windows(2) {
@@ -4427,9 +4468,10 @@ fn render_mermaid_treemap(source: &str, output: &mut impl fmt::Write) -> fmt::Re
         .sum::<f32>()
         .max(1.0);
     let mut cursor = left;
+    let svg_start = MermaidSvg(width, height);
     let svg = output;
     write!(svg,
-        "<div class=\"dm-mermaid-chart dm-mermaid-treemap\" role=\"img\" aria-label=\"Rendered Mermaid treemap\"><div class=\"dm-mermaid-chart-title\">Mermaid Treemap</div><svg viewBox=\"0 0 {width:.0} {height:.0}\" aria-hidden=\"true\"><text class=\"dm-treemap-title\" x=\"380\" y=\"34\" text-anchor=\"middle\">{}</text><rect class=\"dm-treemap-root\" x=\"{left:.1}\" y=\"{top:.1}\" width=\"{map_width:.1}\" height=\"{map_height:.1}\" rx=\"8\" />",
+        "<div class=\"dm-mermaid-chart dm-mermaid-treemap\" role=\"img\" aria-label=\"Rendered Mermaid treemap\"><div class=\"dm-mermaid-chart-title\">Mermaid Treemap</div>{svg_start}<text class=\"dm-treemap-title\" x=\"380\" y=\"34\" text-anchor=\"middle\">{}</text><rect class=\"dm-treemap-root\" x=\"{left:.1}\" y=\"{top:.1}\" width=\"{map_width:.1}\" height=\"{map_height:.1}\" rx=\"8\" />",
         Escaped(&root)
     )?;
 
@@ -4494,9 +4536,10 @@ fn render_mermaid_venn(source: &str, output: &mut impl fmt::Write) -> fmt::Resul
         label: format!("{} & {}", left.label, right.label),
         value: 0.0,
     });
+    let svg_start = MermaidSvg(width, height);
     let svg = output;
     write!(svg,
-        "<div class=\"dm-mermaid-chart dm-mermaid-venn\" role=\"img\" aria-label=\"Rendered Mermaid venn diagram\"><div class=\"dm-mermaid-chart-title\">Mermaid Venn diagram</div><svg viewBox=\"0 0 {width:.0} {height:.0}\" aria-hidden=\"true\">"
+        "<div class=\"dm-mermaid-chart dm-mermaid-venn\" role=\"img\" aria-label=\"Rendered Mermaid venn diagram\"><div class=\"dm-mermaid-chart-title\">Mermaid Venn diagram</div>{svg_start}"
     )?;
     svg.write_str(
         "<circle class=\"dm-venn-circle dm-venn-left\" cx=\"330\" cy=\"160\" r=\"104\" /><circle class=\"dm-venn-circle dm-venn-right\" cx=\"430\" cy=\"160\" r=\"104\" />",
@@ -4549,9 +4592,10 @@ fn render_mermaid_ishikawa(source: &str, output: &mut impl fmt::Write) -> fmt::R
     let width: f32 = 760.0;
     let height: f32 = 340.0;
     let spine_y: f32 = 170.0;
+    let svg_start = MermaidSvg(width, height);
     let svg = output;
     write!(svg,
-        "<div class=\"dm-mermaid-chart dm-mermaid-ishikawa\" role=\"img\" aria-label=\"Rendered Mermaid ishikawa diagram\"><div class=\"dm-mermaid-chart-title\">Mermaid Ishikawa diagram</div><svg viewBox=\"0 0 {width:.0} {height:.0}\" aria-hidden=\"true\"><line class=\"dm-ishikawa-spine\" x1=\"96\" y1=\"{spine_y:.1}\" x2=\"592\" y2=\"{spine_y:.1}\" /><polygon class=\"dm-ishikawa-head\" points=\"592,138 704,170 592,202\" /><text class=\"dm-ishikawa-root\" x=\"638\" y=\"175\" text-anchor=\"middle\">{}</text>",
+        "<div class=\"dm-mermaid-chart dm-mermaid-ishikawa\" role=\"img\" aria-label=\"Rendered Mermaid ishikawa diagram\"><div class=\"dm-mermaid-chart-title\">Mermaid Ishikawa diagram</div>{svg_start}<line class=\"dm-ishikawa-spine\" x1=\"96\" y1=\"{spine_y:.1}\" x2=\"592\" y2=\"{spine_y:.1}\" /><polygon class=\"dm-ishikawa-head\" points=\"592,138 704,170 592,202\" /><text class=\"dm-ishikawa-root\" x=\"638\" y=\"175\" text-anchor=\"middle\">{}</text>",
         Escaped(&root)
     )?;
 
@@ -4643,9 +4687,10 @@ fn render_mermaid_wardley(source: &str, output: &mut impl fmt::Write) -> fmt::Re
             )
         })
         .collect::<Vec<_>>();
+    let svg_start = MermaidSvg(width, height);
     let svg = output;
     write!(svg,
-        "<div class=\"dm-mermaid-chart dm-mermaid-wardley\" role=\"img\" aria-label=\"Rendered Mermaid wardley map\"><div class=\"dm-mermaid-chart-title\">Mermaid Wardley map</div><svg viewBox=\"0 0 {width:.0} {height:.0}\" aria-hidden=\"true\"><defs><marker id=\"{marker_id}\" markerWidth=\"10\" markerHeight=\"10\" refX=\"8\" refY=\"3\" orient=\"auto\"><path d=\"M0,0 L0,6 L9,3 z\" class=\"dm-mermaid-arrow\" /></marker></defs><text class=\"dm-wardley-title\" x=\"380\" y=\"30\" text-anchor=\"middle\">{}</text><rect class=\"dm-wardley-plane\" x=\"{left:.1}\" y=\"{top:.1}\" width=\"{map_width:.1}\" height=\"{map_height:.1}\" /><text class=\"dm-wardley-axis\" x=\"{}\" y=\"318\" text-anchor=\"middle\">Genesis</text><text class=\"dm-wardley-axis\" x=\"{}\" y=\"318\" text-anchor=\"middle\">Commodity</text><text class=\"dm-wardley-axis\" x=\"40\" y=\"{}\" text-anchor=\"middle\">Visible</text>",
+        "<div class=\"dm-mermaid-chart dm-mermaid-wardley\" role=\"img\" aria-label=\"Rendered Mermaid wardley map\"><div class=\"dm-mermaid-chart-title\">Mermaid Wardley map</div>{svg_start}<defs><marker id=\"{marker_id}\" markerWidth=\"10\" markerHeight=\"10\" refX=\"8\" refY=\"3\" orient=\"auto\"><path d=\"M0,0 L0,6 L9,3 z\" class=\"dm-mermaid-arrow\" /></marker></defs><text class=\"dm-wardley-title\" x=\"380\" y=\"30\" text-anchor=\"middle\">{}</text><rect class=\"dm-wardley-plane\" x=\"{left:.1}\" y=\"{top:.1}\" width=\"{map_width:.1}\" height=\"{map_height:.1}\" /><text class=\"dm-wardley-axis\" x=\"{}\" y=\"318\" text-anchor=\"middle\">Genesis</text><text class=\"dm-wardley-axis\" x=\"{}\" y=\"318\" text-anchor=\"middle\">Commodity</text><text class=\"dm-wardley-axis\" x=\"40\" y=\"{}\" text-anchor=\"middle\">Visible</text>",
         Escaped(&title),
         left + 72.0,
         left + map_width - 72.0,
@@ -4750,9 +4795,10 @@ fn render_mermaid_cynefin(source: &str, output: &mut impl fmt::Write) -> fmt::Re
         ("Chaotic", 70.0, 190.0),
         ("Simple", 390.0, 190.0),
     ];
+    let svg_start = MermaidSvg(width, height);
     let svg = output;
     write!(svg,
-        "<div class=\"dm-mermaid-chart dm-mermaid-cynefin\" role=\"img\" aria-label=\"Rendered Mermaid cynefin diagram\"><div class=\"dm-mermaid-chart-title\">Mermaid Cynefin diagram</div><svg viewBox=\"0 0 {width:.0} {height:.0}\" aria-hidden=\"true\"><text class=\"dm-cynefin-title\" x=\"380\" y=\"34\" text-anchor=\"middle\">{}</text>",
+        "<div class=\"dm-mermaid-chart dm-mermaid-cynefin\" role=\"img\" aria-label=\"Rendered Mermaid cynefin diagram\"><div class=\"dm-mermaid-chart-title\">Mermaid Cynefin diagram</div>{svg_start}<text class=\"dm-cynefin-title\" x=\"380\" y=\"34\" text-anchor=\"middle\">{}</text>",
         Escaped(&title)
     )?;
     for (name, x, y) in cells {
@@ -4834,9 +4880,10 @@ fn render_mermaid_treeview(source: &str, output: &mut impl fmt::Write) -> fmt::R
     let width: f32 = 760.0;
     let row_height: f32 = 34.0;
     let height = 74.0 + nodes.len() as f32 * row_height;
+    let svg_start = MermaidSvg(width, height);
     let svg = output;
     write!(svg,
-        "<div class=\"dm-mermaid-chart dm-mermaid-treeview\" role=\"img\" aria-label=\"Rendered Mermaid treeview diagram\"><div class=\"dm-mermaid-chart-title\">Mermaid TreeView diagram</div><svg viewBox=\"0 0 {width:.0} {height:.0}\" aria-hidden=\"true\">"
+        "<div class=\"dm-mermaid-chart dm-mermaid-treeview\" role=\"img\" aria-label=\"Rendered Mermaid treeview diagram\"><div class=\"dm-mermaid-chart-title\">Mermaid TreeView diagram</div>{svg_start}"
     )?;
     for (index, node) in nodes.iter().enumerate() {
         let y = 54.0 + index as f32 * row_height;
@@ -4914,9 +4961,10 @@ fn render_mermaid_mindmap(source: &str, output: &mut impl fmt::Write) -> fmt::Re
     let max_depth = nodes.iter().map(|node| node.depth).max().unwrap_or(0);
     let height = 128.0 + max_depth as f32 * 96.0;
     let (width, positions) = layout_mindmap_nodes(&nodes, 760.0);
+    let svg_start = MermaidSvg(width, height);
     let svg = output;
     write!(svg,
-        "<div class=\"dm-mermaid-chart dm-mermaid-mindmap\" role=\"img\" aria-label=\"Rendered Mermaid mindmap\"><div class=\"dm-mermaid-chart-title\">Mermaid mindmap</div><svg viewBox=\"0 0 {width:.0} {height:.0}\" aria-hidden=\"true\">"
+        "<div class=\"dm-mermaid-chart dm-mermaid-mindmap\" role=\"img\" aria-label=\"Rendered Mermaid mindmap\"><div class=\"dm-mermaid-chart-title\">Mermaid mindmap</div>{svg_start}"
     )?;
 
     for (index, node) in nodes.iter().enumerate().skip(1) {
@@ -5220,9 +5268,10 @@ fn render_mermaid_requirement(source: &str, output: &mut impl fmt::Write) -> fmt
         positions.push((node.name.as_str(), x, y));
     }
 
+    let svg_start = MermaidSvg(width, height);
     let svg = output;
     write!(svg,
-        "<div class=\"dm-mermaid-chart dm-mermaid-requirement\" role=\"img\" aria-label=\"Rendered Mermaid requirement diagram\"><div class=\"dm-mermaid-chart-title\">Mermaid Requirement diagram</div><svg viewBox=\"0 0 {width:.0} {height:.0}\" aria-hidden=\"true\"><defs><marker id=\"{marker_id}\" markerWidth=\"10\" markerHeight=\"10\" refX=\"8\" refY=\"3\" orient=\"auto\"><path d=\"M0,0 L0,6 L9,3 z\" class=\"dm-mermaid-arrow\" /></marker></defs>"
+        "<div class=\"dm-mermaid-chart dm-mermaid-requirement\" role=\"img\" aria-label=\"Rendered Mermaid requirement diagram\"><div class=\"dm-mermaid-chart-title\">Mermaid Requirement diagram</div>{svg_start}<defs><marker id=\"{marker_id}\" markerWidth=\"10\" markerHeight=\"10\" refX=\"8\" refY=\"3\" orient=\"auto\"><path d=\"M0,0 L0,6 L9,3 z\" class=\"dm-mermaid-arrow\" /></marker></defs>"
     )?;
 
     for relation in &relations {
@@ -5373,9 +5422,10 @@ fn render_mermaid_git_graph(source: &str, output: &mut impl fmt::Write) -> fmt::
     let top: f32 = 78.0;
     let height = top + branches.len() as f32 * lane_gap + 44.0;
     let marker_id = mermaid_marker_id(source);
+    let svg_start = MermaidSvg(width, height);
     let svg = output;
     write!(svg,
-        "<div class=\"dm-mermaid-chart dm-mermaid-git\" role=\"img\" aria-label=\"Rendered Mermaid git graph\"><div class=\"dm-mermaid-chart-title\">Mermaid Git graph</div><svg viewBox=\"0 0 {width:.0} {height:.0}\" aria-hidden=\"true\"><defs><marker id=\"{marker_id}\" markerWidth=\"10\" markerHeight=\"10\" refX=\"8\" refY=\"3\" orient=\"auto\"><path d=\"M0,0 L0,6 L9,3 z\" class=\"dm-mermaid-arrow\" /></marker></defs>"
+        "<div class=\"dm-mermaid-chart dm-mermaid-git\" role=\"img\" aria-label=\"Rendered Mermaid git graph\"><div class=\"dm-mermaid-chart-title\">Mermaid Git graph</div>{svg_start}<defs><marker id=\"{marker_id}\" markerWidth=\"10\" markerHeight=\"10\" refX=\"8\" refY=\"3\" orient=\"auto\"><path d=\"M0,0 L0,6 L9,3 z\" class=\"dm-mermaid-arrow\" /></marker></defs>"
     )?;
 
     let max_index = commits.iter().map(|commit| commit.index).max().unwrap_or(0);
@@ -5513,9 +5563,10 @@ fn render_mermaid_c4(source: &str, output: &mut impl fmt::Write) -> fmt::Result 
         positions.push((node.id.as_str(), x, y));
     }
 
+    let svg_start = MermaidSvg(width, height);
     let svg = output;
     write!(svg,
-        "<div class=\"dm-mermaid-chart dm-mermaid-c4\" role=\"img\" aria-label=\"Rendered Mermaid C4 diagram\"><div class=\"dm-mermaid-chart-title\">Mermaid C4 diagram</div><svg viewBox=\"0 0 {width:.0} {height:.0}\" aria-hidden=\"true\"><defs><marker id=\"{marker_id}\" markerWidth=\"10\" markerHeight=\"10\" refX=\"8\" refY=\"3\" orient=\"auto\"><path d=\"M0,0 L0,6 L9,3 z\" class=\"dm-mermaid-arrow\" /></marker></defs><text class=\"dm-c4-title\" x=\"380\" y=\"30\" text-anchor=\"middle\">{}</text>",
+        "<div class=\"dm-mermaid-chart dm-mermaid-c4\" role=\"img\" aria-label=\"Rendered Mermaid C4 diagram\"><div class=\"dm-mermaid-chart-title\">Mermaid C4 diagram</div>{svg_start}<defs><marker id=\"{marker_id}\" markerWidth=\"10\" markerHeight=\"10\" refX=\"8\" refY=\"3\" orient=\"auto\"><path d=\"M0,0 L0,6 L9,3 z\" class=\"dm-mermaid-arrow\" /></marker></defs><text class=\"dm-c4-title\" x=\"380\" y=\"30\" text-anchor=\"middle\">{}</text>",
         Escaped(&title)
     )?;
 
@@ -7198,6 +7249,62 @@ mod tests {
         assert_eq!(layout.nodes[0].y, layout.nodes[1].y);
     }
 
+    fn assert_mermaid_intrinsic_dimensions(html: &str) -> (f32, f32) {
+        let svg = html
+            .split_once("<svg ")
+            .unwrap()
+            .1
+            .split('>')
+            .next()
+            .unwrap();
+        let attribute = |name: &str| {
+            svg.split_once(&format!("{name}=\""))
+                .unwrap()
+                .1
+                .split('"')
+                .next()
+                .unwrap()
+        };
+        let view_box = attribute("viewBox").split_whitespace().collect::<Vec<_>>();
+        assert_eq!(&view_box[..2], &["0", "0"]);
+        assert_eq!(attribute("width"), view_box[2]);
+        assert_eq!(attribute("height"), view_box[3]);
+        assert_eq!(attribute("preserveAspectRatio"), "xMidYMid meet");
+        assert_eq!(
+            attribute("style"),
+            format!(
+                "display:block;width:{}px;max-width:100%;height:auto;min-width:0;min-height:0",
+                view_box[2]
+            )
+        );
+        (view_box[2].parse().unwrap(), view_box[3].parse().unwrap())
+    }
+
+    #[test]
+    fn preserves_wide_and_tall_mermaid_flowchart_dimensions() {
+        for (direction, wide) in [("LR", true), ("TD", false)] {
+            let source = format!(
+                "flowchart {direction}\nA[First] --> B[Second]\nB --> C[Third]\nC --> D[Fourth]\nD --> E[Fifth]\nE --> F[Sixth]"
+            );
+            let html = render_markdown_to_html(&format!("```mermaid\n{source}\n```"));
+            let (width, height) = assert_mermaid_intrinsic_dimensions(&html);
+            let layout = layout_mermaid_flowchart(&parse_mermaid_flowchart(&source));
+            assert_eq!(width, layout.width.round());
+            assert_eq!(height, layout.height.round());
+            assert_eq!(width > height, wide);
+            assert!(html.starts_with("<div class=\"dm-mermaid-preview\">"));
+            assert!(!html.contains("<button"));
+        }
+    }
+
+    #[test]
+    fn leaves_unknown_mermaid_plain_code_without_preview_wrapper() {
+        let html = render_markdown_to_html("```mermaid\nunknownDiagram\nA -> B\n```");
+        assert!(html.contains("<pre><code class=\"language-mermaid\">"));
+        assert!(!html.contains("dm-mermaid-preview"));
+        assert!(!html.contains("<svg"));
+    }
+
     #[test]
     fn renders_dense_flowcharts_with_subgraphs_decisions_and_edge_labels() {
         let source = "graph TD\n    subgraph Customer [客户]\n        A[开始] --> B[用户进行选购产品]\n        B --> D[用户进行申请单填写并提交]\n        D --> G[配置记录值]\n        G --> K[获取证书]\n        K --> L[流程结束]\n    end\n    subgraph CFCA [CFCA]\n        C[生成订阅单]\n        F[生成域名验证记录值]\n        H[审核验证]\n        J[签发证书]\n    end\n    B --> C\n    C --> D\n    D --> E{域名自动验证}\n    E -- 是 --> F\n    E -- 否 --> H\n    F --> G\n    G --> H\n    H --> I{通过}\n    I -- 否 --> D\n    I -- 是 --> J\n    J --> K";
@@ -7289,7 +7396,7 @@ mod tests {
                 "Mermaid quadrant chart",
             ),
             (
-                "requirementDiagram\n  requirement safe_render",
+                "requirementDiagram\n  requirement safe_render {\n  }",
                 "Requirement diagram",
             ),
             ("gitGraph\n  commit", "Git graph"),
@@ -7299,18 +7406,24 @@ mod tests {
             ("zenuml\n  A->B: Render", "ZenUML diagram"),
             ("sankey-beta\n  A,B,10", "Sankey diagram"),
             ("xychart-beta\n  bar [1, 2]", "XY chart"),
-            ("block-beta\n  columns 2", "Block diagram"),
+            ("block-beta\n  columns 2\n  A[Block]", "Block diagram"),
             ("packet-beta\n  0-7: \"type\"", "Packet diagram"),
             ("kanban\n  Todo\n    Add docs", "Kanban board"),
             (
                 "architecture-beta\n  service api(server)[API]",
                 "Architecture diagram",
             ),
-            ("radar-beta\n  axis Safety, Speed", "Radar chart"),
+            (
+                "radar-beta\n  axis Safety, Speed\n  curve Demo{90, 80}",
+                "Radar chart",
+            ),
             ("eventModeling\n  event Submitted", "Event modeling diagram"),
             ("treemap-beta\n  \"Markdown\": 40", "Treemap"),
-            ("venn\n  Markdown: 40", "Venn diagram"),
-            ("ishikawa\n  root((Quality))", "Ishikawa diagram"),
+            ("venn\n  Markdown: 40\n  Mermaid: 35", "Venn diagram"),
+            (
+                "ishikawa\n  root((Quality))\n    Safety",
+                "Ishikawa diagram",
+            ),
             ("wardley\n  component Markdown [0.6, 0.5]", "Wardley map"),
             ("cynefin\n  Simple: Escape HTML", "Cynefin diagram"),
             ("treeview\n  root\n    markdown", "TreeView diagram"),
@@ -7320,6 +7433,16 @@ mod tests {
             let html = render_markdown_to_html(&format!("```mermaid\n{source}\n```"));
             assert!(html.contains("dm-mermaid-chart"), "{source}");
             assert!(html.contains(title), "{source}");
+            assert!(
+                html.starts_with("<div class=\"dm-mermaid-preview\">"),
+                "{source}"
+            );
+            assert!(!html.contains("<button"), "{source}");
+            if !source.starts_with("pie") && !source.starts_with("quadrantChart") {
+                assert!(html.contains("<svg "), "{source}");
+                let (width, height) = assert_mermaid_intrinsic_dimensions(&html);
+                assert!(width > 0.0 && height > 0.0, "{source}");
+            }
         }
     }
 
