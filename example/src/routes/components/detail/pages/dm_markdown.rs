@@ -86,11 +86,28 @@ Function colors work too: `rgb(255, 0, 0)`, `rgba(255, 0, 0, 0.5)`, `hsl(210, 10
 
 ## Mermaid diagrams
 
+SVG diagrams keep their original proportions and fit the available width without enlarging small charts. Click a diagram or its **1:1** button to inspect it at its original CSS-pixel size. Scroll to explore a large chart, then use **Close** or **Esc** to return to the document.
+
+### Compact chart
+
+```mermaid
+flowchart TD
+  Seed[Plant a seed] --> Bloom[First bloom]
+```
+
+### Wide chart
+
 ```mermaid
 flowchart LR
-  Source[Markdown Source] --> Renderer[DmMarkdown]
+  Source[Markdown Source] --> Parse[Parse the Document]
+  Parse --> Sanitize[Sanitize HTML]
+  Sanitize --> Renderer[DmMarkdown]
   Renderer --> Html[Highlighted HTML]
   Renderer --> Chart[Mermaid Chart]
+  Html --> Document[Assemble the Page]
+  Chart --> Document
+  Document --> Cache[Cache the Preview]
+  Cache --> Publish[Publish the Document]
 ```
 
 ### Directed workflow with groups and decisions

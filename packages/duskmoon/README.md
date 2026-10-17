@@ -339,6 +339,10 @@ Relative Markdown link and image destinations are preserved by default. Set `bas
 
 For direct string rendering, configure the same behavior with `DmMarkdownOptions` and `render_markdown_to_html_with_options`. `FrontMatterMode::Hidden` removes initial front matter while keeping the body, and `FrontMatterMode::Disabled` parses the complete source as ordinary Markdown.
 
+Mermaid SVG diagrams preserve their intrinsic aspect ratio, shrink to fit the available width, and keep small diagrams at their original size. In client-side `DmMarkdown`, click a diagram or its **1:1** button to open a native dialog with the diagram at its original size. Large diagrams scroll in the viewer; **Close** or **Esc** dismisses it. Here, 1:1 means one SVG coordinate unit per CSS pixel at the browser's current zoom, rather than one physical screen pixel.
+
+Direct HTML string renderers produce static diagrams with the same proportional sizing, without interactive controls. The original-size viewer applies to SVG diagrams; CSS-rendered pie and quadrant charts do not have an SVG coordinate size and keep their existing presentation. No additional `DmMarkdown` property is required.
+
 ## Bounded Markdown rendering
 
 `DmMarkdown` and the direct HTML renderers support Markdown footnotes. For export jobs that need explicit limits, use `render_markdown_to_html_with_limits` with the same `DmMarkdownOptions` used by the ordinary renderer:
