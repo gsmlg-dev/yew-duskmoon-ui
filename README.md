@@ -326,6 +326,14 @@ Explicit children preserve manual OTP/PIN composition; the caller owns the nativ
 - `Popover` no longer accepts `PopoverTrigger` or manages open state. Give it a stable `id`; the generated button uses `command="toggle-popover"`, and browser state is represented by `:popover-open`.
 - `Dialog` and the legacy `Modal` name now require an `id` and render a native `<dialog>`. This is a breaking markup migration: replace `.modal-open`, old `.modal-*` children, conditional overlay wrappers, and click-state handlers with the `.dialog-*` structure and `show-modal` / `close` commands.
 
+## Asynchronous syntax highlighting
+
+`CodeEditor` and `DmMarkdown` request Tree-sitter highlighting in a Web Worker. The editor reuses its syntax tree for incremental parsing; Markdown highlights fenced code and visible YAML front matter. Both show plain source while requests are pending or unavailable and discard outdated results. Pass `syntax_service` to share a configured `SyntaxService`. The synchronous Markdown HTML rendering functions retain their existing highlighting behavior.
+
+All 33 code modes in `CodeLanguage` have bundled grammars and highlight queries, with Go and TSX also available through the syntax service. Markdown, HTML, and PHP use upstream injection queries to highlight embedded languages. Plain text skips parsing; grammars load on demand from the application's own assets.
+
+Browser highlighting requires exporting the bundled assets before the application's asset-copy step. For Trunk, run the bundled exporter in a pre-build hook so the directory exists before `copy-dir` validation; the demo does this automatically. Serve the exported directory at `tree-sitter/` relative to `document.baseURI`, or set `assets_url` in `SyntaxConfig` to configure another location. See the [Code Engine asset setup](packages/code-engine/README.md) for the export command and required Trunk copy configuration.
+
 ## Bounded Markdown rendering
 
 `DmMarkdown` and the direct HTML renderers support Markdown footnotes. For export jobs that need explicit limits, use `render_markdown_to_html_with_limits` with the same `DmMarkdownOptions` used by the ordinary renderer:

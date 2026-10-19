@@ -2,6 +2,11 @@
 target = "static/index.html"
 dist = "dist"
 
+[[hooks]]
+stage = "pre_build"
+command = "cargo"
+command_arguments = ["run", "--quiet", "--manifest-path", "../Cargo.toml", "-p", "code-engine", "--example", "export_syntax_assets", "--", "static/tree-sitter"]
+
 [serve]
 addresses = ["0.0.0.0"]
 port = 3240

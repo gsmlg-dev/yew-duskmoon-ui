@@ -90,3 +90,27 @@ jobs:
 
       - name: Build workspace
         run: cargo build --workspace --all-features
+
+  syntax:
+    name: Browser syntax service
+    runs-on: ubuntu-latest
+
+    steps:
+      - name: Checkout repository
+        uses: actions/checkout@v7
+
+      - name: Install Rust stable
+        uses: dtolnay/rust-toolchain@stable
+        with:
+          targets: wasm32-unknown-unknown
+
+      - name: Check browser APIs
+        run: cargo check --workspace --all-features --target wasm32-unknown-unknown
+
+      - name: Install Node.js
+        uses: actions/setup-node@v6
+        with:
+          node-version: "24"
+
+      - name: Test Worker lifecycle and bundled grammars
+        run: node --test packages/code-engine/tests/*.test.mjs

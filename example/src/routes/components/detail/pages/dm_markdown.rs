@@ -47,6 +47,12 @@ const DM_MARKDOWN_API: &[ApiRow] = &[
         docs: "Markdown source rendered into HTML.",
     },
     ApiRow {
+        prop: "syntax_service",
+        ty: "SyntaxService",
+        default: "shared default",
+        docs: "Shared Tree-sitter Worker service. Configure the served asset directory with SyntaxConfig.",
+    },
+    ApiRow {
         prop: "variant",
         ty: "Option<String>",
         default: "None",
@@ -63,7 +69,7 @@ accent: '#4C86FC'
 ---
 # DmMarkdown rendering
 
-Dm Markdown renders source text into the same typography scope as `MarkdownBody`, with highlighted fenced code and Mermaid diagrams.
+Dm Markdown renders source text into the same typography scope as `MarkdownBody`, with asynchronously highlighted fenced code and Mermaid diagrams.
 
 ## Inline color chips
 

@@ -57,13 +57,19 @@ const CODE_ENGINE_API: &[ApiRow] = &[
         prop: "syntax_highlight",
         ty: "bool",
         default: "true",
-        docs: "Renders a Rust-powered syntax highlight layer behind the editable textarea.",
+        docs: "Requests Tree-sitter highlighting in a Web Worker. Pending or unavailable highlights display plain source.",
+    },
+    ApiRow {
+        prop: "syntax_service",
+        ty: "SyntaxService",
+        default: "shared default",
+        docs: "Shared Tree-sitter Worker service. Configure the served asset directory with SyntaxConfig.",
     },
     ApiRow {
         prop: "language",
         ty: "CodeLanguage",
         default: "PlainText",
-        docs: "Language mode used by the tokenizer, CSS class, badge, and status bar.",
+        docs: "Language mode for grammar selection, CSS class, badge, and status bar. Every code mode has a bundled Tree-sitter grammar; plain text skips parsing.",
     },
     ApiRow {
         prop: "rows",
@@ -189,7 +195,7 @@ function welcome(name) {
         }
         CodeLanguage::Markdown => {
             r#"# Code Engine
-- Rust-powered tokenization
+- Asynchronous Tree-sitter highlighting
 - Precise cursor positioning
 `Status: ready`"#
         }
