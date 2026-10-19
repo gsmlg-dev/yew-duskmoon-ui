@@ -321,6 +321,12 @@ Explicit children preserve manual OTP/PIN composition; the caller owns the nativ
 
 `DmMarkdown` renders initial YAML front matter by default and adds color previews to inline code containing a complete HEX, RGB(A), or HSL(A) color value. Named colors and unrecognized CSS expressions remain ordinary inline code.
 
+Code blocks and visible YAML front matter initially render as escaped text. The component requests Tree-sitter highlighting asynchronously through a `SyntaxService`, then renders the returned spans. Pass `syntax_service` to share a configured service with `CodeEditor` or other Markdown components. Unsupported languages and failed requests retain plain code; outdated results are discarded when the source, rendering options, or service change. The synchronous HTML rendering functions retain their existing highlighting behavior.
+
+Fenced blocks support every code mode in `CodeLanguage`, plus Go and TSX and their common aliases. The bundled Markdown, HTML, and PHP grammars also load upstream injection queries for embedded languages. Grammars are fetched on demand from the application's own assets.
+
+Browser highlighting requires exporting the bundled assets before the application's asset-copy step. For Trunk, run the bundled exporter in a pre-build hook so the directory exists before `copy-dir` validation; the demo does this automatically. Serve the exported directory at `tree-sitter/` relative to `document.baseURI`, or set `assets_url` in `SyntaxConfig` to configure another location. See the [Code Engine asset setup](../code-engine/README.md) for the export command and required Trunk copy configuration.
+
 ```rust
 use yew::prelude::*;
 use yew_duskmoon::{DmMarkdown, FrontMatterMode};

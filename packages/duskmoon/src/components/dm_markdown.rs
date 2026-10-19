@@ -1,6 +1,8 @@
-use std::cell::Cell;
+use std::cell::{Cell, RefCell};
 use std::fmt::{self, Write};
+use std::rc::Rc;
 
+use code_engine::{CodeLanguage, SyntaxService};
 use pulldown_cmark::{html, CodeBlockKind, CowStr, Event, LinkType, Options, Parser, Tag, TagEnd};
 use yew::prelude::*;
 use yew::virtual_dom::AttrValue;
@@ -42,6 +44,9 @@ pub struct DmMarkdownProps {
     /// Markdown source to render.
     #[prop_or_default]
     pub markdown: AttrValue,
+    /// Shared asynchronous syntax service. Parsing runs in its Web Worker.
+    #[prop_or_default]
+    pub syntax_service: SyntaxService,
     /// Optional color variant used to build the `markdown-body-{variant}` class.
     #[prop_or_default]
     pub variant: Option<String>,
@@ -82,17 +87,103 @@ pub fn dm_markdown(props: &DmMarkdownProps) -> Html {
     }
     classes.push(props.class.clone());
 
-    let rendered: AttrValue = render_markdown_to_html_with_options(
-        &props.markdown,
-        DmMarkdownOptions {
+    let request = MarkdownSyntaxRequest {
+        markdown: props.markdown.clone(),
+        options: DmMarkdownOptions {
             allow_html: props.allow_html,
             base_url: props.base_url.clone(),
             custom_elements: props.custom_elements.clone(),
             color_chips: props.color_chips,
             front_matter: props.front_matter,
         },
-    )
-    .into();
+        service: props.syntax_service.clone(),
+    };
+    let prepared = use_memo(request.clone(), |request| {
+        let jobs = RefCell::new(Vec::new());
+        let html = render_markdown_with_syntax(
+            &request.markdown,
+            request.options.clone(),
+            unlimited_limits(),
+            &CodeRendering::Async {
+                jobs: &jobs,
+                highlighted: &[],
+            },
+        )
+        .expect("unlimited Markdown rendering failed");
+        (AttrValue::from(html), jobs.into_inner())
+    });
+    let completed = use_state(|| None::<(MarkdownSyntaxRequest, AttrValue)>);
+    {
+        let completed = completed.clone();
+        use_effect_with(
+            (request.clone(), prepared.clone()),
+            move |(request, prepared)| {
+                let active = Rc::new(Cell::new(true));
+                let current = active.clone();
+                let pending = Rc::new(RefCell::new(None::<code_engine::SyntaxDocument>));
+                let inflight = pending.clone();
+                let request = request.clone();
+                let prepared = prepared.clone();
+                yew::platform::spawn_local(async move {
+                    if prepared.1.is_empty() {
+                        return;
+                    }
+                    let mut highlighted = Vec::new();
+                    for job in &prepared.1 {
+                        if !current.get() {
+                            return;
+                        }
+                        let document = request.service.document();
+                        *inflight.borrow_mut() = Some(document.clone());
+                        let result = document.update_language(&job.language, &job.source).await;
+                        document.close();
+                        inflight.borrow_mut().take();
+                        if let Ok(result) = result {
+                            if result.language == job.language && result.tokens(&job.source).is_ok()
+                            {
+                                highlighted.push(HighlightedCode {
+                                    job: job.clone(),
+                                    spans: result
+                                        .spans
+                                        .into_iter()
+                                        .map(|span| MarkdownSpan {
+                                            start: span.start_byte,
+                                            end: span.end_byte,
+                                            capture: span.capture,
+                                        })
+                                        .collect(),
+                                });
+                            }
+                        }
+                    }
+                    if current.get() && !highlighted.is_empty() {
+                        let jobs = RefCell::new(Vec::new());
+                        if let Ok(html) = render_markdown_with_syntax(
+                            &request.markdown,
+                            request.options.clone(),
+                            unlimited_limits(),
+                            &CodeRendering::Async {
+                                jobs: &jobs,
+                                highlighted: &highlighted,
+                            },
+                        ) {
+                            completed.set(Some((request, html.into())));
+                        }
+                    }
+                });
+                move || {
+                    active.set(false);
+                    if let Some(document) = pending.borrow_mut().take() {
+                        document.close();
+                    }
+                }
+            },
+        );
+    }
+    let rendered = completed
+        .as_ref()
+        .filter(|(finished, _)| finished == &request)
+        .map_or_else(|| prepared.0.clone(), |(_, html)| html.clone());
     let (markdown_ref, onclick, viewer) = use_mermaid_viewer(rendered.clone());
 
     html! {
@@ -103,21 +194,53 @@ pub fn dm_markdown(props: &DmMarkdownProps) -> Html {
     }
 }
 
+#[derive(Clone, PartialEq)]
+struct MarkdownSyntaxRequest {
+    markdown: AttrValue,
+    options: DmMarkdownOptions,
+    service: SyntaxService,
+}
+
+#[derive(Clone, Debug, PartialEq, Eq)]
+struct CodeHighlightJob {
+    language: String,
+    source: String,
+}
+
+struct MarkdownSpan {
+    start: usize,
+    end: usize,
+    capture: String,
+}
+
+struct HighlightedCode {
+    job: CodeHighlightJob,
+    spans: Vec<MarkdownSpan>,
+}
+
+enum CodeRendering<'a> {
+    Legacy,
+    Async {
+        jobs: &'a RefCell<Vec<CodeHighlightJob>>,
+        highlighted: &'a [HighlightedCode],
+    },
+}
+
+fn unlimited_limits() -> DmMarkdownLimits {
+    DmMarkdownLimits {
+        max_input_bytes: usize::MAX,
+        max_output_bytes: usize::MAX,
+        max_mermaid_bytes: usize::MAX,
+    }
+}
+
 pub fn render_markdown_to_html(markdown: &str) -> String {
     render_markdown_to_html_with_options(markdown, DmMarkdownOptions::default())
 }
 
 pub fn render_markdown_to_html_with_options(markdown: &str, options: DmMarkdownOptions) -> String {
-    render_markdown_to_html_with_limits(
-        markdown,
-        options,
-        DmMarkdownLimits {
-            max_input_bytes: usize::MAX,
-            max_output_bytes: usize::MAX,
-            max_mermaid_bytes: usize::MAX,
-        },
-    )
-    .expect("unlimited Markdown rendering failed")
+    render_markdown_to_html_with_limits(markdown, options, unlimited_limits())
+        .expect("unlimited Markdown rendering failed")
 }
 
 /// Byte budgets for Markdown rendering. Parser and layout scratch depend on the
@@ -230,6 +353,15 @@ pub fn render_markdown_to_html_with_limits(
     options: DmMarkdownOptions,
     limits: DmMarkdownLimits,
 ) -> Result<String, DmMarkdownRenderError> {
+    render_markdown_with_syntax(markdown, options, limits, &CodeRendering::Legacy)
+}
+
+fn render_markdown_with_syntax(
+    markdown: &str,
+    options: DmMarkdownOptions,
+    limits: DmMarkdownLimits,
+    syntax: &CodeRendering<'_>,
+) -> Result<String, DmMarkdownRenderError> {
     options
         .custom_elements
         .iter()
@@ -255,13 +387,13 @@ pub fn render_markdown_to_html_with_limits(
     let result = (|| {
         if options.front_matter == FrontMatterMode::Render {
             if let Some(front_matter) = front_matter {
-                render_front_matter(front_matter.source, &mut output)?;
+                render_front_matter(front_matter.source, &mut output, syntax)?;
             }
         }
         let parser = coalesce_html_blocks(Parser::new_ext(body, markdown_options()));
         let parser = sanitize_events(parser, &options, &budget);
         let parser = transform_inline_colors(parser, options.color_chips, &budget);
-        let parser = render_special_blocks(parser, &budget);
+        let parser = render_special_blocks(parser, &budget, syntax);
         html::write_html_fmt(&mut output, parser)
     })();
     if let Some(error) = budget.error.get() {
@@ -980,6 +1112,7 @@ fn is_html_tag_name_char(ch: char) -> bool {
 fn render_special_blocks<'a>(
     events: impl IntoIterator<Item = Event<'a>>,
     budget: &'a RenderBudget,
+    syntax: &'a CodeRendering<'_>,
 ) -> impl Iterator<Item = Event<'a>> {
     let mut events = events.into_iter();
     std::iter::from_fn(move || {
@@ -1031,7 +1164,7 @@ fn render_special_blocks<'a>(
             source.push_str(&text);
         }
         let mut output = CappedHtml::new(budget, false);
-        render_fenced_block(&language, &source, &mut output).ok()?;
+        render_fenced_block(&language, &source, &mut output, syntax).ok()?;
         Some(Event::Html(CowStr::Boxed(output.value.into_boxed_str())))
     })
 }
@@ -1043,14 +1176,28 @@ fn code_block_language(kind: CodeBlockKind<'_>) -> String {
     }
 }
 
-fn render_front_matter(source: &str, output: &mut impl fmt::Write) -> fmt::Result {
+fn render_front_matter(
+    source: &str,
+    output: &mut impl fmt::Write,
+    syntax: &CodeRendering<'_>,
+) -> fmt::Result {
     output.write_str("<div class=\"dm-front-matter\">")?;
-    render_fenced_block("yaml", source, output)?;
+    render_fenced_block("yaml", source, output, syntax)?;
     output.write_str("</div>")
 }
 
-fn render_fenced_block(language: &str, source: &str, output: &mut impl fmt::Write) -> fmt::Result {
-    let language = normalize_language(language);
+fn render_fenced_block(
+    language: &str,
+    source: &str,
+    output: &mut impl fmt::Write,
+    syntax: &CodeRendering<'_>,
+) -> fmt::Result {
+    let grammar = syntax_language(language);
+    let language = match syntax {
+        CodeRendering::Legacy => normalize_language(language),
+        CodeRendering::Async { .. } if normalize_language(language) == "mermaid" => "mermaid",
+        CodeRendering::Async { .. } => grammar,
+    };
     if language == "mermaid" {
         return render_mermaid_chart(source, output);
     }
@@ -1059,8 +1206,84 @@ fn render_fenced_block(language: &str, source: &str, output: &mut impl fmt::Writ
     write!(output,
         "<div class=\"dm-code-block\" data-language=\"{class_language}\"><div class=\"dm-code-block-header\"><span>{label}</span></div><pre><code class=\"language-{class_language}\">"
     )?;
-    highlight_source(language, source, output)?;
+    match syntax {
+        CodeRendering::Legacy => highlight_source(language, source, output)?,
+        CodeRendering::Async { jobs, highlighted } => {
+            if grammar == "text" {
+                write!(output, "{}", Escaped(source))?;
+            } else {
+                let job = CodeHighlightJob {
+                    language: grammar.into(),
+                    source: source.into(),
+                };
+                if let Some(result) = highlighted.iter().find(|result| result.job == job) {
+                    render_syntax_spans(source, &result.spans, output)?;
+                } else {
+                    if !jobs.borrow().contains(&job) {
+                        jobs.borrow_mut().push(job);
+                    }
+                    write!(output, "{}", Escaped(source))?;
+                }
+            }
+        }
+    }
     output.write_str("</code></pre></div>")
+}
+
+fn syntax_language(language: &str) -> &'static str {
+    match language.trim().to_ascii_lowercase().as_str() {
+        "c_sharp" => "csharp",
+        "commonlisp" => "lisp",
+        "emacs_lisp" => "emacs-lisp",
+        "jsx" | "javascriptreact" => "javascript",
+        "tsx" | "typescriptreact" => "tsx",
+        "go" | "golang" => "go",
+        value => value
+            .parse::<CodeLanguage>()
+            .map_or("text", CodeLanguage::as_str),
+    }
+}
+
+/// Only validated spans enter this renderer; capture names never become HTML.
+fn render_syntax_spans(
+    source: &str,
+    spans: &[MarkdownSpan],
+    output: &mut impl fmt::Write,
+) -> fmt::Result {
+    let mut cursor = 0;
+    for span in spans {
+        write!(output, "{}", Escaped(&source[cursor..span.start]))?;
+        let capture = span.capture.split('.').next().unwrap_or("");
+        let class = match capture {
+            "keyword" | "tag" | "include" | "preproc" | "storageclass" | "conditional"
+            | "repeat" | "exception" => Some("keyword"),
+            "type" | "constructor" | "attribute" | "property" | "field" | "namespace"
+            | "module" => Some("type"),
+            "string" | "character" | "escape" => Some("string"),
+            "number" | "float" => Some("number"),
+            "constant" if span.capture.starts_with("constant.numeric") => Some("number"),
+            "constant" if span.capture == "constant.character" => Some("string"),
+            "boolean" | "constant" => Some("literal"),
+            "comment" => Some("comment"),
+            "function" | "method" if span.capture.ends_with(".builtin") => Some("builtin"),
+            "function" | "method" | "label" => Some("function"),
+            "variable" if span.capture.ends_with(".builtin") => Some("builtin"),
+            "text" | "markup" => match span.capture.split('.').nth(1) {
+                Some("literal" | "raw") => Some("string"),
+                Some("uri" | "reference" | "link") => Some("function"),
+                _ => Some("keyword"),
+            },
+            _ => None,
+        };
+        let text = &source[span.start..span.end];
+        if let Some(class) = class {
+            push_token(output, class, text)?;
+        } else {
+            write!(output, "{}", Escaped(text))?;
+        }
+        cursor = span.end;
+    }
+    write!(output, "{}", Escaped(&source[cursor..]))
 }
 
 fn normalize_language(language: &str) -> &str {
@@ -1078,13 +1301,12 @@ fn normalize_language(language: &str) -> &str {
 
 fn language_label(language: &str) -> &'static str {
     match language {
-        "elixir" => "Elixir",
         "go" => "Go",
-        "rust" => "Rust",
-        "typescript" => "TypeScript",
-        "yaml" => "YAML",
-        "zig" => "Zig",
-        _ => "Text",
+        "tsx" => "TSX",
+        "text" => "Text",
+        value => value
+            .parse::<CodeLanguage>()
+            .map_or("Text", CodeLanguage::label),
     }
 }
 
@@ -6323,6 +6545,259 @@ mod tests {
         render_markdown_to_html_with_options as render_unbounded_with_options, split_front_matter,
         DmMarkdownLimits, DmMarkdownOptions, DmMarkdownRenderError, FrontMatterMode, MindmapNode,
     };
+
+    fn render_async_code(
+        markdown: &str,
+        highlighted: &[super::HighlightedCode],
+        max_output_bytes: usize,
+    ) -> Result<(String, Vec<super::CodeHighlightJob>), DmMarkdownRenderError> {
+        let jobs = std::cell::RefCell::new(Vec::new());
+        let html = super::render_markdown_with_syntax(
+            markdown,
+            DmMarkdownOptions::default(),
+            DmMarkdownLimits {
+                max_output_bytes,
+                ..super::unlimited_limits()
+            },
+            &super::CodeRendering::Async {
+                jobs: &jobs,
+                highlighted,
+            },
+        )?;
+        Ok((html, jobs.into_inner()))
+    }
+
+    #[test]
+    fn async_code_starts_plain_and_collects_front_matter_and_fenced_jobs() {
+        let (html, jobs) = render_async_code(
+            "---\nname: '<demo>'\n---\n```rs\nlet text = \"<script>&\";\n```\n```unknown\n<script>\n```",
+            &[],
+            usize::MAX,
+        )
+        .unwrap();
+        assert!(!html.contains("dm-token-"));
+        assert!(!html.contains("<script>"));
+        assert!(html.contains("&lt;script&gt;&amp;"));
+        assert_eq!(jobs.len(), 2);
+        assert_eq!(jobs[0].language, "yaml");
+        assert_eq!(jobs[1].language, "rust");
+        assert_eq!(jobs[1].source, "let text = \"<script>&\";\n");
+    }
+
+    #[test]
+    fn async_spans_preserve_escaping_and_output_byte_limits() {
+        let markdown = "```rust\nlet x = \"<界>&\";\n```";
+        let highlighted = [super::HighlightedCode {
+            job: super::CodeHighlightJob {
+                language: "rust".into(),
+                source: "let x = \"<界>&\";\n".into(),
+            },
+            spans: vec![
+                super::MarkdownSpan {
+                    start: 0,
+                    end: 3,
+                    capture: "keyword".into(),
+                },
+                super::MarkdownSpan {
+                    start: 8,
+                    end: 16,
+                    capture: "string".into(),
+                },
+            ],
+        }];
+        let (html, jobs) = render_async_code(markdown, &highlighted, usize::MAX).unwrap();
+        assert!(jobs.is_empty());
+        assert!(html.contains("<span class=\"dm-token-keyword\">let</span>"));
+        assert!(html.contains("&lt;界&gt;&amp;"));
+        assert!(!html.contains("<界>"));
+        assert_eq!(
+            render_async_code(markdown, &highlighted, html.len())
+                .unwrap()
+                .0,
+            html
+        );
+        assert_eq!(
+            render_async_code(markdown, &highlighted, html.len() - 1),
+            Err(DmMarkdownRenderError::OutputLimitExceeded)
+        );
+    }
+
+    #[test]
+    fn async_code_rejects_results_for_other_sources_or_languages() {
+        for (language, source) in [("rust", "old\n"), ("go", "let x = 1;\n")] {
+            let highlighted = [super::HighlightedCode {
+                job: super::CodeHighlightJob {
+                    language: language.into(),
+                    source: source.into(),
+                },
+                spans: vec![super::MarkdownSpan {
+                    start: 0,
+                    end: 3,
+                    capture: "keyword".into(),
+                }],
+            }];
+            let (html, jobs) =
+                render_async_code("```rust\nlet x = 1;\n```", &highlighted, usize::MAX).unwrap();
+            assert!(!html.contains("dm-token-"));
+            assert_eq!(jobs.len(), 1);
+        }
+    }
+
+    #[test]
+    fn async_language_selection_preserves_tsx_and_supports_javascript_and_json() {
+        let (html, jobs) = render_async_code(
+            "```tsx\n<Component />\n```\n```JS\nconst x = 1;\n```\n```json\n{}\n```",
+            &[],
+            usize::MAX,
+        )
+        .unwrap();
+        assert_eq!(
+            jobs.iter()
+                .map(|job| job.language.as_str())
+                .collect::<Vec<_>>(),
+            ["tsx", "javascript", "json"]
+        );
+        assert!(html.contains("language-tsx"));
+        assert!(html.contains("language-javascript"));
+        assert!(html.contains("language-json"));
+    }
+
+    #[test]
+    fn async_fences_support_every_editor_language() {
+        for language in code_engine::CodeLanguage::ALL {
+            let markdown = format!("```{}\nsample\n```", language.as_str());
+            let (html, jobs) = render_async_code(&markdown, &[], usize::MAX).unwrap();
+            assert!(
+                html.contains(&format!("language-{}", language.as_str())),
+                "{language}"
+            );
+            if language == code_engine::CodeLanguage::PlainText {
+                assert!(jobs.is_empty());
+            } else {
+                assert_eq!(jobs.len(), 1, "{language}");
+                assert_eq!(jobs[0].language, language.as_str());
+            }
+        }
+    }
+
+    #[test]
+    fn async_fences_recognize_tree_sitter_language_aliases() {
+        for (alias, language) in [
+            ("c_sharp", "csharp"),
+            ("commonlisp", "lisp"),
+            ("emacs_lisp", "emacs-lisp"),
+            ("javascriptreact", "javascript"),
+            ("typescriptreact", "tsx"),
+        ] {
+            let markdown = format!("```{alias}\nsample\n```");
+            let (html, jobs) = render_async_code(&markdown, &[], usize::MAX).unwrap();
+            assert_eq!(jobs.len(), 1, "{alias}");
+            assert_eq!(jobs[0].language, language, "{alias}");
+            assert!(html.contains(&format!("language-{language}")), "{alias}");
+        }
+    }
+
+    #[test]
+    fn async_web_and_markdown_captures_have_visible_styles() {
+        for capture in [
+            "tag",
+            "attribute",
+            "property",
+            "text.title",
+            "text.literal",
+            "text.uri",
+            "text.emphasis",
+            "markup.heading",
+        ] {
+            let mut output = String::new();
+            super::render_syntax_spans(
+                "sample",
+                &[super::MarkdownSpan {
+                    start: 0,
+                    end: 6,
+                    capture: capture.into(),
+                }],
+                &mut output,
+            )
+            .unwrap();
+            assert!(output.contains("dm-token-"), "{capture}");
+        }
+    }
+
+    #[test]
+    fn async_mode_keeps_mermaid_rendering_and_deduplicates_identical_jobs() {
+        let markdown = "```mmd\nflowchart TD\n A-->B\n```";
+        let (html, jobs) = render_async_code(markdown, &[], usize::MAX).unwrap();
+        assert_eq!(
+            html,
+            render_unbounded_with_options(markdown, DmMarkdownOptions::default())
+        );
+        assert!(jobs.is_empty());
+        let (_, jobs) = render_async_code(
+            "```rust\nfn main() {}\n```\n```rs\nfn main() {}\n```",
+            &[],
+            usize::MAX,
+        )
+        .unwrap();
+        assert_eq!(jobs.len(), 1);
+    }
+
+    #[test]
+    fn async_capture_names_cannot_inject_html() {
+        let mut output = String::new();
+        super::render_syntax_spans(
+            "<script>",
+            &[super::MarkdownSpan {
+                start: 0,
+                end: 8,
+                capture: "\"><script>".into(),
+            }],
+            &mut output,
+        )
+        .unwrap();
+        assert_eq!(output, "&lt;script&gt;");
+    }
+
+    #[test]
+    fn async_request_identity_includes_source_options_and_service() {
+        let request = super::MarkdownSyntaxRequest {
+            markdown: "source".into(),
+            options: DmMarkdownOptions::default(),
+            service: code_engine::SyntaxService::default(),
+        };
+        let mut changed = request.clone();
+        changed.markdown = "new source".into();
+        assert!(request != changed);
+        for options in [
+            DmMarkdownOptions {
+                allow_html: false,
+                ..request.options.clone()
+            },
+            DmMarkdownOptions {
+                base_url: Some("https://example.com".into()),
+                ..request.options.clone()
+            },
+            DmMarkdownOptions {
+                custom_elements: vec!["dm-button".into()],
+                ..request.options.clone()
+            },
+            DmMarkdownOptions {
+                color_chips: false,
+                ..request.options.clone()
+            },
+            DmMarkdownOptions {
+                front_matter: FrontMatterMode::Hidden,
+                ..request.options.clone()
+            },
+        ] {
+            let mut changed = request.clone();
+            changed.options = options;
+            assert!(request != changed);
+        }
+        let mut changed = request.clone();
+        changed.service = code_engine::SyntaxService::new(request.service.config().clone());
+        assert!(request != changed);
+    }
 
     fn render_markdown_to_html(markdown: &str) -> String {
         render_markdown_to_html_with_options(markdown, DmMarkdownOptions::default())

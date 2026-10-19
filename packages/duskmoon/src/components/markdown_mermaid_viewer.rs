@@ -218,6 +218,7 @@ mod browser_tests {
             color_chips: true,
             front_matter: FrontMatterMode::Render,
             markdown: markdown.to_owned().into(),
+            syntax_service: Default::default(),
             variant: None,
         }
     }
