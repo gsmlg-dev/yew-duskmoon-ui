@@ -16,3 +16,5 @@ dist
 node_modules/
 **/node_modules/
 example/static/tailwind.css
+example/static/tree-sitter/
+packages/code-engine/scripts/__pycache__/

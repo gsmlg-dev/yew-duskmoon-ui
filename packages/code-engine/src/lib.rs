@@ -1,16 +1,25 @@
+mod assets;
 mod cursor;
 mod document;
 mod language;
+mod service;
 mod syntax;
+
+use std::cell::Cell;
+use std::rc::Rc;
 
 use web_sys::{Event, FocusEvent, HtmlTextAreaElement, KeyboardEvent, MouseEvent};
 use yew::prelude::*;
 use yew::virtual_dom::AttrValue;
 use yew::TargetCast;
 
+pub use assets::{write_syntax_assets, BUNDLED_SYNTAX_LANGUAGES};
 pub use cursor::{CursorPosition, CursorStatus};
 pub use document::TextDocument;
 pub use language::CodeLanguage;
+pub use service::{
+    HighlightResult, HighlightSpan, SyntaxConfig, SyntaxDocument, SyntaxError, SyntaxService,
+};
 pub use syntax::{highlight_tokens, SyntaxToken, SyntaxTokenKind};
 
 #[derive(Properties, Clone, PartialEq)]
@@ -35,6 +44,8 @@ pub struct CodeEditorProps {
     pub syntax_highlight: bool,
     #[prop_or(CodeLanguage::PlainText)]
     pub language: CodeLanguage,
+    #[prop_or_default]
+    pub syntax_service: SyntaxService,
     #[prop_or(12)]
     pub rows: usize,
     #[prop_or_default]
@@ -53,6 +64,52 @@ pub fn code_editor(props: &CodeEditorProps) -> Html {
     let cursor_status = use_state(CursorStatus::default);
     let scroll_position = use_state(|| (0, 0));
     let is_focused = use_state(|| false);
+    let highlighted_source = use_state(|| None::<HighlightedSource>);
+    let syntax_document = use_memo(props.syntax_service.clone(), SyntaxService::document);
+
+    {
+        let syntax_document = syntax_document.clone();
+        use_effect_with(props.syntax_service.clone(), move |_| {
+            move || syntax_document.close()
+        });
+    }
+
+    {
+        let syntax_document = syntax_document.clone();
+        let highlighted_source = highlighted_source.clone();
+        use_effect_with(
+            (
+                props.syntax_service.clone(),
+                props.syntax_highlight,
+                props.language,
+                source.clone(),
+            ),
+            move |(service, enabled, language, source)| {
+                let active = Rc::new(Cell::new(true));
+                if *enabled && *language != CodeLanguage::PlainText && !source.is_empty() {
+                    let active = active.clone();
+                    let language = *language;
+                    let source = source.clone();
+                    let service = service.clone();
+                    yew::platform::spawn_local(async move {
+                        let tokens = syntax_document
+                            .update(language, &source)
+                            .await
+                            .and_then(|result| result.tokens(&source));
+                        if active.get() {
+                            highlighted_source.set(tokens.ok().map(|tokens| HighlightedSource {
+                                service,
+                                language,
+                                source,
+                                tokens,
+                            }));
+                        }
+                    });
+                }
+                move || active.set(false)
+            },
+        );
+    }
 
     let oninput = {
         let draft = draft.clone();
@@ -153,13 +210,16 @@ pub fn code_editor(props: &CodeEditorProps) -> Html {
         "display: grid; grid-template-columns: minmax(0, 1fr); min-width: 0; font-family: var(--font-mono, ui-monospace, SFMono-Regular, Menlo, monospace); font-size: 0.95rem; line-height: 1.55;"
     };
     let row_count = props.rows.max(1);
-    let highlight_enabled = props.syntax_highlight && !source.is_empty();
+    let highlight_tokens = highlighted_source
+        .as_ref()
+        .filter(|highlighted| highlighted.matches(&props.syntax_service, props.language, &source))
+        .map(|highlighted| highlighted.tokens.as_slice());
+    let highlight_enabled = props.syntax_highlight && highlight_tokens.is_some();
     let input_style = if highlight_enabled {
         "position: relative; z-index: 1; display: block; width: 100%; min-width: 0; height: calc((var(--code-engine-rows, 12) * 1.55em) + 32px); min-height: calc((var(--code-engine-rows, 12) * 1.55em) + 32px); box-sizing: border-box; padding: 16px; border: 0; outline: 0; resize: vertical; overflow: auto; color: transparent; -webkit-text-fill-color: transparent; caret-color: transparent; background: transparent; font-family: var(--font-mono, ui-monospace, SFMono-Regular, Menlo, monospace); font-size: 0.95rem; line-height: 1.55; tab-size: 4; white-space: pre;"
     } else {
         "position: relative; z-index: 1; display: block; width: 100%; min-width: 0; height: calc((var(--code-engine-rows, 12) * 1.55em) + 32px); min-height: calc((var(--code-engine-rows, 12) * 1.55em) + 32px); box-sizing: border-box; padding: 16px; border: 0; outline: 0; resize: vertical; overflow: auto; color: var(--code-token-plain, #1f2937); caret-color: transparent; background: transparent; font-family: var(--font-mono, ui-monospace, SFMono-Regular, Menlo, monospace); font-size: 0.95rem; line-height: 1.55; tab-size: 4; white-space: pre;"
     };
-    let highlight_tokens = highlight_tokens(props.language, &source);
     let selected_units = cursor_status.selected_units;
     let selected_label = if selected_units == 0 {
         String::new()
@@ -227,7 +287,7 @@ pub fn code_editor(props: &CodeEditorProps) -> Html {
                                 class="code-engine-highlight-code"
                                 style={highlight_code_style}
                             >
-                                { for highlight_tokens.iter().map(render_syntax_token) }
+                                { for highlight_tokens.unwrap_or_default().iter().map(render_syntax_token) }
                             </code>
                         </pre>
                     }
@@ -275,10 +335,43 @@ pub fn code_editor(props: &CodeEditorProps) -> Html {
     }
 }
 
+struct HighlightedSource {
+    service: SyntaxService,
+    language: CodeLanguage,
+    source: String,
+    tokens: Vec<SyntaxToken>,
+}
+
+impl HighlightedSource {
+    fn matches(&self, service: &SyntaxService, language: CodeLanguage, source: &str) -> bool {
+        self.service == *service && self.language == language && self.source == source
+    }
+}
+
 fn render_syntax_token(token: &SyntaxToken) -> Html {
     html! {
         <span class={token.kind.class_name()} style={token.kind.style()}>
             { token.text.clone() }
         </span>
+    }
+}
+
+#[cfg(test)]
+mod tests {
+    use super::{CodeLanguage, HighlightedSource, SyntaxConfig, SyntaxService};
+
+    #[test]
+    fn highlighted_snapshot_rejects_another_service_for_the_same_source_and_language() {
+        let service = SyntaxService::new(SyntaxConfig::default());
+        let replacement = SyntaxService::new(SyntaxConfig::default());
+        let highlighted = HighlightedSource {
+            service: service.clone(),
+            language: CodeLanguage::Rust,
+            source: "fn main() {}".into(),
+            tokens: Vec::new(),
+        };
+
+        assert!(highlighted.matches(&service.clone(), CodeLanguage::Rust, "fn main() {}"));
+        assert!(!highlighted.matches(&replacement, CodeLanguage::Rust, "fn main() {}"));
     }
 }

@@ -1,0 +1,204 @@
+{
+  "protocol": 1,
+  "runtime": {
+    "version": "0.27.1",
+    "module": "web-tree-sitter.js",
+    "wasm": "web-tree-sitter.wasm"
+  },
+  "languages": {
+    "assembly": {
+      "wasm": "grammars/assembly.wasm",
+      "query": "queries/assembly.scm",
+      "injections": "queries/assembly-injections.scm"
+    },
+    "bash": {
+      "wasm": "grammars/bash.wasm",
+      "query": "queries/bash.scm"
+    },
+    "c": {
+      "wasm": "grammars/c.wasm",
+      "query": "queries/c.scm"
+    },
+    "cpp": {
+      "wasm": "grammars/cpp.wasm",
+      "query": "queries/cpp.scm",
+      "injections": "queries/cpp-injections.scm"
+    },
+    "csharp": {
+      "wasm": "grammars/csharp.wasm",
+      "query": "queries/csharp.scm"
+    },
+    "css": {
+      "wasm": "grammars/css.wasm",
+      "query": "queries/css.scm"
+    },
+    "elixir": {
+      "wasm": "grammars/elixir.wasm",
+      "query": "queries/elixir.scm"
+    },
+    "emacs-lisp": {
+      "wasm": "grammars/emacs-lisp.wasm",
+      "query": "queries/emacs-lisp.scm"
+    },
+    "erlang": {
+      "wasm": "grammars/erlang.wasm",
+      "query": "queries/erlang.scm"
+    },
+    "go": {
+      "wasm": "grammars/go.wasm",
+      "query": "queries/go.scm"
+    },
+    "html": {
+      "wasm": "grammars/html.wasm",
+      "query": "queries/html.scm",
+      "injections": "queries/html-injections.scm"
+    },
+    "java": {
+      "wasm": "grammars/java.wasm",
+      "query": "queries/java.scm"
+    },
+    "javascript": {
+      "wasm": "grammars/javascript.wasm",
+      "query": "queries/javascript.scm"
+    },
+    "json": {
+      "wasm": "grammars/json.wasm",
+      "query": "queries/json.scm"
+    },
+    "kotlin": {
+      "wasm": "grammars/kotlin.wasm",
+      "query": "queries/kotlin.scm"
+    },
+    "less": {
+      "wasm": "grammars/less.wasm",
+      "query": "queries/less.scm"
+    },
+    "lisp": {
+      "wasm": "grammars/lisp.wasm",
+      "query": "queries/lisp.scm"
+    },
+    "markdown": {
+      "wasm": "grammars/markdown.wasm",
+      "query": "queries/markdown.scm",
+      "injections": "queries/markdown-injections.scm"
+    },
+    "markdown_inline": {
+      "wasm": "grammars/markdown_inline.wasm",
+      "query": "queries/markdown_inline.scm",
+      "injections": "queries/markdown_inline-injections.scm"
+    },
+    "nix": {
+      "wasm": "grammars/nix.wasm",
+      "query": "queries/nix.scm",
+      "injections": "queries/nix-injections.scm"
+    },
+    "objective-c": {
+      "wasm": "grammars/objective-c.wasm",
+      "query": "queries/objective-c.scm",
+      "injections": "queries/objective-c-injections.scm"
+    },
+    "php": {
+      "wasm": "grammars/php.wasm",
+      "query": "queries/php.scm",
+      "injections": "queries/php-injections.scm"
+    },
+    "python": {
+      "wasm": "grammars/python.wasm",
+      "query": "queries/python.scm"
+    },
+    "ruby": {
+      "wasm": "grammars/ruby.wasm",
+      "query": "queries/ruby.scm"
+    },
+    "rust": {
+      "wasm": "grammars/rust.wasm",
+      "query": "queries/rust.scm"
+    },
+    "sass": {
+      "wasm": "grammars/sass.wasm",
+      "query": "queries/sass.scm",
+      "injections": "queries/sass-injections.scm"
+    },
+    "scss": {
+      "wasm": "grammars/scss.wasm",
+      "query": "queries/scss.scm"
+    },
+    "shell": {
+      "alias": "bash"
+    },
+    "swift": {
+      "wasm": "grammars/swift.wasm",
+      "query": "queries/swift.scm",
+      "injections": "queries/swift-injections.scm"
+    },
+    "toml": {
+      "wasm": "grammars/toml.wasm",
+      "query": "queries/toml.scm"
+    },
+    "tsx": {
+      "wasm": "grammars/tsx.wasm",
+      "query": "queries/tsx.scm"
+    },
+    "typescript": {
+      "wasm": "grammars/typescript.wasm",
+      "query": "queries/typescript.scm"
+    },
+    "wasm": {
+      "wasm": "grammars/wasm.wasm",
+      "query": "queries/wasm.scm"
+    },
+    "yaml": {
+      "wasm": "grammars/yaml.wasm",
+      "query": "queries/yaml.scm"
+    },
+    "zig": {
+      "wasm": "grammars/zig.wasm",
+      "query": "queries/zig.scm"
+    },
+    "zsh": {
+      "wasm": "grammars/zsh.wasm",
+      "query": "queries/zsh.scm"
+    }
+  },
+  "aliases": {
+    ".net": "csharp",
+    "asm": "assembly",
+    "c#": "csharp",
+    "c++": "cpp",
+    "c_sharp": "csharp",
+    "cc": "cpp",
+    "cl": "lisp",
+    "common-lisp": "lisp",
+    "commonlisp": "lisp",
+    "cs": "csharp",
+    "cxx": "cpp",
+    "dotnet": "csharp",
+    "el": "emacs-lisp",
+    "elisp": "emacs-lisp",
+    "emacs_lisp": "emacs-lisp",
+    "erl": "erlang",
+    "ex": "elixir",
+    "exs": "elixir",
+    "golang": "go",
+    "htm": "html",
+    "javascriptreact": "javascript",
+    "js": "javascript",
+    "jsx": "javascript",
+    "kt": "kotlin",
+    "md": "markdown",
+    "obj-c": "objective-c",
+    "objc": "objective-c",
+    "object c": "objective-c",
+    "object-c": "objective-c",
+    "objectivec": "objective-c",
+    "py": "python",
+    "rb": "ruby",
+    "rs": "rust",
+    "sh": "shell",
+    "ts": "typescript",
+    "typescriptreact": "tsx",
+    "wat": "wasm",
+    "webassembly": "wasm",
+    "yml": "yaml"
+  }
+}

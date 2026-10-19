@@ -1,0 +1,725 @@
+{
+  "toolchain": {
+    "tree-sitter": "0.26.8"
+  },
+  "sources": [
+    {
+      "package": "web-tree-sitter",
+      "version": "0.27.1",
+      "integrity": "sha512-qtx0VyUyNRHtL3ze7+v0hCKB/sLcAmY7ZAVp/ZK/bCj0yED8ptvNrr7Vd7DwDyKDWN9baqcUx4uaD2r2ql+6IA==",
+      "files": {
+        "web-tree-sitter.js": [
+          "package/web-tree-sitter.js"
+        ],
+        "web-tree-sitter.wasm": [
+          "package/web-tree-sitter.wasm"
+        ],
+        "licenses/web-tree-sitter.txt": [
+          "package/LICENSE"
+        ]
+      },
+      "url": "https://registry.npmjs.org/web-tree-sitter/-/web-tree-sitter-0.27.1.tgz"
+    },
+    {
+      "package": "tree-sitter-rust",
+      "version": "0.24.0",
+      "integrity": "sha512-NWemUDf629Tfc90Y0Z55zuwPCAHkLxWnMf2RznYu4iBkkrQl2o/CHGB7Cr52TyN5F1DAx8FmUnDtCy9iUkXZEQ==",
+      "files": {
+        "grammars/rust.wasm": [
+          "package/tree-sitter-rust.wasm"
+        ],
+        "queries/rust.scm": [
+          "package/queries/highlights.scm"
+        ],
+        "licenses/rust.txt": [
+          "package/LICENSE"
+        ]
+      },
+      "url": "https://registry.npmjs.org/tree-sitter-rust/-/tree-sitter-rust-0.24.0.tgz"
+    },
+    {
+      "package": "tree-sitter-javascript",
+      "version": "0.25.0",
+      "integrity": "sha512-1fCbmzAskZkxcZzN41sFZ2br2iqTYP3tKls1b/HKGNPQUVOpsUxpmGxdN/wMqAk3jYZnYBR1dd/y/0avMeU7dw==",
+      "files": {
+        "grammars/javascript.wasm": [
+          "package/tree-sitter-javascript.wasm"
+        ],
+        "queries/javascript.scm": [
+          "package/queries/highlights.scm",
+          "package/queries/highlights-jsx.scm"
+        ],
+        "licenses/javascript.txt": [
+          "package/LICENSE"
+        ]
+      },
+      "url": "https://registry.npmjs.org/tree-sitter-javascript/-/tree-sitter-javascript-0.25.0.tgz"
+    },
+    {
+      "package": "tree-sitter-javascript",
+      "version": "0.23.1",
+      "integrity": "sha512-/bnhbrTD9frUYHQTiYnPcxyHORIw157ERBa6dqzaKxvR/x3PC4Yzd+D1pZIMS6zNg2v3a8BZ0oK7jHqsQo9fWA==",
+      "files": {
+        "queries/typescript-javascript.scm": [
+          "package/queries/highlights.scm"
+        ],
+        "queries/typescript-jsx.scm": [
+          "package/queries/highlights-jsx.scm"
+        ],
+        "licenses/typescript-javascript.txt": [
+          "package/LICENSE"
+        ]
+      },
+      "url": "https://registry.npmjs.org/tree-sitter-javascript/-/tree-sitter-javascript-0.23.1.tgz"
+    },
+    {
+      "package": "tree-sitter-typescript",
+      "version": "0.23.2",
+      "integrity": "sha512-e04JUUKxTT53/x3Uq1zIL45DoYKVfHH4CZqwgZhPg5qYROl5nQjV+85ruFzFGZxu+QeFVbRTPDRnqL9UbU4VeA==",
+      "files": {
+        "grammars/typescript.wasm": [
+          "package/tree-sitter-typescript.wasm"
+        ],
+        "grammars/tsx.wasm": [
+          "package/tree-sitter-tsx.wasm"
+        ],
+        "queries/typescript-only.scm": [
+          "package/queries/highlights.scm"
+        ],
+        "licenses/typescript.txt": [
+          "package/LICENSE"
+        ]
+      },
+      "url": "https://registry.npmjs.org/tree-sitter-typescript/-/tree-sitter-typescript-0.23.2.tgz"
+    },
+    {
+      "package": "tree-sitter-json",
+      "version": "0.24.8",
+      "integrity": "sha512-Tc9ZZYwHyWZ3Tt1VEw7Pa2scu1YO7/d2BCBbKTx5hXwig3UfdQjsOPkPyLpDJOn/m1UBEWYAtSdGAwCSyagBqQ==",
+      "files": {
+        "grammars/json.wasm": [
+          "package/tree-sitter-json.wasm"
+        ],
+        "queries/json.scm": [
+          "package/queries/highlights.scm"
+        ],
+        "licenses/json.txt": [
+          "package/LICENSE"
+        ]
+      },
+      "url": "https://registry.npmjs.org/tree-sitter-json/-/tree-sitter-json-0.24.8.tgz"
+    },
+    {
+      "package": "tree-sitter-go",
+      "version": "0.25.0",
+      "integrity": "sha512-APBc/Dq3xz/e35Xpkhb1blu5UgW+2E3RyGWawZSCNcbGwa7jhSQPS8KsUupuzBla8PCo8+lz9W/JDJjmfRa2tw==",
+      "files": {
+        "grammars/go.wasm": [
+          "package/tree-sitter-go.wasm"
+        ],
+        "queries/go.scm": [
+          "package/queries/highlights.scm"
+        ],
+        "licenses/go.txt": [
+          "package/LICENSE"
+        ]
+      },
+      "url": "https://registry.npmjs.org/tree-sitter-go/-/tree-sitter-go-0.25.0.tgz"
+    },
+    {
+      "package": "tree-sitter-elixir",
+      "version": "0.3.5",
+      "integrity": "sha512-xozQMvYK0aSolcQZAx2d84Xe/YMWFuRPYFlLVxO01bM2GITh5jyiIp0TqPCQa8754UzRAI7A83hZmfiYub5TZQ==",
+      "files": {
+        "grammars/elixir.wasm": [
+          "package/tree-sitter-elixir.wasm"
+        ],
+        "queries/elixir.scm": [
+          "package/queries/highlights.scm"
+        ],
+        "licenses/elixir.txt": [
+          "package/LICENSE"
+        ]
+      },
+      "url": "https://registry.npmjs.org/tree-sitter-elixir/-/tree-sitter-elixir-0.3.5.tgz"
+    },
+    {
+      "package": "@tree-sitter-grammars/tree-sitter-zig",
+      "version": "1.1.2",
+      "integrity": "sha512-J0L31HZ2isy3F5zb2g5QWQOv2r/pbruQNL9ADhuQv2pn5BQOzxt80WcEJaYXBeuJ8GHxVT42slpCna8k1c8LOw==",
+      "files": {
+        "grammars/zig.wasm": [
+          "package/tree-sitter-zig.wasm"
+        ],
+        "queries/zig.scm": [
+          "package/queries/highlights.scm"
+        ],
+        "licenses/zig.txt": [
+          "package/LICENSE"
+        ]
+      },
+      "url": "https://registry.npmjs.org/@tree-sitter-grammars/tree-sitter-zig/-/tree-sitter-zig-1.1.2.tgz"
+    },
+    {
+      "package": "@tree-sitter-grammars/tree-sitter-yaml",
+      "version": "0.7.1",
+      "integrity": "sha512-AynBwkIoQCTgjDR33bDUp9Mqq+YTco0is3n5hRApMqG9of/6A4eQsfC1/uSEeHSUyMQSYawcAWamsexnVpIP4Q==",
+      "files": {
+        "grammars/yaml.wasm": [
+          "package/tree-sitter-yaml.wasm"
+        ],
+        "queries/yaml.scm": [
+          "package/queries/highlights.scm"
+        ],
+        "licenses/yaml.txt": [
+          "package/LICENSE"
+        ]
+      },
+      "url": "https://registry.npmjs.org/@tree-sitter-grammars/tree-sitter-yaml/-/tree-sitter-yaml-0.7.1.tgz"
+    },
+    {
+      "package": "tree-sitter-c",
+      "version": "0.24.1",
+      "integrity": "sha512-lkYwWN3SRecpvaeqmFKkuPNR3ZbtnvHU+4XAEEkJdrp3JfSp2pBrhXOtvfsENUneye76g889Y0ddF2DM0gEDpA==",
+      "files": {
+        "grammars/c.wasm": [
+          "package/tree-sitter-c.wasm"
+        ],
+        "queries/c.scm": [
+          "package/queries/highlights.scm"
+        ],
+        "licenses/c.txt": [
+          "package/LICENSE"
+        ]
+      },
+      "url": "https://registry.npmjs.org/tree-sitter-c/-/tree-sitter-c-0.24.1.tgz"
+    },
+    {
+      "package": "tree-sitter-cpp",
+      "version": "0.23.4",
+      "integrity": "sha512-qR5qUDyhZ5jJ6V8/umiBxokRbe89bCGmcq/dk94wI4kN86qfdV8k0GHIUEKaqWgcu42wKal5E97LKpLeVW8sKw==",
+      "files": {
+        "grammars/cpp.wasm": [
+          "package/tree-sitter-cpp.wasm"
+        ],
+        "queries/cpp-only.scm": [
+          "package/queries/highlights.scm"
+        ],
+        "queries/cpp-injections.scm": [
+          "package/queries/injections.scm"
+        ],
+        "licenses/cpp.txt": [
+          "package/LICENSE"
+        ]
+      },
+      "url": "https://registry.npmjs.org/tree-sitter-cpp/-/tree-sitter-cpp-0.23.4.tgz"
+    },
+    {
+      "package": "tree-sitter-objc",
+      "version": "3.0.2",
+      "integrity": "sha512-Hs0ohmx1u5M+0K7efoW+dv/corhBsfjftfIYLtp7dSGeJ+Zj4c33tDIboBYLs6qijRlz6wtHFxa0YX+FibLulA==",
+      "files": {
+        "grammars/objective-c.wasm": [
+          "package/tree-sitter-objc.wasm"
+        ],
+        "queries/objective-c-only.scm": [
+          "package/queries/highlights.scm"
+        ],
+        "queries/objective-c-injections.scm": [
+          "package/queries/injections.scm"
+        ],
+        "licenses/objective-c.txt": [
+          "package/LICENSE"
+        ]
+      },
+      "url": "https://registry.npmjs.org/tree-sitter-objc/-/tree-sitter-objc-3.0.2.tgz"
+    },
+    {
+      "package": "tree-sitter-c-sharp",
+      "version": "0.23.5",
+      "integrity": "sha512-xJGOeXPMmld0nES5+080N/06yY6LQi+KWGWV4LfZaZe6srJPtUtfhIbRSN7EZN6IaauzW28v6W4QHFwmeUW6HQ==",
+      "files": {
+        "grammars/csharp.wasm": [
+          "package/tree-sitter-c_sharp.wasm"
+        ],
+        "queries/csharp.scm": [
+          "package/queries/highlights.scm"
+        ],
+        "licenses/csharp.txt": [
+          "package/LICENSE"
+        ]
+      },
+      "url": "https://registry.npmjs.org/tree-sitter-c-sharp/-/tree-sitter-c-sharp-0.23.5.tgz"
+    },
+    {
+      "package": "tree-sitter-java",
+      "version": "0.23.5",
+      "integrity": "sha512-Yju7oQ0Xx7GcUT01mUglPP+bYfvqjNCGdxqigTnew9nLGoII42PNVP3bHrYeMxswiCRM0yubWmN5qk+zsg0zMA==",
+      "files": {
+        "grammars/java.wasm": [
+          "package/tree-sitter-java.wasm"
+        ],
+        "queries/java.scm": [
+          "package/queries/highlights.scm"
+        ],
+        "licenses/java.txt": [
+          "package/LICENSE"
+        ]
+      },
+      "url": "https://registry.npmjs.org/tree-sitter-java/-/tree-sitter-java-0.23.5.tgz"
+    },
+    {
+      "package": "tree-sitter-python",
+      "version": "0.25.0",
+      "integrity": "sha512-eCmJx6zQa35GxaCtQD+wXHOhYqBxEL+bp71W/s3fcDMu06MrtzkVXR437dRrCrbrDbyLuUDJpAgycs7ncngLXw==",
+      "files": {
+        "grammars/python.wasm": [
+          "package/tree-sitter-python.wasm"
+        ],
+        "queries/python.scm": [
+          "package/queries/highlights.scm"
+        ],
+        "licenses/python.txt": [
+          "package/LICENSE"
+        ]
+      },
+      "url": "https://registry.npmjs.org/tree-sitter-python/-/tree-sitter-python-0.25.0.tgz"
+    },
+    {
+      "package": "tree-sitter-ruby",
+      "version": "0.23.1",
+      "integrity": "sha512-d9/RXgWjR6HanN7wTYhS5bpBQLz1VkH048Vm3CodPGyJVnamXMGb8oEhDypVCBq4QnHui9sTXuJBBP3WtCw5RA==",
+      "files": {
+        "grammars/ruby.wasm": [
+          "package/tree-sitter-ruby.wasm"
+        ],
+        "queries/ruby.scm": [
+          "package/queries/highlights.scm"
+        ],
+        "licenses/ruby.txt": [
+          "package/LICENSE"
+        ]
+      },
+      "url": "https://registry.npmjs.org/tree-sitter-ruby/-/tree-sitter-ruby-0.23.1.tgz"
+    },
+    {
+      "package": "tree-sitter-php",
+      "version": "0.24.2",
+      "integrity": "sha512-zwgAePc/HozNaWOOfwRAA+3p8yhuehRw8Fb7vn5qd2XjiIc93uJPryDTMYTSjBRjVIUg/KY6pM3rRzs8dSwKfw==",
+      "files": {
+        "grammars/php.wasm": [
+          "package/tree-sitter-php.wasm"
+        ],
+        "queries/php.scm": [
+          "package/queries/highlights.scm"
+        ],
+        "queries/php-text-injections.scm": [
+          "package/queries/injections-text.scm"
+        ],
+        "licenses/php.txt": [
+          "package/LICENSE"
+        ],
+        "queries/php-common-injections.scm": [
+          "package/queries/injections.scm"
+        ]
+      },
+      "url": "https://registry.npmjs.org/tree-sitter-php/-/tree-sitter-php-0.24.2.tgz"
+    },
+    {
+      "package": "tree-sitter-html",
+      "version": "0.23.2",
+      "integrity": "sha512-TN+l+7cCeLx9db/1RhRSqMAZO/266Oh2BHb8J8hMSSFLuzYvFTYP/UnD3S0mny5awzw05KzFNgu2vnwzN9wVJg==",
+      "files": {
+        "grammars/html.wasm": [
+          "package/tree-sitter-html.wasm"
+        ],
+        "queries/html.scm": [
+          "package/queries/highlights.scm"
+        ],
+        "queries/html-injections.scm": [
+          "package/queries/injections.scm"
+        ],
+        "licenses/html.txt": [
+          "package/LICENSE"
+        ]
+      },
+      "url": "https://registry.npmjs.org/tree-sitter-html/-/tree-sitter-html-0.23.2.tgz"
+    },
+    {
+      "package": "tree-sitter-css",
+      "version": "0.25.0",
+      "integrity": "sha512-FRc9R8ePrwJiUhZsuZ/wcFQ3K8Z+9yCgDrrUjuYswGWlN89UvcB9vslTUGZElQWGwhS8sUw3/r2n4lpb2sxT4Q==",
+      "files": {
+        "grammars/css.wasm": [
+          "package/tree-sitter-css.wasm"
+        ],
+        "queries/css.scm": [
+          "package/queries/highlights.scm"
+        ],
+        "licenses/css.txt": [
+          "package/LICENSE"
+        ]
+      },
+      "url": "https://registry.npmjs.org/tree-sitter-css/-/tree-sitter-css-0.25.0.tgz"
+    },
+    {
+      "package": "@tree-sitter-grammars/tree-sitter-toml",
+      "version": "0.7.0",
+      "integrity": "sha512-873Kl518Qm5ghbWadISY41rwFjee0v+2bU4twwvAw2VAJcWwj2vBo3F3hOCXfbqHaFiqc4qh6eLhkMl2YZJS0g==",
+      "files": {
+        "grammars/toml.wasm": [
+          "package/tree-sitter-toml.wasm"
+        ],
+        "queries/toml.scm": [
+          "package/queries/highlights.scm"
+        ],
+        "licenses/toml.txt": [
+          "package/LICENSE"
+        ]
+      },
+      "url": "https://registry.npmjs.org/@tree-sitter-grammars/tree-sitter-toml/-/tree-sitter-toml-0.7.0.tgz"
+    },
+    {
+      "package": "tree-sitter-kotlin",
+      "version": "0.3.8",
+      "integrity": "sha512-A4obq6bjzmYrA+F0JLLoheFPcofFkctNaZSpnDd+GPn1SfVZLY4/GG4C0cYVBTOShuPBGGAOPLM1JWLZQV4m1g==",
+      "files": {
+        "queries/kotlin.scm": [
+          "package/queries/highlights.scm"
+        ],
+        "licenses/kotlin.txt": [
+          "package/LICENSE"
+        ]
+      },
+      "url": "https://registry.npmjs.org/tree-sitter-kotlin/-/tree-sitter-kotlin-0.3.8.tgz"
+    },
+    {
+      "package": "tree-sitter-c",
+      "version": "0.23.6",
+      "integrity": "sha512-0dxXKznVyUA0s6PjNolJNs2yF87O5aL538A/eR6njA5oqX3C3vH4vnx3QdOKwuUdpKEcFdHuiDpRKLLCA/tjvQ==",
+      "files": {
+        "queries/c-inherited.scm": [
+          "package/queries/highlights.scm"
+        ],
+        "licenses/c-inherited.txt": [
+          "package/LICENSE"
+        ]
+      },
+      "url": "https://registry.npmjs.org/tree-sitter-c/-/tree-sitter-c-0.23.6.tgz"
+    },
+    {
+      "package": "alex-pinkus/tree-sitter-swift",
+      "version": "0.7.3",
+      "integrity": "sha512-OwiCdQI72x9qdgo5MKAIzO2vJwPh0ScwGSEsZ6V8ZxesQdYXSj5EwswbZgw9luXpTlIqFaWUYFqrG/HjM3z9XQ==",
+      "files": {
+        "queries/swift.scm": [
+          "tree-sitter-swift-0.7.3/queries/highlights.scm"
+        ],
+        "queries/swift-injections.scm": [
+          "tree-sitter-swift-0.7.3/queries/injections.scm"
+        ],
+        "licenses/swift.txt": [
+          "tree-sitter-swift-0.7.3/LICENSE"
+        ]
+      },
+      "url": "https://codeload.github.com/alex-pinkus/tree-sitter-swift/tar.gz/refs/tags/0.7.3"
+    },
+    {
+      "package": "alex-pinkus/tree-sitter-swift",
+      "version": "0.7.3",
+      "url": "https://github.com/alex-pinkus/tree-sitter-swift/releases/download/0.7.3/tree-sitter-swift.wasm",
+      "integrity": "sha512-ubc51Otl781UQlFaxNiDkCkITyE1GP8j8ooxnByU5Jv/2k5z6dxy/WHg+v8a1eroNzhW8U97Z644/v0oz925lQ==",
+      "asset": "grammars/swift.wasm"
+    },
+    {
+      "package": "fwcd/tree-sitter-kotlin",
+      "version": "0.3.8",
+      "url": "https://github.com/fwcd/tree-sitter-kotlin/releases/download/0.3.8/tree-sitter-kotlin.wasm",
+      "integrity": "sha512-/djZV56TXT+5a/oGP6IBeqzWK2FtR5/vDtbOuNW/cD6UVKnrgCGJYy7GOXrqEHlp7dJJsysgg9HEp5lHQ/EX6g==",
+      "asset": "grammars/kotlin.wasm"
+    },
+    {
+      "package": "helix-editor/helix",
+      "version": "ba40e547426b0f9896c8bdc699a4ab11f2b37dbc",
+      "url": "https://raw.githubusercontent.com/helix-editor/helix/ba40e547426b0f9896c8bdc699a4ab11f2b37dbc/runtime/queries/common-lisp/highlights.scm",
+      "integrity": "sha512-atrvbwUNDJyzhq6sCpngHh2q4DHLUuPRklvGKlgNcE9d52AgS0YIYH3GH2X0cx5uIsOt8FND1hsr9DwfaK1Ieg==",
+      "asset": "queries/lisp.scm"
+    },
+    {
+      "package": "helix-editor/helix",
+      "version": "ba40e547426b0f9896c8bdc699a4ab11f2b37dbc",
+      "url": "https://raw.githubusercontent.com/helix-editor/helix/ba40e547426b0f9896c8bdc699a4ab11f2b37dbc/LICENSE",
+      "integrity": "sha512-weOgyPUmf7XAtlczvaA3xi2RTtmJvuD1ENgZaxAp7sANQPQVzhUUpJltQgugLYVtBNsJFbZFc+9KNgM8xe+5Tg==",
+      "asset": "licenses/lisp-query.txt"
+    },
+    {
+      "package": "@tree-sitter-grammars/tree-sitter-markdown",
+      "version": "0.3.2",
+      "url": "https://registry.npmjs.org/@tree-sitter-grammars/tree-sitter-markdown/-/tree-sitter-markdown-0.3.2.tgz",
+      "integrity": "sha512-hQXCcDVvg2t4E8cn7zz6jjIBerzk9E9ZlHxJp5IrUOpY4s1YVpXJbMeWZks2/V7lmkPRnnkM8IrTbQ5ltwEOnA==",
+      "include_children": [
+        "queries/markdown-injections.scm",
+        "queries/markdown_inline-injections.scm"
+      ],
+      "files": {
+        "queries/markdown.scm": [
+          "package/tree-sitter-markdown/queries/highlights.scm"
+        ],
+        "queries/markdown-injections.scm": [
+          "package/tree-sitter-markdown/queries/injections.scm"
+        ],
+        "licenses/markdown.txt": [
+          "package/LICENSE"
+        ],
+        "queries/markdown_inline.scm": [
+          "package/tree-sitter-markdown-inline/queries/highlights.scm"
+        ],
+        "queries/markdown_inline-injections.scm": [
+          "package/tree-sitter-markdown-inline/queries/injections.scm"
+        ],
+        "licenses/markdown_inline.txt": [
+          "package/LICENSE"
+        ]
+      },
+      "builds": {
+        "grammars/markdown.wasm": "package/tree-sitter-markdown",
+        "grammars/markdown_inline.wasm": "package/tree-sitter-markdown-inline"
+      }
+    },
+    {
+      "package": "RubixDev/tree-sitter-asm",
+      "version": "839741fef4dab5128952334624905c82b40c7133",
+      "url": "https://codeload.github.com/RubixDev/tree-sitter-asm/tar.gz/839741fef4dab5128952334624905c82b40c7133",
+      "integrity": "sha256-jtrLpdIO2iD2XtgKkl57obA1ZGvFdpgdlINyb3Q+u84=",
+      "files": {
+        "queries/assembly.scm": [
+          "tree-sitter-asm-839741fef4dab5128952334624905c82b40c7133/queries/asm/highlights.scm"
+        ],
+        "queries/assembly-injections.scm": [
+          "tree-sitter-asm-839741fef4dab5128952334624905c82b40c7133/queries/asm/injections.scm"
+        ],
+        "licenses/assembly.txt": [
+          "tree-sitter-asm-839741fef4dab5128952334624905c82b40c7133/LICENSE"
+        ]
+      },
+      "builds": {
+        "grammars/assembly.wasm": "tree-sitter-asm-839741fef4dab5128952334624905c82b40c7133"
+      }
+    },
+    {
+      "package": "WhatsApp/tree-sitter-erlang",
+      "version": "62c82e67b73e13f3ef06e4c8c07ff035a8235d30",
+      "url": "https://codeload.github.com/WhatsApp/tree-sitter-erlang/tar.gz/62c82e67b73e13f3ef06e4c8c07ff035a8235d30",
+      "integrity": "sha256-daRXLqp9LhxCGWhkaQfZIBc/r+kDbJRA1Am44AKZap4=",
+      "files": {
+        "queries/erlang.scm": [
+          "tree-sitter-erlang-62c82e67b73e13f3ef06e4c8c07ff035a8235d30/queries/highlights.scm"
+        ],
+        "licenses/erlang.txt": [
+          "tree-sitter-erlang-62c82e67b73e13f3ef06e4c8c07ff035a8235d30/LICENSE"
+        ]
+      },
+      "builds": {
+        "grammars/erlang.wasm": "tree-sitter-erlang-62c82e67b73e13f3ef06e4c8c07ff035a8235d30"
+      }
+    },
+    {
+      "package": "bajrangCoder/tree-sitter-sass",
+      "version": "fb280c41b070657e4ff4d4e5e6eea6cb19efd9b8",
+      "url": "https://codeload.github.com/bajrangCoder/tree-sitter-sass/tar.gz/fb280c41b070657e4ff4d4e5e6eea6cb19efd9b8",
+      "integrity": "sha256-ts1lOIBeFUPDJ9pU4l7rPvC1jNcoyOSKNCwrQWxChUs=",
+      "files": {
+        "queries/sass.scm": [
+          "tree-sitter-sass-fb280c41b070657e4ff4d4e5e6eea6cb19efd9b8/queries/highlights.scm"
+        ],
+        "queries/sass-injections.scm": [
+          "tree-sitter-sass-fb280c41b070657e4ff4d4e5e6eea6cb19efd9b8/queries/injections.scm"
+        ],
+        "licenses/sass.txt": [
+          "tree-sitter-sass-fb280c41b070657e4ff4d4e5e6eea6cb19efd9b8/LICENSE"
+        ]
+      },
+      "builds": {
+        "grammars/sass.wasm": "tree-sitter-sass-fb280c41b070657e4ff4d4e5e6eea6cb19efd9b8"
+      }
+    },
+    {
+      "package": "mdovale/tree-sitter-less",
+      "version": "02988c765d30adb0476657b5d220e8dfde1c07d3",
+      "url": "https://codeload.github.com/mdovale/tree-sitter-less/tar.gz/02988c765d30adb0476657b5d220e8dfde1c07d3",
+      "integrity": "sha256-HEvN4V6nw4qI7726LJiKIHPQhqzMWFBfXoxZ82K37jY=",
+      "files": {
+        "queries/less.scm": [
+          "tree-sitter-less-02988c765d30adb0476657b5d220e8dfde1c07d3/queries/highlights.scm"
+        ],
+        "licenses/less.txt": [
+          "tree-sitter-less-02988c765d30adb0476657b5d220e8dfde1c07d3/LICENSE.md"
+        ]
+      },
+      "builds": {
+        "grammars/less.wasm": "tree-sitter-less-02988c765d30adb0476657b5d220e8dfde1c07d3"
+      }
+    },
+    {
+      "package": "tree-sitter-bash",
+      "version": "0.25.1",
+      "url": "https://registry.npmjs.org/tree-sitter-bash/-/tree-sitter-bash-0.25.1.tgz",
+      "integrity": "sha512-7hMytuYIMoXOq24yRulgIxthE9YmggZIOHCyPTTuJcu6EU54tYD+4G39cUb28kxC6jMf/AbPfWGLQtgPTdh3xw==",
+      "files": {
+        "grammars/bash.wasm": [
+          "package/tree-sitter-bash.wasm"
+        ],
+        "queries/bash.scm": [
+          "package/queries/highlights.scm"
+        ],
+        "licenses/bash.txt": [
+          "package/LICENSE"
+        ]
+      }
+    },
+    {
+      "package": "tree-sitter-commonlisp",
+      "version": "0.4.1",
+      "url": "https://registry.npmjs.org/tree-sitter-commonlisp/-/tree-sitter-commonlisp-0.4.1.tgz",
+      "integrity": "sha512-owvpVac4HiCt0vAAndrDRGL9YgIFjNVvrEIf1/9x15TZwjKTsTGuldD7C2myV/pOU3zeaHEoSNUvY+DftpLRLQ==",
+      "files": {
+        "licenses/lisp.txt": [
+          "package/LICENSE.md"
+        ]
+      },
+      "builds": {
+        "grammars/lisp.wasm": "package"
+      }
+    },
+    {
+      "package": "tree-sitter-css",
+      "version": "0.20.0",
+      "url": "https://registry.npmjs.org/tree-sitter-css/-/tree-sitter-css-0.20.0.tgz",
+      "integrity": "sha512-ammbs1bnIwHXPVtPGNc3T16rhPFRiK97pBgO4svlYWyt+fSEgGQzK3MSWB5vf3k3pSDWkpEFOTUxPPMR6k7N7Q==",
+      "files": {
+        "queries/scss-part-0.scm": [
+          "package/queries/highlights.scm"
+        ],
+        "licenses/scss-css.txt": [
+          "package/LICENSE"
+        ]
+      }
+    },
+    {
+      "package": "tree-sitter-elisp",
+      "version": "1.7.2",
+      "url": "https://registry.npmjs.org/tree-sitter-elisp/-/tree-sitter-elisp-1.7.2.tgz",
+      "integrity": "sha512-U9o6gmSKIMOL74LqsmaBAK8PygS7ruEe9X5JBsT5KiIDyTR4M9nauWS8JASebf0kKfBXV38mHWRZ+l4eNdhJIA==",
+      "files": {
+        "queries/emacs-lisp.scm": [
+          "package/queries/highlights.scm"
+        ],
+        "licenses/emacs-lisp.txt": [
+          "package/LICENSE"
+        ]
+      },
+      "builds": {
+        "grammars/emacs-lisp.wasm": "package"
+      }
+    },
+    {
+      "package": "tree-sitter-grammars/tree-sitter-scss",
+      "version": "5da5ba71a558b007b352c505bfcd9095ae337022",
+      "url": "https://codeload.github.com/tree-sitter-grammars/tree-sitter-scss/tar.gz/5da5ba71a558b007b352c505bfcd9095ae337022",
+      "integrity": "sha256-Ynr7kLQDqBqXnRKnIQvrQCtc0Q8lPrVrCGCvvUuDbUo=",
+      "files": {
+        "queries/scss-part-1.scm": [
+          "tree-sitter-scss-5da5ba71a558b007b352c505bfcd9095ae337022/queries/highlights.scm"
+        ],
+        "licenses/scss.txt": [
+          "tree-sitter-scss-5da5ba71a558b007b352c505bfcd9095ae337022/LICENSE"
+        ]
+      },
+      "builds": {
+        "grammars/scss.wasm": "tree-sitter-scss-5da5ba71a558b007b352c505bfcd9095ae337022"
+      }
+    },
+    {
+      "package": "tree-sitter-nix",
+      "version": "0.0.2",
+      "url": "https://registry.npmjs.org/tree-sitter-nix/-/tree-sitter-nix-0.0.2.tgz",
+      "integrity": "sha512-rPYc7NUi6hPOyFSoVdCVC9feqBk0kJ0Z3ftTWXo1ubyyKzPM5tJP6mD6xYl0gN45oh9GHGzvTbOmmwIk0XOj5A==",
+      "files": {
+        "queries/nix.scm": [
+          "package/queries/highlights.scm"
+        ],
+        "queries/nix-injections.scm": [
+          "package/queries/injections.scm"
+        ],
+        "licenses/nix.txt": [
+          "package/LICENSE"
+        ]
+      },
+      "builds": {
+        "grammars/nix.wasm": "package"
+      }
+    },
+    {
+      "package": "tree-sitter-wat",
+      "version": "0.1.0",
+      "url": "https://registry.npmjs.org/tree-sitter-wat/-/tree-sitter-wat-0.1.0.tgz",
+      "integrity": "sha512-T+OFY/q+qKxAbAz/KrO4Kb1/2yUeRyr8a369fNMZUXRc7+tvgVoh9KHexZEC3CIuyD1I5yB8LXoqZZpuxHYaLg==",
+      "files": {
+        "queries/wasm.scm": [
+          "package/queries/highlights.scm"
+        ],
+        "licenses/wasm.txt": [
+          "package/LICENSE"
+        ]
+      },
+      "builds": {
+        "grammars/wasm.wasm": "package"
+      }
+    },
+    {
+      "package": "tree-sitter-zsh",
+      "version": "0.63.1",
+      "split_zsh_lexer": true,
+      "url": "https://registry.npmjs.org/tree-sitter-zsh/-/tree-sitter-zsh-0.63.1.tgz",
+      "integrity": "sha512-F6qjXHQnLiP4mVy8+0Mh+za/JikcHCjSr9Ft3jSpcts3Zf6Y64U31cfs1PK56UWTLulzuWSDuOKMeQ/gy3JBOw==",
+      "files": {
+        "queries/zsh.scm": [
+          "package/queries/highlights.scm"
+        ],
+        "licenses/zsh.txt": [
+          "package/LICENSE"
+        ]
+      },
+      "builds": {
+        "grammars/zsh.wasm": "package"
+      }
+    }
+  ],
+  "compositions": {
+    "queries/typescript.scm": [
+      "queries/typescript-javascript.scm",
+      "queries/typescript-only.scm"
+    ],
+    "queries/tsx.scm": [
+      "queries/typescript-javascript.scm",
+      "queries/typescript-jsx.scm",
+      "queries/typescript-only.scm"
+    ],
+    "queries/cpp.scm": [
+      "queries/c-inherited.scm",
+      "queries/cpp-only.scm"
+    ],
+    "queries/objective-c.scm": [
+      "queries/c-inherited.scm",
+      "queries/objective-c-only.scm"
+    ],
+    "queries/php-injections.scm": [
+      "queries/php-common-injections.scm",
+      "queries/php-text-injections.scm"
+    ],
+    "queries/scss.scm": [
+      "queries/scss-part-0.scm",
+      "queries/scss-part-1.scm"
+    ]
+  }
+}

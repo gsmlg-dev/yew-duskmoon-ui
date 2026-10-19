@@ -1,7 +1,7 @@
 [package]
 authors = ["Jonathan Gao <gsmlg.com@gmail.com>"]
 categories = ["wasm", "web-programming", "gui"]
-description = "A pure Rust code editor engine and Yew component."
+description = "A Rust code editor engine and Yew component with asynchronous syntax highlighting."
 edition = "2021"
 keywords = ["code-editor", "wasm", "web", "yew"]
 license = "GPL-3.0"
@@ -16,3 +16,10 @@ crate-type = ["cdylib", "rlib"]
 [dependencies]
 yew = { version = "0.23.0", features = ["csr"] }
 web-sys = { version = "0.3", features = ["Event", "FocusEvent", "HtmlElement", "HtmlTextAreaElement", "KeyboardEvent", "MouseEvent"] }
+
+[target.'cfg(target_arch = "wasm32")'.dependencies]
+js-sys = "0.3"
+serde = { version = "1", features = ["derive"] }
+serde-wasm-bindgen = "0.6"
+wasm-bindgen = "0.2"
+wasm-bindgen-futures = "0.4"
