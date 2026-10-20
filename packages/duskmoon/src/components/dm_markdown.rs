@@ -29,6 +29,9 @@ pub struct DmMarkdownProps {
     /// Whether safe raw HTML is passed through to the rendered output.
     #[prop_or(true)]
     pub allow_html: bool,
+    /// Whether soft line breaks render as `<br />` instead of newline text.
+    #[prop_or_default]
+    pub breaks: bool,
     /// Optional directory URL used to resolve relative Markdown and raw HTML URLs.
     #[prop_or_default]
     pub base_url: Option<String>,
@@ -57,6 +60,8 @@ pub struct DmMarkdownProps {
 pub struct DmMarkdownOptions {
     /// Whether safe raw HTML is passed through to the rendered output.
     pub allow_html: bool,
+    /// Whether soft line breaks render as `<br />` instead of newline text.
+    pub breaks: bool,
     /// Optional directory URL used to resolve relative Markdown and raw HTML URLs.
     pub base_url: Option<String>,
     /// Custom element tag names that may be rendered instead of entity-escaped.
@@ -71,6 +76,7 @@ impl Default for DmMarkdownOptions {
     fn default() -> Self {
         Self {
             allow_html: true,
+            breaks: false,
             base_url: None,
             custom_elements: Vec::new(),
             color_chips: true,
@@ -91,6 +97,7 @@ pub fn dm_markdown(props: &DmMarkdownProps) -> Html {
         markdown: props.markdown.clone(),
         options: DmMarkdownOptions {
             allow_html: props.allow_html,
+            breaks: props.breaks,
             base_url: props.base_url.clone(),
             custom_elements: props.custom_elements.clone(),
             color_chips: props.color_chips,
@@ -394,6 +401,10 @@ fn render_markdown_with_syntax(
         let parser = sanitize_events(parser, &options, &budget);
         let parser = transform_inline_colors(parser, options.color_chips, &budget);
         let parser = render_special_blocks(parser, &budget, syntax);
+        let parser = parser.map(|event| match event {
+            Event::SoftBreak if options.breaks => Event::HardBreak,
+            event => event,
+        });
         html::write_html_fmt(&mut output, parser)
     })();
     if let Some(error) = budget.error.get() {
@@ -6546,6 +6557,124 @@ mod tests {
         DmMarkdownLimits, DmMarkdownOptions, DmMarkdownRenderError, FrontMatterMode, MindmapNode,
     };
 
+    #[test]
+    fn soft_line_breaks_default_to_newline_text() {
+        let props = yew::props!(super::DmMarkdownProps {});
+        assert!(!props.breaks);
+        assert!(!DmMarkdownOptions::default().breaks);
+        for options in [
+            DmMarkdownOptions::default(),
+            DmMarkdownOptions {
+                breaks: false,
+                ..DmMarkdownOptions::default()
+            },
+        ] {
+            assert_eq!(
+                render_markdown_to_html_with_options("first line\nsecond line", options),
+                "<p>first line\nsecond line</p>\n"
+            );
+        }
+    }
+
+    #[test]
+    fn soft_line_breaks_render_as_hard_breaks_when_enabled() {
+        let options = DmMarkdownOptions {
+            breaks: true,
+            ..DmMarkdownOptions::default()
+        };
+        assert_eq!(
+            render_markdown_to_html_with_options("first line\nsecond line", options.clone()),
+            "<p>first line<br />\nsecond line</p>\n"
+        );
+        let html = render_markdown_to_html_with_options(
+            "> quoted\n> continuation\n\n- listed\n  continuation\n\n*emphasized\ncontinuation*",
+            options,
+        );
+        assert!(html.contains("quoted<br />\ncontinuation"));
+        assert!(html.contains("listed<br />\ncontinuation"));
+        assert!(html.contains("<em>emphasized<br />\ncontinuation</em>"));
+    }
+
+    #[test]
+    fn soft_line_breaks_preserve_hard_breaks_code_and_raw_html() {
+        let markdown = "first  \nsecond\\\nthird\n\n`inline\ncode`\n\n```text\nfenced\ncode\n```\n\n    indented\n    code\n\n<div>\nraw\nhtml\n</div>";
+        let expected = render_markdown_to_html(markdown);
+        assert!(expected.contains("first<br />\nsecond<br />\nthird"));
+        assert!(expected.contains("<code>inline code</code>"));
+        assert!(expected.contains("fenced\ncode\n</code>"));
+        assert!(expected.contains("indented\ncode\n</code>"));
+        assert!(expected.contains("<div>\nraw\nhtml\n</div>"));
+        assert_eq!(
+            render_markdown_to_html_with_options(
+                markdown,
+                DmMarkdownOptions {
+                    breaks: true,
+                    ..DmMarkdownOptions::default()
+                }
+            ),
+            expected
+        );
+    }
+
+    #[test]
+    fn bounded_soft_line_breaks_count_expanded_output() {
+        let markdown = "first\nsecond";
+        let output_limit = render_markdown_to_html(markdown).len();
+        assert_eq!(
+            render_markdown_to_html_with_limits(
+                markdown,
+                DmMarkdownOptions {
+                    breaks: true,
+                    ..DmMarkdownOptions::default()
+                },
+                limits(markdown.len(), output_limit, 0)
+            ),
+            Err(DmMarkdownRenderError::OutputLimitExceeded)
+        );
+    }
+
+    #[test]
+    fn async_soft_line_breaks_apply_before_and_after_highlighting() {
+        let markdown = "first\nsecond\n\n```rust\nlet x = 1;\n```";
+        let highlighted = [super::HighlightedCode {
+            job: super::CodeHighlightJob {
+                language: "rust".into(),
+                source: "let x = 1;\n".into(),
+            },
+            spans: vec![super::MarkdownSpan {
+                start: 0,
+                end: 3,
+                capture: "keyword".into(),
+            }],
+        }];
+        for highlights in [&[][..], &highlighted[..]] {
+            for breaks in [false, true] {
+                let jobs = std::cell::RefCell::new(Vec::new());
+                let html = super::render_markdown_with_syntax(
+                    markdown,
+                    DmMarkdownOptions {
+                        breaks,
+                        ..DmMarkdownOptions::default()
+                    },
+                    super::unlimited_limits(),
+                    &super::CodeRendering::Async {
+                        jobs: &jobs,
+                        highlighted: highlights,
+                    },
+                )
+                .unwrap();
+                let paragraph = if breaks {
+                    "<p>first<br />\nsecond</p>\n"
+                } else {
+                    "<p>first\nsecond</p>\n"
+                };
+                assert!(html.starts_with(paragraph));
+                assert_eq!(html.contains("dm-token-keyword"), !highlights.is_empty());
+                assert!(!html.contains("1;<br"));
+            }
+        }
+    }
+
     fn render_async_code(
         markdown: &str,
         highlighted: &[super::HighlightedCode],
@@ -6771,6 +6900,10 @@ mod tests {
         for options in [
             DmMarkdownOptions {
                 allow_html: false,
+                ..request.options.clone()
+            },
+            DmMarkdownOptions {
+                breaks: true,
                 ..request.options.clone()
             },
             DmMarkdownOptions {

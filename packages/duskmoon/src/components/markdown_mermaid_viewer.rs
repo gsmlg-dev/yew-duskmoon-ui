@@ -213,6 +213,7 @@ mod browser_tests {
         DmMarkdownProps {
             class: Classes::default(),
             allow_html: true,
+            breaks: false,
             base_url: None,
             custom_elements: Vec::new(),
             color_chips: true,

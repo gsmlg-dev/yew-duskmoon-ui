@@ -334,6 +334,10 @@ All 33 code modes in `CodeLanguage` have bundled grammars and highlight queries,
 
 Browser highlighting requires exporting the bundled assets before the application's asset-copy step. For Trunk, run the bundled exporter in a pre-build hook so the directory exists before `copy-dir` validation; the demo does this automatically. Serve the exported directory at `tree-sitter/` relative to `document.baseURI`, or set `assets_url` in `SyntaxConfig` to configure another location. See the [Code Engine asset setup](packages/code-engine/README.md) for the export command and required Trunk copy configuration.
 
+## Markdown soft line breaks
+
+Set `<DmMarkdown breaks={true} markdown={"first line\nsecond line"} />` to render soft line breaks as `<br />`. For direct HTML rendering, pass `DmMarkdownOptions { breaks: true, ..Default::default() }` to `render_markdown_to_html_with_options` or `render_markdown_to_html_with_limits`. The option defaults to `false` and applies during asynchronous highlighting as well. Explicit Markdown hard breaks and code-block newlines keep their existing behavior.
+
 ## Bounded Markdown rendering
 
 `DmMarkdown` and the direct HTML renderers support Markdown footnotes. For export jobs that need explicit limits, use `render_markdown_to_html_with_limits` with the same `DmMarkdownOptions` used by the ordinary renderer:

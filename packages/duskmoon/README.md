@@ -345,6 +345,8 @@ Relative Markdown link and image destinations are preserved by default. Set `bas
 
 For direct string rendering, configure the same behavior with `DmMarkdownOptions` and `render_markdown_to_html_with_options`. `FrontMatterMode::Hidden` removes initial front matter while keeping the body, and `FrontMatterMode::Disabled` parses the complete source as ordinary Markdown.
 
+Set `breaks={true}` on `DmMarkdown` to render soft line breaks as `<br />`. For example, `markdown={"first line\nsecond line"}` then displays on two lines. Direct HTML rendering accepts `DmMarkdownOptions { breaks: true, ..Default::default() }`, including the bounded renderer. The option defaults to `false` and applies during asynchronous highlighting as well. Explicit Markdown hard breaks and code-block newlines keep their existing behavior.
+
 Mermaid SVG diagrams preserve their intrinsic aspect ratio, shrink to fit the available width, and keep small diagrams at their original size. In client-side `DmMarkdown`, click a diagram or its **1:1** button to open a native dialog with the diagram at its original size. Large diagrams scroll in the viewer; **Close** or **Esc** dismisses it. Here, 1:1 means one SVG coordinate unit per CSS pixel at the browser's current zoom, rather than one physical screen pixel.
 
 Direct HTML string renderers produce static diagrams with the same proportional sizing, without interactive controls. The original-size viewer applies to SVG diagrams; CSS-rendered pie and quadrant charts do not have an SVG coordinate size and keep their existing presentation. No additional `DmMarkdown` property is required.
